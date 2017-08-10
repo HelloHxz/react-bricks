@@ -1,0 +1,3 @@
+rootProject.name = 'BricksRN'
+
+include ':app'
