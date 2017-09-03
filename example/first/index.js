@@ -1,10 +1,11 @@
-import { StackNavigator } from 'react-navigation';
-import HomeScreen from './pages/home'
-import ChatScreen from './pages/chat'
+import Nav from '../../navigator'
 
-const SimpleApp = StackNavigator({
-      Home: { screen: HomeScreen },
-      Chat:{ screen: ChatScreen }
-    });
-
-export default SimpleApp;
+var config = {
+	root:"home",
+	pages:{
+		Home:require("./pages/home").default,
+		Chat:require("./pages/chat").default,
+		
+	},
+};
+export default Nav(config)
