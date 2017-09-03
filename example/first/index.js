@@ -1,4 +1,4 @@
-import Nav from '../../navigator'
+import {StartUp} from "@bricks"
 
 var config = {
 	root:"home",
@@ -8,4 +8,4 @@ var config = {
 		
 	},
 };
-export default Nav(config)
+export default StartUp(config)

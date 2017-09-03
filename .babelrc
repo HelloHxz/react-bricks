@@ -1,3 +1,15 @@
 {
-  "presets": ["react-native"]
+  "presets": ["react-native"],
+  "plugins":[
+  	[
+      "module-resolver",
+      {
+        "cwd":"babelrc",
+        "alias": {
+	        "@bricks": "./components"
+	     },
+        "extensions": [".js",".ios.js",".android.js",".web.js"]
+      }
+    ]
+  ]
 }
