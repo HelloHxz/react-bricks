@@ -135,16 +135,11 @@ return {
         // it can be string/regex or Array of string/regex.
         include: [
           path.resolve('./navigator'),
+          path.resolve('./components/*'),
         ],
 
         transformFn: function(dirName) {
-          if(dirName==="navigator"){
             return "index.web.js";
-          }
-          // use this function to provide custom transforms of resolving directory name
-          // return desired filename or array of filenames which will be used
-          // one by one (honoring order) in attempts to resolve module
-          return dirName; // default
         }
       })
     ]

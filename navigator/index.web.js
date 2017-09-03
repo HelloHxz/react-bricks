@@ -4,8 +4,9 @@ import React from 'react';
 
 
 export default (config)=>{
+	var P = config.pages.Home;
 	ReactDOM.render(<div className='xz-app-wrapper'>
-		hahahahahahhahahahhah
+				<P/>
 			</div>,
    		 document.getElementById('xz-lightapp-root'));
 }
