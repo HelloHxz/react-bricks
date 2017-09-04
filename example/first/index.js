@@ -1,4 +1,4 @@
-import {StartUp} from "@bricks"
+import {Run} from "@bricks"
 
 var config = {
 	root:"home",
@@ -8,4 +8,4 @@ var config = {
 		
 	},
 };
-export default StartUp(config)
+export default Run(config)
