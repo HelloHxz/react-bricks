@@ -1,0 +1,272 @@
+*{
+	margin:0;
+	padding:0;
+	flex-shrink: 0;
+	box-sizing: border-box;
+}
+body{
+	font-size:.4rem;
+}
+.bri-span{
+	display:block;
+}
+
+html,body{
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  width:100%;
+  height:100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+.xz-pconatiner{
+  flex:1;
+}
+.xz-pconatiner-default{
+  position:relative;
+}
+
+.xz-fadein-show{
+  opacity:1;
+  animation:xzfadeinshow .4s ease
+}
+
+@keyframes xzfadeinshow {
+    0% {
+         opacity:0;
+    }
+
+    100% {
+       opacity:1;
+    }
+}
+.xz-fadein-hide{
+  visibility:visible;
+  opacity:0;
+  animation:xzfadeinhide .4s ease
+}
+
+@keyframes xzfadeinhide {
+    0% {
+        visibility:visible;
+       opacity:1;
+    }
+
+    100% {
+       visibility:hidden;
+         opacity:0;
+    }
+}
+
+
+.xz-page-base-page{
+  background-color:#fff;
+}
+input,textarea{
+  outline:none
+}
+ul,li{
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.xz-app-wrapper{
+  position:absolute;
+  width:100%;
+  left:0;
+  top:0; backface-visibility: hidden;
+  transform-style: preserve-3d;
+  height:100%;
+}
+
+#xz-lightapp-root{
+   position:absolute;
+  width:100%;
+  left:0;
+  top:0;
+  height:100%;
+   backface-visibility: hidden;
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+
+
+.xz-pfull{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+.xz-pfull > div:first-child{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  top:0;
+   display:flex;
+  flex-direction:column;
+}
+
+
+.xz-page-inner{
+  position:relative;
+  overflow:hidden;
+  height:100%;
+  display:flex;
+  flex:1;
+  width:100%;
+}
+
+.full-screen{
+  width:100%;
+  height: 100%;
+  position: absolute;
+  left:0;
+  top:0;
+}
+
+
+.xz-page-base-page{
+  width:100%;
+  height: 100%;
+  position: absolute;
+  left:0;
+  top:0;
+}
+
+body{
+  font-size:.4rem;
+}
+
+
+
+.xz-scrolling{
+  -webkit-overflow-scrolling: touch;
+}
+.xz-page-out-wrapper,.xz-page-route-wrapper{
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  position: absolute;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.xz-pageview-outer{
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  z-index: 100;
+  height:100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.left-in {
+    transform: translate3d(0, 0, 0);
+    animation: leftin .3s cubic-bezier(.05, .69, .14, 1);
+}
+
+@keyframes leftin {
+    0% {
+        transform: translate3d(-100%, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@-webkit-keyframes leftin {
+    0% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+    }
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+.right-in {
+    transform: translate3d(0, 0, 0);
+    animation: rightin .3s cubic-bezier(.05, .69, .14, 1);
+}
+
+@keyframes rightin {
+    0% {
+        transform: translate3d(100%, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.left-out {
+    transform: translate3d(-100%, 0, 0);
+    animation: leftout .4s cubic-bezier(.05, .69, .14, 1);
+}
+
+@keyframes leftout {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+.right-out {
+    transform: translate3d(100%, 0, 0);
+    animation: rightout .4s cubic-bezier(.05, .69, .14, 1);
+}
+
+@keyframes rightout {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(100%, 0, 0);
+    }
+}
+
+.displaynone{
+  display:none !important;
+}
+
+.xz-pageview
+{
+  height:100%;
+  width:100%;
+  overflow: auto;
+  position: relative;
+  -webkit-overflow-scrolling:touch;
+  display:flex;
+  flex-direction:column;
+}
+
+.xz-root-container{
+  position: relative;
+  height:100%;
+  width:100%;
+}
+
+.xz-drawer-page-wrapper{
+  position: relative;
+  height:100%;
+  width:100%;
+  overflow: hidden;
+}
+.xz-tab-body-wapper
+{
+  position: relative;
+  height:100%;
+  width:100%;
+}
+
+
+
+
+
+

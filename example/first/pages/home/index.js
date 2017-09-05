@@ -6,7 +6,7 @@ class HomeScreen extends React.Component {
   };
 
   Nav(){
-    this.props.navigation.navigate('Chat', { user: 'Lucy' })
+    this.props.navigation.navigate('chat', { user: 'Lucy' })
   }
   render() {
     var exS = {backgroundColor:"#fff"};
