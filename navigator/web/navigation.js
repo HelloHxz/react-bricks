@@ -535,8 +535,8 @@ class Navigation extends React.Component {
 
   pageUnmount(pageInstance){
     //页面销毁的时候清除相关资源
-    if(pageInstance.props.pagemanager.pageInstanceDict[pageInstance.props.pkey]){
-      delete pageInstance.props.pagemanager.pageInstanceDict[pageInstance.props.pkey];
+    if(pageInstance.props.navigation.pageInstanceDict[pageInstance.props.pkey]){
+      delete pageInstance.props.navigation.pageInstanceDict[pageInstance.props.pkey];
     }
 
     if(this.hashEvents[pageInstance.props.pkey]){
