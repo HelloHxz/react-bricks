@@ -11,9 +11,10 @@ class HomeScreen extends React.Component {
   render() {
     var exS = {backgroundColor:"#fff"};
     return (
-      <View style={{...exS,...{marginTop:20}}}><Text>asdas</Text>
+      <View style={{...exS,...{marginTop:20}}}>
         <Button onPress={this.Nav.bind(this)} title="Go"></Button>
-        <Text style={{backgroundColor:"yellow",fontSize:23}}>huxiaozhong</Text>
+        <Text>asdas</Text>
+        <Text style={{backgroundColor:"yellow",fontSize:23}}><Text>bang!</Text>huxiaozhong</Text>
         <View style={{width:100,height:100,backgroundColor:"red"}}></View>
       </View>
     );
