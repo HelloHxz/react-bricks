@@ -6,7 +6,7 @@
       {
         "cwd":"babelrc",
         "alias": {
-	        "@bricks": "./components"
+	        "react-bricks": "./src/components"
 	     },
         "extensions": [".js",".ios.js",".android.js",".web.js"]
       }

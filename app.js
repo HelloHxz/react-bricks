@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  AppRegistry,
-  Text,View,Button,
+  AppRegistry
 } from 'react-native';
 import App from './example/first'
 

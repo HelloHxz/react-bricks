@@ -128,14 +128,12 @@ return {
         ignoreFn:function(webpackResolveRequest) {
           // custom logic to decide whether request should be ignored
           // return true if request should be ignored, false otherwise
-          console.log(webpackResolveRequest.path);
           return false; // default
         },
         // define where the imported files will be resolving by DirectoryNamedWebpackPlugin.
         // it can be string/regex or Array of string/regex.
         include: [
-          path.resolve('./navigator'),
-          path.resolve('./components/*'),
+          path.resolve('./src/*'),
         ],
 
         transformFn: function(dirName) {

@@ -1,5 +1,4 @@
-import {View,Text,React,Button} from "@bricks"
-
+import {View,Text,React,Button} from "react-bricks"
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome',

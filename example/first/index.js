@@ -1,4 +1,4 @@
-import {Run} from "@bricks"
+import {Run} from "react-bricks"
 
 var config = {
 	root:"home",

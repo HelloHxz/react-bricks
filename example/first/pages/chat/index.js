@@ -1,4 +1,4 @@
-import React from 'react';
+import {View,Text,React,Button} from "react-bricks"
 
 class ChatScreen extends React.Component {
   static navigationOptions = {
@@ -9,7 +9,7 @@ class ChatScreen extends React.Component {
   }
   render() {
     return (
-      null
+      <Text>lalal</Text>
     );
   }
 }
