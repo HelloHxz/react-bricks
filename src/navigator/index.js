@@ -1,6 +1,8 @@
 import { StackNavigator,NavigationActions } from 'react-navigation';
 import React from 'react'
 
+
+
 export default (config)=>{
 
 	var pages = {};
