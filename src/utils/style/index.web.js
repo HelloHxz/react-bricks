@@ -1,5 +1,10 @@
+import Common from './common'
 export default {
+	OS:"web",
 	_init(){
+		if(this.rem){
+			return;
+		}
 		var startY = 0;
         document.addEventListener('touchstart',function (event) {  
             startY = event.touches[0].pageY;
@@ -36,11 +41,19 @@ export default {
 		docEl.firstElementChild.appendChild(fontEl);
 		fontEl.innerHTML = 'html{font-size:' + this.rem+ 'px!important;}';
 	},
-	create(){
-
+	create(styles){
+		return Common.create(styles,this.OS,this.px.bind(this));
 	},
 	px(val){
-		
+		if(!this.rem){
+			this._init();
+		}
+		try{
+			val = parseFloat(val);
+		}catch(e){
+			val = 0;
+		}
+		return (val/this.rem)+"rem";
 	},
 	rem:0,
 	screen:{
