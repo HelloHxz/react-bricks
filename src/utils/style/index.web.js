@@ -53,7 +53,8 @@ var Re = {
 		}catch(e){
 			val = 0;
 		}
-		//iphone6 为标准
+		//iphone6 为标准 px为标准  
+		//比如想要screen.width/3 这样的效果 只能使用 (375*2)/3 值为250 这样去标示 
 		return ((val/75))+"rem";
 	},
 	rem:0,
@@ -65,5 +66,7 @@ var Re = {
 		height:0
 	},
 };
+
 Re._init();
+
 export default Re;

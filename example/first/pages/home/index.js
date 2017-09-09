@@ -12,7 +12,7 @@ var Styles = StyleSheet.create({
       backgroundColor:"yellow"
     },
     ...{
-      fontSize:23
+      fontSize:32
     }
   }
 });
