@@ -1,10 +1,11 @@
 import { StackNavigator,NavigationActions } from 'react-navigation';
 import React from 'react'
+import StyleSheet from '../utils/style'
 
 
 
 export default (config)=>{
-
+    StyleSheet._init();
 	var pages = {};
 	for(var key in config.pages){
 		pages[key] = {screen:config.pages[key]};

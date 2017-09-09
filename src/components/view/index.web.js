@@ -3,7 +3,8 @@ import React from 'react';
 class View extends React.Component {
   render() {
   	var style = this.props.style||{};
-    return (<div style={style}>{this.props.children}</div>);
+  	var className= 'xz-displayflex';
+    return (<div className={className} style={style}>{this.props.children}</div>);
   }
 }
 
