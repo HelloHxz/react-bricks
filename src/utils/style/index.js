@@ -20,7 +20,7 @@ export default {
 		}catch(e){
 			val = 0;
 		}
-		return val/this.screen.dpr;
+		return (val/this.screen.dpr)*(this.screen.dpr/2);
 	},
 	screen:{
 		dpr:0,

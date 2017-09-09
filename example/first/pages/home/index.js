@@ -3,17 +3,20 @@ import {View,Text,React,Button,StyleSheet} from "react-bricks"
 
 var Styles = StyleSheet.create({
   testStyle:{
-    width:100,
+    width:130,
     height:100,
     backgroundColor:"red"
   },
   fontStyle:{
-    fontSize:23,
-    backgroundColor:"yellow"
+    ...{
+      backgroundColor:"yellow"
+    },
+    ...{
+      fontSize:23
+    }
   }
 });
 
-console.log(Styles);
 
 class HomeScreen extends React.Component {
   static navigationOptions = {

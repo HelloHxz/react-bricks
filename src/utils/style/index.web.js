@@ -53,7 +53,7 @@ export default {
 		}catch(e){
 			val = 0;
 		}
-		return (val/this.rem)+"rem";
+		return ((val/this.rem)*(this.screen.dpr/2))+"rem";
 	},
 	rem:0,
 	screen:{
