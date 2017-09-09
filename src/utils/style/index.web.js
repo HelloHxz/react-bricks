@@ -1,5 +1,5 @@
 import Common from './common'
-export default {
+var Re = {
 	OS:"web",
 	_init(){
 		if(this.rem){
@@ -53,7 +53,8 @@ export default {
 		}catch(e){
 			val = 0;
 		}
-		return ((val/this.rem)*(this.screen.dpr/2))+"rem";
+		//iphone6 为标准
+		return ((val/75))+"rem";
 	},
 	rem:0,
 	screen:{
@@ -63,4 +64,6 @@ export default {
 		width:0,
 		height:0
 	},
-}
+};
+Re._init();
+export default Re;
