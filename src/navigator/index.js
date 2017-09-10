@@ -9,6 +9,7 @@ export default (config)=>{
 		if(pageClass.__role!=='pageview'){
 			console.error("页面"+key+"没有使用@PageView装饰器进行声明装饰");
 		}
+		pageClass.__pagename = key;
 	}
 	var AppNavigator = StackNavigator(pages);
 

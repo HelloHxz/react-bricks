@@ -10,6 +10,7 @@ export default (config)=>{
 			console.error("页面"+key+"没有使用@PageView装饰器进行声明装饰");
 			return;
 		}
+		pageClass.__pagename = key;
 	}
 	ReactDOM.render(
 			<div className='xz-app-wrapper'>
