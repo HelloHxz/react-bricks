@@ -1,7 +1,7 @@
 import React from 'react'
-import PageView from './pageview'
+import PageView from '../navigator/web/pageview'
 
-import LazyLoadPage from "./lazyLoadPage";
+import LazyLoadPage from "../navigator/web/lazyLoadPage";
 /*
   如果在同一个container中需要展示同一个页面多次  那么这个页面的名称格式为 页面名称_唯一标示
   比如 index_11

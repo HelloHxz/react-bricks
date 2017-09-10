@@ -5,7 +5,7 @@ var ScrollView = require("./text").default;
 var Button = require("./button").default;
 var Run = require("../navigator").default;
 import StyleSheet from '../utils/style'
-import {connect,observer} from '../utils/mobx'
+import {PageView,observer} from './pageview'
 import {observable} from 'mobx'
 
 /*
@@ -17,7 +17,7 @@ export {
 	View,
 	Button,
 	Text,
-	connect,
+	PageView,
 	observable,
 	observer,
 	React,

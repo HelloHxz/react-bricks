@@ -1,11 +1,9 @@
 import {observer} from 'mobx-react/native'
 import React from 'react'
 
-var connect =  (store) => (WrappedComponent) => {
+var PageView =  (store) => (WrappedComponent) => {
    return class extends React.Component {
-      componentDidMount() {
-      	alert("native");
-      }
+      static __role = "pageview"
       render() {
          return <WrappedComponent {...this.props} />
       }
@@ -13,5 +11,5 @@ var connect =  (store) => (WrappedComponent) => {
 }
 
 export {
-	observer,connect
+	observer,PageView
 };

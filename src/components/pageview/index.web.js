@@ -2,10 +2,10 @@ import {observer} from 'mobx-react'
 
 import React from 'react'
 
-var connect =  (store) => (WrappedComponent) => {
+var PageView =  (store) => (WrappedComponent) => {
    return class extends React.Component {
+   	  static __role = "pageview"
       componentDidMount() {
-         console.log(store);
       }
       render() {
          return <WrappedComponent {...this.props} />
@@ -14,5 +14,5 @@ var connect =  (store) => (WrappedComponent) => {
 }
 
 export {
-	observer,connect
+	observer,PageView
 };

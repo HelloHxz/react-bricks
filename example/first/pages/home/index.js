@@ -1,4 +1,4 @@
-import {View,Text,React,Button,StyleSheet,connect} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,PageView} from "react-bricks"
 
 
 var Styles = StyleSheet.create({
@@ -18,14 +18,18 @@ var Styles = StyleSheet.create({
   }
 });
 
-@connect({rootStore:null,homeStore:null})
+@PageView({rootStore:null,homeStore:null})
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome',
   };
 
+  componentDidMount() {
+  }
+
+
   Nav(){
-    this.props.navigation.navigate('chat', { user: 'Lucy' })
+    this.props.navigation.navigate('chat', { user: 'Lucy' },"replace")
   }
   render() {
     var exS = {backgroundColor:"#fff"};

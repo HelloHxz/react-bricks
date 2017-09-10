@@ -1,5 +1,6 @@
-import {View,Text,React,Button} from "react-bricks"
+import {View,Text,React,Button,PageView} from "react-bricks"
 
+@PageView()
 class ChatScreen extends React.Component {
   static navigationOptions = {
     title: 'Chat with Lucy',
@@ -8,6 +9,7 @@ class ChatScreen extends React.Component {
   componentWillUnmount(){
   }
   render() {
+    console.log(this.props.navigation);
     return (
       <Text>lalal</Text>
     );
