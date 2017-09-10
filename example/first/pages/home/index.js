@@ -1,4 +1,4 @@
-import {View,Text,React,Button,StyleSheet,ConnectStore} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,connect} from "react-bricks"
 
 
 var Styles = StyleSheet.create({
@@ -18,7 +18,7 @@ var Styles = StyleSheet.create({
   }
 });
 
-@ConnectStore({rootStore:null,homeStore:null})
+@connect({rootStore:null,homeStore:null})
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome',

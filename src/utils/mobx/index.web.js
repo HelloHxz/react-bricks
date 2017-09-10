@@ -1,5 +1,8 @@
+import {observer} from 'mobx-react'
+
 import React from 'react'
-export default (store) => (WrappedComponent) => {
+
+var connect =  (store) => (WrappedComponent) => {
    return class extends React.Component {
       componentDidMount() {
          console.log(store);
@@ -9,3 +12,7 @@ export default (store) => (WrappedComponent) => {
       }
    }
 }
+
+export {
+	observer,connect
+};
