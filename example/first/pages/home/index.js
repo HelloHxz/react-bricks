@@ -3,9 +3,10 @@ import {View,Text,React,Button,StyleSheet} from "react-bricks"
 
 var Styles = StyleSheet.create({
   testStyle:{
-    width:250,
+    width:StyleSheet.baseScreen.width/3,
     height:100,
-    backgroundColor:"red"
+    backgroundColor_web:"red",
+    backgroundColor_native:"yellow",
   },
   fontStyle:{
     ...{

@@ -25,6 +25,7 @@ var Re = {
 		}
 		return (val/this.screen.dpr);
 	},
+	baseScreen:Common.baseScreen,
 	screen:{
 		dpr:0,
 		width:0,
