@@ -5,8 +5,8 @@ var Styles = StyleSheet.create({
   testStyle:{
     width:StyleSheet.baseScreen.width/3,
     height:100,
-    backgroundColor_web:"red",
-    backgroundColor_native:"yellow",
+    backgroundColor_android:"green",
+    backgroundColor_ios:"yellow",
   },
   fontStyle:{
     ...{

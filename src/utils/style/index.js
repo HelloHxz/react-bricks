@@ -3,6 +3,7 @@ import Common from './common'
 
 var Re = {
 	OS:Platform.OS,
+	isWeb:false,
 	_init(){
 		var screenInfo = Dimensions.get('window');
 		this.screen.dpr = PixelRatio.get();
@@ -12,7 +13,7 @@ var Re = {
 		this.screen.originHeight = screenInfo.height;
 	},
 	create(styles){
-		return Common.create(styles,this.OS,this.px.bind(this));
+		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},
 	px(val){
 		if(this.screen.dpr===0){

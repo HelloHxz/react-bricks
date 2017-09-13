@@ -25,22 +25,17 @@ export default (config)=>{
 	  //   // has been handled/blocked, but there is not a new state
 	  //   return null;
 	  // }
-	  console.log(action);
-	  console.log(state);
-	  return defaultGetStateForAction(action, state);
+	  var Re = defaultGetStateForAction(action, state);
+	  // Re.routes[Re.routes.length-1].routeName = "chat";
+	  return Re;
 	};
 
 
 	class App extends React.Component {
 
-	  onNav(prevState, newState, action){
-
-	  }
-
 	  render() {
 		return (
 		  <AppNavigator 
-			  onNavigationStateChange = {this.onNav.bind(this)}
 			  ref={nav => { this.navigator = nav; }} />
 			);
 	   }

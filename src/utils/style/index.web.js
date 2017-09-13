@@ -1,6 +1,9 @@
 import Common from './common'
+
+var u = navigator.userAgent;
 var Re = {
-	OS:"web",
+	OS:!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)?"ios":"android",
+	isWeb:true,
 	_init(){
 		if(this.rem){
 			return;
@@ -42,7 +45,7 @@ var Re = {
 		fontEl.innerHTML = 'html{font-size:' + this.rem+ 'px!important;}';
 	},
 	create(styles){
-		return Common.create(styles,this.OS,this.px.bind(this));
+		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},
 	px(val){
 		if(!this.rem){

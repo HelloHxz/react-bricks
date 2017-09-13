@@ -3,7 +3,7 @@ import {observer} from 'mobx-react'
 import React from 'react'
 
 var PageView =  (store) => (WrappedComponent) => {
-   return class extends React.Component {
+	class Wrapper extends React.Component {
    	  static __role = "pageview"
       componentDidMount() {
       }
@@ -11,6 +11,7 @@ var PageView =  (store) => (WrappedComponent) => {
          return <WrappedComponent {...this.props} />
       }
    }
+   return Wrapper;
 }
 
 export {
