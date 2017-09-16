@@ -3,10 +3,13 @@ var Text = require("./text").default;
 import React from 'react';
 var ScrollView = require("./text").default;
 var Button = require("./button").default;
+var PageContainer = require("./pageContainer").default;
 var Run = require("../navigator").default;
 import StyleSheet from '../utils/style'
 import {PageView,observer} from './pageview'
+
 import {observable} from 'mobx'
+
 
 /*
 	todo.. babel-plugin-import 按需加载
@@ -16,6 +19,7 @@ import {observable} from 'mobx'
 export {
 	View,
 	Button,
+	PageContainer,
 	Text,
 	PageView,
 	observable,

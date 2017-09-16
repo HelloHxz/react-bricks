@@ -25,8 +25,24 @@ export default (config)=>{
 	  //   // has been handled/blocked, but there is not a new state
 	  //   return null;
 	  // }
+	  if(action.type==="Navigation/NAVIGATE"){
+		var pageName =  action.routeName;
+		var pageArr = pageName.split("/");
+		var len = pageArr.length;
+		if(len>2){
+			console.error("页面层级最多两层");
+		}
+		if(len===2){
+			action.routeName = pageArr[0];
+			var params = action.params || {};
+			params.__childpage = pageArr[1];
+			action.params = params;
+		}
+
+	  }
 	  var Re = defaultGetStateForAction(action, state);
-	  // Re.routes[Re.routes.length-1].routeName = "chat";
+	  if(action.action==="__replace__"){
+	  }
 	  return Re;
 	};
 

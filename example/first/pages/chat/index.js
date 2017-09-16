@@ -1,4 +1,5 @@
-import {View,Text,React,Button,PageView} from "react-bricks"
+
+import {View,Text,React,Button,PageView,PageContainer} from "react-bricks"
 
 @PageView()
 class ChatScreen extends React.Component {
@@ -8,10 +9,16 @@ class ChatScreen extends React.Component {
 
   componentWillUnmount(){
   }
+
+  onC(){
+    this.props.navigation.replace("chat/setting");
+  }
   render() {
-    console.log(this.props.navigation);
     return (
-      <Text>lalal</Text>
+      <View>
+        <PageContainer {...this.props} owner={this}/>
+        <Button onPress={this.onC.bind(this)} title={"Setting"}></Button>
+      </View>
     );
   }
 }

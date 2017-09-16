@@ -249,7 +249,7 @@ class Navigation extends React.Component {
   }
 
 
-  replaceGo(pageKey, params) {
+  replace(pageKey, params) {
     isReplaceGo = true;
     var paramsArr = this.prepareGo(pageKey, params,false,true);
     this.isForward = true;

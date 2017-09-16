@@ -5,6 +5,8 @@ var config = {
 	pages:{
 		home:require("./pages/home").default,
 		chat:require("./pages/chat").default,
+		setting:require("./pages/setting").default,
+		my:require("./pages/my").default,
 		
 	},
 };
