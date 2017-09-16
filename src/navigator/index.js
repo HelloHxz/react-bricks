@@ -1,6 +1,12 @@
 import { StackNavigator,NavigationActions } from 'react-navigation';
 import React from 'react'
 
+
+function isTabRouteChange(pageArr,state){
+	var curRoute = state.routes[state.routes.length-1];
+	return pageArr[0]===curRoute.routeName&&curRoute.params&&curRoute.params.__childpage;
+}
+
 export default (config)=>{
 	var pages = {};
 	for(var key in config.pages){
@@ -11,6 +17,10 @@ export default (config)=>{
 		}
 		pageClass.__pagename = key;
 	}
+	global.__bricks__ = {
+		config:config,
+		pageDict:{}
+	};
 	var AppNavigator = StackNavigator(pages);
 
 	const defaultGetStateForAction = AppNavigator.router.getStateForAction;
@@ -37,12 +47,31 @@ export default (config)=>{
 			var params = action.params || {};
 			params.__childpage = pageArr[1];
 			action.params = params;
-		}
 
+			if(isTabRouteChange(pageArr,state)){
+				//页面内部进行状态改变 改变PageContainer  global.__bricks__.pageDict
+				var lastKey = state.routes[state.routes.length-1].key;
+				var pageInstance = global.__bricks__.pageDict[lastKey];
+				if(pageInstance){
+					pageInstance.tabChange(action.params);
+				}
+				return null;
+			}
+		}
 	  }
-	  var Re = defaultGetStateForAction(action, state);
+
 	  if(action.action==="__replace__"){
+	  	const routes = state.routes.slice(0, state.routes.length - 1);
+	      routes.push(action);
+	      return {
+	        ...state,
+	        routes,
+	        index: routes.length - 1,
+	      };
 	  }
+
+	  var Re = defaultGetStateForAction(action, state);
+
 	  return Re;
 	};
 

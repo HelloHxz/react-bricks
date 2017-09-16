@@ -29,7 +29,7 @@ class HomeScreen extends React.Component {
 
 
   Nav(){
-    this.props.navigation.navigate('chat/my', { user: 'Lucy' })
+    this.props.navigation.navigate('chat/my', { user: 'Lucy'})
   }
   render() {
     var exS = {backgroundColor:"#fff"};
