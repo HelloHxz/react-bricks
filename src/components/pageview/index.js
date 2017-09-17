@@ -9,20 +9,26 @@ var PageView =  (store) => (WrappedComponent) => {
       componentDidMount() {
       }
 
-      componentWillUnMount(){
+      componentWillUnmount(){
          delete global.__bricks__.pageDict[this.pagekey];
       }
 
       constructor(props){
          super(props);
-         this.pagekey = props.navigation.state.key;
 
          var isInTab = props.isInTab;
-         if(!isInTab){
-            global.__bricks__.pageDict[this.pagekey] = this;
+         if(isInTab){
+            this.pagekey = props.pkey;
+         }else{
+            this.pagekey = props.navigation.state.key;
          }
-          props.navigation.replace = function(pagePath,params){
+         global.__bricks__.pageDict[this.pagekey] = this;
+
+         props.navigation.replace = function(pagePath,params){
              props.navigation.navigate(pagePath, params||{},"__replace__")
+         }
+         props.navigation.listenRouteChange = function(pageInstance,callBack){
+            
          }
          this.state={
             params:props.navigation.state.params||{}
@@ -37,9 +43,7 @@ var PageView =  (store) => (WrappedComponent) => {
 
       render() {
          var _this = this;
-    
-        
-         return <WrappedComponent {...this.props} params={this.state.params}/>
+         return <WrappedComponent {...this.props} {...store} params={this.state.params} pkey={this.pagekey}/>
       }
    }
    return Wrapper;

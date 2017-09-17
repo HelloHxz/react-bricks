@@ -544,9 +544,12 @@ class Navigation extends React.Component {
     }
   }
 
-  watchHashChange(pageInstance,callBack){
+  listenRouteChange(pageInstance,callBack){
+    if(!pageInstance.props.basekey){
+       console.error("listenRouteChange 第一个参数必须为页面实例对象");
+    }
     if(this.hashEvents[pageInstance.props.basekey]){
-      console.error("同一个页面请勿重复注册watchHashChange！");
+      console.error("同一个页面请勿重复注册listenRouteChange！");
     }
     this.hashEvents[pageInstance.props.basekey] = {method:callBack,precalltime:new Date().valueOf()};
     callBack(this.getUrlInfo());
@@ -767,9 +770,11 @@ class Navigation extends React.Component {
 
   getUrlInfo(){
     var path = this.getPageNameFromUrl();
+    var Arr = path.split("/");
     return {
       path:path,
-      pathArr:path.split("/"),
+      pathArr:Arr,
+      tabPath:Arr.splice(0,2).join("/"),
       seed:this.getUrlSeedStr(),
       params:this.getParamsFromUrl()
     };
