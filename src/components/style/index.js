@@ -15,6 +15,9 @@ var Re = {
 	create(styles){
 		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},
+	pxVal(val){
+		return this.px(val);
+	},
 	px(val){
 		if(this.screen.dpr===0){
 			this.screen.dpr = PixelRatio.get();

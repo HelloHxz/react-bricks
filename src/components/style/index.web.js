@@ -47,10 +47,7 @@ var Re = {
 	create(styles){
 		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},
-	px(val){
-		if(!this.rem){
-			this._init();
-		}
+	pxVal(val){
 		try{
 			val = parseFloat(val);
 		}catch(e){
@@ -58,7 +55,10 @@ var Re = {
 		}
 		//iphone6 为标准 px为标准  
 		//比如想要screen.width/3 这样的效果 只能使用 (375*2)/3 值为250 这样去标示 
-		return ((val/Common.baseScreen.rem))+"rem";
+		return ((val/Common.baseScreen.rem));
+	},
+	px(val){
+		return this.pxVal(val)+"rem";
 	},
 	rem:0,
 	baseScreen:Common.baseScreen,

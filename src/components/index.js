@@ -1,6 +1,7 @@
 var View = require("./view").default;
 var Text = require("./text").default;
 import React from 'react';
+import Animated from './animated'
 var ScrollView = require("./text").default;
 var Segment = require("./segment").default;
 var Button = require("./button").default;
@@ -18,6 +19,7 @@ import {observable} from 'mobx'
 */
 
 export {
+	Animated,
 	View,
 	Button,
 	Segment,

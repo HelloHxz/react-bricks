@@ -8,16 +8,15 @@
     "android": "cross-env NODE_ENV=development node scripts/run-native run-android",
     "android-uat": "cross-env NODE_ENV=uat node scripts/run-native run-android",
     "android-pro": "cross-env NODE_ENV=production node scripts/run-native run-android",
-    
     "ios": "cross-env NODE_ENV=development node scripts/run-native run-ios",
     "ios-uat": "cross-env NODE_ENV=uat node scripts/run-native run-ios",
     "ios-pro": "cross-env NODE_ENV=production node scripts/run-native run-ios",
-    
     "start": "webpack-dev-server --host localhost --port 8000",
-    "start-uat":"cross-env NODE_ENV=uat roadhog server",
-    "start-pro":"cross-env NODE_ENV=production roadhog server"
+    "start-uat": "cross-env NODE_ENV=uat roadhog server",
+    "start-pro": "cross-env NODE_ENV=production roadhog server"
   },
   "dependencies": {
+    "animated": "^0.2.0",
     "es6-promise": "^4.1.0",
     "isomorphic-fetch": "^2.2.1",
     "mobx": "^3.2.2",

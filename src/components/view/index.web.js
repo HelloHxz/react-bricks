@@ -1,6 +1,7 @@
 import React from 'react';
 
 class View extends React.Component {
+	//配合animate 处理单位
   render() {
   	var style = this.props.style||{};
   	var className= 'xz-displayflex';

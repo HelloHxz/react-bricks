@@ -1,4 +1,4 @@
-import {View,Text,React,Button,StyleSheet,PageView} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,PageView,Animated} from "react-bricks"
 
 
 var Styles = StyleSheet.create({
@@ -27,14 +27,26 @@ class HomeScreen extends React.Component {
   componentDidMount() {
   }
 
+  constructor(props){
+    super(props);
+    this.state = {
+      anim: new Animated.Value(0),
+    }
+  }
+
 
   Nav(){
-    this.props.navigation.navigate('chat/my', { user: 'Lucy'})
+     Animated.timing(this.state.anim, {toValue: 400}).start();
+    // this.props.navigation.navigate('chat/my', { user: 'Lucy'})
   }
   render() {
     var exS = {backgroundColor:"#fff"};
+    console.log(this.state.anim);
     return (
       <View style={{...exS,...{marginTop:20}}}>
+         <Animated.View
+          style={{position:"relative",left: this.state.anim,width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>
+        </Animated.View>
         <Button onPress={this.Nav.bind(this)} title="Go"></Button>
         <Text>asdas</Text>
         <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
