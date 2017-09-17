@@ -41,7 +41,6 @@ class HomeScreen extends React.Component {
   }
   render() {
     var exS = {backgroundColor:"#fff"};
-    console.log(this.state.anim);
     return (
       <View style={{...exS,...{marginTop:20}}}>
          <Animated.View
