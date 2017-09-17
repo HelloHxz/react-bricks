@@ -91,7 +91,12 @@ class SegmentItem extends React.Component {
     var children = React.Children.map(this.props.children, 
       (child) => {
         if(child.type&&typeof(child.type)!=="string"){
-          return React.cloneElement(child, ...this.props);
+          return React.cloneElement(child, {
+          	...this.props,
+          	...{
+          		selected:isSelected
+          	}
+          });
         }else{
           return child;
         }

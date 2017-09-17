@@ -1,10 +1,18 @@
 import React from 'react';
 
-class View extends React.Component {
+class Text extends React.Component {
+
+  componentWillRecevieProps(){
+
+  }
+
   render() {
   	var style = this.props.style||{};
-    return (<span  style={style} className='bri-span'>{this.props.children}</span>);
+  	if(this.props.selected){
+  		style.color = "red";
+  	}
+    return (<span style={style} className='bri-span'>{this.props.children}</span>);
   }
 }
 
-export default View;
+export default Text;

@@ -5,7 +5,7 @@ import TouchableOpacity from '../touchableopacity'
 
 class Segment extends React.Component {
   constructor(props){
-  	super(props);
+    super(props);
     this.state = {
       selectedKey:props.selectedKey,
       selectedIndex:props.selectedIndex,
@@ -41,8 +41,8 @@ class Segment extends React.Component {
   }
 
   render() {
-  	var scroll = this.props.scroll === true;
-  	var itemCount = 0;
+    var scroll = this.props.scroll === true;
+    var itemCount = 0;
     var children = React.Children.map(this.props.children, 
       (child,index) => {
         if(child.type&&typeof(child.type)!=="string"){
@@ -91,7 +91,12 @@ class SegmentItem extends React.Component {
     var children = React.Children.map(this.props.children, 
       (child) => {
         if(child.type&&typeof(child.type)!=="string"){
-          return React.cloneElement(child, ...this.props);
+          return React.cloneElement(child, {
+            ...this.props,
+            ...{
+              selected:isSelected
+            }
+          });
         }else{
           return child;
         }
