@@ -3,7 +3,7 @@ import React from 'react'
 
 class Com extends React.Component {
 
-  componentWillRecevieProps(){
+  componentWillReceiveProps(props){
 
   }
 

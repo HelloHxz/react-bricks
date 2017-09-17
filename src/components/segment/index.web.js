@@ -1,11 +1,20 @@
 import React from 'react';
 import View from '../view'
 import TouchableOpacity from '../touchableopacity'
+import StyleSheet from '../style'
 
+
+let MyStyle = StyleSheet.create({
+  segment:{
+    height:100,
+    flexDirection:"row",
+    backgroundColor:"#eee"
+  }
+});
 
 class Segment extends React.Component {
   constructor(props){
-  	super(props);
+    super(props);
     this.state = {
       selectedKey:props.selectedKey,
       selectedIndex:props.selectedIndex,
@@ -41,8 +50,8 @@ class Segment extends React.Component {
   }
 
   render() {
-  	var scroll = this.props.scroll === true;
-  	var itemCount = 0;
+    var scroll = this.props.scroll === true;
+    var itemCount = 0;
     var children = React.Children.map(this.props.children, 
       (child,index) => {
         if(child.type&&typeof(child.type)!=="string"){
@@ -63,7 +72,7 @@ class Segment extends React.Component {
     if(this.itemCount===0){
       this.itemCount = itemCount;
     }
-    return (<View style={{flexDirection:"row",height:44}}>{children}</View>);
+    return (<View style={MyStyle.segment}>{children}</View>);
   }
 }
 
@@ -92,10 +101,10 @@ class SegmentItem extends React.Component {
       (child) => {
         if(child.type&&typeof(child.type)!=="string"){
           return React.cloneElement(child, {
-          	...this.props,
-          	...{
-          		selected:isSelected
-          	}
+            ...this.props,
+            ...{
+              selected:isSelected
+            }
           });
         }else{
           return child;

@@ -1,7 +1,16 @@
 import React from 'react';
 import View from '../view'
 import TouchableOpacity from '../touchableopacity'
+import StyleSheet from '../style'
 
+
+let MyStyle = StyleSheet.create({
+  segment:{
+    height:100,
+    flexDirection:"row",
+    backgroundColor:"#eee"
+  }
+});
 
 class Segment extends React.Component {
   constructor(props){
@@ -63,7 +72,7 @@ class Segment extends React.Component {
     if(this.itemCount===0){
       this.itemCount = itemCount;
     }
-    return (<View style={{flexDirection:"row",height:44}}>{children}</View>);
+    return (<View style={MyStyle.segment}>{children}</View>);
   }
 }
 

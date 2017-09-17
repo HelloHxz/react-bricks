@@ -6,7 +6,7 @@ var Segment = require("./segment").default;
 var Button = require("./button").default;
 var PageContainer = require("./pageContainer").default;
 var Run = require("../navigator").default;
-import StyleSheet from '../utils/style'
+import StyleSheet from './style'
 import {PageView,observer} from './pageview'
 
 import {observable} from 'mobx'

@@ -2,7 +2,7 @@ import React from 'react';
 
 class Text extends React.Component {
 
-  componentWillRecevieProps(){
+  componentWillReceiveProps(props){
 
   }
 
