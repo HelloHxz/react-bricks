@@ -9,13 +9,17 @@ var PageView =  (store) => (WrappedComponent) => {
       componentDidMount() {
       }
 
+      componentWillUnMount(){
+         delete global.__bricks__.pageDict[this.pagekey];
+      }
+
       constructor(props){
          super(props);
-         var pagekey = props.navigation.state.key;
+         this.pagekey = props.navigation.state.key;
 
          var isInTab = props.isInTab;
          if(!isInTab){
-            global.__bricks__.pageDict[pagekey] = this;
+            global.__bricks__.pageDict[this.pagekey] = this;
          }
           props.navigation.replace = function(pagePath,params){
              props.navigation.navigate(pagePath, params||{},"__replace__")

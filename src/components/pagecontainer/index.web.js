@@ -19,15 +19,12 @@ class PageContainer extends React.Component {
   prepareRoute(props,cacheSuccess){
     var route = [];
     var ToPageName;
-    if(props.withurl ===false){//pageContainer  不和url使用
-
-    }else{
-      if(props.owner){
-        route = JSON.stringify(props.leftroute);
-        route = JSON.parse(route);
-      }
-      ToPageName = route.shift();
+  
+    if(props.owner){
+      route = JSON.stringify(props.leftroute);
+      route = JSON.parse(route);
     }
+    ToPageName = route.shift();
 
    
     this.curpagename = ToPageName;
@@ -59,7 +56,8 @@ class PageContainer extends React.Component {
  
   componentWillReceiveProps(props){
     this.prepareRoute(props,(route,ToPageName)=>{
-      this.dict[ToPageName].setState({leftroute:route,pagename:ToPageName});
+      //支持多级 如果支持两级 考虑删掉
+      //this.dict[ToPageName].setState({leftroute:route,pagename:ToPageName});
     });
     
   }
