@@ -570,6 +570,7 @@ class Navigation extends React.Component {
         if(eventInfo){
           var now = new Date().valueOf();
           var diffTime  = now-eventInfo.precalltime;
+
           if(diffTime>80){
             eventInfo.precalltime = now;
             var urlInfoStr = JSON.stringify(urlInfo)
@@ -770,11 +771,10 @@ class Navigation extends React.Component {
 
   getUrlInfo(){
     var path = this.getPageNameFromUrl();
-    var Arr = path.split("/");
     return {
       path:path,
-      pathArr:Arr,
-      tabPath:Arr.splice(0,2).join("/"),
+      pathArr:path.split("/"),
+      tabPath:path.split("/").splice(0,2).join("/"),
       seed:this.getUrlSeedStr(),
       params:this.getParamsFromUrl()
     };

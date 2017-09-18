@@ -28,6 +28,23 @@ class Segment extends React.Component {
 
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.state.selectedIndex===0||this.state.selectedIndex){
+    //selectedIndex 优先
+    if(this.state.selectedIndex!==nextProps.selectedIndex){
+      this.setState({
+        selectedIndex:nextProps.selectedIndex
+      });
+    }
+   } else{
+    if(this.state.selectedKey!==nextProps.selectedKey){
+      this.setState({
+        selectedKey:nextProps.selectedKey
+      });
+    }
+   }
+  }
+
   itemClick(key,itemInstance){
     // if(this.props.onItemClickChange){
     //   if(this.props.onItemClickChange({

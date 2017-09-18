@@ -5,6 +5,7 @@ class View extends React.Component {
   render() {
   	var style = this.props.style||{};
   	// console.log(this.props.xzIsAnimate);
+  	console.log(style);
   	var className= 'xz-displayflex';
     return (<div className={className} style={style}>{this.props.children}</div>);
   }

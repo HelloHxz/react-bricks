@@ -55,6 +55,7 @@ export default {
 						continue;
 					}
 				}
+				//todo ....特殊处理 border transform
 				re[key] = pxFun(item);
 			}
 		}

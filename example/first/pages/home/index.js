@@ -36,15 +36,16 @@ class HomeScreen extends React.Component {
 
 
   Nav(){
-     Animated.timing(this.state.anim, {toValue: 400}).start();
-    // this.props.navigation.navigate('chat/my', { user: 'Lucy'})
+     // Animated.timing(this.state.anim, {toValue: 300}).start();
+    this.props.navigation.navigate('chat/my', { user: 'Lucy'})
   }
   render() {
     var exS = {backgroundColor:"#fff"};
     return (
       <View style={{...exS,...{marginTop:20}}}>
          <Animated.View
-          style={{position:"relative",left: this.state.anim,width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>
+          style={{position:"relative",
+          transform: [{translateX: this.state.anim}],width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>
         </Animated.View>
         <Button onPress={this.Nav.bind(this)} title="Go"></Button>
         <Text>asdas</Text>
