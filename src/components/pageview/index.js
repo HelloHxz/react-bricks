@@ -11,12 +11,14 @@ var PageView =  (store) => (WrappedComponent) => {
 
       componentWillUnmount(){
          delete global.__bricks__.pageDict[this.pagekey];
+         delete global.__bricks__.routeEvents[this.pagekey];
       }
 
       constructor(props){
          super(props);
 
          var isInTab = props.isInTab;
+
          if(isInTab){
             this.pagekey = props.pkey;
          }else{
@@ -28,7 +30,13 @@ var PageView =  (store) => (WrappedComponent) => {
              props.navigation.navigate(pagePath, params||{},"__replace__")
          }
          props.navigation.listenRouteChange = function(pageInstance,callBack){
-            
+            if(!pageInstance.props.isPage){
+               console.error("listenRouteChange 第一个参数必须为页面实例");
+            }
+            if(!global.__bricks__.routeEvents){
+               global.__bricks__.routeEvents = {};
+            }
+            global.__bricks__.routeEvents[pageInstance.props.pkey] = callBack;
          }
          this.state={
             params:props.navigation.state.params||{}
@@ -39,11 +47,19 @@ var PageView =  (store) => (WrappedComponent) => {
          this.setState({
             params:params
          });
+         const changeCallBack = global.__bricks__.routeEvents[this.pagekey];
+         if(changeCallBack){
+            try{
+               changeCallBack({
+                  tabPath:params.__pagename+"/"+params.__childpage
+               });
+            }catch(e){}
+         }
       }
 
       render() {
          var _this = this;
-         return <WrappedComponent {...this.props} {...store} params={this.state.params} pkey={this.pagekey}/>
+         return <WrappedComponent isPage={true} {...this.props} {...store} params={this.state.params} pkey={this.pagekey}/>
       }
    }
    return Wrapper;

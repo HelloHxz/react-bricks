@@ -35,16 +35,20 @@ export default (config)=>{
 	  //   // has been handled/blocked, but there is not a new state
 	  //   return null;
 	  // }
+	  var params = action.params || {};
+	  var pageName =  action.routeName||"";
+	  var pageArr = pageName.split("/");
+	  params.__pagename = pageArr[0];
+
 	  if(action.type==="Navigation/NAVIGATE"){
-		var pageName =  action.routeName;
-		var pageArr = pageName.split("/");
+		
+
 		var len = pageArr.length;
 		if(len>2){
 			console.error("页面层级最多两层");
 		}
 		if(len===2){
 			action.routeName = pageArr[0];
-			var params = action.params || {};
 			params.__childpage = pageArr[1];
 			action.params = params;
 
@@ -59,6 +63,8 @@ export default (config)=>{
 			}
 		}
 	  }
+
+	  action.params = params;
 
 	  if(action.action==="__replace__"){
 	  	const routes = state.routes.slice(0, state.routes.length - 1);
