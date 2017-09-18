@@ -13,7 +13,9 @@ class ChatScreen extends React.Component {
     super(props);
 
     props.navigation.listenRouteChange(this,(params)=>{
-      this.props.chatStore.tabSelectedKey = params.tabPath;
+      if(this.props.chatStore.tabSelectedKey!==params.tabPath){
+        this.props.chatStore.tabSelectedKey = params.tabPath;
+      }
     });
   }
 

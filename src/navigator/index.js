@@ -51,15 +51,17 @@ export default (config)=>{
 			action.routeName = pageArr[0];
 			params.__childpage = pageArr[1];
 			action.params = params;
-
+			var lastKey = state.routes[state.routes.length-1].key;
+			var pageInstance = global.__bricks__.pageDict[lastKey];
 			if(isTabRouteChange(pageArr,state)){
 				//页面内部进行状态改变 改变PageContainer  global.__bricks__.pageDict
-				var lastKey = state.routes[state.routes.length-1].key;
-				var pageInstance = global.__bricks__.pageDict[lastKey];
 				if(pageInstance){
 					pageInstance.tabChange(action.params);
 				}
 				return null;
+			}else{
+				if(pageInstance){
+				}
 			}
 		}
 	  }

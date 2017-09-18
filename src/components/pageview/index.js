@@ -37,6 +37,9 @@ var PageView =  (store) => (WrappedComponent) => {
                global.__bricks__.routeEvents = {};
             }
             global.__bricks__.routeEvents[pageInstance.props.pkey] = callBack;
+            callBack({
+               tabPath:props.navigation.state.routeName+"/"+props.navigation.state.params.__childpage
+            });
          }
          this.state={
             params:props.navigation.state.params||{}
@@ -56,6 +59,7 @@ var PageView =  (store) => (WrappedComponent) => {
             }catch(e){}
          }
       }
+
 
       render() {
          var _this = this;
