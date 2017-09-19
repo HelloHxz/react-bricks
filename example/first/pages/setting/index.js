@@ -8,7 +8,7 @@ class SettingScreen extends React.Component {
   render() {
     return (
       <View>
-          <Text>SettingScreen</Text>
+          <Text>SettingScreen2</Text>
       </View>
     );
   }

@@ -47,7 +47,7 @@ class HomeScreen extends React.Component {
           style={{position:"relative",
           transform: [{translateX: this.state.anim}],width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>
         </Animated.View>
-        <Button onPress={this.Nav.bind(this)} title="Go"></Button>
+        <Button onPress={this.Nav.bind(this)}>Go</Button>
         <Text>asdas</Text>
         <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
         <View style={Styles.testStyle}></View>
