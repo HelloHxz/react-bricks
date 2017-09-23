@@ -17,12 +17,12 @@ var styles = StyleSheet.create({
 		overflow:"hidden",
 		zIndex:1000
 	},
-	wrapperHide:{
+	wrapper_hide:{
 		left:-1000,
 		width:0,
 		height:0
 	},
-	wrapperShow:{
+	wrapper_show:{
 		top:0,
 		left:0,
 		right:0,
@@ -51,7 +51,79 @@ var styles = StyleSheet.create({
 class PopLayer extends React.Component {
 
 	bkPress(){
-			Animated.timing(
+
+		this.props.onBackLayerClick&&this.props.onBackLayerClick();
+			// Animated.timing(
+			//         this.state.openValue,
+			//         {
+			//           toValue: 0,
+			//           duration:300,
+			//           bounciness: 0, 
+			//           easing:Easing.ease,
+			//           restSpeedThreshold: 1
+			//         }
+			//   ).start(()=>{
+			//   	this.setState({isShow:false,isShowVisiblity:false});
+			//   })
+	
+	}
+
+	constructor(props){
+		super(props)
+		//config {key:"",dirction:"bottom",cache:true}
+		this.state = {
+			openValue: new Animated.Value(0),
+			isShowVisiblity:false, // 显示背景 然后动画
+			isShow:false,
+			renderSeed:0
+		}
+		if(!props.onRenderItem){
+			console.error("poplayer组件需要 onRenderItem 属性");
+		}
+		this.preSelectedKey = "";
+		/*
+			key:{
+				instance:xx,
+				config:{key:"",direction:"",cache:}
+			},
+			key:{
+				
+			}
+		*/
+		this.itemDict={};
+	}
+	componentWillReceiveProps(nextProps){
+		var config = nextProps.config || {};
+		if(config.key){
+			if(!this.itemDict[config.key]||config.cache === false){
+				this.itemDict[config.key] = {
+					instance:this.props.onRenderItem(config),
+					config:config
+				}
+			}
+			if(this.state.isShow){
+				this.setState({
+					renderSeed:this.renderSeed+1
+				})
+			}else{
+				this.setState({isShowVisiblity:true,isShow:true},function(){
+					setTimeout(()=>{
+						this.setState({isShowVisiblity:false});
+						Animated.timing(
+					        this.state.openValue,
+					        {
+					          toValue: 1,
+					          duration:300,
+					          bounciness: 0, 
+					          easing:Easing.ease,
+					          restSpeedThreshold: 1
+					        }
+					      ).start()
+					},20)
+				});
+			}
+		}else{
+		Animated.timing(
 			        this.state.openValue,
 			        {
 			          toValue: 0,
@@ -63,71 +135,142 @@ class PopLayer extends React.Component {
 			  ).start(()=>{
 			  	this.setState({isShow:false,isShowVisiblity:false});
 			  })
-	
-	}
-
-	constructor(props){
-		super(props)
-		//config {key:"",dirction:"bottom",cache:true}
-		this.state = {
-			config:null,
-			openValue: new Animated.Value(0),
-			isShowVisiblity:false, // 显示背景 然后动画
-			isShow:false
 		}
-	}
-	componentWillReceiveProps(nextProps){
-		this.setState({isShowVisiblity:true,isShow:true},function(){
-			setTimeout(()=>{
-				this.setState({isShowVisiblity:false});
-				Animated.timing(
-			        this.state.openValue,
-			        {
-			          toValue: 1,
-			          duration:300,
-			          bounciness: 0, 
-			          easing:Easing.ease,
-			          restSpeedThreshold: 1
-			        }
-			      ).start()
-			},20)
-		});
+
+
+		
     }
 
 
 	render() {
-		const popHeight = StyleSheet.px(400);
 		const {
 		  openValue
 		} = this.state;
-		let drawerTranslateY = null;
+		const curConfig = this.props.config||{};
+		const curSelectedKey = curConfig.key;
 		let overlayOpacity = 0;
-
 		if(this.state.isShowVisiblity){
-			drawerTranslateY = -popHeight;
 		}else{
-			drawerTranslateY = openValue.interpolate({
-			    inputRange: [0, 1],
-			    outputRange:[-popHeight,0],
-			    extrapolate: 'clamp',
-			});
 			overlayOpacity = openValue.interpolate({
 		      inputRange: [0, 1],
-		      outputRange: [0, 0.5],
+		      outputRange: [0, 0.3],
 		      extrapolate: 'clamp',
 		    });
 		}
-		const animateStyle={transform:[{"translateY":drawerTranslateY}],height:popHeight};
 	    const animatedOverlayStyles = { opacity: overlayOpacity };
-	    const wrapperStyle = this.state.isShow?styles.wrapperShow:styles.wrapperHide;
+	    const wrapperStyle = this.state.isShow?styles.wrapper_show:styles.wrapper_hide;
+
+	    let children = [];
+	    for(const key in this.itemDict){
+	    	let type = "";
+	    	if(key === curSelectedKey){
+	    		if(!this.preSelectedKey||this.preSelectedKey===""){
+	    			//没有其他显示的情况下 动画显示
+	    			type = "animatedshow";
+	    		}else{
+	    			type = "animatedshow";
+	    		}
+	    		this.preSelectedKey = key;
+	    	}else{
+	    		if(this.preSelectedKey===key&&!curConfig.key){
+	    			//config 设置为null 或者 为{} 的时候收起，将当前显示的项目动画隐藏
+	    			type = "animatedhide";
+	    			this.preSelectedKey = null;
+	    		}else{
+	    			type = "noanimatedhide";
+	    		}
+	    	}
+
+	    	children.push(<PopLayerItem key={key} animatetype={type}>{
+	    		this.itemDict[key].instance
+	    	}</PopLayerItem>);
+
+	    }
 		return (
 		  <View style={{...styles.wrapper,...wrapperStyle}}>
 		  	<TouchableWithoutFeedback onPress={this.bkPress.bind(this)} >
 		  		<Animated.View style={{...styles.bkLayer,...animatedOverlayStyles}}/>
 		  	</TouchableWithoutFeedback>
-		    <Animated.View style={{...styles.layer,...animateStyle}}></Animated.View>
+		  	{children}
 		  </View>
 		);
+	}
+}
+
+
+//
+
+class PopLayerItem extends React.Component{
+	// noAnimateShow animateShow noAnimateHide animateHide
+	constructor(props){
+		super(props);
+		this.state = {
+			openValue: new Animated.Value(0),
+		}
+		this.isShow = false;
+
+	}
+	componentWillReceiveProps(nextProps){
+		if(nextProps.animatetype==="animatedshow"){
+			if(this.isShow){
+				return;}
+			this.isShow = true;
+			Animated.timing(
+		        this.state.openValue,
+		        {
+		          toValue: 1,
+		          duration:200,
+		          bounciness: 0, 
+		          easing:Easing.ease,
+		          restSpeedThreshold: 1
+		        }
+		      ).start()
+		}else if(nextProps.animatetype==="animatedhide"){
+			if(!this.isShow){return;}
+		    this.isShow = false;
+			Animated.timing(
+		        this.state.openValue,
+		        {
+		          toValue: 0,
+		          duration:200,
+		          bounciness: 0, 
+		          easing:Easing.ease,
+		          restSpeedThreshold: 1
+		        }
+		    ).start()
+		}else if(nextProps.animatetype==="noanimatedshow"){
+			if(this.isShow){return;}
+			this.isShow = true;
+		}else if(nextProps.animatetype==="noanimatedhide"){
+			if(!this.isShow){return;}
+			this.isShow = false;
+		}
+	}
+
+	render(){
+		var children = this.props.children;
+		let popHeight = StyleSheet.px(400);
+		if(children){
+			if(children.props.style&&children.props.style.height&&!isNaN(children.props.style.height)){
+				popHeight = children.props.style.height;
+			}
+		}
+		let drawerTranslateY = -popHeight;
+		if(this.props.animatetype==="animatedshow"||this.props.animatetype==="animatedhide"){
+			drawerTranslateY = this.state.openValue.interpolate({
+			    inputRange: [0, 1],
+			    outputRange:[-popHeight,0],
+			    extrapolate: 'clamp',
+			});
+		}else if(this.props.animatetype==="noanimatedhide"){
+
+		}else if(this.props.animatetype==="noanimatedshow"){
+			drawerTranslateY = 0;
+		}
+		const animateStyle={transform:[{"translateY":drawerTranslateY}],height:popHeight};
+		return <Animated.View style={{...styles.layer,...animateStyle}}>
+			{children}
+		</Animated.View>
 	}
 }
 
