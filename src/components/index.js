@@ -5,6 +5,7 @@ import Animated from './animated'
 var ScrollView = require("./text").default;
 var Segment = require("./segment").default;
 var Button = require("./button").default;
+var Poplayer = require("./poplayer").default;
 var PageContainer = require("./pageContainer").default;
 var Run = require("../navigator").default;
 import StyleSheet from './style'
@@ -22,6 +23,7 @@ export {
 	Animated,
 	View,
 	Button,
+	Poplayer,
 	Segment,
 	PageContainer,
 	Text,

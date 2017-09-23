@@ -1,4 +1,6 @@
-import {View,Text,React,Button,StyleSheet,PageView,Animated} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,PageView,Animated,observer} from "react-bricks"
+import Poplayer from './components/poplayer'
+import HomeStore from './store'
 
 
 var Styles = StyleSheet.create({
@@ -18,7 +20,8 @@ var Styles = StyleSheet.create({
   }
 });
 
-@PageView({rootStore:null,homeStore:null})
+@observer
+@PageView({rootStore:null,homeStore:HomeStore})
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Welcome',
@@ -36,17 +39,19 @@ class HomeScreen extends React.Component {
 
 
   Nav(){
+    this.props.homeStore.popLayerConfig = {key:"some",dirction:"top"}
      // Animated.timing(this.state.anim, {toValue: 300}).start();
-    this.props.navigation.navigate('chat/my', { user: 'Lucy'})
+    // this.props.navigation.navigate('chat/my', { user: 'Lucy'})
   }
   render() {
     var exS = {backgroundColor:"#fff"};
     return (
-      <View style={{...exS,...{marginTop:20}}}>
+      <View style={{flex:1}}>
          <Animated.View
           style={{position:"relative",
           transform: [{translateX: this.state.anim}],width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>
         </Animated.View>
+        <Poplayer homeStore={this.props.homeStore}/>
         <Button onPress={this.Nav.bind(this)}>Go</Button>
         <Text>asdas</Text>
         <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
