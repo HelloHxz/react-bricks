@@ -89,9 +89,7 @@ class PopLayer extends React.Component {
 				}
 			}
 			if(this.state.isShow){
-				this.setState({
-					renderSeed:this.renderSeed+1
-				})
+			
 			}else{
 				this.setState({isShowVisiblity:true,isShow:true},function(){
 					setTimeout(()=>{
@@ -237,42 +235,20 @@ class PopLayerItem extends React.Component{
 		    })
 		}else if(nextProps.animatetype==="noanimatedshow"){
 			if(this.isShow){return;}
-				Animated.timing(
-		        this.state.openValue,
-		        {
-		          toValue: 1,
-		          duration:200,
-		          bounciness: 0, 
-		          easing:Easing.ease,
-		          restSpeedThreshold: 1
-		        }
-		      ).start(()=>{
-		      	nextProps.parent.preSelectedKey = nextProps.itemconfig.key;
-		      })
+			this.state.openValue.setValue(1);
+			nextProps.parent.preSelectedKey = nextProps.itemconfig.key;
 			this.isShow = true;
 		}else if(nextProps.animatetype==="noanimatedhide"){
 			if(!this.isShow){return;}
 		    this.isShow = false;
-		    
-			Animated.timing(
-		        this.state.openValue,
-		        {
-		          toValue: 0,
-		          duration:200,
-		          bounciness: 0, 
-		          easing:Easing.ease,
-		          restSpeedThreshold: 1
-		        }
-		    ).start(()=>{
-		  	  nextProps.parent.preSelectedKey =null;
-		    })
+		    this.state.openValue.setValue(0);
+			nextProps.parent.preSelectedKey =null;
 		}
 	}
 
 	render(){
 		var children = this.props.children;
 
-		console.log( this.props.animatetype+" ?? "+ this.props.itemconfig.key)
 		let popHeight = StyleSheet._px(400);
 		if(children){
 			if(children.props.style&&children.props.style.height){
