@@ -47,7 +47,7 @@ var Re = {
 	create(styles){
 		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},
-	pxVal(val){
+	_px(val){
 		try{
 			val = parseFloat(val);
 		}catch(e){
@@ -58,7 +58,7 @@ var Re = {
 		return ((val/Common.baseScreen.rem));
 	},
 	px(val){
-		return this.pxVal(val)+"rem";
+		return this._px(val)+"rem";
 	},
 	rem:0,
 	baseScreen:Common.baseScreen,

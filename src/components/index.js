@@ -5,6 +5,7 @@ import Animated from './animated'
 var ScrollView = require("./text").default;
 var Segment = require("./segment").default;
 var Button = require("./button").default;
+var TouchableWithoutFeedback = require("./touchablewithoutfeedback").default;
 var Poplayer = require("./poplayer").default;
 var PageContainer = require("./pageContainer").default;
 var Run = require("../navigator").default;
@@ -21,6 +22,7 @@ import {observable} from 'mobx'
 
 export {
 	Animated,
+	TouchableWithoutFeedback,
 	View,
 	Button,
 	Poplayer,

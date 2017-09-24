@@ -1,8 +1,9 @@
 import React from 'react';
-import {
-  Text,View,Animated,Easing,
-  TouchableWithoutFeedback
-} from 'react-native';
+import Easing from '../easing';
+import Text from '../text'
+import View from '../view'
+import Animated from '../animated'
+import TouchableWithoutFeedback from '../touchablewithoutfeedback'
 import StyleSheet from '../style'
 
 /*
@@ -51,21 +52,7 @@ var styles = StyleSheet.create({
 class PopLayer extends React.Component {
 
 	bkPress(){
-
 		this.props.onBackLayerClick&&this.props.onBackLayerClick();
-			// Animated.timing(
-			//         this.state.openValue,
-			//         {
-			//           toValue: 0,
-			//           duration:300,
-			//           bounciness: 0, 
-			//           easing:Easing.ease,
-			//           restSpeedThreshold: 1
-			//         }
-			//   ).start(()=>{
-			//   	this.setState({isShow:false,isShowVisiblity:false});
-			//   })
-	
 	}
 
 	constructor(props){
@@ -118,23 +105,25 @@ class PopLayer extends React.Component {
 					          easing:Easing.ease,
 					          restSpeedThreshold: 1
 					        }
-					      ).start()
+					      ).start(
+					      	
+					      )
 					},20)
 				});
 			}
 		}else{
-		Animated.timing(
-			        this.state.openValue,
-			        {
-			          toValue: 0,
-			          duration:300,
-			          bounciness: 0, 
-			          easing:Easing.ease,
-			          restSpeedThreshold: 1
-			        }
-			  ).start(()=>{
+			Animated.timing(
+		        this.state.openValue,
+		        {
+		          toValue: 0,
+		          duration:300,
+		          bounciness: 0, 
+		          easing:Easing.ease,
+		          restSpeedThreshold: 1
+		        }
+			).start(()=>{
 			  	this.setState({isShow:false,isShowVisiblity:false});
-			  })
+			})
 		}
 
 
@@ -153,7 +142,7 @@ class PopLayer extends React.Component {
 		}else{
 			overlayOpacity = openValue.interpolate({
 		      inputRange: [0, 1],
-		      outputRange: [0, 0.3],
+		      outputRange: [0.1, 0.2],
 		      extrapolate: 'clamp',
 		    });
 		}
@@ -168,21 +157,19 @@ class PopLayer extends React.Component {
 	    			//没有其他显示的情况下 动画显示
 	    			type = "animatedshow";
 	    		}else{
-	    			type = "animatedshow";
+	    			type = "noanimatedshow";
 	    		}
-	    		this.preSelectedKey = key;
 	    	}else{
 	    		if(this.preSelectedKey===key&&!curConfig.key){
 	    			//config 设置为null 或者 为{} 的时候收起，将当前显示的项目动画隐藏
 	    			type = "animatedhide";
-	    			this.preSelectedKey = null;
 	    		}else{
 	    			type = "noanimatedhide";
 	    		}
 	    	}
-
-	    	children.push(<PopLayerItem key={key} animatetype={type}>{
-	    		this.itemDict[key].instance
+	    	var itemConfig = this.itemDict[key];
+	    	children.push(<PopLayerItem key={key} itemconfig={itemConfig.config} parent={this} animatetype={type}>{
+	    		itemConfig.instance
 	    	}</PopLayerItem>);
 
 	    }
@@ -208,9 +195,14 @@ class PopLayerItem extends React.Component{
 			openValue: new Animated.Value(0),
 		}
 		this.isShow = false;
-
+		this.pro(props);
 	}
+
 	componentWillReceiveProps(nextProps){
+		this.pro(nextProps);
+	}
+	pro(nextProps){
+
 		if(nextProps.animatetype==="animatedshow"){
 			if(this.isShow){
 				return;}
@@ -224,10 +216,13 @@ class PopLayerItem extends React.Component{
 		          easing:Easing.ease,
 		          restSpeedThreshold: 1
 		        }
-		      ).start()
+		      ).start(()=>{
+		      	nextProps.parent.preSelectedKey = nextProps.itemconfig.key;
+		      })
 		}else if(nextProps.animatetype==="animatedhide"){
 			if(!this.isShow){return;}
 		    this.isShow = false;
+		    
 			Animated.timing(
 		        this.state.openValue,
 		        {
@@ -237,24 +232,54 @@ class PopLayerItem extends React.Component{
 		          easing:Easing.ease,
 		          restSpeedThreshold: 1
 		        }
-		    ).start()
+		    ).start(()=>{
+		  	  nextProps.parent.preSelectedKey =null;
+		    })
 		}else if(nextProps.animatetype==="noanimatedshow"){
 			if(this.isShow){return;}
+				Animated.timing(
+		        this.state.openValue,
+		        {
+		          toValue: 1,
+		          duration:200,
+		          bounciness: 0, 
+		          easing:Easing.ease,
+		          restSpeedThreshold: 1
+		        }
+		      ).start(()=>{
+		      	nextProps.parent.preSelectedKey = nextProps.itemconfig.key;
+		      })
 			this.isShow = true;
 		}else if(nextProps.animatetype==="noanimatedhide"){
 			if(!this.isShow){return;}
-			this.isShow = false;
+		    this.isShow = false;
+		    
+			Animated.timing(
+		        this.state.openValue,
+		        {
+		          toValue: 0,
+		          duration:200,
+		          bounciness: 0, 
+		          easing:Easing.ease,
+		          restSpeedThreshold: 1
+		        }
+		    ).start(()=>{
+		  	  nextProps.parent.preSelectedKey =null;
+		    })
 		}
 	}
 
 	render(){
 		var children = this.props.children;
-		let popHeight = StyleSheet.px(400);
+
+		console.log( this.props.animatetype+" ?? "+ this.props.itemconfig.key)
+		let popHeight = StyleSheet._px(400);
 		if(children){
-			if(children.props.style&&children.props.style.height&&!isNaN(children.props.style.height)){
-				popHeight = children.props.style.height;
+			if(children.props.style&&children.props.style.height){
+				popHeight =parseFloat(children.props.style.height);
 			}
 		}
+		// console.log(this.props.animatetype+" "+this.props.itemconfig.key)
 		let drawerTranslateY = -popHeight;
 		if(this.props.animatetype==="animatedshow"||this.props.animatetype==="animatedhide"){
 			drawerTranslateY = this.state.openValue.interpolate({
