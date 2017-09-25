@@ -1,5 +1,6 @@
 import { StackNavigator,NavigationActions } from 'react-navigation';
-import React from 'react'
+import React from 'react';
+import { View } from 'react-native'
 
 
 function isTabRouteChange(pageArr,state){
@@ -83,13 +84,18 @@ export default (config)=>{
 	  return Re;
 	};
 
-
+	/*
+		todo global popPage 
+	*/
 	class App extends React.Component {
-
+		//<View style={{width:"100%",height:"100%",backgroundColor:"yellow",zIndex:222,position:"absolute",top:0,left:0}}></View>
 	  render() {
 		return (
-		  <AppNavigator 
-			  ref={nav => { this.navigator = nav; }} />
+			<View style={{flex:1}}>
+				 <AppNavigator 
+				 style={{zIndex:10}}
+				  ref={nav => { this.navigator = nav; }}/>
+			  </View>
 			);
 	   }
 	}

@@ -16,7 +16,7 @@ class PoplayerManager extends React.Component {
         <Button onPress={this.showOther.bind(this)}>Show</Button>
       </View>
     }else if(params.key==="other"){
-      return <View style={StyleSheet.create({height:400,width:"100%",backgroundColor:"orange"})}>
+      return <View style={StyleSheet.create({height:200,width:"100%",backgroundColor:"orange"})}>
         <Button>Hide</Button>
       </View>
     }
