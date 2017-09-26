@@ -9,7 +9,9 @@ var TouchableWithoutFeedback = require("./touchablewithoutfeedback").default;
 var Poplayer = require("./poplayer").default;
 var PageContainer = require("./pageContainer").default;
 var Run = require("../navigator").default;
+import Popover from './popover'
 import StyleSheet from './style'
+import UIManager from './uimanager'
 import {PageView,observer} from './pageview'
 
 import {observable} from 'mobx'
@@ -22,8 +24,10 @@ import {observable} from 'mobx'
 
 export {
 	Animated,
+	UIManager,
 	TouchableWithoutFeedback,
 	View,
+	Popover,
 	Button,
 	Poplayer,
 	Segment,

@@ -1,4 +1,4 @@
-import {View,Text,React,Button,StyleSheet,PageView,Animated,observer} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,UIManager} from "react-bricks"
 import Poplayer from './components/poplayer'
 import HomeStore from './store'
 
@@ -38,7 +38,10 @@ class HomeScreen extends React.Component {
   }
 
 
-  Nav(){
+  Nav(e){
+    UIManager.measure(e.currentTarget,function(x, y, width, height, left, top){
+      console.log(x+" "+y+" "+width+" "+height+" "+left+" "+top);
+    })
     this.props.homeStore.popLayerConfig = {key:"some",dirction:"top"}
      // Animated.timing(this.state.anim, {toValue: 300}).start();
     // this.props.navigation.navigate('chat/my', { user: 'Lucy'})

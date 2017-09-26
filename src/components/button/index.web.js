@@ -2,9 +2,9 @@ import React from 'react';
 
 class Button extends React.Component {
 
-  onClick(){
+  onClick(e){
   	if(this.props.onPress){
-  		this.props.onPress();
+  		this.props.onPress(e);
   	}
   }	
   render() {
