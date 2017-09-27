@@ -1,6 +1,7 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,UIManager} from "react-bricks"
 import Poplayer from './components/poplayer'
 import HomeStore from './store'
+import HomePopover from './components/homePopover'
 
 
 var Styles = StyleSheet.create({
@@ -42,9 +43,10 @@ class HomeScreen extends React.Component {
     UIManager.measure(e.currentTarget,function(x, y, width, height, left, top){
       console.log(x+" "+y+" "+width+" "+height+" "+left+" "+top);
     })
-    this.props.homeStore.popLayerConfig = {key:"some",dirction:"top"}
+    //this.props.homeStore.popLayerConfig = {key:"some",dirction:"top"}
      // Animated.timing(this.state.anim, {toValue: 300}).start();
     // this.props.navigation.navigate('chat/my', { user: 'Lucy'})
+    this.props.homeStore.popoverConfig = {target:e.currentTarget,dirction:"top"}
   }
   render() {
     var exS = {backgroundColor:"#fff"};
@@ -54,6 +56,7 @@ class HomeScreen extends React.Component {
           style={{position:"relative",
           transform: [{translateX: this.state.anim}],width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>
         </Animated.View>
+        <HomePopover homeStore={this.props.homeStore}/>
         <Poplayer homeStore={this.props.homeStore}/>
         <Button onPress={this.Nav.bind(this)}>Go</Button>
         <Text>asdas</Text>
