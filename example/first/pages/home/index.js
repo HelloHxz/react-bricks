@@ -40,6 +40,7 @@ class HomeScreen extends React.Component {
 
 
   Nav(e){
+    console.log(e);
     UIManager.measure(e.currentTarget,function(x, y, width, height, left, top){
       console.log(x+" "+y+" "+width+" "+height+" "+left+" "+top);
     })

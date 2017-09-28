@@ -10,8 +10,10 @@ var Poplayer = require("./poplayer").default;
 var PageContainer = require("./pageContainer").default;
 var Run = require("../navigator").default;
 import Popover from './popover'
-import StyleSheet from './style'
+import StyleSheet from './style';
+import PlatForm from './platform';
 import UIManager from './uimanager'
+import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
 
 import {observable} from 'mobx'
@@ -23,10 +25,12 @@ import {observable} from 'mobx'
 */
 
 export {
+	ActivityIndicator,
 	Animated,
 	UIManager,
 	TouchableWithoutFeedback,
 	View,
+	PlatForm,
 	Popover,
 	Button,
 	Poplayer,
