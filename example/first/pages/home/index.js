@@ -40,13 +40,18 @@ class HomeScreen extends React.Component {
 
 
   Nav(e){
-    UIManager.measure(e.currentTarget,function(x, y, width, height, left, top){
+    UIManager.measure(e.currentTarget,(x, y, width, height, left, top)=>{
       console.log(x+" "+y+" "+width+" "+height+" "+left+" "+top);
+       this.props.homeStore.popoverConfig = {rect:{
+        x:x,
+        y:y,
+        width:width,
+        height:height
+       },dirction:"top"}
     })
     //this.props.homeStore.popLayerConfig = {key:"some",dirction:"top"}
      // Animated.timing(this.state.anim, {toValue: 300}).start();
     // this.props.navigation.navigate('chat/my', { user: 'Lucy'})
-    this.props.homeStore.popoverConfig = {target:e.currentTarget,dirction:"top"}
   }
   render() {
     var exS = {backgroundColor:"#fff"};
