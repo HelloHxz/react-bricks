@@ -4,7 +4,8 @@ import Text from '../text'
 import View from '../view'
 import Animated from '../animated'
 import TouchableWithoutFeedback from '../touchablewithoutfeedback'
-import StyleSheet from '../style'
+import StyleSheet from '../style';
+import UIManager from '../uimanager'
 
 
 var styles = StyleSheet.create({
@@ -44,7 +45,7 @@ class Popover extends React.Component{
 		super(props);
 		this.state = {
 			rect:null,//{x y width height}
-			isShowVisiblity:false,
+			isShowVisiblity:null,
 			openValue:new Animated.Value(0),
 			isShow:false,
 			direction:"top" // top right bottom left auto
@@ -98,7 +99,20 @@ class Popover extends React.Component{
 	bkPress(){
 		this.props.onBackLayerClick&&this.props.onBackLayerClick();
 	}
-
+	renderChild(openValue){
+		if(this.state.isShowVisiblity===false){
+			var op = openValue.interpolate({
+		      inputRange: [0,.4],
+		      outputRange: [0.8, 1],
+		      extrapolate: 'clamp',
+		    });
+			return (<Animated.View
+				style={{...StyleSheet.create({zIndex:100,position:"absolute",top:20,left:30}),...{opacity:op}}}>
+					<View style={StyleSheet.create({width:200,height:203,backgroundColor:"#fff"})}/>
+				</Animated.View>)
+		}
+		return null;
+	}
 	render(){
 		const {
 		  openValue
@@ -108,7 +122,7 @@ class Popover extends React.Component{
 		}else{
 			overlayOpacity = openValue.interpolate({
 		      inputRange: [0, 1],
-		      outputRange: [0.1, 0.4],
+		      outputRange: [0, 0.1],
 		      extrapolate: 'clamp',
 		    });
 		}
@@ -118,7 +132,14 @@ class Popover extends React.Component{
 				<TouchableWithoutFeedback onPress={this.bkPress.bind(this)}>
 					<Animated.View style={{...styles.bkLayer,...animatedOverlayStyles}}></Animated.View>
 				</TouchableWithoutFeedback>
+					{this.renderChild(openValue)}
 			</View>);
+	}
+}
+
+class PopoverItem extends React.Component{
+	render(){
+		return <View></View>;
 	}
 }
 

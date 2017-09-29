@@ -34,7 +34,7 @@ class View extends React.Component {
   	if(this.props.xzIsAnimate){
   		style = convertTransform(style);
   	}
-  	var className= 'xz-displayflex';
+  	var className= '';
     return (<div className={className} style={style}>{this.props.children}</div>);
   }
 }

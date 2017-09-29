@@ -54,7 +54,11 @@ export default {
 					}
 				}
 				//todo ....特殊处理 border transform
-				re[key] = pxFun(item);
+				if(key==="zIndex"){
+					re[key] = (item);
+				}else{
+					re[key] = pxFun(item);
+				}
 			}else{
 				if(isJson(item)){
 					re[key] = this.create(item,OS,isWeb,pxFun);
