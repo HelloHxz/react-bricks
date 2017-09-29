@@ -103,7 +103,7 @@ class Popover extends React.Component{
 		if(this.state.isShowVisiblity===false){
 			var op = openValue.interpolate({
 		      inputRange: [0,.4],
-		      outputRange: [0.8, 1],
+		      outputRange: [0.5, 1],
 		      extrapolate: 'clamp',
 		    });
 			return (<Animated.View
@@ -122,11 +122,11 @@ class Popover extends React.Component{
 		}else{
 			overlayOpacity = openValue.interpolate({
 		      inputRange: [0, 1],
-		      outputRange: [0, 0.1],
+		      outputRange: [0, 0.2],
 		      extrapolate: 'clamp',
 		    });
 		}
-	    const animatedOverlayStyles = { opacity: overlayOpacity };
+	    const animatedOverlayStyles = { opacity: .08 };
 		const wrapperStyle = this.state.isShow?styles.wrapper_show:styles.wrapper_hide;
 		return (<View style={{...styles.wrapper,...wrapperStyle}}>
 				<TouchableWithoutFeedback onPress={this.bkPress.bind(this)}>
