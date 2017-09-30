@@ -35,7 +35,7 @@ class View extends React.Component {
   		style = convertTransform(style);
   	}
   	var className= '';
-    return (<div className={className} style={style}>{this.props.children}</div>);
+    return (<div ref={(node)=>{this.node = node;}} className={className} style={style}>{this.props.children}</div>);
   }
 }
 

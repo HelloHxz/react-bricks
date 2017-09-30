@@ -9,6 +9,9 @@ export default {
 	},
 	measureRef:function(target,cb){
 		if(target){
+			if(target.getNode){
+				target = target.getNode();
+			}
 			target.measure((x,y,width,height)=>{
 				cb(x,y,width,height);
 			})

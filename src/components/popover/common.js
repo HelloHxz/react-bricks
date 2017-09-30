@@ -30,11 +30,11 @@ var styles = StyleSheet.create({
 		position:"absolute",
 		top:0,
 		left:0,
+		opacity:.03,
 		right:0,
 		bottom:0,
 		backgroundColor:"#000",
 		overflow:"hidden",
-		opacity:0.5,
 		zIndex:1,
 	}
 })
@@ -45,8 +45,6 @@ class Popover extends React.Component{
 		super(props);
 		this.state = {
 			rect:null,//{x y width height}
-			isShowVisiblity:null,
-			openValue:new Animated.Value(0),
 			isShow:false,
 			direction:"top" // top right bottom left auto
 		}
@@ -61,37 +59,14 @@ class Popover extends React.Component{
 			if(this.state.isShow){
 			
 			}else{
-				this.setState({isShowVisiblity:true,isShow:true},function(){
-					setTimeout(()=>{
-						this.setState({isShowVisiblity:false});
-						Animated.timing(
-					        this.state.openValue,
-					        {
-					          toValue: 1,
-					          duration:300,
-					          bounciness: 0, 
-					          easing:Easing.ease,
-					          restSpeedThreshold: 1
-					        }
-					      ).start(
-					      	
-					      )
-					},20)
+				this.setState({isShow:true,rect:config.rect},function(){
 				});
 			}
 		}else{
-			Animated.timing(
-		        this.state.openValue,
-		        {
-		          toValue: 0,
-		          duration:300,
-		          bounciness: 0, 
-		          easing:Easing.ease,
-		          restSpeedThreshold: 1
-		        }
-			).start(()=>{
-			  	this.setState({isShow:false,isShowVisiblity:false});
-			})
+			this.setState({rect:null});
+			setTimeout(()=>{
+			  	this.setState({isShow:false});
+			  },350)
 		}
 
 	}
@@ -100,37 +75,17 @@ class Popover extends React.Component{
 		this.props.onBackLayerClick&&this.props.onBackLayerClick();
 	}
 	renderChild(openValue){
-		if(this.state.isShowVisiblity===false){
-			var op = openValue.interpolate({
-		      inputRange: [0,.4],
-		      outputRange: [0.5, 1],
-		      extrapolate: 'clamp',
-		    });
-			return (<Animated.View
-				style={{...StyleSheet.create({zIndex:100,position:"absolute",top:20,left:30}),...{opacity:op}}}>
-					<View style={StyleSheet.create({width:200,height:203,backgroundColor:"#fff"})}/>
-				</Animated.View>)
-		}
-		return null;
+		const isShow = !!this.state.rect;
+		return <PopoverItem isShow={isShow}/>
 	}
 	render(){
 		const {
 		  openValue
 		} = this.state;
-		let overlayOpacity = 0;
-		if(this.state.isShowVisiblity){
-		}else{
-			overlayOpacity = openValue.interpolate({
-		      inputRange: [0, 1],
-		      outputRange: [0, 0.2],
-		      extrapolate: 'clamp',
-		    });
-		}
-	    const animatedOverlayStyles = { opacity: .08 };
 		const wrapperStyle = this.state.isShow?styles.wrapper_show:styles.wrapper_hide;
 		return (<View style={{...styles.wrapper,...wrapperStyle}}>
 				<TouchableWithoutFeedback onPress={this.bkPress.bind(this)}>
-					<Animated.View style={{...styles.bkLayer,...animatedOverlayStyles}}></Animated.View>
+					<Animated.View style={styles.bkLayer}></Animated.View>
 				</TouchableWithoutFeedback>
 					{this.renderChild(openValue)}
 			</View>);
@@ -138,8 +93,50 @@ class Popover extends React.Component{
 }
 
 class PopoverItem extends React.Component{
+	constructor(props){
+		super(props);
+		this.state = {
+			openValue:new Animated.Value(0),
+		}
+
+		this.process(props);
+	}
+	componentWillReceiveProps(nextProps){
+		this.process(nextProps);
+	}
+	process(props){
+		Animated.timing(
+	        this.state.openValue,
+	        {
+	          toValue: props.isShow?1:0,
+	          duration:220,
+	          bounciness: 0, 
+	          easing:Easing.ease,
+	          restSpeedThreshold: 1
+	        }
+	      ).start(
+	      	
+	      )
+			
+	}
 	render(){
-		return <View></View>;
+		var {openValue} = this.state;
+		var op = openValue.interpolate({
+		      inputRange: [0,1],
+		      outputRange: [0, 1],
+		      extrapolate: 'clamp',
+		    });
+
+		return <Animated.View
+				ref={(instance)=>{
+					if(instance){
+						UIManager.measureRef(instance,(x)=>{
+						});
+					}
+				}}
+				style={{...StyleSheet.create({zIndex:100,position:"absolute",top:20,left:30}),...{opacity:op}}}>
+					<View style={StyleSheet.create({width:250,height:403,borderRadius:10,backgroundColor:"#fff"})}/>
+				</Animated.View>;
 	}
 }
 

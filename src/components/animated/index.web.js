@@ -8,7 +8,7 @@ import React from 'react';
 class AnimatedView extends React.Component {
 	//配合animate 处理单位
   render() {
-    return (<View {...this.props} xzIsAnimate={true}></View>);
+    return (<View ref={(node)=>{this.node = node;}} {...this.props} xzIsAnimate={true}></View>);
   }
 }
 
