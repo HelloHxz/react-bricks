@@ -11,7 +11,9 @@ class PopoverManager extends React.Component {
 
 
   renderItem(){
-    return <View style={StyleSheet.create({width:250,height:403,borderRadius:10,backgroundColor:"#fff"})}/>;
+    return <View style={StyleSheet.create({width:250,borderRadius:10,height:300,backgroundColor:"#fff"})}>
+    
+    </View>;
   }
 
   render() {

@@ -30,7 +30,7 @@ var styles = StyleSheet.create({
 		position:"absolute",
 		top:0,
 		left:0,
-		opacity:.03,
+		opacity:.05,
 		right:0,
 		bottom:0,
 		backgroundColor:"#000",
@@ -56,6 +56,7 @@ class Popover extends React.Component{
 	componentWillReceiveProps(nextProps){
 		var config = nextProps.config || {};
 		if(config.rect){
+			this.targetRect = config.rect;
 			if(this.state.isShow){
 			
 			}else{
@@ -66,7 +67,7 @@ class Popover extends React.Component{
 			this.setState({rect:null});
 			setTimeout(()=>{
 			  	this.setState({isShow:false});
-			  },350)
+			  },310)
 		}
 
 	}
@@ -97,23 +98,37 @@ class PopoverItem extends React.Component{
 		super(props);
 		this.state = {
 			openValue:new Animated.Value(0),
+			pos:{left:0,top:0}
 		}
-
+		this.isInit = true;
 		this.process(props);
 	}
 	componentWillReceiveProps(nextProps){
 		this.process(nextProps);
 	}
+
+	caculatePosition(targetRect,popWidth,popHeight){
+		this.setState({
+			pos:{left:20,top:120}
+		});
+	}
+
 	process(props){
+		const targetRect = this.props.parent.targetRect;
+
 		if(!this.instance){
 			return;
 		}
-		UIManager.measureRef(this.instance,(x,y,width,height)=>{
+		setTimeout(()=>{
+			UIManager.measureRef(this.instance,(x,y,width,height)=>{
+			console.log(targetRect.x,targetRect.y,targetRect.width,targetRect.height);
+			console.log(x,y,width,height);
+			this.caculatePosition(targetRect,width,height);
 			Animated.timing(
 		        this.state.openValue,
 		        {
 		          toValue: props.isShow?1:0,
-		          duration:220,
+		          duration:180,
 		          bounciness: 0, 
 		          easing:Easing.ease,
 		          restSpeedThreshold: 1
@@ -121,7 +136,21 @@ class PopoverItem extends React.Component{
 		      ).start(
 		      	
 		      )
-		});
+			});
+		},20)
+	}
+
+	renderItem(){
+		if(this.isInit){
+			this.isInit = false;
+			return null;
+		}
+		if(!this.child){
+			this.child = this.props.parent.props.renderItem();
+		}
+		return this.child;
+
+
 	}
 //	<View style={StyleSheet.create({width:250,height:403,borderRadius:10,backgroundColor:"#fff"})}/>
 	render(){
@@ -131,13 +160,12 @@ class PopoverItem extends React.Component{
 		      outputRange: [0, 1],
 		      extrapolate: 'clamp',
 		    });
-		var child = this.props.parent.props.renderItem();
 		return <Animated.View
 				ref={(instance)=>{
 					this.instance = instance;
 				}}
-				style={{...StyleSheet.create({zIndex:100,position:"absolute",top:20,left:30}),...{opacity:op}}}>
-					{child}
+				style={{...StyleSheet.create({zIndex:100,position:"absolute",top:this.state.pos.top,left:this.state.pos.left}),...{opacity:op}}}>
+					{this.renderItem()}
 				</Animated.View>;
 	}
 }

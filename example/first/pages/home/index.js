@@ -41,7 +41,6 @@ class HomeScreen extends React.Component {
 
   Nav(e){
     UIManager.measure(e.currentTarget,(x, y, width, height, left, top)=>{
-      console.log(x+" "+y+" "+width+" "+height+" "+left+" "+top);
        this.props.homeStore.popoverConfig = {rect:{
         x:x,
         y:y,

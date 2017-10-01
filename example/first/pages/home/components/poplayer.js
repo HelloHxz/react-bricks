@@ -9,8 +9,6 @@ class PoplayerManager extends React.Component {
     this.props.homeStore.popLayerConfig = {key:"other",dirction:"top"};
   }
   poplayerRenderItem(params){
-      console.log("init "+params.key);
-
     if(params.key==="some"){
       return <View style={StyleSheet.create({height:300,width:"100%",backgroundColor:"red"})}>
         <Button onPress={this.showOther.bind(this)}>Show</Button>
