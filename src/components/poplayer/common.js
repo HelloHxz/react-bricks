@@ -64,8 +64,8 @@ class PopLayer extends React.Component {
 			isShow:false,
 			renderSeed:0
 		}
-		if(!props.onRenderItem){
-			console.error("poplayer组件需要 onRenderItem 属性");
+		if(!props.renderItem){
+			console.error("poplayer组件需要 renderItem 属性");
 		}
 		this.preSelectedKey = "";
 		/*
@@ -84,7 +84,7 @@ class PopLayer extends React.Component {
 		if(config.key){
 			if(!this.itemDict[config.key]||config.cache === false){
 				this.itemDict[config.key] = {
-					instance:this.props.onRenderItem(config),
+					instance:this.props.renderItem(config),
 					config:config
 				}
 			}

@@ -35,7 +35,7 @@ class PoplayerManager extends React.Component {
       onBackLayerClick={
         this.onBackLayerClick.bind(this)
       }
-      onRenderItem={
+      renderItem={
           this.poplayerRenderItem.bind(this)
         }  config={this.props.homeStore.popLayerConfig}/>
     );

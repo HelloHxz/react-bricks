@@ -9,9 +9,15 @@ class PopoverManager extends React.Component {
      this.props.homeStore.popoverConfig = null;
   }
 
+
+  renderItem(){
+    return <View style={StyleSheet.create({width:250,height:403,borderRadius:10,backgroundColor:"#fff"})}/>;
+  }
+
   render() {
     return (
       <Popover 
+      renderItem={this.renderItem.bind(this)}
       onBackLayerClick={
         this.onBackLayerClick.bind(this)
       }

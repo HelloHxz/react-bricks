@@ -76,7 +76,7 @@ class Popover extends React.Component{
 	}
 	renderChild(openValue){
 		const isShow = !!this.state.rect;
-		return <PopoverItem isShow={isShow}/>
+		return <PopoverItem parent={this} isShow={isShow}/>
 	}
 	render(){
 		const {
@@ -105,20 +105,25 @@ class PopoverItem extends React.Component{
 		this.process(nextProps);
 	}
 	process(props){
-		Animated.timing(
-	        this.state.openValue,
-	        {
-	          toValue: props.isShow?1:0,
-	          duration:220,
-	          bounciness: 0, 
-	          easing:Easing.ease,
-	          restSpeedThreshold: 1
-	        }
-	      ).start(
-	      	
-	      )
-			
+		if(!this.instance){
+			return;
+		}
+		UIManager.measureRef(this.instance,(x,y,width,height)=>{
+			Animated.timing(
+		        this.state.openValue,
+		        {
+		          toValue: props.isShow?1:0,
+		          duration:220,
+		          bounciness: 0, 
+		          easing:Easing.ease,
+		          restSpeedThreshold: 1
+		        }
+		      ).start(
+		      	
+		      )
+		});
 	}
+//	<View style={StyleSheet.create({width:250,height:403,borderRadius:10,backgroundColor:"#fff"})}/>
 	render(){
 		var {openValue} = this.state;
 		var op = openValue.interpolate({
@@ -126,16 +131,13 @@ class PopoverItem extends React.Component{
 		      outputRange: [0, 1],
 		      extrapolate: 'clamp',
 		    });
-
+		var child = this.props.parent.props.renderItem();
 		return <Animated.View
 				ref={(instance)=>{
-					if(instance){
-						UIManager.measureRef(instance,(x)=>{
-						});
-					}
+					this.instance = instance;
 				}}
 				style={{...StyleSheet.create({zIndex:100,position:"absolute",top:20,left:30}),...{opacity:op}}}>
-					<View style={StyleSheet.create({width:250,height:403,borderRadius:10,backgroundColor:"#fff"})}/>
+					{child}
 				</Animated.View>;
 	}
 }
