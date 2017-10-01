@@ -1,25 +1,52 @@
 import React from 'react';
 import SvgUri from './react-native-svg-uri/index';
-import StyleSheet from '../style'
+import StyleSheet from '../style';
+const Theme =require("../theme").default;
 
 export default class Icon extends React.Component {
+  
+  getStyle(props){
+  	var style =Object.assign({}, props.style||{});
+  	var Re = {
+  		width:StyleSheet.px(Theme.icon_default.width),
+  		color:Theme.icon_color,
+  		style:{}
+  	};
+  	if(style.width){
+  		Re.width = style.width;
+  	}else{
+  		var size = props.size||"default";
+  		if(["lg","sm"].indexOf(size)<0){
+  			size = "default";
+  		}
+  		Re.width = StyleSheet.px(Theme["icon_"+size].width);
+  	}
+  	if(style.color){
+  		Re.color = style.color;
+  	}else{
+  		Re.color = Theme.icon_color;
+  	}
+
+  	delete style.width;
+  	delete style.color;
+  	Re.style = style;
+  	return Re;
+
+  }
   render() {
-    const {
-      style,
-    } = this.props;
-    const { width, height, color, ...restStyle } = style;
 
     if (!this.props.icon) {
       return null;
     }
+    var StyleConfig = this.getStyle(this.props);
 
     return (
       <SvgUri
-        style={{ ...restStyle }}
-        width={width || StyleSheet._px(64)}
-        height={height || StyleSheet._px(64)}
+      	style={StyleConfig.style}
+        width={StyleConfig.width}
+        height={StyleConfig.width}
         svgXmlData={this.props.icon}
-        fill={color}
+        fill={StyleConfig.color}
       />
     );
   }

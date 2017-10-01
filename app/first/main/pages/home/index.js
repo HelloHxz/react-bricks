@@ -57,8 +57,9 @@ class HomeScreen extends React.Component {
     var exS = {backgroundColor:"#fff"};
     return (
       <View style={{flex:1}}>
-        <Icon icon={svgs.saoyisao} style={{color:"#aaa"}}/>
-        <Icon icon={svgs.search} style={{color:"#aaa"}}/>
+        <Icon icon={svgs.saoyisao} size='lg'/>
+        <Icon icon={svgs.search}/>
+        <Icon icon={svgs.home} size='sm'/>
          <Animated.View
           style={{position:"relative",
           transform: [{translateX: this.state.anim}],width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>
