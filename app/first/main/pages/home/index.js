@@ -1,9 +1,10 @@
-import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,UIManager} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,UIManager,Icon} from "react-bricks"
 import Poplayer from './components/poplayer'
 import HomeStore from './store'
 import HomePopover from './components/homePopover'
+import svgs from '../../assets/svg/svgs.js'
 
-
+console.log(svgs);
 var Styles = StyleSheet.create({
   testStyle:{
     width:StyleSheet.baseScreen.width/3,
@@ -56,6 +57,7 @@ class HomeScreen extends React.Component {
     var exS = {backgroundColor:"#fff"};
     return (
       <View style={{flex:1}}>
+        <Icon icon={svgs.search}/>
          <Animated.View
           style={{position:"relative",
           transform: [{translateX: this.state.anim}],width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>

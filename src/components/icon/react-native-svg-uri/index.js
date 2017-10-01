@@ -1,10 +1,3 @@
-
-/**
- * Created on 2017/5/16.
- * @author LynnLin
- *
- */
-
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import xmldom from 'xmldom';

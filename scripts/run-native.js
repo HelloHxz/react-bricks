@@ -4,34 +4,38 @@ var runNative = require('../node_modules/react-native/local-cli/cli.js');
 
 var node_env = process.env.NODE_ENV||"development";
 var br = /^win/.test(process.platform) ? "\r\n" : "\r";
-fs.readFile("./appconfig.json",'utf-8',function(err,data){  
-    if(err){  
-        console.error("项目根目录下缺少appconfig.json文件");
-    }else{  
-        var context = null;
-        try{
-          context = JSON.parse(data);
-        }catch(e){
-          console.log(e);
-          console.error("项目根目录下appconfig.json文件配置错误，需要为JSON格式，或者key值需要使用引号，请参照相应文档");
-        }
-        writeNativeEvn(context);
-    }  
-});
+const appPath = path.resolve(__dirname, '../app');
 
-function writeNativeEvn(context){
-  var config = context[node_env];
-  if(!config){
-    console.error("项目根目录下appconfig.json文件配置错误，没有相应的"+node_env+"配置");
-    return;
-  }
 
-  var strArr = [];
-  for(var key in config){
-    strArr.push(key+"="+config[key]);
-  }
 
-  fs.writeFile("./.env", strArr.join(br), function(err) {
+
+start();
+
+function start(){
+ // runNative.run();
+
+ startWirteSvgFile(function(){
+
+ });
+
+ runNative.run();
+
+    // startWirteSvgFile(function(){
+    //   runNative.run();
+    // });
+  // startWriteThemeFile(function(){
+  //   startWirteSvgFile(function(){
+  //     startWriteConfig();
+  //   });
+  // });
+}
+
+
+/*仅仅写入运行变量就可以 具体的配置自己项目根据变量读取就可以
+以后动态扩展应用 只需要传递运行变量就可以*/
+function startWriteConfig(){
+  var str = "evn="+node_env;
+  fs.writeFile("./.env", str, function(err) {
     if(err) {
       console.error("save .evn file faild!");
       return console.log(err);
@@ -40,5 +44,78 @@ function writeNativeEvn(context){
       runNative.run();
     }
   });
-  
 }
+
+
+/* 
+  遍历app 目录 遍历项目 然后遍历项目模块
+  每个模块目录下的assets/svg 目录 确定有的话开始读取
+  然后写入到assets 到svgs.js 文件
+*/
+function startWirteSvgFile(successCallBack){
+  // 生成js文件
+  console.log("start create svg file!");
+
+  ReadDir(appPath,function(error,dirName){
+    if(!error){
+      var DirPath = appPath+"/"+dirName;
+      ReadDir(DirPath,function(err,modulesName){
+        if(!err){
+          var svgDir = DirPath+"/"+modulesName+"/assets/svg";
+          writeSvgFile(svgDir);
+        }
+      })
+    }
+  });
+
+  console.log("end");
+
+  // readSvgs().then((data)=>{
+  //   const svgFile = 'export default ' + JSON.stringify(Object.assign.apply(this, data));
+
+  // }).catch((err) => {
+  //   console.error(err);
+  //   console.error("svg创建失败!");
+  // });
+}
+
+function exists(_path){  
+     return fs.existsSync(_path);  
+}  
+
+function writeSvgFile(dirpath){
+  if(fs.existsSync(dirpath)){
+    var Re = {};
+    var files = fs.readdirSync(dirpath);
+    files.forEach(function(filename) {
+      var fnArr = filename.split(".");
+      if(fnArr.length===2&&fnArr[1]==="svg"){
+         var data = fs.readFileSync(dirpath+"/"+filename,'utf-8');
+         data = data.replace(/<\?xml.*?\?>|<!--.*?-->|<path fill='#[a-zA-Z0-9]'|<!DOCTYPE.*?>/g, '');
+         data = data.replace(/<path fill="#[a-zA-Z0-9]+"|<path/g, '<path fill="#ef473a"');
+         data = data.replace(/\sclass="[\w|\-|\_]*"/g,'');
+         data = data.replace(/\sstyle="[\w|\-|\_]*"/g,'');
+         Re[fnArr[0]] = data;
+      }
+    });
+    fs.writeFileSync(dirpath+"/svgs.js", "export default " + JSON.stringify(Re));
+  }
+}
+
+
+function ReadDir(dirpath,cb){
+  var files = fs.readdirSync(dirpath);
+  files.forEach(function(file) {
+    var dp = dirpath+"/"+file;
+    try{
+      if(fs.lstatSync(dp).isDirectory()){
+        cb(false,file);
+      }
+    }catch(e){
+      console.log(e);
+      cb(true,false);
+    }
+   }
+  )
+}
+

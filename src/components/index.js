@@ -13,6 +13,7 @@ import Popover from './popover'
 import StyleSheet from './style';
 import PlatForm from './platform';
 import UIManager from './uimanager'
+import Icon from './icon'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
 
@@ -28,6 +29,7 @@ export {
 	ActivityIndicator,
 	Animated,
 	UIManager,
+	Icon,
 	TouchableWithoutFeedback,
 	View,
 	PlatForm,
