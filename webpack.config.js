@@ -65,7 +65,7 @@ module.exports = function (env) {
     entry.dev_server= 'webpack/hot/only-dev-server';
   }
 return {
-  context: path.resolve(__dirname, 'example'),
+  context: path.resolve(__dirname, 'app'),
   entry:entry,
   output: {
     filename: '[name].entry.js',
