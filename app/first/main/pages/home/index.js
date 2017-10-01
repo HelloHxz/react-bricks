@@ -26,7 +26,8 @@ var Styles = StyleSheet.create({
 @PageView({rootStore:null,homeStore:HomeStore})
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Welcome',
+    // title: 'Welcome',
+    header:null
   };
 
   componentDidMount() {

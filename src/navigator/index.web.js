@@ -2,6 +2,8 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import "./web/index.less"
 import Navigation from './web'
+import ToastManager from '../components/toast'
+
 
 export default (config)=>{
 	for(var key in config.pages){
@@ -14,6 +16,7 @@ export default (config)=>{
 	}
 	ReactDOM.render(
 			<div className='xz-app-wrapper'>
+				<ToastManager/>
 				<Navigation config={config}/>
 			</div>,
 		document.getElementById('xz-lightapp-root'));

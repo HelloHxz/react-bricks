@@ -1,6 +1,7 @@
 import { StackNavigator,NavigationActions } from 'react-navigation';
 import React from 'react';
 import { View } from 'react-native'
+import ToastManager from '../components/toast'
 
 
 function isTabRouteChange(pageArr,state){
@@ -92,6 +93,7 @@ export default (config)=>{
 	  render() {
 		return (
 			<View style={{flex:1}}>
+				<ToastManager/>
 				 <AppNavigator 
 				 style={{zIndex:10}}
 				  ref={nav => { this.navigator = nav; }}/>

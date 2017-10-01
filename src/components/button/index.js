@@ -1,2 +1,2 @@
 import Button from './common';
-export default Button;
+export default Button; 
