@@ -14,6 +14,7 @@ import StyleSheet from './style';
 import PlatForm from './platform';
 import UIManager from './uimanager'
 import Icon from './icon'
+import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
 
@@ -30,6 +31,7 @@ export {
 	Animated,
 	UIManager,
 	Icon,
+	Image,
 	TouchableWithoutFeedback,
 	View,
 	PlatForm,

@@ -34,7 +34,7 @@ class ImageCom extends React.Component {
   loadImage(){
     var image = new Image();
     var _this = this;
-    var src = this.props.src||this.props.defaultSrc;
+    var src =  (typeof this.props.source === 'string' ? this.props.source : this.props.source.uri)||this.props.defaultSrc;
     image.onload = function(){
       _this.loadSuccess(image,src);
       _this.loadDone();
@@ -163,6 +163,7 @@ class ImageCom extends React.Component {
       classNameArr.push(this.props.className);
     }
     return (<div
+      style={this.props.style||{}}
       onClick={this.onClick.bind(this)}
       ref={(wrapper)=>{this.wrapper= wrapper;}}
      className={classNameArr.join(" ")}>{this.state.child}</div>);

@@ -1,4 +1,4 @@
-import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,UIManager,Icon} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,UIManager,Icon,Image} from "react-bricks"
 import Poplayer from './components/poplayer'
 import HomeStore from './store'
 import HomePopover from './components/homePopover'
@@ -20,6 +20,8 @@ var Styles = StyleSheet.create({
     }
   }
 });
+
+const imgurl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506942039759&di=c09b7da92055a60c4b1cc3f4aad27a61&imgtype=0&src=http%3A%2F%2Fpic7.nipic.com%2F20100504%2F2425919_150716548243_2.jpg";
 
 @observer
 @PageView({rootStore:null,homeStore:HomeStore})
@@ -73,6 +75,14 @@ class HomeScreen extends React.Component {
         <Text>asdas</Text>
         <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
         <View style={Styles.testStyle}></View>
+          <Image
+          style={StyleSheet.create({width:100,height:100})}
+          source={require('../../assets/imgs/1.jpeg')}
+        />
+        <Image
+           style={StyleSheet.create({width:200,height:200})}
+          source={{uri:imgurl}}
+        />
       </View>
     );
   }

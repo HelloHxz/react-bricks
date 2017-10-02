@@ -75,7 +75,7 @@ class ToastItem extends React.Component{
 	        this.state.openValue,
 	        {
 	          toValue: 1,
-	          duration:300,
+	          duration:200,
 	          bounciness: 0, 
 	           easing: Easing.linear,
 	          restSpeedThreshold: 1
@@ -90,13 +90,12 @@ class ToastItem extends React.Component{
 	   
 	}
 
-
 	hide(){
 		Animated.timing(
 	        this.state.openValue,
 	        {
 	          toValue: 0,
-	          duration:500,
+	          duration:300,
 	          bounciness: 0, 
 	          easing: Easing.linear,
 	          restSpeedThreshold: 1
@@ -120,7 +119,8 @@ class ToastItem extends React.Component{
 				<Animated.View style={StyleSheet.create({position:"absolute",top:0,transform:[{translateY:y}],
 					left:'50%'})}>
 					<View style={StyleSheet.create({
-					width:200,maxHeight:maxHeight,minHeight:80,display:"flex",justifyContent:"center",alignItems:"center",transform:[{translate:["-50%",0,0]}],
+						paddingLeft:20,paddingRight:20,
+					maxWidth:StyleSheet.screen.width-40,maxHeight:maxHeight,minHeight:70,display:"flex",justifyContent:"center",alignItems:"center",transform:[{translate:["-50%",0,0]}],
 					backgroundColor:"#000",opacity:.8,borderRadius:10})}>
 						<Text style={{color:"white"}}>{this.props.config.text||""}</Text>
 					</View>
