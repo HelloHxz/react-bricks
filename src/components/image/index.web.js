@@ -2,16 +2,16 @@ import React from "react"
 import "./index.less"
 
 /*
-  @@backgroundSize 
+  @@resizeMode 
   contain 长宽中大者设为100% default
   cover 长宽者小者设为100%
-  scale 展示全图
+  stretch 展示全图
   orgin 展示原图
 
   @@src
 
   @@defaultSrc 
-  @@defaultbackgroundSize
+  @@resizeMode
 
   @@scrollkey @@pageview 必须将所在页面的页面实例也传过来配合使用
   1. 有scrollkey的时候 先判断是否在可视区，在直接加载图片 失败后显示默认
@@ -80,15 +80,15 @@ class ImageCom extends React.Component {
 
   loadSuccess(image,src){
     var style = {};
-    if(this.backgroundSize==="orgin"){
+    if(this.resizeMode==="orgin"){
 
-    }else if(this.backgroundSize==="cover"){
+    }else if(this.resizeMode==="cover"){
      if(image.width>image.height){
         style.height = "100%";
       }else{
         style.width = "100%";
       }
-    }else if(this.backgroundSize==="scale"){
+    }else if(this.resizeMode==="stretch"){
 
     }else{
       //contain
@@ -136,7 +136,7 @@ class ImageCom extends React.Component {
   init(props){
     
 
-    this.backgroundSize = this.props.backgroundSize||"contain";
+    this.resizeMode = this.props.resizeMode||"cover";
     if(props.scrollKey){
 
     }else{

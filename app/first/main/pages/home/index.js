@@ -1,8 +1,19 @@
-import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,UIManager,Icon,Image} from "react-bricks"
+import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
+  UIManager,Icon,Image,Swiper} from "react-bricks"
 import Poplayer from './components/poplayer'
 import HomeStore from './store'
 import HomePopover from './components/homePopover'
-import svgs from '../../assets/svg/svgs.js'
+import svgs from '../../assets/svg/svgs.js';
+
+var siwperData = [
+ {src:require('../../assets/imgs/2.jpg'),title:"xxx"},
+ {
+   src:require('../../assets/imgs/4.jpg'),title:"xxx",
+  },
+  {src:require('../../assets/imgs/3.jpg'),title:"xxx"},
+  {src:require('../../assets/imgs/1.jpg'),title:"xxx"}
+];
+
 
 var Styles = StyleSheet.create({
   testStyle:{
@@ -41,6 +52,15 @@ class HomeScreen extends React.Component {
     }
   }
 
+  renderSwiperItem(params){
+    return ( <Image
+          resizeMode='contain'
+          style={{width:"100%",height:"100%"}}
+          source={params.data.src}
+        />);
+  }
+
+
 
   Nav(e){
     Toast.show({
@@ -62,6 +82,7 @@ class HomeScreen extends React.Component {
     var exS = {backgroundColor:"#fff"};
     return (
       <View style={{flex:1}}>
+
         <Icon icon={svgs.saoyisao} size='lg'/>
         <Icon icon={svgs.search}/>
         <Icon icon={svgs.home} size='sm'/>
@@ -80,9 +101,19 @@ class HomeScreen extends React.Component {
           source={require('../../assets/imgs/1.jpeg')}
         />
         <Image
+          resizeMode='contain'
            style={StyleSheet.create({width:200,height:200})}
           source={{uri:imgurl}}
         />
+         <Swiper ref={(instance)=>{this.topswiper = instance;}} 
+            style={StyleSheet.create({height:350})}
+            lazyrender={false} 
+            loop={true} 
+            interval={3000} 
+            cache={false} 
+            datasource={siwperData} 
+            renderItem = {this.renderSwiperItem.bind(this)}>
+          </Swiper>
       </View>
     );
   }

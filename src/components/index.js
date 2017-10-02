@@ -17,7 +17,7 @@ import Icon from './icon'
 import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
-
+import Swiper from './swiper';
 import {observable} from 'mobx'
 
 
@@ -28,6 +28,7 @@ import {observable} from 'mobx'
 
 export {
 	ActivityIndicator,
+	Swiper,
 	Animated,
 	UIManager,
 	Icon,

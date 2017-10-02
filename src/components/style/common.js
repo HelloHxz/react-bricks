@@ -62,14 +62,25 @@ export default {
 				}
 			}else if(key==='transform'){
 				if(isWeb){
-					// var tstr = this.convertTransformInWeb(re,item);
-					// if(tstr){
-					// 	re[key] = tstr;
-					// }else{
-					// 	// re[key] = (item);
-					// }
 					re[key] = (item);
 				}else{
+					for(var i=0,j=item.length;i<j;i++){
+						var sitem = item[i];
+						for(var skey in sitem){
+							var val = sitem[skey];
+							if(skey==="translate"&& val instanceof Array){
+								for(var n=0,m=val.length;n<m;n++){
+									var xyz = val[n];
+									if(typeof xyz==="string"){
+										var xyz_arr = xyz.split("%");
+										if(xyz_arr.length===2){
+											 val[n] = parseFloat(xyz_arr[0])/2+"%"
+										}
+									}
+								}
+							}
+						}
+					}
 					re[key] = (item);
 				}
 			}else{

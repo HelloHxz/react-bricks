@@ -120,7 +120,9 @@ class ToastItem extends React.Component{
 					left:'50%'})}>
 					<View style={StyleSheet.create({
 						paddingLeft:20,paddingRight:20,
-					maxWidth:StyleSheet.screen.width-40,maxHeight:maxHeight,minHeight:70,display:"flex",justifyContent:"center",alignItems:"center",transform:[{translate:["-50%",0,0]}],
+					maxWidth:StyleSheet.screen.width-40,maxHeight:maxHeight,minHeight:70,
+						display:"flex",justifyContent:"center",alignItems:"center",
+						transform:[{translate:["-50%",0,0]}],
 					backgroundColor:"#000",opacity:.8,borderRadius:10})}>
 						<Text style={{color:"white"}}>{this.props.config.text||""}</Text>
 					</View>

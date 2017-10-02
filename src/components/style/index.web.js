@@ -1,5 +1,6 @@
 import Common from './common'
 
+var translateKeys;
 var u = navigator.userAgent;
 var Re = {
 	OS:!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)?"ios":"android",
@@ -69,6 +70,27 @@ var Re = {
 		width:0,
 		height:0
 	},
+	getTransitionKeys () {
+        if (translateKeys) {
+            return translateKeys;
+        }
+        var testStyle = document.createElement("DIV").style;
+        var me = {};
+        if ("-webkit-transform" in testStyle) {
+            me.transitionend = "webkitTransitionEnd";
+            me.transform = "WebkitTransform";
+            me.cssTransform = "-webkit-transform";
+            me.transition = "WebkitTransition";
+        }
+        else {
+            me.transitionend = "transitionend";
+            me.transform = "transform";
+            me.cssTransform = "transform";
+            me.transition = "transition";
+        }
+        translateKeys = me;
+        return me;
+    },
 	convertTransform(style){
 		if(!style.transform){
 			return style;
