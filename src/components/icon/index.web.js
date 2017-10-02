@@ -8,6 +8,7 @@ class Com extends React.Component{
 
 	getStyle(props){
 		var style =Object.assign({}, props.style||{});
+		style = StyleSheet.convertTransform(style);
 		var Re = {
 			width:StyleSheet.px(Theme.icon_default.width),
 			color:Theme.icon_color,

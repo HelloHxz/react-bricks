@@ -92,11 +92,18 @@ var Re = {
 			var item = values[i];
 			for(var key in item){
 				var value = item[key];
-				if(typeof(value)==="string"||!isNaN(value)){
+				if(typeof(value)==="string"){
 					re.push(key+"("+value+")");
+				}else if(!isNaN(value)){
+					re.push(key+"("+value+"rem)");
 				}else if(value instanceof Array){
 					if(key==="translate"){
 						key = "translate3d";
+					}
+					for(var n=0,m=value.length;n<m;n++){
+						if(!isNaN(value[n])){
+							value[n] = value[n]+"rem";
+						}
 					}
 					re.push(key+"("+value.join(",")+")");
 				}else{

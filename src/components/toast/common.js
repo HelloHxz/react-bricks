@@ -1,6 +1,7 @@
 import React from 'react';
 import View from '../view';
 import StyleSheet from '../style';
+import Text from '../text'
 import Easing from '../easing';
 import Animated from '../animated';
 
@@ -64,18 +65,64 @@ class ToastItem extends React.Component{
 
 	constructor(props){
 		super(props);
+		this.state={
+			openValue:new Animated.Value(0)
+		}
+	}
+
+	componentDidMount(){
+		Animated.timing(
+	        this.state.openValue,
+	        {
+	          toValue: 1,
+	          duration:300,
+	          bounciness: 0, 
+	           easing: Easing.linear,
+	          restSpeedThreshold: 1
+	        }
+	      ).start(
+	      	()=>{
+	      		 setTimeout(()=>{
+			    	this.hide();
+			    },1800)
+	      	}
+	      )
+	   
 	}
 
 
 	hide(){
-
+		Animated.timing(
+	        this.state.openValue,
+	        {
+	          toValue: 0,
+	          duration:500,
+	          bounciness: 0, 
+	          easing: Easing.linear,
+	          restSpeedThreshold: 1
+	        }
+	      ).start(
+	      	
+	      )
 	}
 
 	render(){
+		var maxHeight = 300;
+		var y = this.state.openValue.interpolate({
+	      inputRange: [0,1],
+	      outputRange: [StyleSheet._px(-maxHeight), StyleSheet._px(100)],
+	      extrapolate: 'clamp',
+	    });
 		return (
-				<Animated.View style={StyleSheet.create({position:"absolute",
-					width:200,height:100,top:200,transform:[{translate:["-50%",0,0]}],
-					left:'50%',backgroundColor:"#000",opacity:.8,borderRadius:30})}/>
+				<Animated.View style={StyleSheet.create({position:"absolute",top:0,transform:[{translateY:y}],
+					left:'50%'})}>
+					<View style={StyleSheet.create({
+						paddingTop:10,
+					width:200,maxHeight:maxHeight,minHeight:100,transform:[{translate:["-50%",0,0]}],
+					backgroundColor:"#000",opacity:.8,borderRadius:10})}>
+						<Text style={{color:"white"}}>{this.props.config.text||""}</Text>
+					</View>
+				</Animated.View>
 			)
 	}
 }

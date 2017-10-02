@@ -12,9 +12,7 @@ class View extends React.Component {
   	if(style.width&&!isNaN(style.width)){
   		style.width = style.width+"rem";
   	}
-  	// if(this.props.xzIsAnimate){
   		style = StyleSheet.convertTransform(style);
-  	// }
   	var className= '';
     return (<div ref={(node)=>{this.node = node;}} className={className} style={style}>{this.props.children}</div>);
   }

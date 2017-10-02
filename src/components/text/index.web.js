@@ -1,4 +1,5 @@
 import React from 'react';
+import StyleSheet from '../style'
 
 class Text extends React.Component {
 
@@ -8,6 +9,7 @@ class Text extends React.Component {
 
   render() {
   	var style = this.props.style||{};
+  	style = StyleSheet.convertTransform(style);
   	if(this.props.selected){
   		style.color = "red";
   	}

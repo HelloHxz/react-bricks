@@ -78,6 +78,9 @@ export default {
 				}
 			}
 		}
+		if(!isWeb&&re.transform){
+			
+		}
 		return re;
 	}
 }
