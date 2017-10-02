@@ -12,8 +12,8 @@ class View extends React.Component {
   	if(style.width&&!isNaN(style.width)){
   		style.width = style.width+"rem";
   	}
-  		style = StyleSheet.convertTransform(style);
-  	var className= '';
+  	style = StyleSheet.convertTransform(style);
+  	var className= style.flex?'xz-displayflex':"";
     return (<div ref={(node)=>{this.node = node;}} className={className} style={style}>{this.props.children}</div>);
   }
 }

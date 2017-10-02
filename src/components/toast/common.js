@@ -102,7 +102,10 @@ class ToastItem extends React.Component{
 	          restSpeedThreshold: 1
 	        }
 	      ).start(
-	      	
+	      	()=>{
+	      		 delete this.props.parent.Dict[this.props.pkey];
+    			 delete this.props.parent.instanceDict[this.props.pkey];
+	      	}
 	      )
 	}
 
@@ -117,8 +120,7 @@ class ToastItem extends React.Component{
 				<Animated.View style={StyleSheet.create({position:"absolute",top:0,transform:[{translateY:y}],
 					left:'50%'})}>
 					<View style={StyleSheet.create({
-						paddingTop:10,
-					width:200,maxHeight:maxHeight,minHeight:100,transform:[{translate:["-50%",0,0]}],
+					width:200,maxHeight:maxHeight,minHeight:80,display:"flex",justifyContent:"center",alignItems:"center",transform:[{translate:["-50%",0,0]}],
 					backgroundColor:"#000",opacity:.8,borderRadius:10})}>
 						<Text style={{color:"white"}}>{this.props.config.text||""}</Text>
 					</View>
