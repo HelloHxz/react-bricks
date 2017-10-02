@@ -50,6 +50,10 @@ let Re = {
 		width:45
 	},
 	icon_color:Common.theme_color,
-	icon_disabled_color:Common.theme_disabled_color
+	icon_disabled_color:Common.theme_disabled_color,
+	/*toast*/
+	toast:{
+		background:"#000"
+	}
 };
 export default Re;

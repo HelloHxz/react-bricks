@@ -66,9 +66,14 @@ class ToastItem extends React.Component{
 		super(props);
 	}
 
+
+	hide(){
+
+	}
+
 	render(){
 		return (
-				<View style={StyleSheet.create({position:"absolute",
+				<Animated.View style={StyleSheet.create({position:"absolute",
 					width:200,height:100,top:200,transform:[{translate:["-50%",0,0]}],
 					left:'50%',backgroundColor:"#000",opacity:.8,borderRadius:30})}/>
 			)

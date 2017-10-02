@@ -9,8 +9,8 @@ export default {
 			target = target.node;
 		}else{
 			//View
-			if(target.refs.node.node.node){
-				target = target.refs.node.node.node;
+			if(target.refs.node.node){
+				target = target.refs.node.node;
 			}
 		}
 		if(target){
