@@ -16,7 +16,10 @@ export default (config)=>{
 	}
 	ReactDOM.render(
 			<div className='xz-app-wrapper'>
-				<ToastManager/>
+				<ToastManager
+					ref={(toast)=>{
+						window.Toast = toast;
+					}}/>
 				<Navigation config={config}/>
 			</div>,
 		document.getElementById('xz-lightapp-root'));

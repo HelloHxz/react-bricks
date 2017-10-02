@@ -12,6 +12,46 @@ export default {
 		originWidth:375,
 		originHeight:667,
 	},
+	convertTransformInWeb(re,values){
+		var needConvert = true;
+		var re = [];
+		/*
+			transform:[
+				{translate:[]},
+				{translateX:""},
+				{rotate:"11deg"}
+			]
+			
+			to
+
+			transform:"translate3d(x,t,z) rotate(v)"
+		*/
+		for(var i=0,j=values.length;i<j;i++){
+			if(!needConvert){
+				break;
+			}
+			var item = values[i];
+			for(var key in item){
+				var value = item[key];
+				if(typeof(value)==="string"||!isNaN(value)){
+					re.push(key+"("+value+")");
+				}else if(value instanceof Array){
+					if(key==="translate"){
+						key = "translate3d";
+					}
+					re.push(key+"("+value.join(",")+")");
+				}else{
+					needConvert = false;
+					break;
+				}
+			}
+			
+		}
+		if(needConvert){
+			return re.join(" ");
+		}
+		return null;
+	},
 	create(styles,OS,isWeb,pxFun){
 		var re = {};
 		if(!isJson(styles)){
@@ -58,6 +98,15 @@ export default {
 					re[key] = (item);
 				}else{
 					re[key] = pxFun(item);
+				}
+			}else if(key==='transform'){
+				if(isWeb){
+					var tstr = this.convertTransformInWeb(re,item);
+					if(tstr){
+						re[key] = tstr;
+					}
+				}else{
+					re[key] = (item);
 				}
 			}else{
 				if(isJson(item)){

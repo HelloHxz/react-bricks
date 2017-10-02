@@ -93,7 +93,11 @@ export default (config)=>{
 	  render() {
 		return (
 			<View style={{flex:1}}>
-				<ToastManager/>
+				<ToastManager
+					ref={(toast)=>{
+						global.Toast = toast;
+					}}
+					/>
 				 <AppNavigator 
 				 style={{zIndex:10}}
 				  ref={nav => { this.navigator = nav; }}/>

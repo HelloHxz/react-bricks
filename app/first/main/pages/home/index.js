@@ -4,7 +4,6 @@ import HomeStore from './store'
 import HomePopover from './components/homePopover'
 import svgs from '../../assets/svg/svgs.js'
 
-console.log(svgs);
 var Styles = StyleSheet.create({
   testStyle:{
     width:StyleSheet.baseScreen.width/3,
@@ -42,15 +41,18 @@ class HomeScreen extends React.Component {
 
 
   Nav(e){
-    UIManager.measure(e.currentTarget,(x, y, width, height, left, top)=>{
-       this.props.homeStore.popoverConfig = {rect:{
-        x:x,
-        y:y,
-        width:width,
-        height:height
-       },dirction:"top"}
+    Toast.show({
+      text:"hello"
     })
-    //this.props.homeStore.popLayerConfig = {key:"some",dirction:"top"}
+    // UIManager.measure(e.currentTarget,(x, y, width, height, left, top)=>{
+    //    this.props.homeStore.popoverConfig = {rect:{
+    //     x:x,
+    //     y:y,
+    //     width:width,
+    //     height:height
+    //    },dirction:"top"}
+    // })
+    // this.props.homeStore.popLayerConfig = {key:"some",dirction:"top"}
      // Animated.timing(this.state.anim, {toValue: 300}).start();
     // this.props.navigation.navigate('chat/my', { user: 'Lucy'})
   }
