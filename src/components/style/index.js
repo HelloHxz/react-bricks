@@ -27,7 +27,7 @@ var Re = {
 		}catch(e){
 			val = 0;
 		}
-		return (val/this.screen.dpr);
+		return (val/this.screen.dpr*(this.screen.width/this.baseScreen.width));
 	},
 	baseScreen:Common.baseScreen,
 	screen:{
