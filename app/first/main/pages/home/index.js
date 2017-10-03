@@ -108,13 +108,13 @@ class HomeScreen extends React.Component {
             lazyrender={false} 
             loop={true} 
             interval={3000} 
-            cache={false} 
+            cache={true} 
             datasource={siwperData} 
             renderItem = {this.renderSwiperItem.bind(this)}>
           </Swiper>
         <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
         <View style={Styles.testStyle}></View>
-          
+
       </View>
     );
   }

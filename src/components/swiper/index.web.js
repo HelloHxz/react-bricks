@@ -92,6 +92,7 @@ class Swiper extends React.Component {
     this.isIntransition = true;
     this.setState({offset:step*(0-this.WrapperSizeValue-this.space)});
     this.goNextTimeoutID = setTimeout(()=>{
+      this.animate = false;
       for(var i=0;i<step;i++){
         this.getNextWraperArr();
         this.getNextSourceArr();
@@ -107,6 +108,7 @@ class Swiper extends React.Component {
     this.isIntransition = true;
     this.setState({offset:step*(this.WrapperSizeValue+this.space)});
     setTimeout(()=>{
+      this.animate = false;
       for(var i=0;i<step;i++){
         this.getPreWraperArr();
         this.getPreSourceArr();
@@ -455,10 +457,10 @@ class Swiper extends React.Component {
         var v = ((i-1)*this.space+(i-1)*this.WrapperSizeValue+this.state.offset);
         var vstr = this.isHorizontal? v +"px,0,0":"0,"+v+"px,0";
         itemStyle[this.tranDict.transform] = "translate3d("+vstr+")"
-        if(this.animate){
-          itemStyle[this.tranDict.transition] = this.tranDict.cssTransform+" .3s ease";
-        }else{
+        if(!this.animate){
           itemStyle[this.tranDict.transition] = "none";
+        }else{
+          itemStyle[this.tranDict.transition] = this.tranDict.cssTransform+" .3s ease";
         }
         children.push(<div style={itemStyle} className="xz-swiper-item" key={key}><div className='xz-swiper-inneritem'>
           {this._renderItem({index:i})}
@@ -474,7 +476,9 @@ class Swiper extends React.Component {
             var sourceIndex_int = parseInt(key);
             var cv = ((sourceIndex_int-midSourceIndex)*(this.space+this.WrapperSizeValue));
             var cvstr = this.isHorizontal? cv +"px,0,0":"0,"+cv+"px,0";
-            cacheStyle[this.tranDict.transform] = "translate3d("+cvstr+"px,0,0)"
+            cacheStyle[this.tranDict.transition] = "none"
+            cacheStyle[this.tranDict.transform] = "translate3d("+cvstr+")"
+
             var itemKey = 'xz-swiper-item-'+key;
             children.push(<div style={cacheStyle} className="xz-swiper-item" key={itemKey}><div className='xz-swiper-inneritem'>
              { this.cacheDict[key]}
