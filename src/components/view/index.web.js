@@ -14,6 +14,9 @@ class View extends React.Component {
   	}
   	style = StyleSheet.convertTransform(style);
   	var className= style.flex?'xz-displayflex':"";
+  	if(this.props.className){
+  		className = className+" "+this.props.className;
+  	}
     return (<div ref={(node)=>{this.node = node;}} className={className} style={style}>{this.props.children}</div>);
   }
 }

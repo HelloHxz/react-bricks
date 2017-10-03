@@ -2,7 +2,8 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import "./web/index.less"
 import Navigation from './web'
-import ToastManager from '../components/toast'
+import ToastManager from '../toast'
+import Common from './common'
 
 
 export default (config)=>{
@@ -14,13 +15,8 @@ export default (config)=>{
 		}
 		pageClass.__pagename = key;
 	}
+	var App =Common(<Navigation config={config}/>);
 	ReactDOM.render(
-			<div className='xz-app-wrapper'>
-				<ToastManager
-					ref={(toast)=>{
-						window.Toast = toast;
-					}}/>
-				<Navigation config={config}/>
-			</div>,
+			<App/>,
 		document.getElementById('xz-lightapp-root'));
 }

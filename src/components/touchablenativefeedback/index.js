@@ -1,6 +1,6 @@
 
 import {
-  TouchableOpacity
+  TouchableNativeFeedback
 } from 'react-native';
 
-export default TouchableOpacity;
+export default TouchableNativeFeedback;

@@ -8,7 +8,7 @@ var Button = require("./button").default;
 var TouchableWithoutFeedback = require("./touchablewithoutfeedback").default;
 var Poplayer = require("./poplayer").default;
 var PageContainer = require("./pageContainer").default;
-var Run = require("../navigator").default;
+var Run = require("./navigator").default;
 import Popover from './popover'
 import StyleSheet from './style';
 import PlatForm from './platform';

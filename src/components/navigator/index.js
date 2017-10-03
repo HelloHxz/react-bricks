@@ -1,7 +1,8 @@
 import { StackNavigator,NavigationActions } from 'react-navigation';
 import React from 'react';
-import { View } from 'react-native'
-import ToastManager from '../components/toast'
+import StyleSheet from '../style';
+import Common from './common'
+
 
 
 function isTabRouteChange(pageArr,state){
@@ -89,21 +90,54 @@ export default (config)=>{
 		todo global popPage 
 	*/
 	class App extends React.Component {
-		//<View style={{width:"100%",height:"100%",backgroundColor:"yellow",zIndex:222,position:"absolute",top:0,left:0}}></View>
+
+	constructor(props) {
+		super(props);
+		global.Toast = this;
+		this.Dict = {};
+		this.instanceDict = {};
+		this.state={
+			seed:1
+		}
+	}
+
+	show(config){
+		seedkey+=1;
+		var key = "toast_"+seedkey;
+		this.Dict[key] = <ToastItem ref={(instance)=>{
+		  this.instanceDict[key] = instance;
+		}} pkey={key} parent={this} config={config} key={key}/>
+		this.setState({seed:1});
+		return key;
+	}
+
+	hide(key){
+		var instance = this.instanceDict[key];
+		if(instance){
+		  instance.hide();
+		}
+	}
+
+	renderChild(){
+		var children = [];
+	    for(var key in this.Dict){
+	      children.push(this.Dict[key]);
+	    }
+	    return children;
+	}
+
 	  render() {
 		return (
 			<View style={{flex:1}}>
-				<ToastManager
-					ref={(toast)=>{
-						global.Toast = toast;
-					}}
-					/>
-				 <AppNavigator 
-				 style={{zIndex:10}}
-				  ref={nav => { this.navigator = nav; }}/>
+				 <AppNavigator />
+				  {this.renderChild()}
 			  </View>
 			);
 	   }
 	}
-	return App;
+
+
+
+
+	return Common(<AppNavigator />);
 }
