@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import "./web/index.less"
 import Navigation from './web'
-import ToastManager from '../toast'
 import Common from './common'
 
 
