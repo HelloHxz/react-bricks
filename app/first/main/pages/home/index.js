@@ -54,7 +54,7 @@ class HomeScreen extends React.Component {
 
   renderSwiperItem(params){
     return ( <Image
-          resizeMode='contain'
+          resizeMode='cover'
           style={{width:"100%",height:"100%"}}
           source={params.data.src}
         />);

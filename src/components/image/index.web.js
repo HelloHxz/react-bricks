@@ -82,16 +82,16 @@ class ImageCom extends React.Component {
     var style = {};
     if(this.resizeMode==="orgin"){
 
-    }else if(this.resizeMode==="cover"){
+    }else if(this.resizeMode==="contain"){
      if(image.width>image.height){
-        style.height = "100%";
-      }else{
         style.width = "100%";
+      }else{
+        style.height = "100%";
       }
     }else if(this.resizeMode==="stretch"){
 
     }else{
-      //contain
+      //cover
       if(image.width>image.height){
         style.width = "100%";
       }else{
