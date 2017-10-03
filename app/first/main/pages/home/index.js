@@ -94,8 +94,6 @@ class HomeScreen extends React.Component {
         <Poplayer homeStore={this.props.homeStore}/>
         <Button onPress={this.Nav.bind(this)}>Go</Button>
         <Text>asdas</Text>
-        <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
-        <View style={Styles.testStyle}></View>
           <Image
           style={StyleSheet.create({width:100,height:100})}
           source={require('../../assets/imgs/1.jpeg')}
@@ -114,6 +112,9 @@ class HomeScreen extends React.Component {
             datasource={siwperData} 
             renderItem = {this.renderSwiperItem.bind(this)}>
           </Swiper>
+        <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
+        <View style={Styles.testStyle}></View>
+          
       </View>
     );
   }
