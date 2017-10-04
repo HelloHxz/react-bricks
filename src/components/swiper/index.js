@@ -1,6 +1,7 @@
 import React from "react"
 import StyleSheet from "../style"
 import View from '../view'
+import {LayoutAnimation,UIManager} from 'react-native'
 
 
 
@@ -94,6 +95,8 @@ class Swiper extends React.Component {
     }
     this.animate = true;  
     this.isIntransition = true;
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     this.setState({offset:step*(0-this.WrapperSizeValue-this.space)});
     this.goNextTimeoutID = setTimeout(()=>{
       for(var i=0;i<step;i++){
