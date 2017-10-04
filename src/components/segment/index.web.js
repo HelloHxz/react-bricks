@@ -8,7 +8,8 @@ let MyStyle = StyleSheet.create({
   segment:{
     height:100,
     flexDirection:"row",
-    backgroundColor:"#eee"
+    backgroundColor:"#eee",
+    display:"flex"
   }
 });
 

@@ -24,7 +24,19 @@ export default (config)=>{
 		config:config,
 		pageDict:{}
 	};
-	var AppNavigator = StackNavigator(pages);
+
+	var initialRouteParams = {};
+	if(!config.root){
+		console.error("未设置启动页root配置");
+	}
+	var rootArr = config.root.split("/");
+	if(rootArr.length===2){
+		initialRouteParams.__childpage = rootArr[1];
+	}
+	var AppNavigator = StackNavigator(pages,{
+		initialRouteName:rootArr[0],
+		initialRouteParams:initialRouteParams
+	});
 
 	const defaultGetStateForAction = AppNavigator.router.getStateForAction;
 

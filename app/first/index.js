@@ -1,7 +1,7 @@
 import {Run} from "react-bricks"
 
 var config = {
-	root:"home",
+	root:"swiperDemo",
 	pages:{
 		home:require("./main/pages/home").default,
 		chat:require("./main/pages/chat").default,
