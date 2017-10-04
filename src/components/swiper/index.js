@@ -45,7 +45,7 @@ class Swiper extends Base {
         var v = ((i-1)*this.space+(i-1)*this.WrapperSizeValue+this.state.offset);
         itemStyle[this.isHorizontal?"left":"top"] = v;
         children.push(<View style={{...itemStyle,...{position:"absolute",height:"100%",width:"100%"}}} className="xz-swiper-item" key={key}>
-          {this._renderItem({index:i})}
+           {this._renderItem({index:i})}
         </View>);
       }
 
@@ -57,8 +57,8 @@ class Swiper extends Base {
           if(cacheIndex<0){
             var sourceIndex_int = parseInt(key);
             var itemKey = 'xz-swiper-item-'+key;
-            children.push(<View style={{position:"absolute",height:"100%",width:"100%",width:0,height:0,left:-10}}className="xz-swiper-item" key={itemKey}>
-             { this.cacheDict[key]}
+            children.push(<View style={{position:"absolute",height:"100%",width:"100%",width:0,height:0,left:-10}} className="xz-swiper-item" key={itemKey}>
+              <View>{this.cacheDict[key]}</View>
             </View>);
           }
         }
