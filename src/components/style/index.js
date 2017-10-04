@@ -29,6 +29,9 @@ var Re = {
 		}
 		return (val/this.screen.dpr*(this.screen.width/this.baseScreen.width));
 	},
+	getTransitionKeys(){
+		return null;
+	},
 	baseScreen:Common.baseScreen,
 	screen:{
 		dpr:0,
