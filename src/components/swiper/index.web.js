@@ -92,7 +92,6 @@ class Swiper extends React.Component {
     this.isIntransition = true;
     this.setState({offset:step*(0-this.WrapperSizeValue-this.space)});
     this.goNextTimeoutID = setTimeout(()=>{
-      this.animate = false;
       for(var i=0;i<step;i++){
         this.getNextWraperArr();
         this.getNextSourceArr();
@@ -108,7 +107,6 @@ class Swiper extends React.Component {
     this.isIntransition = true;
     this.setState({offset:step*(this.WrapperSizeValue+this.space)});
     setTimeout(()=>{
-      this.animate = false;
       for(var i=0;i<step;i++){
         this.getPreWraperArr();
         this.getPreSourceArr();
@@ -304,6 +302,7 @@ class Swiper extends React.Component {
   }
 
   setIsInTransitionFalse(){
+       this.animate = false;
        this.isIntransition = false;
   }
   setEnable(){

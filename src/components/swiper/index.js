@@ -1,18 +1,25 @@
-import View from '../view';
-import Text from '../text';
-import React from 'react';
-import { ScrollView } from 'react-native'
-import StyleSheet from '../style';
+import React from "react"
+import StyleSheet from "../style"
+import View from '../view'
 
-class Swiper extends React.Component{
 
-	constructor(props){
-		super(props);
-	
-	    this.init(props,false);
-	    this.animate = false;
-	}
 
+
+
+class Swiper extends React.Component {
+  constructor(props) {
+    super(props)
+    this.space =  this.props.space || 0;
+    this.touchoffset = this.props.touchoffset || 120;
+    this.init(props,false);
+    this.animate = false;
+    this.state = {
+      offset:0,
+    };
+
+
+
+  }
 
   parseSelectedInt(selectedIndex,props){
       selectedIndex = selectedIndex||0;
@@ -29,17 +36,35 @@ class Swiper extends React.Component{
         this.needRebind = false;
       }
     }
+
+    
     this.isIntransition = false;
-  	this.direction = props.direction||"horizontal";
-	if(["horizontal","vertical"].indexOf(this.direction)<0){
-		this.direction = "horizontal";
-	}
-	this.horizontal = this.direction==="horizontal";
-	this.ScrollPosition = null;
+   
+
+    var direction = props.direction||"horizontal";
+    this.isHorizontal = direction.toLowerCase()==="horizontal";
+    this.config = {
+      touchkey:"pageX",
+      othertouchkey:"pageY"
+    };
+   if(this.isHorizontal){
+      this.WrapperSizeValue = StyleSheet.screen.originWidth;
+    }else{
+      this.WrapperSizeValue = 200;
+    }
+    if(!this.isHorizontal){
+      this.config = {
+        touchkey:"pageY",
+        othertouchkey:"pageX"
+      };
+    }
+
+
 
     this.isLoop = props.loop;
     if(this.needRebind){
       var selectedIndex = this.parseSelectedInt(props.selectedIndex,props);
+
       this.wrapperArr = [2,0,1];
       this.cacheDict = {};
       this.sourceArr = [-1,selectedIndex-1,-1];
@@ -69,33 +94,31 @@ class Swiper extends React.Component{
     }
     this.animate = true;  
     this.isIntransition = true;
-    // this.setState({offset:step*(0-this.WrapperSizeValue-this.space)});
-    // this.goNextTimeoutID = setTimeout(()=>{
-    //   this.animate = false;
-    //   for(var i=0;i<step;i++){
-    //     this.getNextWraperArr();
-    //     this.getNextSourceArr();
-    //   }
-    //   this.setIsInTransitionFalse();
-    //   this.setState({offset:0});
-    //   this.startInterval();
-    // },310)
+    this.setState({offset:step*(0-this.WrapperSizeValue-this.space)});
+    this.goNextTimeoutID = setTimeout(()=>{
+      for(var i=0;i<step;i++){
+        this.getNextWraperArr();
+        this.getNextSourceArr();
+      }
+      this.setIsInTransitionFalse();
+      this.setState({offset:0});
+      this.startInterval();
+    },310)
   }
 
   goPreByStep(step){
     this.animate = true;  
     this.isIntransition = true;
-    // this.setState({offset:step*(this.WrapperSizeValue+this.space)});
-    // setTimeout(()=>{
-    //   this.animate = false;
-    //   for(var i=0;i<step;i++){
-    //     this.getPreWraperArr();
-    //     this.getPreSourceArr();
-    //   }
-    //   this.setIsInTransitionFalse();
-    //   this.setState({offset:0});
-    //   this.startInterval();
-    // },310)
+    this.setState({offset:step*(this.WrapperSizeValue+this.space)});
+    setTimeout(()=>{
+      for(var i=0;i<step;i++){
+        this.getPreWraperArr();
+        this.getPreSourceArr();
+      }
+      this.setIsInTransitionFalse();
+      this.setState({offset:0});
+      this.startInterval();
+    },310)
   }
 
   swipeFromTo(from,to){
@@ -129,34 +152,34 @@ class Swiper extends React.Component{
       this.goNextTimeoutID = null;
       clearTimeout(this.goNextTimeoutID);
     }
-  	if(this.intervalID){
-		clearInterval(this.intervalID);
-		this.intervalID = null;
-  	}
+    if(this.intervalID){
+        clearInterval(this.intervalID);
+        this.intervalID = null;
+    }
   }
-	start(){
-		this.startInterval();
-	}
-	startInterval(){
-		if(!this.props.interval){
-			return;
-		}
-		this.stopInterval();
-		var interval = 0;
-		if(this.props.interval){
-			if(isNaN(this.props.interval)){
-				interval = 800;
-			}else{
-				interval = parseInt(this.props.interval);
-			}
-		}
-
-		if(interval>0){
-			this.intervalID = setInterval(()=>{
-				this.goNext();
-			},interval)
-		}
-	}
+  start(){
+    this.startInterval();
+  }
+  startInterval(){
+    if(!this.props.interval){
+      return;
+    }
+    this.stopInterval();
+    var interval = 0;
+      if(this.props.interval){
+        if(isNaN(this.props.interval)){
+          interval = 800;
+        }else{
+          interval = parseInt(this.props.interval);
+        }
+      }
+      
+      if(interval>0){
+        this.intervalID = setInterval(()=>{
+          this.goNext();
+        },interval)
+      }
+  }
 
   getPreSourceArr(){
     var len = this.props.datasource.length;
@@ -230,12 +253,101 @@ class Swiper extends React.Component{
     this.wrapperArr.unshift(this.wrapperArr.pop());
   }
 
+
+
+  onTouchStart(e){
+    this.touchStartValue = e.nativeEvent.touches[0][this.config.touchkey];
+    this.touchOtherStartValue =  e.nativeEvent.touches[0][this.config.othertouchkey];
+    if(this.isIntransition){return;}
+    this.stopInterval();
+    this.starttime = new Date().valueOf();
+
+    this.diff = 0;
+    this.animate = false;  
+    this.offsetValue = this.state.offset;
+    this.resetPos = false;
+
+    
+  }
+
+  onTouchMove(e){
+    if(this.isIntransition){return;}
+    var curTouchX = e.nativeEvent.touches[0][this.config.touchkey];
+    var touchOtherValue =  e.nativeEvent.touches[0][this.config.othertouchkey];
+    this.diff =  curTouchX - this.touchStartValue;
+    this.otherdiff = touchOtherValue - this.touchOtherStartValue;
+
+    if(Math.abs(this.otherdiff)-Math.abs(this.diff)>20){
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  
+    this.animate = false;  
+    var offset = this.offsetValue;
+    if(this.diff>0){
+      //gopre
+      if(this.sourceArr[0]===-1){
+        this.diff = this.diff/3;
+        this.resetPos = true;
+      }
+    }else{
+      //gonext
+      if(this.sourceArr[2]===-1){
+        this.diff = this.diff/3;
+        this.resetPos = true;
+      }
+    }
+
+    offset = offset+this.diff;
+    this.setState({offset:offset});
+  }
+
+  setIsInTransitionFalse(){
+       this.animate = false;
+       this.isIntransition = false;
+  }
   setEnable(){
       setTimeout(()=>{
         this.setIsInTransitionFalse();
         this.startInterval();
       },300);
   }
+  onTouchEnd(){
+
+    if(this.isIntransition){return;}
+    this.isIntransition = true;
+
+    if(this.diff===0){
+      this.setEnable();
+      return;
+    }
+    if(Math.abs(this.diff)<this.touchoffset||this.resetPos){
+      this.animate = true;
+      this.setState({offset:(0-this.offsetValue)});
+      this.setEnable();
+      return;
+    }
+
+    if(this.diff>0){
+      if(this.sourceArr[0]!==-1){
+        this.goPre();
+      }else{
+        this.setEnable();
+      }
+    }else{
+      if(this.sourceArr[2]!==-1){
+       this.goNext();
+      }else{
+        this.setEnable();
+      }
+    }
+    
+  }
+
+
 
   componentWillReceiveProps(nextProps){ 
     this.init(nextProps,true);
@@ -278,53 +390,100 @@ class Swiper extends React.Component{
     return childrenItem;
   }
 
-
-	onMomentumScrollEnd(e){
-		// if(this.ScrollPosition.x ===0){
-			// this.scroll.scrollTo({x:StyleSheet.screen.originWidth,y:0,animated:false});
-		// }
-	}
-
-	onScroll(e){
-		this.ScrollPosition = e.nativeEvent.contentOffset;
-	}
-
-	render(){
-		var style = this.props.style||{};
-		var children = [];
-		for(var i=0;i<3;i++){
-	        var wrapIndex = this.wrapperArr[i];
-	        var sourceIndex = this.sourceArr[i];
-	        if(sourceIndex===-1){
-	          continue;
-	        }
-	        var key = 'xz-swiper-item-'+sourceIndex;
-	        if(this.sourceArr[0]===this.sourceArr[2]){
-	          //&&i!==1
-	          key+="_"+wrapIndex;
-	        }
+  _renderIndicator(){
+    var curIndex = this.sourceArr[1];
+    var datasource  =this.props.datasource||[];
+    var len = datasource.length;
+    if(this.props.renderIndicator){
+      return this.props.renderIndicator({
+        length:len,
+        curIndex:curIndex
+      });
+    }
+ 
+    var point = [];
+    for(var i=0;i<len;i++){
+      point.push(<span className={i===curIndex?"xz-swipe-selin":"xz-swipe-in"} key={i}></span>);
+    }
+    return <div className="xz-swipe-default-indwrap">{point}</div>;
+  }
 
 
-	        children.push(<View style={{width:StyleSheet.screen.originWidth,height:"100%"}} key={key}>
-	          {this._renderItem({index:i})}
-	        </View>);
-    	}
+
+  render() {
+    var classNameArr = ["xz-swiper"];
+    if(this.props.className){
+      classNameArr.push(this.props.className);
+    }else{
+      // classNameArr.push("xz-default-swiper");
+    }
+
+    var datasource = this.props.datasource||[];
+    if(datasource.length===0){
+      return <div className={classNameArr.join(" ")}></div>;
+    }
+    var children= [];
+
+    var toucheEvent = {};
+    if(this.props.touchenable!==false){
+      // toucheEvent.onTouchStart = this.onTouchStart.bind(this);
+      // toucheEvent.onTouchMove = this.onTouchMove.bind(this);
+      // toucheEvent.onTouchEnd = this.onTouchEnd.bind(this);
+    }
+    if(this.WrapperSizeValue){
+      for(var i=0;i<3;i++){
+        var wrapIndex = this.wrapperArr[i];
+        var sourceIndex = this.sourceArr[i];
+        if(sourceIndex===-1){
+          continue;
+        }
+        var key = 'xz-swiper-item-'+sourceIndex;
+        if(this.sourceArr[0]===this.sourceArr[2]){
+          //&&i!==1
+          key+="_"+wrapIndex;
+        }
+
+        
+        var itemStyle = {};
+        var v = ((i-1)*this.space+(i-1)*this.WrapperSizeValue+this.state.offset);
+        itemStyle[this.isHorizontal?"left":"top"] = v;
+        // if(!this.animate){
+        //   itemStyle[this.tranDict.transition] = "none";
+        // }else{
+        //   itemStyle[this.tranDict.transition] = this.tranDict.cssTransform+" .3s ease";
+        // }
+        children.push(<View style={{...itemStyle,...{position:"absolute",height:"100%",width:"100%"}}} className="xz-swiper-item" key={key}>
+          {this._renderItem({index:i})}
+        </View>);
+      }
 
 
-		return (<View style={style}>
-			<ScrollView
-			 ref={(scroll)=>{
-			 	this.scroll = scroll;
-			 }}
-			 scrollEventThrottle={20}
-			 onScroll={this.onScroll.bind(this)}
-			 onMomentumScrollEnd = {this.onMomentumScrollEnd.bind(this)}
-			 showsHorizontalScrollIndicator={false} pagingEnabled={true} horizontal={this.horizontal}>
-				{children}
-			</ScrollView>
-		</View>)
-	
-	}
+      // if(this.props.cache){
+      //    var midSourceIndex = this.sourceArr[1];
+      //    var cacheStyle = {};
+      //    for(var key in this.cacheDict){
+      //     var cacheIndex = this.sourceArr.indexOf(parseInt(key));
+      //     if(cacheIndex<0){
+      //       var sourceIndex_int = parseInt(key);
+      //       var cv = ((sourceIndex_int-midSourceIndex)*(this.space+this.WrapperSizeValue));
+      //       var cvstr = this.isHorizontal? cv +"px,0,0":"0,"+cv+"px,0";
+      //       cacheStyle[this.tranDict.transition] = "none"
+      //       cacheStyle[this.tranDict.transform] = "translate3d("+cvstr+")"
+
+      //       var itemKey = 'xz-swiper-item-'+key;
+      //       children.push(<View style={cacheStyle} className="xz-swiper-item" key={itemKey}><View className='xz-swiper-inneritem'>
+      //        { this.cacheDict[key]}
+      //       </View></View>);
+      //     }
+      //   }
+      // }
+    }
+     // {this._renderIndicator()}
+    return (<View style={this.props.style||{}} 
+       {...toucheEvent} className={classNameArr.join(" ")}>
+      {children} 
+      </View>);
+  }
 }
 
 export default Swiper;
