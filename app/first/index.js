@@ -12,6 +12,7 @@ var config = {
 		imageDemo:require("./main/pages/imageDemo").default,
 		swiperDemo:require("./main/pages/swiperDemo").default,
 		popoverDemo:require("./main/pages/popoverDemo").default,
+		poplayerDemo:require("./main/pages/poplayerDemo").default,
 		
 	},
 };
