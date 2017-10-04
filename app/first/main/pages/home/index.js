@@ -19,30 +19,30 @@ var siwperData = [
 
 
 var ListDataSource = [
-  {id:0,name:"Button",url:"button"},
-  {id:1,name:"Icon",url:"button"},
-  {id:2,name:"Image",url:"button"},
-  {id:3,name:"Swiper",url:"button"},
-  {id:4,name:"Popover",url:"button"},
-  {id:5,name:"Poplayer",url:"button"},
-  {id:6,name:"xxx",url:"button"},
-  {id:7,name:"xxx",url:"button"},
-  {id:8,name:"xxx",url:"button"},
-  {id:9,name:"xxx",url:"button"},
-  {id:10,name:"xxx",url:"button"},
-  {id:11,name:"xxx",url:"button"},
-  {id:12,name:"xxx",url:"button"},
-  {id:13,name:"xxx",url:"button"},
-  {id:14,name:"xxx",url:"button"},
-  {id:15,name:"xxx",url:"button"},
-  {id:16,name:"xxx",url:"button"},
-  {id:17,name:"xxx",url:"button"},
-  {id:18,name:"xxx",url:"button"},
-  {id:19,name:"xxx",url:"button"},
-  {id:20,name:"xxx",url:"button"},
-  {id:21,name:"xxx",url:"button"},
-  {id:22,name:"xxx",url:"button"},
-  {id:23,name:"xxx",url:"button"},
+  {id:0,name:"Button",url:"buttonDemo"},
+  {id:1,name:"Icon",url:"iconDemo"},
+  {id:2,name:"Image",url:"imageDemo"},
+  {id:3,name:"Swiper",url:"swiperDemo"},
+  {id:4,name:"Popover",url:"popoverDemo"},
+  {id:5,name:"Poplayer",url:null},
+  {id:6,name:"xxx",url:null},
+  {id:7,name:"xxx",url:null},
+  {id:8,name:"xxx",url:null},
+  {id:9,name:"xxx",url:null},
+  {id:10,name:"xxx",url:null},
+  {id:11,name:"xxx",url:null},
+  {id:12,name:"xxx",url:null},
+  {id:13,name:"xxx",url:null},
+  {id:14,name:"xxx",url:null},
+  {id:15,name:"xxx",url:null},
+  {id:16,name:"xxx",url:null},
+  {id:17,name:"xxx",url:null},
+  {id:18,name:"xxx",url:null},
+  {id:19,name:"xxx",url:null},
+  {id:20,name:"xxx",url:null},
+  {id:21,name:"xxx",url:null},
+  {id:22,name:"xxx",url:null},
+  {id:23,name:"xxx",url:null},
 ];
 
 
@@ -111,7 +111,9 @@ class HomeScreen extends React.Component {
   }
 
   listRowPress(item){
-    alert(item.name);
+    if(item.url){
+      this.props.navigation.navigate(item.url, { user: 'Lucy'})
+    }
   }
 
   listRenderItem({item}){
@@ -133,9 +135,6 @@ class HomeScreen extends React.Component {
     return (
       <View style={{flex:1,backgroundColor:"#fff"}}>
 
-        <Icon icon={svgs.saoyisao} size='lg'/>
-        <Icon icon={svgs.search}/>
-        <Icon icon={svgs.home} size='sm'/>
          <Animated.View
           style={{position:"relative",
           transform: [{translateX: this.state.anim}],width:StyleSheet.px(100),height:StyleSheet.px(100),backgroundColor:"green"}}>

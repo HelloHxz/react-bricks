@@ -7,6 +7,11 @@ var config = {
 		chat:require("./main/pages/chat").default,
 		setting	:require("./main/pages/setting").default,
 		my:require("./main/pages/my").default,
+		buttonDemo:require("./main/pages/buttonDemo").default,
+		iconDemo:require("./main/pages/iconDemo").default,
+		imageDemo:require("./main/pages/imageDemo").default,
+		swiperDemo:require("./main/pages/swiperDemo").default,
+		popoverDemo:require("./main/pages/popoverDemo").default,
 		
 	},
 };

@@ -11,7 +11,9 @@ var PageView =  (store) => (WrappedComponent) => {
 
       componentWillUnmount(){
          delete global.__bricks__.pageDict[this.pagekey];
-         delete global.__bricks__.routeEvents[this.pagekey];
+         if(global.__bricks__.routeEvents){
+            delete global.__bricks__.routeEvents[this.pagekey];
+         }
       }
 
       constructor(props){
