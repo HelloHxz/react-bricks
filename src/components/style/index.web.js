@@ -33,8 +33,8 @@ var Re = {
 		var docClientHeight = docEl.clientHeight;
 		this.rem = docClientWidth * this.screen.dpr / 10;
 		this.screen.width = docClientWidth*this.screen.dpr;
-		this.screen.originWidth = docClientWidth;
-		this.screen.originHeight = docClientHeight;
+		this.screen.originWidth = docClientWidth*this.screen.dpr;
+		this.screen.originHeight = docClientHeight*this.screen.dpr;
 		this.screen.height = docClientHeight*this.screen.dpr;
 
 		var scale = 1 / this.screen.dpr;

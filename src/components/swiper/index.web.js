@@ -56,6 +56,12 @@ class Swiper extends React.Component {
     }
 
 
+    if(this.isHorizontal){
+      this.WrapperSizeValue = StyleSheet.screen.originWidth;
+    }else{
+      this.WrapperSizeValue = 200;
+    }
+
 
     this.isLoop = props.loop;
     if(this.needRebind){
@@ -86,7 +92,7 @@ class Swiper extends React.Component {
   goNextByStep(step){
     if(this.goNextTimeoutID){
       this.goNextTimeoutID = null;
-      window.clearTimeout(this.goNextTimeoutID);
+      clearTimeout(this.goNextTimeoutID);
     }
     this.animate = true;  
     this.isIntransition = true;
@@ -146,10 +152,10 @@ class Swiper extends React.Component {
     if( this.goNextTimeoutID){
       this.setIsInTransitionFalse();
       this.goNextTimeoutID = null;
-      window.clearTimeout(this.goNextTimeoutID);
+      clearTimeout(this.goNextTimeoutID);
     }
   	if(this.intervalID){
-	    	window.clearInterval(this.intervalID);
+	    	clearInterval(this.intervalID);
 	    	this.intervalID = null;
   	}
   }
@@ -171,7 +177,7 @@ class Swiper extends React.Component {
 	    }
 	    
 	    if(interval>0){
-	    	this.intervalID = window.setInterval(()=>{
+	    	this.intervalID = setInterval(()=>{
 	    		this.goNext();
 	    	},interval)
 	    }
@@ -486,7 +492,7 @@ class Swiper extends React.Component {
         }
       }
     }
-    return (<div style={this.props.style||{}} ref={(outerWrapper)=>{this.wrapInit(outerWrapper)}} {...toucheEvent} className={classNameArr.join(" ")}>
+    return (<div style={this.props.style||{}}  {...toucheEvent} className={classNameArr.join(" ")}>
       {children} 
       {this._renderIndicator()}
       </div>);
