@@ -38,7 +38,7 @@ export default class SwiperDemo extends React.Component {
             style={StyleSheet.create({height:350})}
             lazyrender={false} 
             loop={true} 
-            interval={5000} 
+            interval={3000} 
             cache={true} 
             datasource={siwperData} 
             renderItem = {this.renderSwiperItem.bind(this)}>

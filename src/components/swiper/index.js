@@ -11,13 +11,12 @@ class Swiper extends Base {
   
   swipUseAnimate(){
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    // LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    LayoutAnimation.easeInEaseOut();
   }
 
 
   render() {
- 
-
     var datasource = this.props.datasource||[];
     if(datasource.length===0){
       return <div className={classNameArr.join(" ")}></div>;
@@ -49,7 +48,6 @@ class Swiper extends Base {
           {this._renderItem({index:i})}
         </View>);
       }
-
 
       if(this.props.cache){
          var midSourceIndex = this.sourceArr[1];
