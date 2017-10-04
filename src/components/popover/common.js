@@ -116,11 +116,12 @@ class PopoverItem extends React.Component{
 	process(props){
 		const targetRect = this.props.parent.targetRect;
 
-		if(!this.instance){
+		if(!this.instance||!targetRect){
 			return;
 		}
 		setTimeout(()=>{
 			UIManager.measureRef(this.instance,(x,y,width,height)=>{
+
 			console.log(targetRect.x,targetRect.y,targetRect.width,targetRect.height);
 			console.log(x,y,width,height);
 			this.caculatePosition(targetRect,width,height);

@@ -14,11 +14,13 @@ import StyleSheet from './style';
 import PlatForm from './platform';
 import UIManager from './uimanager'
 import Icon from './icon'
+import FlatList from './flatlist'
 import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
 import Swiper from './swiper';
 import {observable} from 'mobx'
+import TouchableOpacity from './touchableopacity'
 
 
 /*
@@ -30,9 +32,11 @@ export {
 	ActivityIndicator,
 	Swiper,
 	Animated,
+	TouchableOpacity,
 	UIManager,
 	Icon,
 	Image,
+	FlatList,
 	TouchableWithoutFeedback,
 	View,
 	PlatForm,
