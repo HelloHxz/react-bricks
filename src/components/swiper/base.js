@@ -312,6 +312,7 @@ onTouchStart(e){
     }
     if(Math.abs(this.diff)<this.touchoffset||this.resetPos){
       this.animate = true;
+      this.swipUseAnimate();
       this.setState({offset:(0-this.offsetValue)});
       this.setEnable();
       return;
