@@ -101,15 +101,19 @@ export default class Base extends React.Component {
       this.setIsInTransitionFalse();
       this.setState({offset:0});
       this.startInterval();
-    },310)
+    },StyleSheet.OS==='android'?500:310)
   }
 
   goPreByStep(step){
+    if(this.goPreTimeoutID){
+      this.goPreTimeoutID = null;
+      clearTimeout(this.goPreTimeoutID);
+    }
     this.animate = true;  
     this.isIntransition = true;
     this.swipUseAnimate();
     this.setState({offset:step*(this.WrapperSizeValue+this.space)});
-    setTimeout(()=>{
+    this.goPreTimeoutID = setTimeout(()=>{
       for(var i=0;i<step;i++){
         this.getPreWraperArr();
         this.getPreSourceArr();
@@ -117,7 +121,7 @@ export default class Base extends React.Component {
       this.setIsInTransitionFalse();
       this.setState({offset:0});
       this.startInterval();
-    },310)
+    },StyleSheet.OS==='android'?500:310)
   }
 
   swipeFromTo(from,to){
