@@ -15,6 +15,13 @@ class Swiper extends Base {
     LayoutAnimation.easeInEaseOut();
   }
 
+  onStartShouldSetResponder(){
+    return true;
+  }
+
+
+  stopPropagation(e){
+  }
 
   render() {
     var datasource = this.props.datasource||[];
@@ -25,9 +32,10 @@ class Swiper extends Base {
 
     var toucheEvent = {};
     if(this.props.touchenable!==false){
-      // toucheEvent.onTouchStart = this.onTouchStart.bind(this);
-      // toucheEvent.onTouchMove = this.onTouchMove.bind(this);
-      // toucheEvent.onTouchEnd = this.onTouchEnd.bind(this);
+      toucheEvent.onStartShouldSetResponder = this.onStartShouldSetResponder.bind(this);
+      toucheEvent.onResponderGrant = this.onTouchStart.bind(this);
+      toucheEvent.onResponderMove = this.onTouchMove.bind(this);
+      toucheEvent.onResponderRelease = this.onTouchEnd.bind(this);
     }
     if(this.WrapperSizeValue){
       for(var i=0;i<3;i++){

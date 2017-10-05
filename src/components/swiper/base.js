@@ -251,7 +251,7 @@ export default class Base extends React.Component {
 
 
 
-  onTouchStart(e){
+onTouchStart(e){
     this.touchStartValue = e.nativeEvent.touches[0][this.config.touchkey];
     this.touchOtherStartValue =  e.nativeEvent.touches[0][this.config.othertouchkey];
     if(this.isIntransition){return;}
@@ -266,6 +266,7 @@ export default class Base extends React.Component {
     
   }
 
+
   onTouchMove(e){
     if(this.isIntransition){return;}
     var curTouchX = e.nativeEvent.touches[0][this.config.touchkey];
@@ -277,9 +278,7 @@ export default class Base extends React.Component {
       return;
     }
 
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+    this.stopPropagation(e);
   
     this.animate = false;  
     var offset = this.offsetValue;
@@ -301,16 +300,7 @@ export default class Base extends React.Component {
     this.setState({offset:offset});
   }
 
-  setIsInTransitionFalse(){
-       this.animate = false;
-       this.isIntransition = false;
-  }
-  setEnable(){
-      setTimeout(()=>{
-        this.setIsInTransitionFalse();
-        this.startInterval();
-      },300);
-  }
+
   onTouchEnd(){
 
     if(this.isIntransition){return;}
@@ -341,6 +331,19 @@ export default class Base extends React.Component {
       }
     }
     
+  }
+
+
+
+  setIsInTransitionFalse(){
+       this.animate = false;
+       this.isIntransition = false;
+  }
+  setEnable(){
+      setTimeout(()=>{
+        this.setIsInTransitionFalse();
+        this.startInterval();
+      },300);
   }
 
 

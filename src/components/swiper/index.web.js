@@ -10,6 +10,14 @@ import Base from './base'
 
 class Swiper extends Base{
   swipUseAnimate(){}
+
+  stopPropagation(e){
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  }
+
+  
   render() {
     var classNameArr = ["xz-swiper"];
     if(this.props.className){
