@@ -92,11 +92,11 @@ class HomeScreen extends React.Component {
     // onMoveShouldSetPanResponderCapture={()=>{return false;}}
 
   listRenderItem({item}){
-    return <TouchableOpacity 
+    return <View 
     style={StyleSheet.create({height:80,display:"flex",flexDirection:"row",alignItems:"center"})}
       onPress = {this.listRowPress.bind(this,item)}>
        <Text>{item.name}</Text>
-      </TouchableOpacity>
+      </View>
   }
 
   _keyExtractor = (item, index) => item.id;

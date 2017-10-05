@@ -1,7 +1,7 @@
 import {FlatList} from 'react-native';
 import React from 'react'
 import StyleSheet from '../style'
-import { View,PanResponder,UIManager,LayoutAnimation,RefreshControl } from 'react-native'
+import { View,PanResponder,UIManager,LayoutAnimation } from 'react-native'
 /*
 https://github.com/shiwenwen/react-native-swRefresh
 https://github.com/react-native-component/react-native-smart-pull-to-refresh-listview
@@ -84,11 +84,13 @@ export default class FL extends React.Component{
 	}
 
 	onShouldSetPanResponder(e,gestureState){
-		if(isUpGesture(gestureState.dx,gestureState.dy)){
-			return false;
-		}
-		console.log(e.nativeEvent);
-	    if(isDownGesture(gestureState.dx,gestureState.dy)&&this.scrollValue<=0){
+	    if(isDownGesture(gestureState.dx,gestureState.dy)&&this.scrollValue<=150){
+	    	if(this.scrollValue>0&&this.flatlist){
+	    		this.flatlist.scrollToIndex({
+	    			animated:false,
+	    			index:0
+	    		})
+	    	}
 	    	//向下 在顶端端
 	    	return true;
 	    }
@@ -115,19 +117,12 @@ export default class FL extends React.Component{
 
 	render(){
 		return <View 
+				{...this._panResponder.panHandlers} 
 			style={{flex:1,overflow:"hidden",backgroundColor:"#fff"}}>
 				<View style={{height:this.state.offset,backgroundColor:"red"}}/>
 				<View style={{height:100,backgroundColor:"red",marginTop:-100}}/>
 				<FlatList 
-				    refreshControl={
-			          <RefreshControl
-			            tintColor="#ff0000"
-			            title="Loading..."
-			            titleColor="#00ff00"
-			            colors={['#ff0000', '#00ff00', '#0000ff']}
-			            progressBackgroundColor="#ffff00"
-			          ></RefreshControl>
-			        }
+				 ref={(flatlist)=>{this.flatlist = flatlist;}}
 				 onScroll = {this.onScroll.bind(this)}
 				 {...this.props}/>
 		</View>
