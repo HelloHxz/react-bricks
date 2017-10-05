@@ -66,7 +66,7 @@ class Swiper extends Base {
             var sourceIndex_int = parseInt(key);
             var itemKey = 'xz-swiper-item-'+key;
             children.push(<View style={{position:"absolute",height:"100%",width:"100%",width:0,height:0,left:-10}} className="xz-swiper-item" key={itemKey}>
-              <View>{this.cacheDict[key]}</View>
+              {this.cacheDict[key]}
             </View>);
           }
         }

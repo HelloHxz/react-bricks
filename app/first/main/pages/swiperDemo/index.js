@@ -33,7 +33,7 @@ export default class SwiperDemo extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{flex:1,overflow:"hidden"}}>
         <Swiper ref={(instance)=>{this.topswiper = instance;}} 
             style={StyleSheet.create({height:350})}
             lazyrender={false} 
