@@ -107,6 +107,7 @@ export default class Base extends React.Component {
   goPreByStep(step){
     this.animate = true;  
     this.isIntransition = true;
+    this.swipUseAnimate();
     this.setState({offset:step*(this.WrapperSizeValue+this.space)});
     setTimeout(()=>{
       for(var i=0;i<step;i++){
