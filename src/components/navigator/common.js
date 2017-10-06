@@ -18,7 +18,7 @@ let Styles = StyleSheet.create({
 	}
 });
 
-var zIndex = 10000;
+var zIndex = 100000;
 var seedkey = 1;
 var directionArr = ["top","bottom","center"];
 var aimationArr = ["slide","fade"];

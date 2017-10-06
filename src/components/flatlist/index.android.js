@@ -14,7 +14,7 @@ class AnimatedPTR extends React.Component {
     super(props);
     this.state = {
       shouldTriggerRefresh: false,
-      scrollY : new Animated.Value(0),
+      scrollY : 0,
       refreshHeight:0,
       currentY : 0,
       offset:0,
@@ -86,15 +86,14 @@ class AnimatedPTR extends React.Component {
 
   //if the content scroll value is at 0, we allow for a pull to refresh, or else let native android scrolling handle scrolling
   _handlePanResponderMove(e, gestureState) {
-      if((gestureState.dy >= 0 && this.state.scrollY._value === 0) || this.state.refreshHeight > 0) {
+      if((gestureState.dy >= 0 && this.state.scrollY <= 30) ) {
         // this.setState({
         // 		refreshHeight:gestureState.dy*.5
         // 	});
         var diff = this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY;
 			this.setState({refreshHeight:diff/3});
       } else {
-        //TODO: create a momentum scroll for the first pass
-        this.refs.PTR_ScrollComponent.scrollToOffset({offset: -1*gestureState.dy+60, animated: true});
+        this.refs.PTR_ScrollComponent.scrollToOffset({offset: -1*gestureState.dy, animated: true});
       }
   }
 
@@ -102,29 +101,28 @@ class AnimatedPTR extends React.Component {
   	  this.setState({
         	refreshHeight:0
         });
-      if(this.state.scrollY._value > 0) {
+      if(this.state.scrollY > 0) {
         this.setState({isScrollFree: true});
       }else{
-      	 // this.refs.PTR_ScrollComponent.scrollToOffset({offset: 10, animated: true});
+      	 this.refs.PTR_ScrollComponent.scrollToOffset({offset: 3, animated: true});
       }
   }
 
   isScrolledToTop() {
-    if(this.state.scrollY._value === 0 && this.state.isScrollFree) {
+    if(this.state.scrollY === 30 && this.state.isScrollFree) {
       this.setState({isScrollFree: false});
     }else{
-    	 this.setState({isScrollFree: true});
+    	 // this.setState({isScrollFree: true});
     }
   }
 
+  onScroll(event){
+  	this.setState({
+  		scrollY:event.nativeEvent.contentOffset.y
+  	});
+  }
+
   render() {
-    const onScroll = this.props.onScroll
-    let onScrollEvent = (event) => {
-      if (onScroll) {
-        onScroll(event)
-      }
-      this.state.scrollY.setValue(event.nativeEvent.contentOffset.y)
-    };
     return  (
       <View style={{flex:1, backgroundColor:this.props.contentBackgroundColor}}
         {...this._panResponder.panHandlers}>
@@ -133,7 +131,7 @@ class AnimatedPTR extends React.Component {
         <FlatList ref='PTR_ScrollComponent'
           {...this.props}
           scrollEnabled={this.state.isScrollFree}
-          onScroll={onScrollEvent}
+          onScroll={this.onScroll.bind(this)}
           onTouchEnd= {() => {this.isScrolledToTop()}}
           onScrollEndDrag= {() => {this.isScrolledToTop()}}
           onMomentumScrollEnd = {() => {this.isScrolledToTop()}}
