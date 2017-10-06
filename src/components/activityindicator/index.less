@@ -1,0 +1,43 @@
+
+.xz-spin {
+    display: inline-block;
+    background-position: 50%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+@keyframes spinrotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ios-spin{
+    animation: spinrotate 1s steps(12, end) infinite;
+}
+
+.android-spin{
+    animation: spinrotate 1s linear infinite;
+}
+
+.t{
+    display: inline-block;
+    position: relative;
+    height: 60px;
+    width: 12px;
+    top: -60px;
+    left: -78px;
+    background-color: rgba(255,255,255,.5);
+    transform: skew(20deg);
+    -webkit-transform: skew(20deg);
+    animation: 1s lodingframe infinite;
+    -webkit-animation: 1s lodingframe infinite;
+}
+
+@keyframes lodingframe
+{
+    0%{left:-78px}
+    100%{left:73px}
+}
+@-webkit-keyframes lodingframe{0%{left:-78px}
+100%{left:73px}}

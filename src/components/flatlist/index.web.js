@@ -1,7 +1,7 @@
 
 import React from 'react';
 import View from '../view'
-import './index.less'
+import Wrapper from './web'
 
 export default class FlatList extends React.Component{
 
@@ -22,6 +22,6 @@ export default class FlatList extends React.Component{
 				})
 			}</div>);
 		}
-		return <View className='xz-flatlist' style={{flex:1,overflow:"auto"}}>{rows}</View>
+		return <Wrapper onRefresh={()=>{}}>{rows}</Wrapper>
 	}
 } 

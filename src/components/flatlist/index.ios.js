@@ -12,12 +12,8 @@ const isVerticalGesture = (x, y) => {
     return (Math.abs(x) < Math.abs(y));
 };
 
-const isDownGesture = (x, y) => {
-	if(StyleSheet.OS==='android'){
-		return y > 0;
-	}else{
+const isPullDirection = (x, y) => {
    	 return y >0;
-	}
     // return y > 0 && (y > Math.abs(x));
 };
 const isUpGesture = (x, y) => {
@@ -88,8 +84,7 @@ export default class FL extends React.Component{
 	}
 
 	onShouldSetPanResponder(e,gestureState){
-		if(StyleSheet.OS==="ios"){
-			if(isDownGesture(gestureState.dx,gestureState.dy)&&this.scrollValue<=150){
+			if(isPullDirection(gestureState.dx,gestureState.dy)&&this.scrollValue<=150){
 		    	if(this.scrollValue>0&&this.flatlist){
 		    		this.flatlist.scrollToIndex({
 		    			animated:false,
@@ -100,10 +95,6 @@ export default class FL extends React.Component{
 		    	return true;
 		    }
 	      	return false;
-	      }else{
-	      	return true;
-	      }
-	    
 	}
 
 	onTouchStart(e,gestureState){
@@ -114,12 +105,7 @@ export default class FL extends React.Component{
 		if(gestureState.dy >= 0&&this.scrollValue<=10){
 			var diff = this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY;
 			this.setState({offset:diff/3});
-		}else{
-			if(StyleSheet.OS==='android'){
-				// this.flatlist && this.flatlist.scrollToOffset({animated:true,offset:-1*gestureState.dy});
-			}
 		}
-		
 		return true;
 	}
 
