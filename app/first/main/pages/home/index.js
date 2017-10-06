@@ -92,6 +92,13 @@ class HomeScreen extends React.Component {
     // onMoveShouldSetPanResponderCapture={()=>{return false;}}
 
   listRenderItem({item}){
+    if(StyleSheet.OS!=='android'){
+      return  <TouchableOpacity 
+    style={StyleSheet.create({height:80,display:"flex",flexDirection:"row",alignItems:"center"})}
+      onPress = {this.listRowPress.bind(this,item)}>
+       <Text>{item.name}</Text>
+      </TouchableOpacity>
+    }
     return <View 
     style={StyleSheet.create({height:80,display:"flex",flexDirection:"row",alignItems:"center"})}
       onPress = {this.listRowPress.bind(this,item)}>
