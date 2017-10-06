@@ -18,6 +18,9 @@ var Re = {
 	px(val){
 		return this._px(val);
 	},
+	px2px(v){
+        return Math.round(v*this.screen.dpr/2);
+    },
 	_px(val){
 		if(this.screen.dpr===0){
 			this.screen.dpr = PixelRatio.get();

@@ -80,7 +80,7 @@ class AnimatedPTR extends React.Component {
         	if(this.state.isScrollFree){
 
         	}else{
-      		  this.refs.PTR_ScrollComponent.scrollToOffset({offset: -1*gestureState.dy, animated: true});
+      		  this.flatlist.scrollToOffset({offset: -1*gestureState.dy, animated: true});
         	}
       }
   }
@@ -127,7 +127,8 @@ class AnimatedPTR extends React.Component {
         {...this._panResponder.panHandlers}>
     	<View style={{height:this.state.refreshHeight,backgroundColor:"red"}}/>
 			<View style={{height:100,backgroundColor:"red",marginTop:-100}}/>
-        <FlatList ref='PTR_ScrollComponent'
+        <FlatList 
+          ref={(flatlist)=>{this.flatlist = flatlist;}}
           {...this.props}
           scrollEnabled={this.state.isScrollFree}
           onScroll={this.onScroll.bind(this)}

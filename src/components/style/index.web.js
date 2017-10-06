@@ -70,6 +70,9 @@ var Re = {
 		width:0,
 		height:0
 	},
+	px2px(v){
+        return Math.round(v*this.screen.dpr/2);
+    },
 	getTransitionKeys () {
         if (translateKeys) {
             return translateKeys;
