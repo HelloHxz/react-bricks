@@ -109,7 +109,7 @@ class AnimatedPTR extends React.Component {
   }
 
   isScrolledToTop() {
-    if(this.state.scrollY === 30 && this.state.isScrollFree) {
+    if(this.state.scrollY <= 30 && this.state.isScrollFree) {
       this.setState({isScrollFree: false});
     }else{
     	 // this.setState({isScrollFree: true});
