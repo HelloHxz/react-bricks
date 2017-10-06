@@ -32,6 +32,20 @@ var ListDataSource = [
   {id:21,name:"xxx",url:null},
   {id:22,name:"xxx",url:null},
   {id:23,name:"xxx",url:null},
+  {id:24,name:"xxx",url:null},
+  {id:25,name:"xxx",url:null},
+  {id:26,name:"xxx",url:null},
+  {id:27,name:"xxx",url:null},
+  {id:28,name:"xxx",url:null},
+  {id:29,name:"xxx",url:null},
+  {id:30,name:"xxx",url:null},
+  {id:31,name:"xxx",url:null},
+  {id:32,name:"xxx",url:null},
+  {id:33,name:"xxx",url:null},
+  {id:34,name:"xxx",url:null},
+  {id:35,name:"xxx",url:null},
+  {id:36,name:"xxx",url:null},
+  {id:37,name:"xxx",url:null},
 ];
 
 
@@ -90,7 +104,7 @@ class HomeScreen extends React.Component {
 
   listRenderItem({item}){
       return  <TouchableOpacity 
-    style={StyleSheet.create({height:80,display:"flex",flexDirection:"row",alignItems:"center"})}
+    style={StyleSheet.create({height:110,display:"flex",flexDirection:"row",alignItems:"center"})}
       onPress = {this.listRowPress.bind(this,item)}>
        <Text>{item.name}</Text>
       </TouchableOpacity>
