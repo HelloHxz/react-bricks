@@ -14,7 +14,6 @@ class AnimatedPTR extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shouldTriggerRefresh: false,
       refreshHeight:0,
       currentY : 0,
       offset:0,
@@ -31,30 +30,18 @@ class AnimatedPTR extends React.Component {
   }
 
   componentWillMount() {
-    //Android does not allow for negative scroll, so we have to listen to the scroll values ourselves (at least initially)
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder.bind(this),
-       onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder.bind(this),
-       onPanResponderMove: this._handlePanResponderMove.bind(this),
-        onPanResponderGrant: this.onTouchStart.bind(this),
-       onPanResponderRelease: this._handlePanResponderEnd.bind(this),
-       onPanResponderTerminate: this._handlePanResponderEnd.bind(this),
+		onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder.bind(this),
+		onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder.bind(this),
+		onPanResponderMove: this._handlePanResponderMove.bind(this),
+		onPanResponderGrant: this.onTouchStart.bind(this),
+		onPanResponderRelease: this._handlePanResponderEnd.bind(this),
+		onPanResponderTerminate: this._handlePanResponderEnd.bind(this),
     });
-  }
-  onScrollTrigger(distance) {
-    if(distance.value <= -this.props.minPullDistance) {
-      if(!this.state.shouldTriggerRefresh) {
-        return this.setState({shouldTriggerRefresh: true});
-      }
-    } else if(this.state.shouldTriggerRefresh) {
-      return this.setState({shouldTriggerRefresh: false});
-    }
   }
 
   onScrollRelease() {
-    if(!this.props.isRefreshing && this.state.shouldTriggerRefresh) {
-      this.props.onRefresh();
-    }
+
   }
 
   componentWillReceiveProps(props) {
@@ -85,14 +72,10 @@ class AnimatedPTR extends React.Component {
 	}
 
 
-  //if the content scroll value is at 0, we allow for a pull to refresh, or else let native android scrolling handle scrolling
   _handlePanResponderMove(e, gestureState) {
       if((gestureState.dy >= 0 && this.scrollY <= 0) ) {
-        // this.setState({
-        // 		refreshHeight:gestureState.dy*.5
-        // 	});
         var diff = this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY;
-			this.setState({refreshHeight:diff/3});
+		this.setState({refreshHeight:diff/3});
       } else {
         	if(this.state.isScrollFree){
 
@@ -103,7 +86,6 @@ class AnimatedPTR extends React.Component {
   }
 
    animation(){
-    
     LayoutAnimation.easeInEaseOut();
   }
 
