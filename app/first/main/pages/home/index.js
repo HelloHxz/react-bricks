@@ -73,7 +73,7 @@ class HomeScreen extends React.Component {
           resizeMode='cover'
           style={{width:"100%",height:"100%"}}
           source={params.data.src}
-        />);
+        ></Image>);
   }
 
 
@@ -87,23 +87,13 @@ class HomeScreen extends React.Component {
     }
   }
 
-    // onMoveShouldSetPanResponder={()=>{return false;}}
-    // onStartShouldSetPanResponderCapture={()=>{return false;}}
-    // onMoveShouldSetPanResponderCapture={()=>{return false;}}
 
   listRenderItem({item}){
-    if(StyleSheet.OS!=='android'){
       return  <TouchableOpacity 
     style={StyleSheet.create({height:80,display:"flex",flexDirection:"row",alignItems:"center"})}
       onPress = {this.listRowPress.bind(this,item)}>
        <Text>{item.name}</Text>
       </TouchableOpacity>
-    }
-    return <View 
-    style={StyleSheet.create({height:80,display:"flex",flexDirection:"row",alignItems:"center"})}
-      onPress = {this.listRowPress.bind(this,item)}>
-       <Text>{item.name}</Text>
-      </View>
   }
 
   _keyExtractor = (item, index) => item.id;
@@ -114,15 +104,7 @@ class HomeScreen extends React.Component {
       data={ListDataSource}
       renderItem={this.listRenderItem.bind(this)}
       keyExtractor={this._keyExtractor}
-    />
-
-    // return (
-    //   <View style={{flex:1,backgroundColor:"#fff"}}>
-    //     <Button onPress={this.Nav.bind(this)}>Go</Button>
-    //     <Text style={Styles.fontStyle}><Text>bang!</Text>huxiaozhong</Text>
-    //     <View style={Styles.testStyle}></View>
-    //   </View>
-    // );
+    ></FlatList>
   }
 }
 

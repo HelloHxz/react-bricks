@@ -4,10 +4,11 @@ import {
   ScrollView,
   Animated,
   PanResponder,
-  FlatList,
   UIManager
 } from 'react-native'
-
+import TimedAnimation from '../animations/TimedAnimation';
+import ScrollAnimation from '../animations/ScrollAnimation';
+import FadeAnimation from '../animations/FadeAnimation';
 
 class AnimatedPTR extends React.Component {
   constructor(props) {
@@ -15,9 +16,8 @@ class AnimatedPTR extends React.Component {
     this.state = {
       shouldTriggerRefresh: false,
       scrollY : new Animated.Value(0),
-      refreshHeight:0,
+      refreshHeight: new Animated.Value(0),
       currentY : 0,
-      offset:0,
       isScrollFree: false
     }
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -35,7 +35,6 @@ class AnimatedPTR extends React.Component {
       onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder.bind(this),
        onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder.bind(this),
        onPanResponderMove: this._handlePanResponderMove.bind(this),
-        onPanResponderGrant: this.onTouchStart.bind(this),
        onPanResponderRelease: this._handlePanResponderEnd.bind(this),
        onPanResponderTerminate: this._handlePanResponderEnd.bind(this),
     });
@@ -59,16 +58,18 @@ class AnimatedPTR extends React.Component {
   componentWillReceiveProps(props) {
       if(this.props.isRefreshing !== props.isRefreshing) {
         if(!props.isRefreshing) {
-        	this.setState({
-        		refreshHeight:0
-        	});
+          Animated.spring(this.state.refreshHeight, {
+            toValue: 0
+          }).start();
         }
     }
   }
   componentDidMount() {
+    this.state.refreshHeight.addListener((value) => this.onScrollTrigger(value));
   }
 
   componentWillUnmount() {
+    this.state.refreshHeight.removeAllListeners()
   }
 
   _handleStartShouldSetPanResponder(e, gestureState) {
@@ -79,34 +80,35 @@ class AnimatedPTR extends React.Component {
     return !this.state.isScrollFree;
   }
 
-  	onTouchStart(e,gestureState){
-		this.startPos = {pageX:e.nativeEvent.pageX,pageY:e.nativeEvent.pageY};
-	}
-
-
   //if the content scroll value is at 0, we allow for a pull to refresh, or else let native android scrolling handle scrolling
   _handlePanResponderMove(e, gestureState) {
-      if((gestureState.dy >= 0 && this.state.scrollY._value === 0) || this.state.refreshHeight > 0) {
-        // this.setState({
-        // 		refreshHeight:gestureState.dy*.5
-        // 	});
-        var diff = this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY;
-			this.setState({refreshHeight:diff/3});
+    if(!this.props.isRefreshing) {
+      if((gestureState.dy >= 0 && this.state.scrollY._value === 0) || this.state.refreshHeight._value > 0) {
+        this.state.refreshHeight.setValue(-1*gestureState.dy*.5);
       } else {
         //TODO: create a momentum scroll for the first pass
-        this.refs.PTR_ScrollComponent.scrollToOffset({offset: -1*gestureState.dy+60, animated: true});
+        this.refs.PTR_ScrollComponent.scrollTo({y: -1*gestureState.dy, animated: true});
       }
+    }
   }
 
   _handlePanResponderEnd(e, gestureState) {
-  	  this.setState({
-        	refreshHeight:0
-        });
+    if(!this.props.isRefreshing) {
+      if(this.state.refreshHeight._value <= -120) {
+        this.onScrollRelease();
+        Animated.spring(this.state.refreshHeight, {
+          toValue: -120
+        }).start();
+      } else if(this.state.refreshHeight._value <= 0) {
+        Animated.spring(this.state.refreshHeight, {
+          toValue: 0
+        }).start();
+      }
+
       if(this.state.scrollY._value > 0) {
         this.setState({isScrollFree: true});
-      }else{
-      	 // this.refs.PTR_ScrollComponent.scrollToOffset({offset: 10, animated: true});
       }
+    }
   }
 
   isScrolledToTop() {
@@ -123,13 +125,14 @@ class AnimatedPTR extends React.Component {
       }
       this.state.scrollY.setValue(event.nativeEvent.contentOffset.y)
     };
+    let animateHeight = this.state.refreshHeight.interpolate({
+      inputRange: [-120, 0],
+      outputRange: [120, 0]
+    });
     return  (
       <View style={{flex:1, backgroundColor:this.props.contentBackgroundColor}}
         {...this._panResponder.panHandlers}>
-    	<View style={{height:this.state.refreshHeight,backgroundColor:"red"}}/>
-			<View style={{height:100,backgroundColor:"red",marginTop:-100}}/>
-        <FlatList ref='PTR_ScrollComponent'
-          {...this.props}
+        <ScrollView ref='PTR_ScrollComponent'
           scrollEnabled={this.state.isScrollFree}
           onScroll={onScrollEvent}
           onTouchEnd= {() => {this.isScrolledToTop()}}
@@ -137,11 +140,28 @@ class AnimatedPTR extends React.Component {
           onMomentumScrollEnd = {() => {this.isScrolledToTop()}}
           onResponderRelease ={() => {this.onScrollRelease.bind(this)}}
         >
-        </FlatList>
+        <Animated.View style={{height: animateHeight, overflow:'visible',backgroundColor: this.props.PTRbackgroundColor}}>
+        {React.Children.map(this.props.children, (child) => {
+          return React.cloneElement(child, {
+            isRefreshing: this.props.isRefreshing,
+            scrollY: this.state.refreshHeight,
+            minPullDistance: this.props.minPullDistance
+          });
+        })}
+        </Animated.View>
+        {React.cloneElement(this.props.contentComponent, {
+          scrollEnabled: false,
+          scrollEventThrottle: 16,
+          ref:'PTR_ScrollComponent',
+        })}
+        </ScrollView>
       </View>
     );
   }
 }
 
+AnimatedPTR.TimedAnimation = TimedAnimation;
+AnimatedPTR.ScrollAnimation = ScrollAnimation;
+AnimatedPTR.FadeAnimation = FadeAnimation;
 
 module.exports = AnimatedPTR;
