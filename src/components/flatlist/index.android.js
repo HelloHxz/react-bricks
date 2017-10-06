@@ -5,6 +5,7 @@ import {
   Animated,
   PanResponder,
   FlatList,
+  LayoutAnimation,
   UIManager
 } from 'react-native'
 
@@ -14,12 +15,12 @@ class AnimatedPTR extends React.Component {
     super(props);
     this.state = {
       shouldTriggerRefresh: false,
-      scrollY : 0,
       refreshHeight:0,
       currentY : 0,
       offset:0,
       isScrollFree: false
     }
+    this.scrollY = 0;
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
@@ -86,40 +87,56 @@ class AnimatedPTR extends React.Component {
 
   //if the content scroll value is at 0, we allow for a pull to refresh, or else let native android scrolling handle scrolling
   _handlePanResponderMove(e, gestureState) {
-      if((gestureState.dy >= 0 && this.state.scrollY <= 30) ) {
+      if((gestureState.dy >= 0 && this.scrollY <= 0) ) {
         // this.setState({
         // 		refreshHeight:gestureState.dy*.5
         // 	});
         var diff = this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY;
 			this.setState({refreshHeight:diff/3});
       } else {
-        this.refs.PTR_ScrollComponent.scrollToOffset({offset: -1*gestureState.dy, animated: true});
+        	if(this.state.isScrollFree){
+
+        	}else{
+      		  this.refs.PTR_ScrollComponent.scrollToOffset({offset: -1*gestureState.dy, animated: true});
+        	}
       }
   }
 
+   animation(){
+    
+    LayoutAnimation.easeInEaseOut();
+  }
+
+
   _handlePanResponderEnd(e, gestureState) {
+  	  this.animation();
   	  this.setState({
         	refreshHeight:0
         });
-      if(this.state.scrollY > 0) {
+      if(this.scrollY > 0) {
         this.setState({isScrollFree: true});
+
+        // if(this.isAutoGo&&this.state.scrollY>10&&gestureState.dy<0){
+        // 	this.isAutoGo = false;
+        // 	setTimeout(()=>{
+        // 		this.refs.PTR_ScrollComponent.scrollToOffset({offset: this.state.scrollY+300, animated: true});
+        // 	},1);
+        // }
       }else{
-      	 this.refs.PTR_ScrollComponent.scrollToOffset({offset: 3, animated: true});
+      	 // this.refs.PTR_ScrollComponent.scrollToOffset({offset: 0, animated: true});
       }
   }
 
   isScrolledToTop() {
-    if(this.state.scrollY <= 30 && this.state.isScrollFree) {
+    if(this.scrollY <= 0 && this.state.isScrollFree) {
       this.setState({isScrollFree: false});
     }else{
-    	 // this.setState({isScrollFree: true});
+
     }
   }
 
   onScroll(event){
-  	this.setState({
-  		scrollY:event.nativeEvent.contentOffset.y
-  	});
+  	this.scrollY =event.nativeEvent.contentOffset.y ;
   }
 
   render() {
