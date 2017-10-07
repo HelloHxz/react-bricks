@@ -1,12 +1,8 @@
 import {FlatList} from 'react-native';
 import React from 'react'
 import StyleSheet from '../style'
-import { View,PanResponder,UIManager,LayoutAnimation,ScrollView } from 'react-native'
-/*
-https://github.com/shiwenwen/react-native-swRefresh
-https://github.com/react-native-component/react-native-smart-pull-to-refresh-listview
-https://github.com/greatbsky/react-native-pull
-*/
+import { View,PanResponder,UIManager,LayoutAnimation,ScrollView } from 'react-native';
+import Base from './base';
 
 const isVerticalGesture = (x, y) => {
     return (Math.abs(x) < Math.abs(y));
@@ -20,7 +16,7 @@ const isUpGesture = (x, y) => {
     return y < 0 && (Math.abs(x) < Math.abs(y));
 };
 
-export default class FL extends React.Component{
+export default class IOSFlatList extends Base{
 
 	constructor(props){
 		super(props);
@@ -28,8 +24,6 @@ export default class FL extends React.Component{
 			offset:0
 		};
 
-		this.horizontal = false;
-		this.scrollValue = 0;
 		this.startPos = {dx:0,dy:0};
 		this.isDown = false;
 		this.dy = 0;
@@ -39,8 +33,6 @@ export default class FL extends React.Component{
 
 	      onStartShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
 	      onMoveShouldSetPanResponder: this.onShouldSetPanResponder.bind(this),
-	      // onStartShouldSetResponderCapture:this.onShouldSetPanResponder.bind(this),
-	      // onMoveShouldSetResponderCapture: this.onShouldSetPanResponder.bind(this),
 	      onPanResponderTerminationRequest: (event, gestureState) => true,
 	      onPanResponderGrant: this.onTouchStart.bind(this),
 	      onPanResponderMove: this.onTouchMove.bind(this),
@@ -64,24 +56,7 @@ export default class FL extends React.Component{
 		onStartShouldSetPanResponder onMoveShouldSetPanResponder 
 		false 能滚 true 不能滚
 
-
-
 	*/
-
-	onScroll(e){
-
-		var ne = e.nativeEvent;
-		this.scrollValue = this.horizontal?ne.contentOffset.x:ne.contentOffset.y;
-	}
-
-	onStartShouldSetPanResponderCapture(e,gestureState){
-		return true;
-
-	}
-
-	onMoveShouldSetPanResponderCapture(e,gestureState){
-		return true;
-	}
 
 	onShouldSetPanResponder(e,gestureState){
 			if(isPullDirection(gestureState.dx,gestureState.dy)&&this.scrollValue<=150){
@@ -97,37 +72,21 @@ export default class FL extends React.Component{
 	      	return false;
 	}
 
-	onTouchStart(e,gestureState){
-		this.startPos = {pageX:e.nativeEvent.pageX,pageY:e.nativeEvent.pageY};
-	}
 
 	onTouchMove(e,gestureState){
 		if(gestureState.dy >= 0&&this.scrollValue<=10){
-			var diff = this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY;
-			this.setState({offset:diff/3});
+			this.pullMove(e,gestureState);
 		}
 		return true;
 	}
 
-	onTouchEnd(){
-		UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-	    LayoutAnimation.easeInEaseOut();
-		this.setState({offset:0});
-		return true;
-	}
+	_onTouchEnd(){}
 
-	render(){
-
-		return <View 
-			{...this._panResponder.panHandlers}
-			style={{flex:1,overflow:"hidden",backgroundColor:"#fff"}}>
-				<View style={{height:this.state.offset,backgroundColor:"red"}}/>
-				<View style={{height:100,backgroundColor:"red",marginTop:-100}}/>
-				<FlatList 
+	renderList(){
+		return <FlatList 
 				 ref={(flatlist)=>{this.flatlist = flatlist;}}
 				 onScroll = {this.onScroll.bind(this)}
 				 {...this.props}/>
-		</View>
 	}
 }
 
