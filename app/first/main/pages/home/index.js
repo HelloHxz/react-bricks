@@ -107,8 +107,7 @@ class HomeScreen extends React.Component {
     if(params.isInLoading){
       child = <ActivityIndicator/>;
     }else{
-      var text = params.canRefresh?"释放更新gaa":"下拉刷新hah";
-      child = <Text>{text}</Text>;
+      child = <Text>{params.canRefresh?"释放更新":"下拉刷新"}</Text>;
     }
      return <View style={{height:"100%",width:"100%",backgroundColor:"#fff",justifyContent:"center",overflow:"hidden",alignItems:"center"}}>
       {child}

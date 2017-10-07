@@ -1,5 +1,5 @@
-import {View,Text,React,StyleSheet,PageView,Button,Image,Swiper} from "react-bricks"
-
+import {View,Text,React,StyleSheet,PageView,Button,Image,Swiper,Header,TouchableOpacity,Icon} from "react-bricks"
+import svgs from '../../assets/svg/svgs.js';
 
 
 var siwperData = [
@@ -17,7 +17,7 @@ var siwperData = [
 export default class SwiperDemo extends React.Component {
 	
   static navigationOptions = {
-    title: 'SwiperDemo',
+    header: null,
   };
 
   renderSwiperItem(params){
@@ -25,15 +25,22 @@ export default class SwiperDemo extends React.Component {
           resizeMode='cover'
           style={{width:"100%",height:"100%"}}
           source={params.data.src}
-        />);
+        ></Image>);
   }
 
+  goBack(){
+    this.props.navigation.goBack();
+  }
+  
   componentDidMount() {
   }
 
   render() {
     return (
-      <View style={{flex:1,overflow:"hidden"}}>
+      <View style={{flex:1,backgroundColor:"#fff",overflow:"hidden"}}>
+        <Header>
+            <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
+        </Header>
         <Swiper ref={(instance)=>{this.topswiper = instance;}} 
             style={StyleSheet.create({height:350})}
             lazyrender={false} 

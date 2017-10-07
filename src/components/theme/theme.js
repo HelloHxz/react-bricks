@@ -27,6 +27,9 @@ let Re = {
 	btn_hollow:{
 
 	},
+	btn_text:{
+
+	},
 	btn_dashed:{},
 	/*button 是否圆形*/
 	btn_circle:{
@@ -58,7 +61,9 @@ let Re = {
 	/*pull */
 	flatlist_pullheight:150,
 	header:{
-		height:95,
+		height:85,
+		flexDirection:"row",
+		alignItems:"center",
 		borderBottomWidth:1,
 		borderStyle:"solid",
 		backgroundColor:"#fff",

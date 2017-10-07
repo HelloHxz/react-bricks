@@ -1,6 +1,7 @@
-import {View,Text,React,StyleSheet,PageView,Button,UIManager} from "react-bricks";
+import {View,Text,React,StyleSheet,PageView,Button,UIManager,Header,TouchableOpacity,Icon} from "react-bricks";
 import PopoverStore from './store';
 import DemoPopover from './components/popover'
+import svgs from '../../assets/svg/svgs.js';
 
 
 
@@ -8,10 +9,14 @@ import DemoPopover from './components/popover'
 export default class PopoverDemo extends React.Component {
 	
   static navigationOptions = {
-    title: 'PopoverDemo',
+    header:null
   };
 
   componentDidMount() {
+  }
+
+  goBack(){
+    this.props.navigation.goBack();
   }
 
   Show(e){
@@ -27,9 +32,12 @@ export default class PopoverDemo extends React.Component {
 
   render() {
     return (
-      <View style={{flex:1}}>
-         <Button onPress={this.Show.bind(this)}>Go</Button>
+      <View style={{flex:1,backgroundColor:"#fff",overflow:"hidden"}}>
          <DemoPopover popoverStore={this.props.popoverStore}/>
+        <Header>
+            <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
+        </Header>
+         <Button onPress={this.Show.bind(this)}>Go</Button>
       </View>
     );
   }

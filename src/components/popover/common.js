@@ -165,7 +165,7 @@ class PopoverItem extends React.Component{
 				ref={(instance)=>{
 					this.instance = instance;
 				}}
-				style={{...StyleSheet.create({zIndex:100,position:"absolute",top:this.state.pos.top,left:this.state.pos.left}),...{opacity:op}}}>
+				style={{...StyleSheet.create({zIndex:300,position:"absolute",top:this.state.pos.top,left:this.state.pos.left}),...{opacity:op}}}>
 					{this.renderItem()}
 				</Animated.View>;
 	}

@@ -11,7 +11,7 @@ export default class Header extends React.Component{
 		var style = {...Styles,...this.props.style||{}};
 		if(StyleSheet.OS==="ios"&&!StyleSheet.isWeb){
 			return <View>
-				<View style={StyleSheet.create({height:20,backgroundColor:style.backgroundColor||"#fff"})}></View>
+				<View style={StyleSheet.create({height:32,backgroundColor:style.backgroundColor||"#fff"})}></View>
 				<View style={style}>{this.props.children}</View>
 			</View>
 		}

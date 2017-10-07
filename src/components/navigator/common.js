@@ -82,7 +82,7 @@ class ToastItem extends React.Component{
 	      extrapolate: 'clamp',
 	    });
 		return (
-				<Animated.View style={StyleSheet.create({position:"absolute",top:0,transform:[{translateY:y}],
+				<Animated.View style={StyleSheet.create({position:"absolute",zIndex:10000,top:0,transform:[{translateY:y}],
 					left:'50%'})}>
 					<View style={StyleSheet.create({
 						paddingLeft:20,paddingRight:20,

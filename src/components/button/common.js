@@ -9,30 +9,9 @@ import TouchableOpacity from '../touchableopacity';
 import ActivityIndicator from '../activityindicator';
 import PropTypes from 'prop-types';
 import StyleSheet from '../style'
-// import isEqual from 'lodash.isequal';
 
 class Button extends React.Component {
-  static propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node,
-      PropTypes.element
-    ]),
-    accessibilityLabel: PropTypes.string,
-    activeOpacity: PropTypes.number,
-    allowFontScaling: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    isDisabled: PropTypes.bool,
-    activityIndicatorColor: PropTypes.string,
-    delayLongPress: PropTypes.number,
-    delayPressIn: PropTypes.number,
-    delayPressOut: PropTypes.number,
-    onPress: PropTypes.func,
-    onLongPress: PropTypes.func,
-    onPressIn: PropTypes.func,
-    onPressOut: PropTypes.func
-  }
-
+  
   static isAndroid = (Platform.OS === 'android')
 
   _renderChildren() {
@@ -70,7 +49,7 @@ class Button extends React.Component {
           size='small'
           style={styles.spinner}
           color={this.props.activityIndicatorColor || 'black'}
-        />
+        ></ActivityIndicator>
       );
     }
     return this._renderChildren();
