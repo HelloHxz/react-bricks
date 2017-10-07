@@ -19,7 +19,8 @@ var Re = {
 		return this._px(val);
 	},
 	px2px(v){
-        return Math.round(v*this.screen.dpr/2);
+        // return Math.round(v*this.screen.dpr/2)this.screen.dpr*(this.screen.width/this.baseScreen.width);
+        return this._px(v);
     },
 	_px(val){
 		if(this.screen.dpr===0){

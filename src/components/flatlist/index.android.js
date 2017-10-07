@@ -15,7 +15,6 @@ export default class AndroidFlatList extends Base {
   constructor(props) {
     super(props);
     this.state = {
-      currentY : 0,
       offset:0,
       isScrollFree: false
     }

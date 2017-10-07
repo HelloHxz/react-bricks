@@ -7,7 +7,9 @@ import {
   FlatList,
   LayoutAnimation,
   UIManager
-} from 'react-native'
+} from 'react-native';
+import StyleSheet from '../style'
+import Theme from '../theme'
 
 
 export default class Base extends React.Component {
@@ -15,7 +17,13 @@ export default class Base extends React.Component {
     super(props);
     this.horizontal = !!props.horizontal;
     this.scrollValue = 0;
+    if(isNaN(this.props.pullHeight)){
+      this.pullHeight = StyleSheet.px2px(Theme.flatlist_pullheight);
+    }else{
+      this.pullHeight = this.props.pullHeight;
+    }
   }
+
   animation(){
     LayoutAnimation.easeInEaseOut();
   }
@@ -27,8 +35,8 @@ export default class Base extends React.Component {
 
 
   pullMove(e,gestureState){
-    var diff = this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY;
-    this.setState({offset:diff/3});
+    this.diff = (this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY)/3;
+    this.setState({offset:this.diff});
   }
 
 
@@ -39,8 +47,17 @@ export default class Base extends React.Component {
 
   onTouchEnd(e,gestureState){
     this.animation();
-    this.setState({offset:0});
+    if(this.diff>=this.pullHeight){
+      this.setState({offset:this.pullHeight});
+      setTimeout(()=>{
+        this.animation();
+        this.setState({offset:0});
+      },2000)
+    }else{
+      this.setState({offset:0});
+    }
     this._onTouchEnd(e,gestureState);
+
     return true;
   }
 
@@ -49,8 +66,8 @@ export default class Base extends React.Component {
     return  (
       <View style={{flex:1}}
         {...this._panResponder.panHandlers}>
-    	<View style={{height:this.state.offset,backgroundColor:"red"}}/>
-			<View style={{height:100,backgroundColor:"red",marginTop:-100}}/>
+    	<View style={{height:this.state.offset}}/>
+			<View style={{height:this.pullHeight,backgroundColor:"#eee",marginTop:-this.pullHeight}}/>
         {this.renderList()}
       </View>
     );

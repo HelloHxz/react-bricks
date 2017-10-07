@@ -1,15 +1,16 @@
 import React from "react"
-import Style from "../../style"
+import StyleSheet from "../../style"
 import "./index.less"
 import Spin from '../../activityindicator'
 import StickyWrapper from './stickywrapper'
+import Theme from '../../theme'
 
 class ScrollView extends React.Component {
   constructor(props) {
     super(props)
     this.seed  = 0;
     this.inTouch = false;
-    this.tranDict = Style.getTransitionKeys();
+    this.tranDict = StyleSheet.getTransitionKeys();
     this.state = {
       offset:-1,
       animate:false,
@@ -18,7 +19,6 @@ class ScrollView extends React.Component {
     this.startScrollValue = 0;
     this.startY = 0;
     this.isInLoading = 0;
-    var direction = this.props.direction||"vertical";
 
     this.stickyOffset = this.props.stickyOffset||0;
     if(!isNaN(this.stickyOffset)){
@@ -26,15 +26,18 @@ class ScrollView extends React.Component {
     }else{
       this.stickyOffset = 0;
     }
-    this.isHorizontal = direction.toLowerCase()!=="vertical";
-
-    this.limitOffset = this.props.limitOffset||(!this.isHorizontal?150:100);
+    this.horizontal = !!this.props.horizontal;
+    if(isNaN(this.props.pullHeight)){
+      this.pullHeight = StyleSheet.px2px(Theme.flatlist_pullheight);
+    }else{
+      this.pullHeight = this.props.pullHeight;
+    }
     this.disableCheckSticky = props.disableCheckSticky||false;
     this.config = {
       touchkey:"pageX",
       otherToucKey:"pageY"
     };
-    if(!this.isHorizontal){
+    if(!this.horizontal){
       this.config = {
          touchkey:"pageY",
          otherToucKey:"pageX"
@@ -80,11 +83,11 @@ class ScrollView extends React.Component {
     var touch = e.nativeEvent.touches[0];
     this.startY = touch[this.config.touchkey];
     this.startX = touch[this.config.otherToucKey];
-    this.startScrollValue = this.isHorizontal? this.scrollarea.scrollLeft:this.scrollarea.scrollTop;
+    this.startScrollValue = this.horizontal? this.scrollarea.scrollLeft:this.scrollarea.scrollTop;
     if(this.props.onLoadMore){
-      this.wrapperSize = this.isHorizontal? this.scrollarea.offsetWidth:this.scrollarea.offsetHeight;
+      this.wrapperSize = this.horizontal? this.scrollarea.offsetWidth:this.scrollarea.offsetHeight;
     }
-    this.scrollHeightSize = this.isHorizontal? this.scrollarea.scrollWidth: this.scrollarea.scrollHeight;
+    this.scrollHeightSize = this.horizontal? this.scrollarea.scrollWidth: this.scrollarea.scrollHeight;
     this.props.onTouchStart&&this.props.onTouchStart({
       instance:this,
       scroller:this.scrollarea,
@@ -129,10 +132,10 @@ class ScrollView extends React.Component {
         scroller:this.scrollarea,
         e:e
       });
-      this.scrollValue = this.isHorizontal? this.scrollarea.scrollLeft:this.scrollarea.scrollTop;
+      this.scrollValue = this.horizontal? this.scrollarea.scrollLeft:this.scrollarea.scrollTop;
       if(this.diff>0&&this.props.onRefresh){
         if(this.scrollValue <=0){
-          var l = this.isHorizontal?0:40;
+          var l = this.horizontal?0:40;
           if(this.diff>20){ 
             e.preventDefault();
             e.stopPropagation();
@@ -140,7 +143,7 @@ class ScrollView extends React.Component {
           }
           
           var pullOffsetY = (this.diff- this.startScrollValue)/3;
-          this.canRefresh = pullOffsetY> this.limitOffset;
+          this.canRefresh = pullOffsetY> this.pullHeight;
           this.touchAction = "refresh";
           this.setState({offset:pullOffsetY,animate:false});
         }
@@ -153,7 +156,7 @@ class ScrollView extends React.Component {
           e.stopPropagation();
           this.touchAction = "loadmore";
           var pullOffset = (this.diff)/3;
-          this.canLoadMore = Math.abs(pullOffset)>(this.limitOffset);
+          this.canLoadMore = Math.abs(pullOffset)>(this.pullHeight);
           this.setState({offset:pullOffset,animate:false});
         }
       }
@@ -169,7 +172,7 @@ class ScrollView extends React.Component {
         return;
       }
     }
-    var scrollKey =this.isHorizontal?"overflow-x":"overflow-y";
+    var scrollKey =this.horizontal?"overflow-x":"overflow-y";
     this.props.onTouchEnd&&this.props.onTouchEnd({
       instance:this,
       diff:this.diff,
@@ -181,7 +184,7 @@ class ScrollView extends React.Component {
     if(this.touchAction==="refresh"){
       if(this.canRefresh){
         this.isInLoading = true;
-        this.setState({offset:this.limitOffset,animate:true,refreshState:"loading"});
+        this.setState({offset:this.pullHeight,animate:true,refreshState:"loading"});
         this.props.onRefresh();
         if(!this.props.refreshState){
           setTimeout(()=>{
@@ -196,7 +199,7 @@ class ScrollView extends React.Component {
     if(this.touchAction==="loadmore"){
       if(this.canLoadMore){
         this.isInLoading = true;
-        this.setState({offset:0-this.limitOffset,animate:true,refreshState:"done"});
+        this.setState({offset:0-this.pullHeight,animate:true,refreshState:"done"});
         this.props.onLoadMore();
 
         this.loadMoreEnd();
@@ -209,7 +212,7 @@ class ScrollView extends React.Component {
   }
 
   refreshEnd(){
-    var scrollKey =this.isHorizontal?"overflow-x":"overflow-y";
+    var scrollKey =this.horizontal?"overflow-x":"overflow-y";
     this.isInLoading = false;
     this.setState({offset:-1,animate:true,refreshState:"done"});
     this.scrollarea.classList.remove("xz-sv-scrollarea-disabled");
@@ -217,7 +220,7 @@ class ScrollView extends React.Component {
   }
 
   loadMoreEnd(){
-     var scrollKey =this.isHorizontal?"overflow-x":"overflow-y";
+     var scrollKey =this.horizontal?"overflow-x":"overflow-y";
      this.isInLoading = false;
      this.scrollarea.classList.remove("xz-sv-scrollarea-disabled");
      this.setState({offset:-1,animate:true});
@@ -238,7 +241,7 @@ class ScrollView extends React.Component {
   }
   checkSticky(){
      var allNOSticky = true;
-     if(!this.isHorizontal&&this.props.pageview&&this.props.pageview.stickviewDict){
+     if(!this.horizontal&&this.props.pageview&&this.props.pageview.stickviewDict){
         var stickyArr = this.props.pageview.stickviewDict[this.props.scrollKey];
         if(stickyArr&&stickyArr.length>0){
           for(var i=0,j=stickyArr.length;i<j;i++){
@@ -276,10 +279,10 @@ class ScrollView extends React.Component {
         });
         if(this.props.onScrollToTail){
             if(!this.wrapperSize){
-              this.wrapperSize = this.isHorizontal? this.scrollarea.offsetWidth:this.scrollarea.offsetHeight;
+              this.wrapperSize = this.horizontal? this.scrollarea.offsetWidth:this.scrollarea.offsetHeight;
             }
-            var scrollHeightSize = this.isHorizontal? this.scrollarea.scrollWidth: this.scrollarea.scrollHeight;
-            var scrollValue = this.isHorizontal? this.scrollarea.scrollLeft:this.scrollarea.scrollTop;
+            var scrollHeightSize = this.horizontal? this.scrollarea.scrollWidth: this.scrollarea.scrollHeight;
+            var scrollValue = this.horizontal? this.scrollarea.scrollLeft:this.scrollarea.scrollTop;
             if(scrollHeightSize<=this.wrapperSize+scrollValue+20){
               this.props.onScrollToTail({instance:this,
                 scroller:this.scrollarea,
@@ -310,11 +313,11 @@ class ScrollView extends React.Component {
 
   _renderRefreshIndicator(){
 
-    var wrapperClassName = this.isHorizontal?["xz-refresh-control-inner-h"]:["xz-refresh-control-inner-v"];
+    var wrapperClassName = this.horizontal?["xz-refresh-control-inner-h"]:["xz-refresh-control-inner-v"];
     if(this.props.renderRefreshIndicator){
       return  (<div className={wrapperClassName.join(" ")}>{this.props.renderRefreshIndicator({
         offset:this.state.offset,
-        limitOffset:this.limitOffset,
+        pullHeight:this.pullHeight,
         canRefresh:this.canRefresh,
         isInLoading:this.isInLoading
       })}</div>);
@@ -326,7 +329,7 @@ class ScrollView extends React.Component {
       var text = this.canRefresh?"释放更新":"下拉刷新";
       child = <span>{text}</span>;
     }
-    if(this.isHorizontal){
+    if(this.horizontal){
       wrapperClassName.push("xz-refcon-h-default");
     }else{
       wrapperClassName.push("xz-refcon-v-default");
@@ -335,7 +338,7 @@ class ScrollView extends React.Component {
   }
 
   _renderLoadMoreIndicator(){
-    var wrapperClassName = this.isHorizontal?"xz-loadmore-control-inner-h":"xz-loadmore-control-inner-v";
+    var wrapperClassName = this.horizontal?"xz-loadmore-control-inner-h":"xz-loadmore-control-inner-v";
     var text = this.canLoadMore?"释放加载":"上拉加载更多";
     var child ;
     if(this.props.renderLoadMoreIndicator){
@@ -347,7 +350,7 @@ class ScrollView extends React.Component {
   }
 
   disableScroll(isDisable){
-    var className = this.isHorizontal?"xz-sv-scrollarea-h":"xz-sv-scrollarea-v";
+    var className = this.horizontal?"xz-sv-scrollarea-h":"xz-sv-scrollarea-v";
     if(isDisable){
       className += " xz-sv-scrollarea-disabled";
     }else{
@@ -387,8 +390,8 @@ class ScrollView extends React.Component {
 
     
     var classNameArr = ['xz-scrollview'];
-    classNameArr.push(this.isHorizontal?"xz-scrollview-h":"xz-scrollview-v");
-    var scrollAreaClassName = this.isHorizontal?["xz-sv-scrollarea-h"]:["xz-sv-scrollarea-v"];
+    classNameArr.push(this.horizontal?"xz-scrollview-h":"xz-scrollview-v");
+    var scrollAreaClassName = this.horizontal?["xz-sv-scrollarea-h"]:["xz-sv-scrollarea-v"];
 
     if(this.props.className){
       classNameArr.push(this.props.className);
@@ -401,7 +404,7 @@ class ScrollView extends React.Component {
 
     if(this.props.onRefresh&&!this.inTouch){
       if(this.state.refreshState==='loading'){
-          offset = this.limitOffset;
+          offset = this.pullHeight;
           this.isInLoading = true;
           scrollAreaClassName.push("xz-sv-scrollarea-disabled");
           needAnimate = true;
@@ -421,7 +424,7 @@ class ScrollView extends React.Component {
 
     var moveStyle = {};
     if(needTranslate){
-      var valueStr = this.isHorizontal?offset+"px,0,0":"0,"+offset+"px,0";
+      var valueStr = this.horizontal?offset+"px,0,0":"0,"+offset+"px,0";
       moveStyle[this.tranDict.transform] ="translate3d("+valueStr+")";
       if(needAnimate){
          moveStyle[this.tranDict.transition] = "all .3s ease";
@@ -439,24 +442,24 @@ class ScrollView extends React.Component {
 
     var refreshControl = null;
     if(this.props.onRefresh){
-      var refreshControlClassName = this.isHorizontal?"xz-refresh-control-h":"xz-refresh-control-v";
+      var refreshControlClassName = this.horizontal?"xz-refresh-control-h":"xz-refresh-control-v";
       refreshControl =  <div className={refreshControlClassName}>
           {this._renderRefreshIndicator()}
         </div>;
     }
     var loadMoreControl = null;
     if(this.props.onLoadMore){
-      var loadMoreClassName = this.isHorizontal?"xz-loadmore-control-h":"xz-loadmore-control-v";
+      var loadMoreClassName = this.horizontal?"xz-loadmore-control-h":"xz-loadmore-control-v";
       loadMoreControl =  <div className={loadMoreClassName}>
         {this._renderLoadMoreIndicator()}
         </div>;
     }
 
 
-    var innerClassName = this.isHorizontal?"xz-scrollview-inner-h":"xz-scrollview-inner-v";
+    var innerClassName = this.horizontal?"xz-scrollview-inner-h":"xz-scrollview-inner-v";
 
     this.stickview = null;
-    if(this.isHorizontal){
+    if(this.horizontal){
 
     }else{
       this.stickview=<StickyWrapper stickyOffset={this.stickyOffset} ref={(instance)=>{this.stickyWrapper = instance}}/>

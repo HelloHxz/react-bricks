@@ -54,6 +54,8 @@ let Re = {
 	/*toast*/
 	toast:{
 		background:"#000"
-	}
+	},
+	/*pull */
+	flatlist_pullheight:150
 };
 export default Re;
