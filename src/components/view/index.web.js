@@ -13,11 +13,17 @@ class View extends React.Component {
   		style.width = style.width+"rem";
   	}
   	style = StyleSheet.convertTransform(style);
-  	var className= style.flex?'xz-displayflex':"";
-  	if(this.props.className){
-  		className = className+" "+this.props.className;
-  	}
-    return (<div ref={(node)=>{this.node = node;}} className={className} style={style}>{this.props.children}</div>);
+
+    var classNameArr = [];
+    if(this.props.className){
+      classNameArr.push(this.props.className);
+    }
+    if(style.flex||style.flexDirection||style.alignItems||style.justifyContent){
+      classNameArr.push("xz-displayflex");
+    }
+
+  
+    return (<div ref={(node)=>{this.node = node;}} className={classNameArr.join(" ")} style={style}>{this.props.children}</div>);
   }
 }
 

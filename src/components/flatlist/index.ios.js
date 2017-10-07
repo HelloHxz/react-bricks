@@ -21,7 +21,8 @@ export default class IOSFlatList extends Base{
 	constructor(props){
 		super(props);
 		this.state = {
-			offset:0
+			offset:0,
+			refreshState:props.refreshState||"done",// or done loading
 		};
 
 		this.startPos = {dx:0,dy:0};

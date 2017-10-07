@@ -8,6 +8,7 @@ import {
   LayoutAnimation,
   UIManager
 } from 'react-native';
+import ActivityIndicator from '../activityindicator'
 import StyleSheet from '../style'
 import Theme from '../theme'
 
@@ -34,40 +35,97 @@ export default class Base extends React.Component {
   }
 
 
-  pullMove(e,gestureState){
-    this.diff = (this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY)/3;
-    this.setState({offset:this.diff});
-  }
 
 
   onTouchStart(e,gestureState){
+    this.isInLoading = false;
+    this.canRefresh = false;
+    this.touchAction = "";
+    this.diff = 0;
 		this.startPos = {pageX:e.nativeEvent.pageX,pageY:e.nativeEvent.pageY};
   }
 
 
+  pullMove(e,gestureState){
+    this.diff = (this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY)/3;
+   
+
+    if(this.diff>0){
+        if(this.scrollValue <=0){
+          this.canRefresh = this.diff > this.pullHeight;
+          this.touchAction = "refresh";
+          this.setState({offset:this.diff});
+        }
+    }
+  }
+
+
+
   onTouchEnd(e,gestureState){
-    this.animation();
-    if(this.diff>=this.pullHeight){
-      this.setState({offset:this.pullHeight});
+    if(this.canRefresh){
+      this.isInLoading = true;
+      this.animation();
+      this.setState({offset:this.pullHeight,refreshState:"loading"});
       setTimeout(()=>{
-        this.animation();
-        this.setState({offset:0});
+        this.isInLoading = false;
+        this.refreshEnd();
       },2000)
     }else{
-      this.setState({offset:0});
+      this.refreshEnd();
     }
+    this.diff = 0;
     this._onTouchEnd(e,gestureState);
-
     return true;
+  }
+
+  refreshEnd(){
+    this.animation();
+    this.isInLoading = false;
+    this.setState({offset:0,refreshState:"done"});
+    this.props.onRefreshClose&&this.props.onRefreshClose();
+  }
+
+  componentWillReceiveProps(nextPros){
+    if(nextPros.refreshState==="loading"){
+        this.isInLoading = true;
+    }
+    this.setState({
+      refreshState:nextPros.refreshState
+    });
+  }
+
+
+  renderPullIndicator(){
+    var child = null;
+    if(this.props.renderPullIndicator){
+      return  this.props.renderPullIndicator({
+          offset:this.state.offset,
+          pullHeight:this.pullHeight,
+          canRefresh:this.canRefresh,
+          isInLoading:this.isInLoading
+      });
+    }else{
+      child = <ActivityIndicator/>;
+
+    }
+    return <View style={{height:"100%",width:"100%",overflow:"hidden",justifyContent:"center",alignItems:"center"}}>
+      {child}
+    </View>
   }
 
 
   render() {
+    var offset = this.state.offset;
+    if(this.state.refreshState==='loading'){
+          offset = this.pullHeight;
+    }
     return  (
       <View style={{flex:1}}
         {...this._panResponder.panHandlers}>
-    	<View style={{height:this.state.offset}}/>
-			<View style={{height:this.pullHeight,backgroundColor:"#eee",marginTop:-this.pullHeight}}/>
+    	<View style={{height:offset}}/>
+			<View style={{height:this.pullHeight,marginTop:-this.pullHeight,overflow:"hidden"}}>
+        {this.renderPullIndicator()}
+      </View>
         {this.renderList()}
       </View>
     );

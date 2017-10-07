@@ -22,6 +22,6 @@ export default class FlatList extends React.Component{
 				})
 			}</div>);
 		}
-		return <Wrapper onRefresh={()=>{}}>{rows}</Wrapper>
+		return <Wrapper {...this.props} onRefresh={()=>{}}>{rows}</Wrapper>
 	}
 } 

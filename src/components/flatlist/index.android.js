@@ -16,6 +16,7 @@ export default class AndroidFlatList extends Base {
     super(props);
     this.state = {
       offset:0,
+      refreshState:props.refreshState||"done",// or done loading
       isScrollFree: false
     }
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -35,15 +36,6 @@ export default class AndroidFlatList extends Base {
 
   }
 
-  componentWillReceiveProps(props) {
-      if(this.props.isRefreshing !== props.isRefreshing) {
-        if(!props.isRefreshing) {
-        	this.setState({
-        		offset:0
-        	});
-        }
-    }
-  }
   componentDidMount() {
   }
 
