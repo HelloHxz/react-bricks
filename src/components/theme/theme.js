@@ -56,6 +56,13 @@ let Re = {
 		background:"#000"
 	},
 	/*pull */
-	flatlist_pullheight:150
+	flatlist_pullheight:150,
+	header:{
+		height:95,
+		borderBottomWidth:1,
+		borderStyle:"solid",
+		backgroundColor:"#fff",
+		borderColor:Common.theme_border_color
+	}
 };
 export default Re;

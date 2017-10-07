@@ -1,5 +1,5 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
-  FlatList,
+  FlatList,Header,
   TouchableOpacity,ActivityIndicator,
   UIManager,Icon,Image,Swiper} from "react-bricks"
 import Poplayer from './components/poplayer'
@@ -110,7 +110,7 @@ class HomeScreen extends React.Component {
       var text = params.canRefresh?"释放更新gaa":"下拉刷新hah";
       child = <Text>{text}</Text>;
     }
-     return <View style={{height:"100%",width:"100%",justifyContent:"center",overflow:"hidden",alignItems:"center"}}>
+     return <View style={{height:"100%",width:"100%",backgroundColor:"#fff",justifyContent:"center",overflow:"hidden",alignItems:"center"}}>
       {child}
     </View>
   }
@@ -127,13 +127,16 @@ class HomeScreen extends React.Component {
   _keyExtractor = (item, index) => item.id;
 
   render() {
-
-    return <FlatList
-      renderPullIndicator = {this.renderPullIndicator.bind(this)}
-      data={ListDataSource}
-      renderItem={this.listRenderItem.bind(this)}
-      keyExtractor={this._keyExtractor}
-    ></FlatList>
+    return <View style={{flex:1}}>
+      <Header></Header>
+      <FlatList
+        style={{backgroundColor:"#fff"}}
+        renderPullIndicator = {this.renderPullIndicator.bind(this)}
+        data={ListDataSource}
+        renderItem={this.listRenderItem.bind(this)}
+        keyExtractor={this._keyExtractor}
+      ></FlatList>
+    </View>
   }
 }
 

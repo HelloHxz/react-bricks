@@ -188,7 +188,7 @@ class ScrollView extends React.Component {
         this.props.onRefresh();
         if(!this.props.refreshState){
           setTimeout(()=>{
-           //this.refreshEnd();//只是演示
+           this.refreshEnd();//只是演示
           },1300);
         }
       }else{
@@ -315,7 +315,7 @@ class ScrollView extends React.Component {
 
     var wrapperClassName = this.horizontal?["xz-refresh-control-inner-h"]:["xz-refresh-control-inner-v"];
     if(this.props.renderPullIndicator){
-      return  (<div className={wrapperClassName.join(" ")}>{this.props.renderPullIndicator({
+      return  (<div style={{height:this.pullHeight+"px"}} className={wrapperClassName.join(" ")}>{this.props.renderPullIndicator({
         offset:this.state.offset,
         pullHeight:this.pullHeight,
         canRefresh:this.canRefresh,
@@ -334,7 +334,7 @@ class ScrollView extends React.Component {
     }else{
       wrapperClassName.push("xz-refcon-v-default");
     }
-    return <div className={wrapperClassName.join(" ")}>{child}</div>;
+    return <div style={{height:this.pullHeight+"px"}} className={wrapperClassName.join(" ")}>{child}</div>;
   }
 
   _renderLoadMoreIndicator(){
@@ -360,9 +360,11 @@ class ScrollView extends React.Component {
   }
 
   componentWillReceiveProps(nextPros){
+    if(nextPros.refreshState===false||nextPros.refreshState===true){
       this.setState({
         refreshState:nextPros.refreshState
       });
+    }
   }
 
   render() {

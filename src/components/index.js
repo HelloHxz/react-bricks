@@ -15,6 +15,7 @@ import PlatForm from './platform';
 import UIManager from './uimanager'
 import Icon from './icon'
 import FlatList from './flatlist'
+import Header from './header'
 import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
@@ -30,6 +31,7 @@ import TouchableOpacity from './touchableopacity'
 
 export {
 	ActivityIndicator,
+	Header,
 	Swiper,
 	Animated,
 	TouchableOpacity,

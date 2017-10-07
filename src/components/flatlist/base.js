@@ -67,7 +67,6 @@ export default class Base extends React.Component {
       this.animation();
       this.setState({offset:this.pullHeight,refreshState:"loading"});
       setTimeout(()=>{
-        this.isInLoading = false;
         this.refreshEnd();
       },2000)
     }else{
@@ -80,8 +79,10 @@ export default class Base extends React.Component {
 
   refreshEnd(){
     this.animation();
-    this.isInLoading = false;
     this.setState({offset:0,refreshState:"done"});
+    setTimeout(()=>{
+      this.isInLoading = false;
+    },80)
     this.props.onRefreshClose&&this.props.onRefreshClose();
   }
 
@@ -120,9 +121,9 @@ export default class Base extends React.Component {
           offset = this.pullHeight;
     }
     return  (
-      <View style={{flex:1}}
+      <View style={{flex:1,overflow:"hidden",backgroundColor:"#fff"}}
         {...this._panResponder.panHandlers}>
-    	<View style={{height:offset}}/>
+    	<View style={{height:offset,backgroundColor:this.props.style.backgroundColor||"#fff"}}/>
 			<View style={{height:this.pullHeight,marginTop:-this.pullHeight,overflow:"hidden"}}>
         {this.renderPullIndicator()}
       </View>
