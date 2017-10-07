@@ -33,11 +33,11 @@ export default class PopoverDemo extends React.Component {
   render() {
     return (
       <View style={{flex:1,backgroundColor:"#fff",overflow:"hidden"}}>
-         <DemoPopover popoverStore={this.props.popoverStore}/>
         <Header>
-            <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
+            <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon style={{color:"blue"}} icon={svgs.left}/></TouchableOpacity>
         </Header>
          <Button onPress={this.Show.bind(this)}>Go</Button>
+         <DemoPopover popoverStore={this.props.popoverStore}/>
       </View>
     );
   }

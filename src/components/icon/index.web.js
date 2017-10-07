@@ -23,7 +23,7 @@ class Com extends React.Component{
 			style.width = StyleSheet.px(Theme["icon_"+size].width);
 		}
 		if(style.color){
-			style.fill = Theme.icon_color;
+			style.fill = style.color;
 		}else{
 			style.fill = Theme.icon_color;
 		}

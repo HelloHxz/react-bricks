@@ -88,7 +88,7 @@ class Popover extends React.Component{
 				<TouchableWithoutFeedback onPress={this.bkPress.bind(this)}>
 					<Animated.View style={styles.bkLayer}></Animated.View>
 				</TouchableWithoutFeedback>
-					{this.renderChild(openValue)}
+				{this.renderChild(openValue)}
 			</View>);
 	}
 }
@@ -153,7 +153,6 @@ class PopoverItem extends React.Component{
 
 
 	}
-//	<View style={StyleSheet.create({width:250,height:403,borderRadius:10,backgroundColor:"#fff"})}/>
 	render(){
 		var {openValue} = this.state;
 		var op = openValue.interpolate({
@@ -165,7 +164,8 @@ class PopoverItem extends React.Component{
 				ref={(instance)=>{
 					this.instance = instance;
 				}}
-				style={{...StyleSheet.create({zIndex:300,position:"absolute",top:this.state.pos.top,left:this.state.pos.left}),...{opacity:op}}}>
+				style={{...StyleSheet.create({zIndex:200,backgroundColor:"#fff",position:"absolute",top:this.state.pos.top,left:this.state.pos.left}),
+				...{opacity:op}}}>
 					{this.renderItem()}
 				</Animated.View>;
 	}

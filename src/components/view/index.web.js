@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.less'
 import StyleSheet from '../style'
 
 class View extends React.Component {
@@ -21,9 +22,25 @@ class View extends React.Component {
     if(style.flex||style.flexDirection||style.alignItems||style.justifyContent){
       classNameArr.push("xz-displayflex");
     }
+    if(style.justifyContent){
+      classNameArr.push("xz-justifycontent-"+style.justifyContent);
+    }
 
-  
-    return (<div ref={(node)=>{this.node = node;}} className={classNameArr.join(" ")} style={style}>{this.props.children}</div>);
+    if(style.flexDirection){
+      classNameArr.push("xz-flexdirection-"+style.flexDirection);
+    }
+
+
+    if(style.alignItems){
+      classNameArr.push("xz-alignitems-"+style.alignItems);
+    }
+
+    var onPress = {};
+    if(this.props.onPress){
+      onPress.onClick = this.props.onPress;
+    }
+
+    return (<div {...onPress} ref={(node)=>{this.node = node;}} className={classNameArr.join(" ")} style={style}>{this.props.children}</div>);
   }
 }
 

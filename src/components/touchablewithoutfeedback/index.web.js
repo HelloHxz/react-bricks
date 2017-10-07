@@ -1,4 +1,5 @@
 import React from 'react';
+import View from '../view'
 
 class TouchableOpacity extends React.Component {
 
@@ -9,7 +10,7 @@ class TouchableOpacity extends React.Component {
   }	
   render() {
   	var style = this.props.style||{};
-    return (<div onClick={this.onClick.bind(this)} style={style}>{this.props.children}</div>);
+    return (<View onPress={this.onClick.bind(this)} style={style}>{this.props.children}</View>);
   }
 }
 

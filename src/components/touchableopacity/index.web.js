@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.less'
+import View from '../view'
 
 class TouchableOpacity extends React.Component {
 
@@ -11,7 +12,7 @@ class TouchableOpacity extends React.Component {
   render() {
   	var style = this.props.style||{};
   	style.display = "flex";
-    return (<div className='xz-top-2' onClick={this.onClick.bind(this)} style={style}>{this.props.children}</div>);
+    return (<View className='xz-top-2' onPress={this.onClick.bind(this)} style={style}>{this.props.children}</View>);
   }
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import View from '../view'
 
 class TouchableNativeFeedBack extends React.Component {
 
@@ -10,7 +11,7 @@ class TouchableNativeFeedBack extends React.Component {
   render() {
   	var style = this.props.style||{};
   	style.display = "flex";
-    return (<div onClick={this.onClick.bind(this)} style={style}>{this.props.children}</div>);
+    return (<View onPress={this.onClick.bind(this)} style={style}>{this.props.children}</View>);
   }
 }
 
