@@ -41,7 +41,7 @@ class ButtonDemo extends React.Component {
 <Space/>
          <Button type='primary' size='lg'>按钮</Button>
          <Space/>
-         <Button style={StyleSheet.create({width:120})} type='primary' size='default'>按钮</Button>
+         <Button style={StyleSheet.create({width:120,borderRadius:34})} type='primary' size='default'>按钮</Button>
          <Space/>
          <Button type='primary' size='sm'>按钮</Button>
          <Space/>

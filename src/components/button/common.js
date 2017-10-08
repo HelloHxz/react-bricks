@@ -74,7 +74,7 @@ class Button extends React.Component {
     delete sizeStyle.fontSize;
     delete typeStyle.color;
 
-    var buttonStyle = StyleSheet.create({...styles.button,...sizeStyle,...typeStyle, ...this.props.style});
+    var buttonStyle = {...StyleSheet.create({...styles.button,...sizeStyle,...typeStyle,}),...this.props.style};
     if(this.props.circle){
       buttonStyle.width = buttonStyle.height;
       if(StyleSheet.isWeb){
@@ -91,7 +91,7 @@ class Button extends React.Component {
         </View>
       );
     }
-    
+
     let touchableProps = {
       accessibilityLabel: this.props.accessibilityLabel,
       onPress: this.props.onPress,
