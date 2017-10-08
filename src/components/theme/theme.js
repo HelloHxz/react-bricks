@@ -12,28 +12,42 @@ let Re = {
 	/*button*/
 	/*button size*/
 	btn_sm:{
-
+		height:53,
+		fontSize:20
 	},
 	btn_lg:{
-
+		height:75,
+		fontSize:26
 	},
 	btn_default:{
-
+		height:65,
+		fontSize:23
 	},
 	/*button type*/
 	btn_primary:{
-
+		backgroundColor:Common.theme_color,
+    	borderRadius: 8,
+    	color:"#fff"
 	},
 	btn_hollow:{
-
+		borderStyle:"solid",
+		borderWidth:1,
+		borderRadius: 8,
+    	color:Common.theme_text_color,
+		borderColor:Common.theme_color
+	},
+	btn_flat:{
+		borderLeftWidth:0,
+		borderRightWidth:0,
+		color:Common.theme_text_color,
+		borderColor:Common.theme_border_color,
+		borderStyle:"solid",
+		borderBottomWidth:1,
+		borderTopWidth:1,
 	},
 	btn_text:{
-
-	},
-	btn_dashed:{},
-	/*button 是否圆形*/
-	btn_circle:{
-
+		borderWidth:0,
+		color:Common.theme_text_color,
 	},
 	/*禁用*/
 	btn_primary_disabled:{

@@ -1,10 +1,11 @@
 import React from 'react';
+import View from '../view';
+import './index.less'
 
-class View extends React.Component {
+export default class ScrollView extends React.Component {
   render() {
   	var style = this.props.style||{};
-    return (<div style={style}>{this.props.children}</div>);
+    return (<View style={style} className='xz-n-scrollview'>{this.props.children}</View>);
   }
 }
 
-export default View;

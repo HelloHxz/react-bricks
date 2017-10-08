@@ -19,7 +19,7 @@ class View extends React.Component {
     if(this.props.className){
       classNameArr.push(this.props.className);
     }
-    if(style.flex||style.flexDirection||style.alignItems||style.justifyContent){
+    if(style.displax==='flex'||style.flexDirection||style.alignItems||style.justifyContent){
       classNameArr.push("xz-displayflex");
     }
     if(style.justifyContent){

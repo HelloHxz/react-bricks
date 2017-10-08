@@ -2,7 +2,6 @@ var View = require("./view").default;
 var Text = require("./text").default;
 import React from 'react';
 import Animated from './animated'
-var ScrollView = require("./text").default;
 var Segment = require("./segment").default;
 var Button = require("./button").default;
 var TouchableWithoutFeedback = require("./touchablewithoutfeedback").default;
@@ -13,13 +12,15 @@ import Popover from './popover'
 import StyleSheet from './style';
 import PlatForm from './platform';
 import UIManager from './uimanager'
-import Icon from './icon'
+import Icon from './icon';
+import ScrollView from './scrollview';
 import FlatList from './flatlist'
 import Header from './header'
 import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
 import Swiper from './swiper';
+import Space from './space';
 import {observable} from 'mobx'
 import TouchableOpacity from './touchableopacity'
 
@@ -33,6 +34,7 @@ export {
 	ActivityIndicator,
 	Header,
 	Swiper,
+	Space,
 	Animated,
 	TouchableOpacity,
 	UIManager,

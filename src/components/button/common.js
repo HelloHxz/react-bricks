@@ -8,19 +8,18 @@ import Text from '../text';
 import TouchableOpacity from '../touchableopacity';
 import ActivityIndicator from '../activityindicator';
 import PropTypes from 'prop-types';
-import StyleSheet from '../style'
+import StyleSheet from '../style';
+import Theme from '../theme'
 
 class Button extends React.Component {
   
-  static isAndroid = (Platform.OS === 'android')
-
   _renderChildren() {
     let childElements = [];
     React.Children.forEach(this.props.children, (item) => {
       if (typeof item === 'string' || typeof item === 'number') {
         const element = (
           <Text
-            style={{...styles.textButton, ...this.props.textStyle}}
+            style={StyleSheet.create({...styles.textButton,...this.textStyle ,...this.props.textStyle})}
             allowFontScaling={this.props.allowFontScaling}
             key={item}>
             {item}
@@ -71,48 +70,47 @@ class Button extends React.Component {
       onPressIn: this.props.onPressIn,
       onPressOut: this.props.onPressOut,
       onLongPress: this.props.onLongPress,
-      activeOpacity: this.props.activeOpacity,
       delayLongPress: this.props.delayLongPress,
       delayPressIn: this.props.delayPressIn,
       delayPressOut: this.props.delayPressOut,
     };
-    if (Button.isAndroid) {
-      touchableProps = Object.assign(touchableProps, {
-        background: this.props.background || TouchableNativeFeedback.SelectableBackground()
-      });
-      return (
-        <TouchableNativeFeedback {...touchableProps}>
-          <View style={{...styles.button, ...this.props.style}}>
-            {this._renderInnerText()}
-          </View>
-        </TouchableNativeFeedback>
-      )
-    } else {
-      return (
-        <TouchableOpacity {...touchableProps}
-          style={{...styles.button, ...this.props.style}}>
-          {this._renderInnerText()}
-        </TouchableOpacity>
-      );
+
+    var type = this.props.type||"hollow";
+    if(["primary","text","hollow","flat"].indexOf(type)<0){
+      type = "hollow";
     }
+    var size = this.props.size||"default";
+    if(["default","lg","sm"].indexOf(size)<0){
+      size = "default";
+    }
+
+    var sizeStyle = Object.assign({},Theme["btn_"+size]||Theme["btn_default"]);
+    var typeStyle = Object.assign({},Theme["btn_"+type]||Theme["btn_primary"]);
+    this.textStyle = {
+      fontSize:sizeStyle.fontSize||24,
+      color:typeStyle.color||"#fff"
+    };
+    delete sizeStyle.fontSize;
+    delete typeStyle.color;
+
+
+    return (
+      <TouchableOpacity {...touchableProps} activeOpacity={this.props.activeOpacity||.6}
+        style={StyleSheet.create({...styles.button,...sizeStyle,...typeStyle, ...this.props.style})}>
+        {this._renderInnerText()}
+      </TouchableOpacity>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   button: {
-    height: 64,
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderStyle:"solid",
-    borderColor:"red",
-    borderRadius: 8,
     alignSelf: 'stretch',
     justifyContent: 'center',
   },
   textButton: {
-    flex: 1,
-    fontSize: 26,
     textAlign: 'center',
     backgroundColor: 'transparent',
   },

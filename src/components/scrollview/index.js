@@ -2,4 +2,4 @@ import {
   ScrollView
 } from 'react-native';
 
-export default Text;
+export default ScrollView;
