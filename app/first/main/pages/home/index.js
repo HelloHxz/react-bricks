@@ -17,7 +17,7 @@ var ListDataSource = [
   {id:4,name:"Popover",url:"popoverDemo"},
   {id:5,name:"Poplayer",url:"poplayerDemo"},
   {id:6,name:"Toast",url:null},
-  {id:9,name:"xxx",url:null},
+  {id:9,name:"Tabbar",url:"tabbardemo/setting"},
   {id:10,name:"xxx",url:null},
   {id:11,name:"xxx",url:null},
   {id:12,name:"xxx",url:null},

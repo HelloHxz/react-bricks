@@ -1,8 +1,9 @@
 
 let Common = {
+	theme_deep_color:"rgb(2, 100, 185)",
 	theme_color:"rgb(27, 144, 247)",
 	theme_text_color:"rgb(67, 67, 67)",
-	theme_border_color:"#333",
+	theme_border_color:"rgb(142, 142, 142)",
 	theme_background_color:"#f2f3f4",
 	theme_disabled_color:"#eee"
 }
@@ -27,7 +28,10 @@ let Re = {
 	btn_primary:{
 		backgroundColor:Common.theme_color,
     	borderRadius: 8,
-    	color:"#fff"
+    	color:"#fff",
+    	borderWidth:1,
+    	borderColor:Common.theme_deep_color,
+    	borderStyle:"solid"
 	},
 	btn_hollow:{
 		borderStyle:"solid",
@@ -50,7 +54,6 @@ let Re = {
 	btn_text:{
 		borderWidth:0,
 		color:Common.theme_color,
-    	backgroundColor:"#fff"
 	},
 	/*禁用*/
 	btn_primary_disabled:{
