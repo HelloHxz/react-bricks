@@ -1,6 +1,6 @@
 import {observable} from 'mobx';
 class Store {
-    @observable tabSelectedKey = "tabbardemo/my";
+    @observable tabSelectedKey = "";
 }
 
 export default new Store;

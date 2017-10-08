@@ -33,9 +33,10 @@ class ChatScreen extends React.Component {
     this.props.navigation.replace(params.selectedKey);
   }
   renderItem(config){
+    var selected = config.key===this.props.chatStore.tabSelectedKey;
     return  [ 
-               <Icon key='icon' selected={config.key===this.props.chatStore.tabSelectedKey} style={{color:"blue"}} icon={config.icon}/>,
-               <Text key='text' selected={config.key===this.props.chatStore.tabSelectedKey}>{config.text}</Text>
+               <Icon key='icon' selected={selected} style={{color:"blue"}} icon={config.icon}/>,
+               <Text key='text' selected={selected}>{config.text}</Text>
             ]
   }
   render() {
