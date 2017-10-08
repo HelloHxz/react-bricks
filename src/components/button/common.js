@@ -93,10 +93,18 @@ class Button extends React.Component {
     delete sizeStyle.fontSize;
     delete typeStyle.color;
 
-
+    var buttonStyle = StyleSheet.create({...styles.button,...sizeStyle,...typeStyle, ...this.props.style});
+    if(this.props.circle){
+      buttonStyle.width = buttonStyle.height;
+      if(StyleSheet.isWeb){
+        buttonStyle.borderRadius ="100%";
+      }else{
+        buttonStyle.borderRadius =buttonStyle.width/2;
+      }
+    }
     return (
       <TouchableOpacity {...touchableProps} activeOpacity={this.props.activeOpacity||.6}
-        style={StyleSheet.create({...styles.button,...sizeStyle,...typeStyle, ...this.props.style})}>
+        style={buttonStyle}>
         {this._renderInnerText()}
       </TouchableOpacity>
     );

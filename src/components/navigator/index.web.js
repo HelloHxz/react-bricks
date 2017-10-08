@@ -14,7 +14,7 @@ export default (config)=>{
 		}
 		pageClass.__pagename = key;
 	}
-	var App =Common(<Navigation config={config}/>);
+	var App =Common(<Navigation config={config}/>,config);
 	ReactDOM.render(
 			<App/>,
 		document.getElementById('xz-lightapp-root'));

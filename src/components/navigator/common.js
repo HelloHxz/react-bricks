@@ -104,6 +104,10 @@ class ToastItem extends React.Component{
 
 
 export default (Navigator)=>{
+
+	
+
+
 	class App extends React.Component {
 		constructor(props) {
 			super(props);

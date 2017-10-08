@@ -1,9 +1,9 @@
 
 let Common = {
-	theme_color:"#0c60aa",
-	theme_text_color:"#333",
+	theme_color:"rgb(27, 144, 247)",
+	theme_text_color:"rgb(67, 67, 67)",
 	theme_border_color:"#333",
-	theme_background_color:"#333",
+	theme_background_color:"#f2f3f4",
 	theme_disabled_color:"#eee"
 }
 
@@ -33,21 +33,24 @@ let Re = {
 		borderStyle:"solid",
 		borderWidth:1,
 		borderRadius: 8,
-    	color:Common.theme_text_color,
-		borderColor:Common.theme_color
+    	color:Common.theme_color,
+		borderColor:Common.theme_color,
+    	backgroundColor:"#fff"
 	},
 	btn_flat:{
 		borderLeftWidth:0,
 		borderRightWidth:0,
-		color:Common.theme_text_color,
+		color:Common.theme_color,
 		borderColor:Common.theme_border_color,
 		borderStyle:"solid",
 		borderBottomWidth:1,
 		borderTopWidth:1,
+    	backgroundColor:"#fff"
 	},
 	btn_text:{
 		borderWidth:0,
-		color:Common.theme_text_color,
+		color:Common.theme_color,
+    	backgroundColor:"#fff"
 	},
 	/*禁用*/
 	btn_primary_disabled:{
@@ -82,6 +85,9 @@ let Re = {
 		borderStyle:"solid",
 		backgroundColor:"#fff",
 		borderColor:Common.theme_border_color
+	},
+	extend(defaultTheme,extendTheme){
+		defaultTheme.test = "huxiaozhong"
 	}
 };
-export default Re;
+export default {...Common,...Re};

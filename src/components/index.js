@@ -14,7 +14,8 @@ import PlatForm from './platform';
 import UIManager from './uimanager'
 import Icon from './icon';
 import ScrollView from './scrollview';
-import FlatList from './flatlist'
+import FlatList from './flatlist';
+import Theme from './theme';
 import Header from './header'
 import Image from './image'
 import ActivityIndicator from './activityindicator';
@@ -36,6 +37,7 @@ export {
 	Swiper,
 	Space,
 	Animated,
+	Theme,
 	TouchableOpacity,
 	UIManager,
 	Icon,

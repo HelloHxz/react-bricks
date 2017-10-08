@@ -151,5 +151,5 @@ export default (config)=>{
 
 
 
-	return Common(<AppNavigator />);
+	return Common(<AppNavigator />,config);
 }

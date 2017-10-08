@@ -1,5 +1,5 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
-  FlatList,Header,
+  FlatList,Header,Theme,
   TouchableOpacity,ActivityIndicator,
   UIManager,Icon,Image,Swiper} from "react-bricks"
 import Poplayer from './components/poplayer'
