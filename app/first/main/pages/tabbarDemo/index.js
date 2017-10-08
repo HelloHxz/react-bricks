@@ -1,5 +1,5 @@
 
-import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Segment,observer,Header,TouchableOpacity,Icon} from "react-bricks"
+import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,Header,TouchableOpacity,Icon} from "react-bricks"
 import Store from './store'
 import svgs from '../../assets/svg/svgs.js';
 
@@ -45,7 +45,7 @@ class ChatScreen extends React.Component {
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon style={{color:"blue"}} icon={svgs.left}/></TouchableOpacity>
         </Header>
         <PageContainer {...this.props} owner={this}/>
-        <Segment 
+        <Tabs 
           data={[
             {key:"tabbardemo/setting",text:"",icon:""},
             {key:"tabbardemo/setting",text:"",icon:""}
@@ -54,21 +54,21 @@ class ChatScreen extends React.Component {
           renderItem={{}}
           selectedKey={this.props.chatStore.tabSelectedKey} 
           onChange={this.segChange.bind(this)}>
-          <Segment.Item key="tabbardemo/setting">
+          <Tabs.Item key="tabbardemo/setting">
             {this.renderItem({
               text:'Setting',
               key:"tabbardemo/setting",
               icon:svgs.search
             })}
-          </Segment.Item>
-          <Segment.Item key='tabbardemo/my'>
+          </Tabs.Item>
+          <Tabs.Item key='tabbardemo/my'>
               {this.renderItem({
               text:'My',
               key:"tabbardemo/my",
               icon:svgs.home
             })}
-          </Segment.Item>
-        </Segment>
+          </Tabs.Item>
+        </Tabs>
       </View>
     );
   }

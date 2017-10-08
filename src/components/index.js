@@ -2,7 +2,7 @@ var View = require("./view").default;
 var Text = require("./text").default;
 import React from 'react';
 import Animated from './animated'
-var Segment = require("./segment").default;
+var Tabs = require("./tabs").default;
 var Button = require("./button").default;
 var TouchableWithoutFeedback = require("./touchablewithoutfeedback").default;
 var Poplayer = require("./poplayer").default;
@@ -49,7 +49,7 @@ export {
 	Popover,
 	Button,
 	Poplayer,
-	Segment,
+	Tabs,
 	PageContainer,
 	Text,
 	PageView,
