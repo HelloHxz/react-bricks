@@ -56,24 +56,6 @@ class Button extends React.Component {
 
 
   render() {
-    if (this.props.isDisabled === true || this.props.isLoading === true) {
-      return (
-        <View style={{...styles.button, ...this.props.style, ...(this.props.disabledStyle || styles.opacity)}}>
-          {this._renderInnerText()}
-        </View>
-      );
-    }
-    // Extract Touchable props
-    let touchableProps = {
-      accessibilityLabel: this.props.accessibilityLabel,
-      onPress: this.props.onPress,
-      onPressIn: this.props.onPressIn,
-      onPressOut: this.props.onPressOut,
-      onLongPress: this.props.onLongPress,
-      delayLongPress: this.props.delayLongPress,
-      delayPressIn: this.props.delayPressIn,
-      delayPressOut: this.props.delayPressOut,
-    };
 
     var type = this.props.type||"hollow";
     if(["primary","text","hollow","flat"].indexOf(type)<0){
@@ -83,7 +65,6 @@ class Button extends React.Component {
     if(["default","lg","sm"].indexOf(size)<0){
       size = "default";
     }
-
     var sizeStyle = Object.assign({},Theme["btn_"+size]||Theme["btn_default"]);
     var typeStyle = Object.assign({},Theme["btn_"+type]||Theme["btn_primary"]);
     this.textStyle = {
@@ -102,6 +83,25 @@ class Button extends React.Component {
         buttonStyle.borderRadius =buttonStyle.width/2;
       }
     }
+    if(this.props.disabled === true){
+       return (
+        <View 
+          style={buttonStyle}>
+          {this._renderInnerText()}
+        </View>
+      );
+    }
+    
+    let touchableProps = {
+      accessibilityLabel: this.props.accessibilityLabel,
+      onPress: this.props.onPress,
+      onPressIn: this.props.onPressIn,
+      onPressOut: this.props.onPressOut,
+      onLongPress: this.props.onLongPress,
+      delayLongPress: this.props.delayLongPress,
+      delayPressIn: this.props.delayPressIn,
+      delayPressOut: this.props.delayPressOut,
+    };
     return (
       <TouchableOpacity {...touchableProps} activeOpacity={this.props.activeOpacity||.6}
         style={buttonStyle}>
