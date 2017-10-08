@@ -32,6 +32,12 @@ class ChatScreen extends React.Component {
   segChange(params){
     this.props.navigation.replace(params.selectedKey);
   }
+  renderItem(config){
+    return  [ 
+               <Icon key='icon' selected={config.key===this.props.chatStore.tabSelectedKey} style={{color:"blue"}} icon={config.icon}/>,
+               <Text key='text' selected={config.key===this.props.chatStore.tabSelectedKey}>{config.text}</Text>
+            ]
+  }
   render() {
     return (
       <View style={{flex:1,backgroundColor:"#fff",overflow:"hidden"}}>
@@ -40,13 +46,27 @@ class ChatScreen extends React.Component {
         </Header>
         <PageContainer {...this.props} owner={this}/>
         <Segment 
+          data={[
+            {key:"tabbardemo/setting",text:"",icon:""},
+            {key:"tabbardemo/setting",text:"",icon:""}
+          ]}
+          itemStyle={{}}
+          renderItem={{}}
           selectedKey={this.props.chatStore.tabSelectedKey} 
           onChange={this.segChange.bind(this)}>
           <Segment.Item key="tabbardemo/setting">
-             <Text>Setting</Text>
+            {this.renderItem({
+              text:'Setting',
+              key:"tabbardemo/setting",
+              icon:svgs.search
+            })}
           </Segment.Item>
           <Segment.Item key='tabbardemo/my'>
-             <Text>My</Text>
+              {this.renderItem({
+              text:'My',
+              key:"tabbardemo/my",
+              icon:svgs.home
+            })}
           </Segment.Item>
         </Segment>
       </View>
