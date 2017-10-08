@@ -133,6 +133,7 @@ android {
 }
 
 dependencies {
+    compile project(':lottie-react-native')
     compile project(':react-native-interactable')
     compile project(':react-native-svg')
     compile fileTree(include: ['*.jar'], dir: 'libs')
