@@ -9,7 +9,7 @@ var defaultStyle = StyleSheet.create({
 export default class Space extends React.Component {
 	//配合animate 处理单位
   render() {
-    return (<View style={defaultStyle}></View>);
+    return (<View style={{...defaultStyle,...this.props.style||{}}}></View>);
   }
 }
 

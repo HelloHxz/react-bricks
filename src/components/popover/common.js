@@ -108,8 +108,10 @@ class PopoverItem extends React.Component{
 	}
 
 	caculatePosition(targetRect,popWidth,popHeight){
+		//	console.log(targetRect.x,targetRect.y,targetRect.width,targetRect.height);
+		//	console.log(x,y,width,height);
 		this.setState({
-			pos:{left:20,top:120}
+			pos:{left:targetRect.left+targetRect.width,top:targetRect.top+targetRect.height}
 		});
 	}
 
@@ -122,8 +124,7 @@ class PopoverItem extends React.Component{
 		setTimeout(()=>{
 			UIManager.measureRef(this.instance,(x,y,width,height)=>{
 
-			console.log(targetRect.x,targetRect.y,targetRect.width,targetRect.height);
-			console.log(x,y,width,height);
+		
 			this.caculatePosition(targetRect,width,height);
 			Animated.timing(
 		        this.state.openValue,
@@ -164,7 +165,8 @@ class PopoverItem extends React.Component{
 				ref={(instance)=>{
 					this.instance = instance;
 				}}
-				style={{...StyleSheet.create({zIndex:200,backgroundColor:"#fff",position:"absolute",top:this.state.pos.top,left:this.state.pos.left}),
+				style={{...StyleSheet.create({zIndex:200,backgroundColor:"#fff",position:"absolute"}),
+				...{top:this.state.pos.top,left:this.state.pos.left},
 				...{opacity:op}}}>
 					{this.renderItem()}
 				</Animated.View>;

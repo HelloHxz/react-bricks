@@ -14,7 +14,7 @@ let Re = {
 	/*button size*/
 	btn_sm:{
 		height:53,
-		fontSize:20
+		fontSize:23
 	},
 	btn_lg:{
 		height:75,

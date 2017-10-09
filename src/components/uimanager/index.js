@@ -1,10 +1,14 @@
 import { NativeModules } from 'react-native'
 const { UIManager } = NativeModules;
+import StyleSheet from '../style'
 
 export default {
 	measure:function(target,cb){
 		UIManager.measure(target,(x,y,width,height,left,top)=>{
-			cb(x,y,width,height,left,top);
+			cb(x,
+				y,
+				width,
+				height,left,top);
 		});
 	},
 	measureRef:function(target,cb){
