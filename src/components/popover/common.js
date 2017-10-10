@@ -48,6 +48,8 @@ class Popover extends React.Component{
 			isShow:false,
 			direction:"top" // top right bottom left auto
 		}
+		this.offsetY = 0;
+		this.offsetX = 0;
 	}
 
 	componentDidMount(){
@@ -102,44 +104,147 @@ class PopoverItem extends React.Component{
 		}
 		this.isInit = true;
 		this.process(props);
+		this.offsetY = 0;
+
+		this.offsetX = 0;
 	}
 	componentWillReceiveProps(nextProps){
 		this.process(nextProps);
 	}
 
-	caculatePosition(targetRect,popWidth,popHeight){
-		//	console.log(targetRect.x,targetRect.y,targetRect.width,targetRect.height);
-		//	console.log(x,y,width,height);
+	caculatePosition(rect,popWidth,popHeight){
+      rect.right = rect.left+rect.width;
+      rect.bottom = rect.top+rect.height;
+
+      var direction = (this.state.direction||"").toLowerCase();
+      if(["bottom","top","left","right"].indexOf(direction)<0){
+        direction = "bottom";
+        if(rect.top-popHeight-this.offsetY>=0){
+          direction = "top";
+        }else if(rect.bottom+popHeight<=StyleSheet.screen.height-this.offsetY){
+          direction = "bottom";
+        }else if(rect.left-popWidth-this.offsetX>=0){
+          direction = "left";
+        }else if(rect.right+popWidth+this.offsetX<=StyleSheet.screen.width){
+          direction = "right";
+        }
+      }
+
+      var pos = {};
+      switch(direction){
+        case "top":
+        	var bottom = StyleSheet.screen.height-rect.top+this.offsetY;
+        	if(bottom+popHeight>StyleSheet.screen.height){
+        		pos["top"] =  rect.bottom+this.offsetY;
+        	}else{
+        		pos["bottom"] = bottom;
+        	}
+            pos = this._getLeft(pos,rect,popWidth,popHeight,"bottom");
+        break;
+        case "bottom":
+        	var top = rect.bottom+this.offsetY;
+        	if(top+popHeight>StyleSheet.screen.height){
+        		pos["bottom"] =  StyleSheet.screen.height-rect.top+this.offsetY;
+        	}else{
+         	  pos["top"] = top;
+        	}
+          pos = this._getLeft(pos,rect,popWidth,popHeight,"top");
+        break;
+        case "right":
+          var left = (rect.right+this.offsetX);
+          if(left+popWidth>StyleSheet.screen.width){
+          	pos["right"] = (StyleSheet.screen.width-rect.left+this.offsetX);
+          }else{
+          	pos["left"] = left;
+          }
+          pos = this._getTop(pos,rect,popWidth,popHeight,"left");
+        break;
+        case "left":
+          var right = (StyleSheet.screen.width-rect.left+this.offsetX);
+          if(rect.left-this.offsetX-popWidth<0){
+          	pos["left"] = (rect.right+this.offsetX);
+          }else{
+          	pos["right"] = right;
+          }
+          pos = this._getTop(pos,rect,popWidth,popHeight,"right");
+        break;
+        default:
+           	var top = rect.bottom+this.offsetY;
+        	if(top+popHeight>StyleSheet.screen.height){
+        		pos["bottom"] =  StyleSheet.screen.height-rect.top+this.offsetY;
+        	}else{
+         	  pos["top"] = top;
+        	}
+           pos = this._getLeft(pos,rect,popWidth,popHeight,"top");
+        break;
+      }
+      if(StyleSheet.isWeb){
+      	for(var key in pos){
+      		pos[key] = pos[key]+"px";
+      	}
+      }
 		this.setState({
-			pos:{left:targetRect.left+targetRect.width,top:targetRect.top+targetRect.height}
+			pos:pos
 		});
 	}
 
+
+	_getLeft(pos,rect,ow,oh,tridirection){
+	    var left = rect.left+rect.width/2-ow/2+this.offsetX;
+	    if(left+ow>StyleSheet.screen.width){
+	      left = StyleSheet.screen.width - ow+this.offsetX;
+	    }
+	    if(left<0){
+	      left = this.offsetX;
+	    }
+	    pos["left"] = left;
+	    return pos;
+	}
+
+	_getTop(pos,rect,ow,oh,tridirection){
+	    //this.tri
+	    var top = rect.top+rect.height/2-oh/2+this.offsetY;
+	    if(top+oh>StyleSheet.screen.height){
+	      top = StyleSheet.screen.height - oh+this.offsetY;
+	    }
+	    if(top<0){
+	      top = this.offsetY;
+	    }
+
+	    var triTop = (rect.top - top)+rect.height/2;
+	    pos["top"] = top;
+	    return pos;
+	 }
+
 	process(props){
 		const targetRect = this.props.parent.targetRect;
-
 		if(!this.instance||!targetRect){
 			return;
 		}
-		setTimeout(()=>{
-			UIManager.measureRef(this.instance,(x,y,width,height)=>{
-
+		if(props.isShow){
+			setTimeout(()=>{
+				UIManager.measureRef(this.instance,(x,y,width,height)=>{
+					this.caculatePosition(targetRect,width,height);
+					this.showOrHide(true);
+				});
+			},20)
+		}else{
+			this.showOrHide(false);
+		}
 		
-			this.caculatePosition(targetRect,width,height);
-			Animated.timing(
+	}
+
+	showOrHide(isShow){
+		Animated.timing(
 		        this.state.openValue,
 		        {
-		          toValue: props.isShow?1:0,
+		          toValue:isShow?1:0,
 		          duration:180,
 		          bounciness: 0, 
 		          easing:Easing.ease,
 		          restSpeedThreshold: 1
 		        }
-		      ).start(
-		      	
-		      )
-			});
-		},20)
+		).start()
 	}
 
 	renderItem(){
@@ -166,7 +271,7 @@ class PopoverItem extends React.Component{
 					this.instance = instance;
 				}}
 				style={{...StyleSheet.create({zIndex:200,backgroundColor:"#fff",position:"absolute"}),
-				...{top:this.state.pos.top,left:this.state.pos.left},
+				...this.state.pos,
 				...{opacity:op}}}>
 					{this.renderItem()}
 				</Animated.View>;

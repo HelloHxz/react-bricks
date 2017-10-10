@@ -7,8 +7,8 @@ var Re = {
 	_init(){
 		var screenInfo = Dimensions.get('window');
 		this.screen.dpr = PixelRatio.get();
-		this.screen.width = screenInfo.width*this.screen.dpr;
-		this.screen.height  = screenInfo.height*this.screen.dpr;
+		this.screen.width = screenInfo.width;
+		this.screen.height  = screenInfo.height;
 		this.screen.originWidth = screenInfo.width;
 		this.screen.originHeight = screenInfo.height;
 	},
@@ -31,7 +31,7 @@ var Re = {
 		}catch(e){
 			val = 0;
 		}
-		return (val/this.screen.dpr*(this.screen.width/this.baseScreen.width));
+		return (val/this.screen.dpr*(this.screen.width*this.screen.dpr/this.baseScreen.width));
 	},
 	getTransitionKeys(){
 		return null;
