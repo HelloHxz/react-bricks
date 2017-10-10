@@ -104,9 +104,9 @@ class PopoverItem extends React.Component{
 		}
 		this.isInit = true;
 		this.process(props);
-		this.offsetY = 0;
+		this.offsetY = 10;
 
-		this.offsetX = 0;
+		this.offsetX = 10;
 	}
 	componentWillReceiveProps(nextProps){
 		this.process(nextProps);
@@ -191,8 +191,8 @@ class PopoverItem extends React.Component{
 
 	_getLeft(pos,rect,ow,oh,tridirection){
 	    var left = rect.left+rect.width/2-ow/2+this.offsetX;
-	    if(left+ow>StyleSheet.screen.width){
-	      left = StyleSheet.screen.width - ow+this.offsetX;
+	    if(left+ow+this.offsetX>StyleSheet.screen.width){
+	      left = StyleSheet.screen.width - ow-this.offsetX;
 	    }
 	    if(left<0){
 	      left = this.offsetX;
@@ -204,8 +204,8 @@ class PopoverItem extends React.Component{
 	_getTop(pos,rect,ow,oh,tridirection){
 	    //this.tri
 	    var top = rect.top+rect.height/2-oh/2+this.offsetY;
-	    if(top+oh>StyleSheet.screen.height){
-	      top = StyleSheet.screen.height - oh+this.offsetY;
+	    if(top+oh+this.offsetY>StyleSheet.screen.height){
+	      top = StyleSheet.screen.height - oh-this.offsetY;
 	    }
 	    if(top<0){
 	      top = this.offsetY;
