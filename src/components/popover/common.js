@@ -270,7 +270,7 @@ class PopoverItem extends React.Component{
 				ref={(instance)=>{
 					this.instance = instance;
 				}}
-				style={{...StyleSheet.create({zIndex:200,backgroundColor:"#fff",position:"absolute"}),
+				style={{...StyleSheet.create({zIndex:200,position:"absolute"}),
 				...this.state.pos,
 				...{opacity:op}}}>
 					{this.renderItem()}
