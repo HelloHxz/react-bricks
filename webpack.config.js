@@ -3,7 +3,6 @@ const webpack = require('webpack');
 var fs= require('fs');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
 var bodyParser = require('body-parser')
 
 function getEntryAndHtmlPlugin(){
@@ -58,17 +57,18 @@ module.exports = function (env) {
   
   if(!isProd){
     var ip = arguments["1"].host||"localhost";
-    var port =   arguments["1"].port||8080;
+    var port =   arguments["1"].port||8000;
     var url = "http://"+ip+":"+port;
     entry.dev_patch = 'react-hot-loader/patch';
     entry.dev_client = 'webpack-dev-server/client?'+url;
     entry.dev_server= 'webpack/hot/only-dev-server';
   }
+
 return {
   context: path.resolve(__dirname, 'app'),
   entry:entry,
   output: {
-    filename: '[name].entry.js',
+    filename: '[name].[hash:8].js',
     chunkFilename: !isProd ? '[name].bundle.js' : '[name].[chunkhash:8].min.js',
     // the output bundle
 
@@ -112,35 +112,8 @@ return {
     }
   },
   resolve: {
-    plugins: [
-      new DirectoryNamedWebpackPlugin({
-        honorIndex: false, // defaults to false
-
-        // respect "main" fields defined in package.json
-        // if it's an Array, values will be used as name of the fields to check
-        // defaults to true, which is the same as ["main"]
-        honorPackage: ["main"],
-
-        // if it's matching with resolving directory's path, plugin will ignore the custom resolving.
-        // it can be string/regex or Array of string/regex.
-        exclude: [path.resolve('./node_modules')],
-     
-        ignoreFn:function(webpackResolveRequest) {
-          // custom logic to decide whether request should be ignored
-          // return true if request should be ignored, false otherwise
-          return false; // default
-        },
-        // define where the imported files will be resolving by DirectoryNamedWebpackPlugin.
-        // it can be string/regex or Array of string/regex.
-        include: [
-          path.resolve('./src/*'),
-        ],
-
-        transformFn: function(dirName) {
-            return "index.web.js";
-        }
-      })
-    ]
+     mainFiles: ["index.web","index"],
+     modules: [path.resolve(__dirname, "src"), "node_modules"]
   },
 
 
