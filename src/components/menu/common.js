@@ -24,19 +24,22 @@ class Menu extends React.Component{
 				child.push(item);
 			}
 		}
-		return <View style={{borderTopWidth:1,borderLeftWidth:0,borderRightWidth:0,borderBottomWidth:1,borderColor:"#bbb",borderStyle:"solid"}}>{child}</View>
+		return <View style={StyleSheet.create({borderTopWidth:1,borderLeftWidth:0,borderRightWidth:0,borderBottomWidth:1,borderColor:"#bbb",borderStyle:"solid"})}>{child}</View>
 	}
 }
 
 class MenuItem extends React.Component{
 	static _menurole = "item";
+	onPress(){}
 	render(){
 		return <TouchableHightlight
+		onPress={this.onPress.bind(this)}
+		underlayColor = "#eee"
 			style={{...StyleSheet.create({
 				height:Theme.menu_item_height,
 				backgroundColor:"#fff"
 			}),...this.props.style||{}}}
-		><Text>Menu</Text></TouchableHightlight>
+		><View><Text>Menu</Text></View></TouchableHightlight>
 	}
 }
 
