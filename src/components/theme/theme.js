@@ -91,6 +91,10 @@ let Re = {
 	},
 	extend(defaultTheme,extendTheme){
 		defaultTheme.test = "huxiaozhong"
-	}
+	},
+	menu_item_height:100,
+	menu_split_line_color:Common.theme_border_color,
+	menu_space_backgroundcolor:Common.theme_background_color,
+	menu_space_bordercolor:Common.theme_border_color
 };
 export default {...Common,...Re};

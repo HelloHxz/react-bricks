@@ -1,5 +1,4 @@
 var View = require("./view").default;
-var Text = require("./text").default;
 import React from 'react';
 import Animated from './animated'
 var Tabs = require("./tabs").default;
@@ -17,6 +16,7 @@ import ScrollView from './scrollview';
 import FlatList from './flatlist';
 import Theme from './theme';
 import Header from './header'
+import Menu from './menu'
 import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
@@ -24,6 +24,9 @@ import Swiper from './swiper';
 import Space from './space';
 import {observable} from 'mobx'
 import TouchableOpacity from './touchableopacity'
+import TouchableHighlight from './touchablehighlight';
+import Text from './text';
+
 
 
 /*
@@ -33,8 +36,10 @@ import TouchableOpacity from './touchableopacity'
 
 export {
 	ActivityIndicator,
+	TouchableHighlight,
 	Header,
 	Swiper,
+	Menu,
 	Space,
 	Animated,
 	Theme,

@@ -1,7 +1,7 @@
 import {FlatList} from 'react-native';
 import React from 'react'
 import StyleSheet from '../style'
-import { View,PanResponder,UIManager,LayoutAnimation,ScrollView } from 'react-native';
+import { View,PanResponder,UIManager,LayoutAnimation,ScrollView,Text } from 'react-native';
 import Base from './base';
 
 const isVerticalGesture = (x, y) => {
@@ -85,6 +85,7 @@ export default class IOSFlatList extends Base{
 
 	renderList(){
 		return <FlatList 
+				 ListHeaderComponent={<View style={{height:100,backgroundColor:"red",marginTop:-100}}><Text>FlatListHeader</Text></View>}
 				 ref={(flatlist)=>{this.flatlist = flatlist;}}
 				 onScroll = {this.onScroll.bind(this)}
 				 {...this.props}/>
