@@ -26,6 +26,7 @@ import {observable} from 'mobx'
 import TouchableOpacity from './touchableopacity'
 import TouchableHighlight from './touchablehighlight';
 import Text from './text';
+import Grid from './grid';
 
 
 
@@ -39,6 +40,7 @@ export {
 	TouchableHighlight,
 	Header,
 	Swiper,
+	Grid,
 	Menu,
 	Space,
 	Animated,

@@ -16,6 +16,7 @@ var config = {
 		popoverDemo:require("./main/pages/popoverDemo").default,
 		poplayerDemo:require("./main/pages/poplayerDemo").default,
 		menuDemo:require("./main/pages/menuDemo").default,
+		gridDemo:require("./main/pages/gridDemo").default,
 		
 	},
 };

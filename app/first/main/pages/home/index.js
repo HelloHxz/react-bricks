@@ -19,7 +19,7 @@ var ListDataSource = [
   {id:6,name:"Toast",url:null},
   {id:9,name:"Tabbar",url:"tabbardemo/setting"},
   {id:10,name:"Menu",url:"menuDemo"},
-  {id:11,name:"xxx",url:null},
+  {id:11,name:"Grid",url:"gridDemo"},
   {id:12,name:"xxx",url:null},
   {id:13,name:"xxx",url:null},
   {id:14,name:"xxx",url:null},
