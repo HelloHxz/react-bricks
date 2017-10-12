@@ -60,6 +60,7 @@ export default class Grid extends React.Component{
 			} 
 
 
+
 			child.push(<View key={i} style={{
 				...{
 					position:"relative",
@@ -71,7 +72,6 @@ export default class Grid extends React.Component{
 				},
 				...StyleSheet.create({
 					borderLeftWidth:borderLeftWidth,
-					backgroundColor:"#fff",
 					borderBottomWidth:borderBottomWidth,
 					borderTopWidth:borderTopWidth,
 					borderRightWidth:borderRightWidth,
@@ -82,7 +82,7 @@ export default class Grid extends React.Component{
 				{item}
 				</View>);
 		}
-		return <View style={{flexWrap:"wrap",display:"flex",flexDirection:"row"}}>{child}</View>
+		return <View style={{flexWrap:"wrap",backgroundColor:"#fff",display:"flex",flexDirection:"row"}}>{child}</View>
 	}
 
 }
