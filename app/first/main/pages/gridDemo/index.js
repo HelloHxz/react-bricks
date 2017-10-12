@@ -19,7 +19,9 @@ export default class GridDemo extends React.Component {
     this.props.navigation.goBack();
   }
 
-  renderItem(){}
+  renderItem(params){
+    return [<Icon key='1' icon={svgs.home}/>,<Text key='2'>{params.index}</Text>]
+  }
 
   render() {
     return (
@@ -29,7 +31,7 @@ export default class GridDemo extends React.Component {
         </Header>
         <ScrollView style={{flex:1}}>
         <Space/>
-          <Grid data={[]} renderItem={this.renderItem.bind(this)}/>
+          <Grid data={[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]} column={4} renderItem={this.renderItem.bind(this)}/>
         </ScrollView>
       </View>
     );
