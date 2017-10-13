@@ -12,6 +12,9 @@ var Re = {
 		this.screen.originWidth = screenInfo.width;
 		this.screen.originHeight = screenInfo.height;
 	},
+	convertTransform(re){
+		return re;
+	},
 	create(styles){
 		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},

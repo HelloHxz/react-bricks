@@ -24,6 +24,26 @@ class IconDemo extends React.Component {
         <Icon icon={svgs.saoyisao} size='lg'/>
         <Icon icon={svgs.search}/>
         <Icon icon={svgs.home} size='sm'/>
+
+        <Icon icon={svgs.saoyisao} type='primary' size='lg'/>
+
+        <Icon icon={svgs.saoyisao} type='primary' circle={true} size='lg'/>
+
+
+        <Icon icon={svgs.search} type='primary'/>
+
+        <Icon icon={svgs.home} size='sm' circle={true}  type='primary'/>
+
+
+
+        <Icon icon={svgs.search} type='hollow'/>
+
+        <Icon icon={svgs.home} size='sm' circle={true} type='hollow'/>
+
+
+
+        <Icon icon={svgs.home} size='sm' style={StyleSheet.create({width:100,fontSize:50})} circle={true} type='hollow'/>
+
       </View>
     );
   }
