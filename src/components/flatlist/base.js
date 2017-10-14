@@ -114,6 +114,15 @@ export default class Base extends React.Component {
     </View>
   }
 
+  getHeader(offset){
+     //       <View style={{height:100}}></View>
+    return (
+      <View style={{marginTop:(-this.pullHeight+offset)}}>
+        <View style={{height:this.pullHeight,overflow:"hidden"}}>
+             {this.renderPullIndicator()}
+            </View>
+        </View>)
+  }
 
   render() {
     var offset = this.state.offset;
@@ -123,11 +132,7 @@ export default class Base extends React.Component {
     return  (
       <View style={{flex:1,overflow:"hidden",backgroundColor:"#fff"}}
         {...this._panResponder.panHandlers}>
-    	<View style={{height:offset,backgroundColor:this.props.style.backgroundColor||"#fff"}}/>
-			<View style={{height:this.pullHeight,marginTop:-this.pullHeight,overflow:"hidden"}}>
-        {this.renderPullIndicator()}
-      </View>
-        {this.renderList()}
+        {this.renderList(offset)}
       </View>
     );
   }

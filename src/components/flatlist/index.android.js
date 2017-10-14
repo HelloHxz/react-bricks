@@ -72,11 +72,12 @@ export default class AndroidFlatList extends Base {
     }
   }
 
-  renderList() {
+  renderList(offset) {
     return  (
         <FlatList 
           ref={(flatlist)=>{this.flatlist = flatlist;}}
           {...this.props}
+          ListHeaderComponent={this.getHeader(offset)}
           scrollEnabled={this.state.isScrollFree}
           onScroll={this.onScroll.bind(this)}
           onTouchEnd= {() => {this.isScrolledToTop()}}

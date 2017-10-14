@@ -81,11 +81,13 @@ export default class IOSFlatList extends Base{
 		return true;
 	}
 
+
+
 	_onTouchEnd(){}
 
-	renderList(){
+	renderList(offset){
 		return <FlatList 
-				 ListHeaderComponent={<View style={{height:100,backgroundColor:"red",marginTop:-100}}><Text>FlatListHeader</Text></View>}
+				 ListHeaderComponent={this.getHeader(offset)}
 				 ref={(flatlist)=>{this.flatlist = flatlist;}}
 				 onScroll = {this.onScroll.bind(this)}
 				 {...this.props}/>

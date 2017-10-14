@@ -16,10 +16,9 @@ var Re = {
 	    var sizeStyle = Theme["icon_"+size];
 
 	    var defaultWrapperStyle = Theme["icon_wrapper_"+type]||{};
-	      wrapperStyle = Object.assign({},props.style||{},defaultWrapperStyle,wrapperStyle);
+	    wrapperStyle = Object.assign({},StyleSheet.create(defaultWrapperStyle),wrapperStyle,props.style||{});
 
-	    var iconStyle =Object.assign({}, props.iconStyle||{});
-	    iconStyle = StyleSheet.convertTransform(iconStyle);
+	    var iconStyle = {};
 
 	    if(wrapperStyle.fontSize){
 	      iconStyle.width = wrapperStyle.fontSize;
