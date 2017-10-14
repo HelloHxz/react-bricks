@@ -1,9 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
+var MockData = require("./mock")
 var fs= require('fs');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+
 
 function getEntryAndHtmlPlugin(){
   var siteArr = ["first"];

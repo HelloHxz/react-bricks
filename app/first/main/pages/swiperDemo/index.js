@@ -47,7 +47,7 @@ export default class SwiperDemo extends React.Component {
             loop={true} 
             interval={3000} 
             cache={true} 
-            datasource={siwperData} 
+            data={siwperData} 
             renderItem = {this.renderSwiperItem.bind(this)}>
           </Swiper>
       </View>

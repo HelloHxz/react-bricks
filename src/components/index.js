@@ -28,6 +28,8 @@ import TouchableOpacity from './touchableopacity'
 import TouchableHighlight from './touchablehighlight';
 import Text from './text';
 import Grid from './grid';
+import Container from './container';
+import TouchScroll from './touchscroll'
 
 
 
@@ -41,6 +43,7 @@ export {
 	TouchableHighlight,
 	Header,
 	Swiper,
+	Container,
 	Grid,
 	Menu,
 	Space,

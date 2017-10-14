@@ -60,7 +60,8 @@ export default class Segment extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-   if(this.state.selectedIndex===0||this.state.selectedIndex){
+
+   if(nextProps.selectedIndex===0||nextProps.selectedIndex){
     //selectedIndex 优先
     if(this.state.selectedIndex!==nextProps.selectedIndex){
       this.setState({
@@ -68,7 +69,7 @@ export default class Segment extends React.Component {
       });
     }
    } else{
-    if(this.state.selectedKey!==nextProps.selectedKey){
+    if(this.state.selectedKey&&this.state.selectedKey!==nextProps.selectedKey){
       this.setState({
         selectedKey:nextProps.selectedKey
       });

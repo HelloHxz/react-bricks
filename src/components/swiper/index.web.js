@@ -26,8 +26,8 @@ class Swiper extends Base{
       // classNameArr.push("xz-default-swiper");
     }
 
-    var datasource = this.props.datasource||[];
-    if(datasource.length===0){
+    var data = this.props.data||[];
+    if(data.length===0){
       return <div className={classNameArr.join(" ")}></div>;
     }
     var children= [];

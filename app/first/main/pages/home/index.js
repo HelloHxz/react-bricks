@@ -20,7 +20,7 @@ var ListDataSource = [
   {id:9,name:"Tabbar",url:"tabbardemo/setting"},
   {id:10,name:"Menu",url:"menuDemo"},
   {id:11,name:"Grid",url:"gridDemo"},
-  {id:12,name:"xxx",url:null},
+  {id:12,name:"segment+container",url:"segmentContainerDemo"},
   {id:13,name:"xxx",url:null},
   {id:14,name:"xxx",url:null},
   {id:15,name:"xxx",url:null},
@@ -135,7 +135,7 @@ class HomeScreen extends React.Component {
 
   render() {
     return <View style={{flex:1}}>
-      <Header>
+      <Header style={{justifyContent:"center"}}>
           <Segment style={StyleSheet.create({width:400})} renderItem={this.renderSegmentItem.bind(this)} data={[{key:"1"},{key:"2"},{key:"3"}]}/>
       </Header>
       <FlatList

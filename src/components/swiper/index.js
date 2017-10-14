@@ -24,8 +24,8 @@ class Swiper extends Base {
   }
 
   render() {
-    var datasource = this.props.datasource||[];
-    if(datasource.length===0){
+    var data = this.props.data||[];
+    if(data.length===0){
       return <div className={classNameArr.join(" ")}></div>;
     }
     var children= [];
@@ -59,13 +59,15 @@ class Swiper extends Base {
 
       if(this.props.cache){
          var midSourceIndex = this.sourceArr[1];
-         var cacheStyle = {};
          for(var key in this.cacheDict){
           var cacheIndex = this.sourceArr.indexOf(parseInt(key));
+          var cacheItemStyle = {};
           if(cacheIndex<0){
             var sourceIndex_int = parseInt(key);
+            var cv = ((sourceIndex_int-midSourceIndex)*(this.space+this.WrapperSizeValue));
+            itemStyle[this.isHorizontal?"left":"top"] = cv;
             var itemKey = 'xz-swiper-item-'+key;
-            children.push(<View style={{position:"absolute",height:"100%",width:"100%",width:0,height:0,left:-10}} className="xz-swiper-item" key={itemKey}>
+            children.push(<View style={{...{position:"absolute",height:"100%",width:"100%"},...itemStyle}} className="xz-swiper-item" key={itemKey}>
               {this.cacheDict[key]}
             </View>);
           }

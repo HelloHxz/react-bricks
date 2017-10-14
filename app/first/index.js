@@ -17,6 +17,7 @@ var config = {
 		poplayerDemo:require("./main/pages/poplayerDemo").default,
 		menuDemo:require("./main/pages/menuDemo").default,
 		gridDemo:require("./main/pages/gridDemo").default,
+		segmentContainerDemo:require("./main/pages/segmentContainerDemo").default,
 		
 	},
 };

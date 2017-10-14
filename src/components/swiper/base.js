@@ -4,10 +4,12 @@ import StyleSheet from "../style"
 
 
 export default class Base extends React.Component {
+
   constructor(props) {
     super(props)
+    console.log(props);
     this.tranDict = StyleSheet.getTransitionKeys();
-    this.space =  this.props.space || 0;
+    this.space =  props.space || 0;
     this.touchoffset = this.props.touchoffset || 120;
     this.init(props,false);
     this.animate = false;
@@ -20,7 +22,7 @@ export default class Base extends React.Component {
   parseSelectedInt(selectedIndex,props){
       selectedIndex = selectedIndex||0;
       selectedIndex = isNaN(selectedIndex)?0:parseInt(selectedIndex);
-      selectedIndex = selectedIndex>=props.datasource.length?props.datasource.length-1:selectedIndex;
+      selectedIndex = selectedIndex>=props.data.length?props.data.length-1:selectedIndex;
       selectedIndex = selectedIndex<0?0:selectedIndex;
       return selectedIndex;
   }
@@ -28,7 +30,7 @@ export default class Base extends React.Component {
   init(props,isReciveProps){
     this.needRebind= true;
     if(isReciveProps){
-      if(JSON.stringify(this.props.datasource)===JSON.stringify(props.datasource)){
+      if(JSON.stringify(this.props.data)===JSON.stringify(props.data)){
         this.needRebind = false;
       }
     }
@@ -76,8 +78,8 @@ export default class Base extends React.Component {
 
     }
 
-    var datasource = props.datasource||[];
-    if(datasource.length>1){
+    var data = props.data||[];
+    if(data.length>1){
       this.startInterval();
     }else{
       this.stopInterval();
@@ -185,7 +187,7 @@ export default class Base extends React.Component {
 	}
 
   getPreSourceArr(){
-    var len = this.props.datasource.length;
+    var len = this.props.data.length;
   
     var mid = this.sourceArr[1];
     mid -= 1;
@@ -202,7 +204,7 @@ export default class Base extends React.Component {
   }
 
   getNextSourceArr(){
-    var len = this.props.datasource.length;
+    var len = this.props.data.length;
    
     var mid = this.sourceArr[1];
     mid += 1;
@@ -381,7 +383,7 @@ onTouchStart(e){
       if((this.props.lazyrender&&index===1&&!childrenItem)||!this.props.lazyrender){
         if(!childrenItem){
           if(this.props.renderItem){
-            childrenItem = this.props.renderItem({index:sourceIndex,data:this.props.datasource[sourceIndex]});
+            childrenItem = this.props.renderItem({index:sourceIndex,data:this.props.data[sourceIndex]});
             if(this.props.cache){
               this.cacheDict[sourceIndex.toString()] = childrenItem;
             }
@@ -397,8 +399,8 @@ onTouchStart(e){
 
   _renderIndicator(){
     var curIndex = this.sourceArr[1];
-    var datasource  =this.props.datasource||[];
-    var len = datasource.length;
+    var data  =this.props.data||[];
+    var len = data.length;
     if(this.props.renderIndicator){
       return this.props.renderIndicator({
         length:len,
