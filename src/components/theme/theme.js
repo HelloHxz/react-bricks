@@ -112,6 +112,14 @@ let Re = {
 	menu_split_line_color:Common.theme_border_color,
 	menu_space_backgroundcolor:Common.theme_background_color,
 	menu_space_bordercolor:Common.theme_border_color,
+	segment_lg_height:74,
+	segment_default_height:64,
+	segment_sm_height:50,
+	segment_border_radius:8,
+	segment_border_width:2,
+	segment_border_color:Common.theme_color,
+	segment_selected_backgroundcolor:Common.theme_color,
+	segment_selected_color:"#fff"
 	
 };
 export default {...Common,...Re};

@@ -21,6 +21,7 @@ import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
 import Swiper from './swiper';
+import Segment from './segment';
 import Space from './space';
 import {observable} from 'mobx'
 import TouchableOpacity from './touchableopacity'
@@ -45,6 +46,7 @@ export {
 	Space,
 	Animated,
 	Theme,
+	Segment,
 	TouchableOpacity,
 	UIManager,
 	Icon,

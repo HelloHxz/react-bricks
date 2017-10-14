@@ -1,5 +1,5 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
-  FlatList,Header,Theme,
+  FlatList,Header,Theme,Segment,
   TouchableOpacity,ActivityIndicator,
   UIManager,Icon,Image,Swiper} from "react-bricks"
 import Poplayer from './components/poplayer'
@@ -114,6 +114,14 @@ class HomeScreen extends React.Component {
     </View>
   }
 
+  renderSegmentItem(params){
+    var style = {color:"#333"}
+    if(params.selected){
+      style.color = "#fff";
+    }
+    return <Text style={style}>a</Text>;
+  }
+
 
   listRenderItem({item}){
       return  <TouchableOpacity 
@@ -127,7 +135,9 @@ class HomeScreen extends React.Component {
 
   render() {
     return <View style={{flex:1}}>
-      <Header></Header>
+      <Header>
+          <Segment style={StyleSheet.create({width:400})} renderItem={this.renderSegmentItem.bind(this)} data={[{key:"1"},{key:"2"},{key:"3"}]}/>
+      </Header>
       <FlatList
         style={{backgroundColor:"#fff"}}
         renderPullIndicator = {this.renderPullIndicator.bind(this)}
