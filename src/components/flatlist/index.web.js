@@ -1,7 +1,7 @@
 
 import React from 'react';
 import View from '../view'
-import Wrapper from './web'
+import ScrollView from '../scrollview'
 
 export default class FlatList extends React.Component{
 
@@ -16,12 +16,12 @@ export default class FlatList extends React.Component{
 		var rows = [];
 		for(var i=0,j=this.state.data.length;i<j;i++){
 			var item = this.state.data[i];
-			rows.push(<div key={this.props.keyExtractor(item,i)}>{
+			rows.push(<View key={this.props.keyExtractor(item,i)}>{
 				this.props.renderItem({
 					item:item
 				})
-			}</div>);
+			}</View>);
 		}
-		return <Wrapper {...this.props} onRefresh={()=>{}}>{rows}</Wrapper>
+		return <ScrollView {...this.props} onRefresh={()=>{}}>{rows}</ScrollView>
 	}
 } 

@@ -36,7 +36,8 @@ export default class PopoverDemo extends React.Component {
         <Header>
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon style={{color:"blue"}} icon={svgs.left}/></TouchableOpacity>
         </Header>
-        <ScrollView style={StyleSheet.create({flex:1,paddingLeft:40,paddingRight:40,paddingTop:30})}>
+        <ScrollView style={StyleSheet.create({flex:1,paddingLeft:40,paddingRight:40})}>
+            <Space style={StyleSheet.create({height:40})}/>
             <View style={{justifyContent:"space-between",flexDirection:"row"}}>
                 <Button onPress={this.Show.bind(this,'LT')} type='primary' circle={true} size='sm'>LT</Button>
                 <Button onPress={this.Show.bind(this,'MT')} type='primary' circle={true} size='sm'>MT</Button>

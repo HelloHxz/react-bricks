@@ -105,7 +105,6 @@ class PopoverItem extends React.Component{
 		this.isInit = true;
 		this.process(props);
 		this.offsetY = 10;
-
 		this.offsetX = 10;
 	}
 	componentWillReceiveProps(nextProps){
@@ -133,11 +132,11 @@ class PopoverItem extends React.Component{
       var pos = {};
       switch(direction){
         case "top":
-        	var bottom = StyleSheet.screen.height-rect.top+this.offsetY;
-        	if(bottom+popHeight>StyleSheet.screen.height){
-        		pos["top"] =  rect.bottom+this.offsetY;
+        	var top = rect.top - popHeight - this.offsetY;
+        	if(top>0){
+        		pos["top"] = top ;
         	}else{
-        		pos["bottom"] = bottom;
+        		pos["top"] = rect.bottom+this.offsetY;
         	}
             pos = this._getLeft(pos,rect,popWidth,popHeight,"bottom");
         break;
