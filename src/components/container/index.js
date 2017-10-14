@@ -22,7 +22,7 @@ class Container extends React.Component{
 			style.backgroundColor = "transparent";
 		}
 		return <Swiper
-			renderItem={this.props.renderItem}
+			{...this.props}
 			style={style}
 			data={this.state.data}
 			horizontal = {true}
