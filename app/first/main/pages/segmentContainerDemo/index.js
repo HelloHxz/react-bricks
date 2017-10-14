@@ -12,7 +12,7 @@ export default class GridDemo extends React.Component {
   }
 
   renderContainerItem(params){
-    return <Text>ss</Text>
+    return <Text>ss{params.index}</Text>
   }
 
 
@@ -30,8 +30,9 @@ export default class GridDemo extends React.Component {
         <Header>
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
         </Header>
-        <Segment data={[{key:"1"},{key:"2"},{key:"3"}]}/>
+        <Segment selectedKey={"2"} data={[{key:"1"},{key:"2"},{key:"3"}]}/>
         <Container 
+          selectedKey={"2"}
           renderItem={this.renderContainerItem.bind(this)}
           data={[{key:"1"},{key:"2"},{key:"3"}]}/>
       </View>
