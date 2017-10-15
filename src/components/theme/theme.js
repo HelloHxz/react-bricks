@@ -122,7 +122,13 @@ let Re = {
 	segment_border_width:2,
 	segment_border_color:Common.theme_color,
 	segment_selected_backgroundcolor:Common.theme_color,
-	segment_selected_color:"#fff"
+	segment_selected_color:"#fff",
+
+	tabs_lg_height:110,
+	tabs_selected_backgroundcolor:"transparent",
+	tabs_press_underlaycolor:Common.underlaycolor,
+	tabs_default_height:88,
+	tabs_sm_height:70,
 	
 };
 export default {...Common,...Re};
