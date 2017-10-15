@@ -68,7 +68,7 @@ let Re = {
 		width:60
 	},
 	icon_lg:{
-		fontSize:65,
+		fontSize:70,
 		width:110
 	},
 	icon_default:{

@@ -28,6 +28,9 @@ class IconDemo extends React.Component {
 
           <Icon icon={svgs.saoyisao} type='primary' size='lg'/>
 
+
+          <Icon icon={svgs.cookie_colorful} colorful={true} style={StyleSheet.create({fontSize:140})}/>
+
           <Icon icon={svgs.saoyisao} type='primary' circle={true} size='lg'/>
 
 

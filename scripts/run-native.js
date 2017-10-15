@@ -92,7 +92,14 @@ function writeSvgFile(dirpath){
       if(fnArr.length===2&&fnArr[1]==="svg"){
          var data = fs.readFileSync(dirpath+"/"+filename,'utf-8');
          data = data.replace(/<\?xml.*?\?>|<!--.*?-->|<path fill='#[a-zA-Z0-9]'|<!DOCTYPE.*?>/g, '');
-         data = data.replace(/<path fill="#[a-zA-Z0-9]+"|<path/g, '<path fill="#ef473a"');
+         var filename_arr = filename.split("_");
+         var iscolorful = false;
+         if(filename_arr.length===2&&filename_arr[1]==='colorful.svg'){
+           iscolorful = true;
+         }
+         if(!iscolorful){
+           data = data.replace(/<path fill="#[a-zA-Z0-9]+"|<path/g, '<path fill="#ef473a"');
+         }
          data = data.replace(/\sclass="[\w|\-|\_]*"/g,'');
          data = data.replace(/\sstyle="[\w|\-|\_]*"/g,'');
          Re[fnArr[0]] = data;

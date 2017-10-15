@@ -15,7 +15,9 @@ class Com extends React.Component{
 
 		var icon = _this.props.icon||"";
 		icon = icon.replace("<svg","<svg style='"+arr.join(";")+"'");
-		icon = icon.replace(/\sfill="#ef473a"/g,' fill="'+re.color+'"')
+		if(!this.props.colorful){
+			icon = icon.replace(/\sfill="#ef473a"/g,' fill="'+re.color+'"')
+		}
 		return {__html: icon};
 	}
 	render(){

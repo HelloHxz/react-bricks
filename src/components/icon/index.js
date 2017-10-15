@@ -13,7 +13,10 @@ export default class Icon extends React.Component {
       return null;
     }
     var StyleConfig = Common.getStyle(this.props);
-
+    var fill = {};
+    if(!this.props.colorful){
+     fill = {fill:StyleConfig.color};
+    }
     return (
       <View style={{...{justifyContent:"center",alignItems:"center"},...StyleConfig.wrapperStyle}}>
         <SvgUri
@@ -21,7 +24,7 @@ export default class Icon extends React.Component {
           width={StyleConfig.iconStyle.width}
           height={StyleConfig.iconStyle.width}
           svgXmlData={this.props.icon}
-          fill={StyleConfig.color}
+          {...fill}
         />
         </View>
     );
