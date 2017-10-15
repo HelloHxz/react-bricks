@@ -18,7 +18,7 @@ var config = {
 		menuDemo:require("./main/pages/menuDemo").default,
 		gridDemo:require("./main/pages/gridDemo").default,
 		segmentContainerDemo:require("./main/pages/segmentContainerDemo").default,
-		
+		tabsDemo:require("./main/pages/tabsDemo").default,
 	},
 };
 export default Run(config)

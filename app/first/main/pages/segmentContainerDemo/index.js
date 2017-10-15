@@ -7,10 +7,8 @@ import TopSegment from './components/TopSegment'
 
 const segmentData = [{key:"1",name:"全部"},{key:"2",name:"完成"},{key:"3",name:"未完成"}];
 
-
-@observer
 @PageView({curpagestore:new SegmentContainerStore})
-class SegmentContainerDemo extends React.Component {
+export default class SegmentContainerDemo extends React.Component {
 	
   static navigationOptions = {
     header:null
@@ -58,5 +56,4 @@ class SegmentContainerDemo extends React.Component {
   }
 }
 
-export default SegmentContainerDemo;
 
