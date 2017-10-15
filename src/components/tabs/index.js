@@ -1,15 +1,16 @@
 import React from 'react';
 import StyleSheet from '../style';
 import View from '../view';
+import ScrollView from '../scrollview'
 import Theme from '../theme';
 import TouchableHighlight from '../touchablehighlight'
 
 
 var defaultStyle = StyleSheet.create({
   wrapper:{
-    flexDirection:"row",
     height:100,
-    overflow:"hidden"
+    width:"100%",
+    flexDirection:"row"
   },
   item:{
     flex:1,
@@ -27,16 +28,19 @@ export default class Tabs extends React.Component {
       height:StyleSheet.px(Theme["tabs_"+size+"_height"]),
     }
    
-    this.wrapperStyle = {...defaultStyle.wrapper,...this.wrapperStyle,...this.props.style||{}};
-      var selectedIndex = props.selectedIndex;
-      if(!props.selectedKey&&!props.selectedIndex){
-        selectedIndex = 0;
-      }
-      this.state = {
-        data:props.data||[],
-        selectedKey:props.selectedKey,
-        selectedIndex:selectedIndex
-      }
+    this.wrapperStyle = {...defaultStyle.wrapper,...this.wrapperStyle,
+    	...props.style||{},
+    	...props.scroll?{overflow:"scroll"}:{}};
+	var selectedIndex = props.selectedIndex;
+	if(!props.selectedKey&&!props.selectedIndex){
+		selectedIndex = 0;
+	}
+
+	this.state = {
+		data:props.data||[],
+		selectedKey:props.selectedKey,
+		selectedIndex:selectedIndex
+	}
   }
 
   componentWillReceiveProps(nextProps){
@@ -74,6 +78,27 @@ export default class Tabs extends React.Component {
   render() {
     var child = [];
 
+
+	var Wrapper = View;
+	var propsItemStyle = this.props.itemStyle||{};
+	var itemStyle = {};
+
+	if(this.props.scroll){
+	  if(StyleSheet.isWeb){
+
+	  }else{
+	  	Wrapper = ScrollView;
+	  }
+
+	  if(!propsItemStyle.width){
+	  	propsItemStyle.width = StyleSheet.px(220);
+	  }
+	  delete propsItemStyle.flex;
+
+	}else{
+		itemStyle.flex = 1;
+	}
+
     for(var i=0,j=this.state.data.length;i<j;i++){
      
       itemdata = this.state.data[i];
@@ -99,12 +124,14 @@ export default class Tabs extends React.Component {
         }
       }
 
+
+
       child.push(<TouchableHighlight 
         underlayColor = {this.props.underlayColor||Theme.tabs_press_underlaycolor}
         onPress = {this.itemPress.bind(this,itemdata,i)}
-        key={i+"item"} style={{...defaultStyle.item}}>
+        key={i+"item"} style={itemStyle}>
           <View style={{...{position:"relative",flexDirection:"column",height:"100%",width:"100%",justifyContent:"center",
-    alignItems:"center"},...selectedStyle,...this.props.itemStyle||{}}}>
+    alignItems:"center"},...selectedStyle,...propsItemStyle||{}}}>
               {
                 this.props.renderItem && 
                 this.props.renderItem({
@@ -117,9 +144,11 @@ export default class Tabs extends React.Component {
           </View>
         </TouchableHighlight>);
     }
-    return (<View style={this.wrapperStyle }>
+
+
+    return (<Wrapper showsHorizontalScrollIndicator={false} scrollEnabled={true} horizontal={true} style={this.wrapperStyle }>
       {child}
-      </View>);
+      </Wrapper>);
   }
 }
 
