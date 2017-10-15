@@ -31,12 +31,16 @@ class IconDemo extends React.Component {
 
           <Icon icon={svgs.cookie_colorful} colorful={true} style={StyleSheet.create({fontSize:140})}/>
 
+          <Icon icon={svgs.tool_colorful} size='lg'  circle={true} type='hollow' style={{borderColor:"orange"}} colorful={true}/>
+
+
           <Icon icon={svgs.saoyisao} type='primary' circle={true} size='lg'/>
 
 
           <Icon icon={svgs.search} type='primary'/>
 
           <Icon icon={svgs.home} size='sm' circle={true}  type='primary'/>
+
 
 
           <Icon icon={svgs.saoyisao} style={{backgroundColor:"red"}} type='primary' size='lg'/>
