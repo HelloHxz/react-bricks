@@ -1,35 +1,60 @@
 import React from 'react';
-import View from '../view'
-import TouchableOpacity from '../touchableopacity'
-import StyleSheet from '../style'
+import StyleSheet from '../style';
+import View from '../view';
+import Theme from '../theme';
+import TouchableHighlight from '../touchablehighlight'
 
+// segment_lg_height:70,
+//  segment_default_height:60,
+//  segment_sm_height:50,
+//  segment_border_color:Common.theme_color,
+//  segment_selected_backgroundcolor:Common.theme_color,
+//  segment_selected_color:"#fff"
+//  segment_border_width
 
-let MyStyle = StyleSheet.create({
-  segment:{
-    height:100,
+var defaultStyle = StyleSheet.create({
+  wrapper:{
     flexDirection:"row",
-    backgroundColor:"#eee"
+    borderWidth:Theme.segment_border_width,
+    borderColor:Theme.segment_border_color,
+    borderStyle:"solid",
+    overflow:"hidden"
+  },
+  item:{
+    flex:1,
+  },
+  line:{
+    height:"100%",
+    width:Theme.segment_border_width,
   }
 });
-
-class Segment extends React.Component {
+export default class Segment extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      selectedKey:props.selectedKey,
-      selectedIndex:props.selectedIndex,
-      renderKey:0,
-      offset:0
+    var size = props.size || "default";
+    if(["lg","sm"].indexOf(size)<0){
+      size = "default";
     }
-
-  }
-
-  componentDidMount(){
-
+    this.segment_selected_backgroundcolor =props.selectedBackgroundColor||Theme.segment_selected_backgroundcolor;
+    this.wrapperStyle = {
+      height:StyleSheet.px(Theme["segment_"+size+"_height"]),
+    }
+   
+    this.wrapperStyle = {...defaultStyle.wrapper,...this.wrapperStyle,...this.props.style||{}};
+      var selectedIndex = props.selectedIndex;
+      if(!props.selectedKey&&!props.selectedIndex){
+        selectedIndex = 0;
+      }
+      this.state = {
+        data:props.data||[],
+        selectedKey:props.selectedKey,
+        selectedIndex:selectedIndex
+      }
   }
 
   componentWillReceiveProps(nextProps){
-    if(this.state.selectedIndex===0||this.state.selectedIndex){
+
+   if(nextProps.selectedIndex===0||nextProps.selectedIndex){
     //selectedIndex 优先
     if(this.state.selectedIndex!==nextProps.selectedIndex){
       this.setState({
@@ -37,75 +62,77 @@ class Segment extends React.Component {
       });
     }
    } else{
-    if(this.state.selectedKey!==nextProps.selectedKey){
+    if(this.state.selectedKey&&this.state.selectedKey!==nextProps.selectedKey){
       this.setState({
         selectedKey:nextProps.selectedKey
       });
     }
    }
+   
   }
 
-  itemClick(key,itemInstance){
-    // if(this.props.onItemClickChange){
-    //   if(this.props.onItemClickChange({
-    //     nextKey:key,
-    //     selectedKey:this.state.selectedKey,
 
-    //     itemInstance:itemInstance,
-    //     segmentInstance:this
-    //   })===false){
-    //     return;
-    //   }
-    // }
-     this.props.onChange&&this.props.onChange({
-        preSelectedKey:this.state.selectedKey,
-        selectedKey:key,
-        itemInstance:itemInstance,
-        selectedIndex:itemInstance.props.index,  
-        segmentInstance:this
-      })
-  }
-
-  render() {
-    var scroll = this.props.scroll === true;
-    var itemCount = 0;
-    var children = React.Children.map(this.props.children, 
-      (child,index) => {
-        if(child.type&&typeof(child.type)!=="string"){
-          itemCount+=1;
-          return React.cloneElement(child, {
-            scroll:this.props.scroll,
-            itemKey:child.key,
-            index:index,
-            parent:this,
-            selectedKey:this.state.selectedKey,
-            selectedIndex:this.state.selectedIndex,
-            itemClick:this.itemClick.bind(this)
-          });
-        }else{
-          return child;
-        }
+  itemPress(itemdata,i,event){
+    if(this.props.onChange){
+      this.props.onChange({
+        selectedData:itemdata,
+        preSelectedData:this.preSelectedData,
+        selectedIndex:i,
+        preSelectedIndex:this.preSelectedIndex,
+        sender:this
       });
-    if(this.itemCount===0){
-      this.itemCount = itemCount;
     }
-    return (<View style={MyStyle.segment}>{children}</View>);
-  }
-}
-
-class SegmentItem extends React.Component {
-
-  onItemClick(){
-    this.props.itemClick&&this.props.itemClick(this.props.itemKey,this);
   }
 
   render() {
-    var scroll = this.props.scroll === true;
-    return (<TouchableOpacity onPress={this.onItemClick.bind(this)} activeOpacity={1} style={{flex:1,flexDirection:"column",justifyContent:"center",alignItems:"center"}}>{this.props.children}</TouchableOpacity>);
+    var child = [];
+
+    for(var i=0,j=this.state.data.length;i<j;i++){
+     
+      itemdata = this.state.data[i];
+      if(!itemdata.key){
+        console.error("segment data属性每项数据需要key字段");
+      }
+      var selectedStyle = {};
+      var selected = false;
+      if(this.state.selectedIndex===0||this.state.selectedIndex){
+        //selectedIndex优先级高
+        if(this.state.selectedIndex===i){
+          selected = true;
+          this.preSelectedData = itemdata;
+          this.preSelectedIndex = i;
+          selectedStyle.backgroundColor = this.segment_selected_backgroundcolor;
+        }
+      }else{
+        if(this.state.selectedKey === itemdata.key){
+           selected = true;
+           this.preSelectedData = itemdata;
+           this.preSelectedIndex = i;
+           selectedStyle.backgroundColor = this.segment_selected_backgroundcolor;
+        }
+      }
+
+      child.push(<TouchableHighlight 
+        underlayColor = {this.props.underlayColor||Theme.segment_press_underlaycolor}
+        onPress = {this.itemPress.bind(this,itemdata,i)}
+        key={i+"item"} style={{...defaultStyle.item,...this.props.itemStyle||{}}}>
+          <View style={{...{position:"relative",height:"100%",width:"100%",justifyContent:"center",
+    alignItems:"center"},...selectedStyle}}>
+              {
+                this.props.renderItem && 
+                this.props.renderItem({
+                  index:i,
+                  itemData:itemdata,
+                  sender:this,
+                  selected:selected
+                })
+              }
+          </View>
+        </TouchableHighlight>);
+    }
+    return (<View style={this.wrapperStyle }>
+      {child}
+      </View>);
   }
 }
 
-
-Segment.Item = SegmentItem;
-
-export default Segment;

@@ -30,15 +30,16 @@ class ChatScreen extends React.Component {
   }
 
   segChange(params){
-    this.props.navigation.replace(params.selectedKey);
+    this.props.navigation.replace(params.selectedData.key);
   }
-  renderItem(config){
-    var selected = config.key===this.props.chatStore.tabSelectedKey;
+
+  tabsRenderItem(params){
     return  [ 
-               <Icon key='icon' selected={selected} style={{color:"blue"}} icon={config.icon}/>,
-               <Text key='text' selected={selected}>{config.text}</Text>
-            ]
+               <Icon key='icon' selected={params.selected} style={{color:"blue"}} icon={params.itemData.icon}/>,
+               <Text key='text' selected={params.selected}>{params.itemData.text}</Text>
+            ] 
   }
+
   render() {
     return (
       <View style={{flex:1,backgroundColor:"#fff",overflow:"hidden"}}>
@@ -48,27 +49,13 @@ class ChatScreen extends React.Component {
         <PageContainer {...this.props} owner={this}/>
         <Tabs 
           data={[
-            {key:"tabbardemo/setting",text:"",icon:""},
-            {key:"tabbardemo/setting",text:"",icon:""}
+            {key:"tabbardemo/setting",text:"Setting",icon:svgs.home},
+            {key:"tabbardemo/my",text:"my",icon:svgs.search}
           ]}
           itemStyle={{}}
-          renderItem={{}}
+          renderItem={this.tabsRenderItem.bind(this)}
           selectedKey={this.props.chatStore.tabSelectedKey} 
           onChange={this.segChange.bind(this)}>
-          <Tabs.Item key="tabbardemo/setting">
-            {this.renderItem({
-              text:'Setting',
-              key:"tabbardemo/setting",
-              icon:svgs.search
-            })}
-          </Tabs.Item>
-          <Tabs.Item key='tabbardemo/my'>
-              {this.renderItem({
-              text:'My',
-              key:"tabbardemo/my",
-              icon:svgs.home
-            })}
-          </Tabs.Item>
         </Tabs>
       </View>
     );

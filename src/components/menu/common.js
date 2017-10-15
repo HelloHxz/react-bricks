@@ -34,7 +34,7 @@ class MenuItem extends React.Component{
 	render(){
 		return <TouchableHightlight
 		onPress={this.onPress.bind(this)}
-		underlayColor = "#eee"
+		underlayColor = {this.props.underlayColor||Theme.menu_press_underlaycolor}
 			style={{...StyleSheet.create({
 				height:Theme.menu_item_height,
 				backgroundColor:"#fff"

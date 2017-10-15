@@ -124,6 +124,7 @@ export default class Segment extends React.Component {
       }
 
       child.push(<TouchableHighlight 
+        underlayColor = {this.props.underlayColor||Theme.segment_press_underlaycolor}
         onPress = {this.itemPress.bind(this,itemdata,i)}
         key={i+"item"} style={{...defaultStyle.item,...this.props.itemStyle||{}}}>
           <View style={{...{position:"relative",height:"100%",width:"100%",justifyContent:"center",

@@ -5,7 +5,8 @@ let Common = {
 	theme_text_color:"rgb(67, 67, 67)",
 	theme_border_color:"rgb(142, 142, 142)",
 	theme_background_color:"#f2f3f4",
-	theme_disabled_color:"#eee"
+	theme_disabled_color:"#eee",
+	underlaycolor:"#eee"
 }
 
 let Re = {
@@ -108,11 +109,13 @@ let Re = {
 	extend(defaultTheme,extendTheme){
 		defaultTheme.test = "huxiaozhong"
 	},
+	menu_press_underlaycolor:Common.underlaycolor,
 	menu_item_height:100,
 	menu_split_line_color:Common.theme_border_color,
 	menu_space_backgroundcolor:Common.theme_background_color,
 	menu_space_bordercolor:Common.theme_border_color,
 	segment_lg_height:74,
+	segment_press_underlaycolor:Common.underlaycolor,
 	segment_default_height:64,
 	segment_sm_height:50,
 	segment_border_radius:8,
