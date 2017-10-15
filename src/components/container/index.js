@@ -37,7 +37,7 @@ class Container extends React.Component{
 			selectedIndex={selectedIndex}
 			horizontal = {true}
 			loop={false}
-			lazyload = {true}
+			lazyrender = {true}
 		></Swiper>
 	}
 }

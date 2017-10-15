@@ -1,8 +1,16 @@
-import {View,Text,React,StyleSheet,PageView,ScrollView,Button,Swiper,Image,Header,TouchableOpacity,Icon,Grid,Space,Segment,Container} from "react-bricks"
+import {View,observer,Text,React,StyleSheet,PageView,ScrollView,Button,Swiper,Image,Header,TouchableOpacity,Icon,Grid,Space,Segment} from "react-bricks"
 import svgs from '../../assets/svg/svgs.js';
+import SegmentContainerStore from './store';
+import BottomContainer from './components/BottomContainer'
+import TopSegment from './components/TopSegment'
 
-@PageView({rootStore:null,homeStore:null})
-export default class GridDemo extends React.Component {
+
+const segmentData = [{key:"1",name:"全部"},{key:"2",name:"完成"},{key:"3",name:"未完成"}];
+
+
+@observer
+@PageView({curpagestore:new SegmentContainerStore})
+class SegmentContainerDemo extends React.Component {
 	
   static navigationOptions = {
     header:null
@@ -15,14 +23,23 @@ export default class GridDemo extends React.Component {
     return <Text>ss{params.index}</Text>
   }
 
+  renderSegmentItem(params){
+      var style = {color:"#333"}
+      if(params.selected){
+        style.color = "#fff";
+      }
+     return <Text style={style}>{params.itemData.name}</Text>
+  }
+
+  segmentOnChange(params){
+    this.props.curpagestore.segmentSelectedKey = params.selectedData.key;
+  }
+
 
   goBack(){
     this.props.navigation.goBack();
   }
 
-  renderItem(params){
-    return [<Icon key='1' icon={svgs.home}/>,<Text key='2'>{params.index}</Text>]
-  }
 
   render() {
     return (
@@ -30,13 +47,16 @@ export default class GridDemo extends React.Component {
         <Header>
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
         </Header>
-        <Segment selectedKey={"2"} data={[{key:"1"},{key:"2"},{key:"3"}]}/>
-        <Container 
-          selectedKey={"2"}
-          renderItem={this.renderContainerItem.bind(this)}
-          data={[{key:"1"},{key:"2"},{key:"3"}]}/>
+        <TopSegment 
+            curpagestore={this.props.curpagestore}
+            data={segmentData}/>
+        <BottomContainer 
+          curpagestore={this.props.curpagestore}
+          data={segmentData}/>
       </View>
     );
   }
 }
+
+export default SegmentContainerDemo;
 

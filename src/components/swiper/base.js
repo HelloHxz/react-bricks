@@ -7,7 +7,6 @@ export default class Base extends React.Component {
 
   constructor(props) {
     super(props)
-    console.log(props);
     this.tranDict = StyleSheet.getTransitionKeys();
     this.space =  props.space || 0;
     this.touchoffset = this.props.touchoffset || 120;

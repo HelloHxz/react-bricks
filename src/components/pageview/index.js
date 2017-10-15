@@ -2,6 +2,7 @@ import {observer} from 'mobx-react/native'
 import React from 'react'
 
 var PageView =  (store) => (WrappedComponent) => {
+
    class Wrapper extends React.Component {
       static __role = "pageview"
       static navigationOptions = WrappedComponent.navigationOptions;

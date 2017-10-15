@@ -78,6 +78,19 @@ export default class Segment extends React.Component {
    
   }
 
+
+  itemPress(itemdata,i,event){
+    if(this.props.onChange){
+      this.props.onChange({
+        selectedData:itemdata,
+        preSelectedData:this.preSelectedData,
+        selectedIndex:i,
+        preSelectedIndex:this.preSelectedIndex,
+        sender:this
+      });
+    }
+  }
+
   render() {
     var child = [];
 
@@ -97,16 +110,22 @@ export default class Segment extends React.Component {
         //selectedIndex优先级高
         if(this.state.selectedIndex===i){
           selected = true;
+          this.preSelectedData = itemdata;
+          this.preSelectedIndex = i;
           selectedStyle.backgroundColor = this.segment_selected_backgroundcolor;
         }
       }else{
         if(this.state.selectedKey === itemdata.key){
            selected = true;
+           this.preSelectedData = itemdata;
+           this.preSelectedIndex = i;
            selectedStyle.backgroundColor = this.segment_selected_backgroundcolor;
         }
       }
 
-      child.push(<TouchableHighlight key={i+"item"} style={{...defaultStyle.item,...this.props.itemStyle||{}}}>
+      child.push(<TouchableHighlight 
+        onPress = {this.itemPress.bind(this,itemdata,i)}
+        key={i+"item"} style={{...defaultStyle.item,...this.props.itemStyle||{}}}>
           <View style={{...{position:"relative",height:"100%",width:"100%",justifyContent:"center",
     alignItems:"center"},...selectedStyle}}>
               {
