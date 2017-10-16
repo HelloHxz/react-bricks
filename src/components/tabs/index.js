@@ -31,16 +31,15 @@ export default class Tabs extends React.Component {
     this.wrapperStyle = {...defaultStyle.wrapper,...this.wrapperStyle,
     	...props.style||{},
     	...props.scroll?{overflow:"scroll"}:{}};
-	var selectedIndex = props.selectedIndex;
-	if(!props.selectedKey&&!props.selectedIndex){
-		selectedIndex = 0;
+    var selectedKey = props.selectedKey;
+	if(!selectedKey&&props.data.length>0){
+		selectedKey = props.data[0].key;
 	}
-
 	this.state = {
 		data:props.data||[],
-		selectedKey:props.selectedKey,
-		selectedIndex:selectedIndex
+		selectedKey:selectedKey,
 	}
+
   }
 
   componentWillReceiveProps(nextProps){
@@ -53,7 +52,7 @@ export default class Tabs extends React.Component {
       });
     }
    } else{
-    if(this.state.selectedKey&&this.state.selectedKey!==nextProps.selectedKey){
+    if(this.state.selectedKey!==nextProps.selectedKey){
       this.setState({
         selectedKey:nextProps.selectedKey
       });
@@ -99,6 +98,7 @@ export default class Tabs extends React.Component {
 		itemStyle.flex = 1;
 	}
 
+
     for(var i=0,j=this.state.data.length;i<j;i++){
      
       itemdata = this.state.data[i];
@@ -107,24 +107,13 @@ export default class Tabs extends React.Component {
       }
       var selectedStyle = {};
       var selected = false;
-      if(this.state.selectedIndex===0||this.state.selectedIndex){
-        //selectedIndex优先级高
-        if(this.state.selectedIndex===i){
-          selected = true;
-          this.preSelectedData = itemdata;
-          this.preSelectedIndex = i;
-          selectedStyle.backgroundColor = this.tabs_selected_backgroundcolor;
-        }
-      }else{
+   
         if(this.state.selectedKey === itemdata.key){
            selected = true;
            this.preSelectedData = itemdata;
            this.preSelectedIndex = i;
            selectedStyle.backgroundColor = this.tabs_selected_backgroundcolor;
         }
-      }
-
-
 
       child.push(<TouchableHighlight 
         underlayColor = {this.props.underlayColor||Theme.tabs_press_underlaycolor}

@@ -1,9 +1,10 @@
-import {View,Text,React,StyleSheet,PageView,Tabs,ScrollView,Button,Image,Header,TouchableOpacity,Icon,Menu,Space} from "react-bricks"
+import {View,Text,observer,React,StyleSheet,PageView,Tabs,ScrollView,Button,Image,Header,TouchableOpacity,Icon,Menu,Space} from "react-bricks"
 import svgs from '../../assets/svg/svgs.js';
-import TabsDemoStore from './store'
-
+import TabsDemoStore from './store';
+import Tabs1 from './components/tabs1'
 
 @PageView({rootStore:null,tabsDemoStore:new TabsDemoStore})
+@observer
 export default class TabsDemo extends React.Component {
 	
   static navigationOptions = {
@@ -30,8 +31,8 @@ export default class TabsDemo extends React.Component {
     var textStyle = params.selected?{color:"red"}:{};
     return <Text style={textStyle}>a</Text>;
   }
-  segChange2(){
-
+  segChange2(params){
+    this.props.tabsDemoStore.tabSelectedKey2 = params.selectedData.key;
   }
 
 
@@ -44,18 +45,8 @@ export default class TabsDemo extends React.Component {
         </Header>
         <ScrollView style={{flex:1}}>
             <Space/>
-              <Tabs 
-              data={[
-                {key:"1",text:"Setting",icon:svgs.home},
-                {key:"2",text:"my",icon:svgs.search},
-                {key:"3",text:"app",icon:svgs.search}
-              ]}
-              itemStyle={{}}
-              renderItem={this.tabsRenderItem1.bind(this)}
-              selectedKey={this.props.tabsDemoStore.tabSelectedKey1} 
-              onChange={this.segChange1.bind(this)}>
-            </Tabs>
-
+              <Tabs1 
+              tabsDemoStore={this.props.tabsDemoStore}/>
  <Space/>
             <Tabs 
               data={[
