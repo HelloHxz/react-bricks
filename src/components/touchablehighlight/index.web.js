@@ -13,7 +13,7 @@ class TouchableHighlight extends React.Component {
   render() {
   	var style = this.props.style||{};
   	style.display = "flex";
-    return (<View className='xz-default-hl' onPress={this.onClick.bind(this)} style={style}>{this.props.children}</View>);
+    return (<View className='xz-th xz-default-hl' onPress={this.onClick.bind(this)} style={style}>{this.props.children}</View>);
   }
 }
 
