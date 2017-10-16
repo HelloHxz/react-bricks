@@ -76,7 +76,7 @@ export default class Tabs extends React.Component {
   			style={{
   				left:StyleSheet.isWeb?(this.preSelectedIndex*this.itemWidth)+"px":(this.preSelectedIndex*this.itemWidth),
   				width:StyleSheet.isWeb?this.itemWidth+"px":this.itemWidth,
-  				height:StyleSheet.px(3),
+  				height:StyleSheet.px(6),
   				backgroundColor:"orange",
   				bottom:0,
   				position:"absolute"
@@ -101,7 +101,7 @@ export default class Tabs extends React.Component {
 					});
 				}
 			});
-  		},60)
+  		},10)
   	}
 
 	
@@ -206,9 +206,10 @@ class Item extends React.Component{
 				}
 
 			}}
-        underlayColor = {this.props.parent.props.underlayColor||Theme.tabs_press_underlaycolor}
-        onPress = {this.itemPress.bind(this,this.props.itemdata,this.props.index)}
-        key={this.props.index+"item"} style={this.props.itemStyle}>
+       		   underlayColor = {this.props.parent.props.underlayColor||Theme.tabs_press_underlaycolor}
+     		   onPress = {this.itemPress.bind(this,this.props.itemdata,this.props.index)}
+               key={this.props.itemdata.key+"item"} 
+               style={this.props.itemStyle}>
           <View 
 	      	ref = {(itemInstance)=>{
 	      		this.itemInstance = itemInstance;
