@@ -10,10 +10,8 @@ import LayoutAnimation from '../layoutanimation';
 
 var defaultStyle = StyleSheet.create({
   wrapper:{
-    height:100,
     width:"100%",
-    flexDirection:"row",
-    backgroundColor:"#fff"
+    flexDirection:"row"
   },
   item:{
     flex:1,
@@ -30,7 +28,8 @@ export default class Tabs extends React.Component {
     this.tabs_selected_backgroundcolor =props.selectedBackgroundColor||Theme.tabs_selected_backgroundcolor;
     this.wrapperStyle = {
     	position:"relative",
-      height:StyleSheet.px(Theme["tabs_"+size+"_height"]),
+        height:StyleSheet.px(Theme["tabs_"+size+"_height"]),
+        backgroundColor:Theme.tabs_backgroundcolor
     }
    
     this.wrapperStyle = {...defaultStyle.wrapper,...this.wrapperStyle,
@@ -114,63 +113,41 @@ export default class Tabs extends React.Component {
 
 
   render() {
-    var child = [];
+	var child = [];
 
 
 	var Wrapper = View;
-	var propsItemStyle = this.props.itemStyle||{};
-	var itemStyle = {};
-
 	if(this.props.scroll){
-	  if(StyleSheet.isWeb){
+		if(StyleSheet.isWeb){
 
-	  }else{
-	  	Wrapper = ScrollView;
-	  }
-
-	  if(!propsItemStyle.width){
-	  	propsItemStyle.width = StyleSheet.px(220);
-	  	if(StyleSheet.isWeb){
-
-	  	}
-	  }else{
-
-	  }
-	  delete propsItemStyle.flex;
-
-	}else{
-		itemStyle.flex = 1;
+		}else{
+			Wrapper = ScrollView;
+		}
 	}
 
+	for(var i=0,j=this.state.data.length;i<j;i++){
+		itemdata = this.state.data[i];
+		if(!itemdata.key){
+			console.error("tabs data属性每项数据需要key字段");
+		}
+		var selected = false;
+		if(this.state.selectedKey === itemdata.key){
+			selected = true;
+			this.preSelectedData = itemdata;
+			this.preSelectedIndex = i;
+	    }
 
-    for(var i=0,j=this.state.data.length;i<j;i++){
-     
-      itemdata = this.state.data[i];
-      if(!itemdata.key){
-        console.error("tabs data属性每项数据需要key字段");
-      }
-      var selectedStyle = {};
-      var selected = false;
-   
-        if(this.state.selectedKey === itemdata.key){
-           selected = true;
-           this.preSelectedData = itemdata;
-           this.preSelectedIndex = i;
-           selectedStyle.backgroundColor = this.tabs_selected_backgroundcolor;
-        }
-
-      child.push(<Item
-      	parent={this}
-      	selected={selected}
-      	itemdata={itemdata}
-      	index = {i}
-      	measureWidth={this.measureWidth.bind(this)}
-      	key={itemdata.key}
-      	propsItemStyle={propsItemStyle}
-      	selectedStyle={selectedStyle}
-      	itemStyle={itemStyle}
-      	></Item>);
-    }
+		child.push(<Item
+		parent={this}
+		selected={selected}
+		itemdata={itemdata}
+		index = {i}
+		scroll={this.props.scroll}
+		measureWidth={this.measureWidth.bind(this)}
+		key={itemdata.key}
+		itemStyle={this.props.itemStyle}
+		></Item>);
+   }
 
 
     return (<Wrapper showsHorizontalScrollIndicator={false} scrollEnabled={true} horizontal={true} style={this.wrapperStyle }>
@@ -202,6 +179,29 @@ class Item extends React.Component{
 	}
 
 	render(){
+		var selectedStyle = {};
+		if(this.props.selected){
+			selectedStyle.backgroundColor = this.tabs_selected_backgroundcolor;
+		}
+		var propsItemStyle = this.props.itemStyle||{};
+		var itemStyle = {};
+
+		if(this.props.scroll){
+		  if(!propsItemStyle.width){
+		  	propsItemStyle.width = StyleSheet.px(220);
+		  	if(StyleSheet.isWeb){
+
+		  	}
+		  }else{
+
+		  }
+		  delete itemStyle.flex;
+
+		}else{
+			itemStyle.flex = 1;
+		}
+
+
 		return (
 			<TouchableHighlight 
 			ref = {(itemInstance)=>{
@@ -213,17 +213,23 @@ class Item extends React.Component{
        		   underlayColor = {this.props.parent.props.underlayColor||Theme.tabs_press_underlaycolor}
      		   onPress = {this.itemPress.bind(this,this.props.itemdata,this.props.index)}
                key={this.props.itemdata.key+"item"} 
-               style={this.props.itemStyle}>
+               style={itemStyle}>
           <View 
 	      	ref = {(itemInstance)=>{
-	      		this.itemInstance = itemInstance;
+	      		if(StyleSheet.isWeb){
+	      			this.itemInstance = itemInstance;
+	      		}
 	      	}}
           	style={{
-          		...{position:"relative",flexDirection:"column",
-          		height:"100%",width:"100%",justifyContent:"center",
-    alignItems:"center"},
-    		...this.props.selectedStyle,
-    		...this.props.propsItemStyle||{}
+          		...{
+          			position:"relative",
+	          		flexDirection:"column",
+	          		height:"100%",
+	          		width:"100%",
+	          		justifyContent:"center",
+	   		        alignItems:"center"},
+	    		...selectedStyle,
+	    		...propsItemStyle||{}
     	 }}>
               {
                 this.props.parent.props.renderItem && 
