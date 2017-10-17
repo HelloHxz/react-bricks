@@ -20,6 +20,8 @@ var defaultStyle = StyleSheet.create({
 export default class Tabs extends React.Component {
   constructor(props){
     super(props);
+    UIManager.setLayoutAnimationEnabledExperimental();
+
     this.itemsDict=[];
     var size = props.size || "default";
     if(["lg","sm"].indexOf(size)<0){
@@ -73,8 +75,7 @@ export default class Tabs extends React.Component {
 
   renderIndicator(){
   	if(this.itemWidth>0){
-	UIManager.setLayoutAnimationEnabledExperimental();
-	LayoutAnimation.spring();
+		LayoutAnimation.spring();
   		return <View
   			style={{
   				left:StyleSheet.isWeb?(this.preSelectedIndex*this.itemWidth)+"px":(this.preSelectedIndex*this.itemWidth),

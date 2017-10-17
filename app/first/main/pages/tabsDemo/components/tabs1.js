@@ -1,4 +1,4 @@
-import {View,Text,observer,React,StyleSheet,PageView,Tabs,ScrollView,Button,Image,Header,TouchableOpacity,Icon,Menu,Space} from "react-bricks"
+import {View,Text,observer,React,StyleSheet,PageView,Tabs,ScrollView,Button,Image,Theme,Header,TouchableOpacity,Icon,Menu,Space} from "react-bricks"
 import svgs from '../../../assets/svg/svgs.js';
 
 
@@ -12,8 +12,8 @@ export default class TabCom extends React.Component {
 
 
   tabsRenderItem1(params){
-    var textStyle = params.selected?{color:"red"}:{};
-    return <Text style={textStyle}>a</Text>;
+    var textStyle = params.selected?{color:Theme.theme_color}:{};
+    return <Text style={textStyle}>{params.itemData.text}</Text>;
   }
   segChange1(params){
     this.props.tabsDemoStore.tabSelectedKey1 = params.selectedData.key;
@@ -23,9 +23,9 @@ export default class TabCom extends React.Component {
   render() {
     return ( <Tabs 
               data={[
-                {key:"1",text:"Setting",icon:svgs.home},
-                {key:"2",text:"my",icon:svgs.search},
-                {key:"3",text:"app",icon:svgs.search}
+                {key:"1",text:"待发货",icon:svgs.home},
+                {key:"2",text:"已发货",icon:svgs.search},
+                {key:"3",text:"已收货",icon:svgs.search}
               ]}
               itemStyle={{}}
               renderItem={this.tabsRenderItem1.bind(this)}

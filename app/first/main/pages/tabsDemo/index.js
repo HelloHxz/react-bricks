@@ -2,6 +2,7 @@ import {View,Text,observer,React,StyleSheet,PageView,Tabs,ScrollView,Button,Imag
 import svgs from '../../assets/svg/svgs.js';
 import TabsDemoStore from './store';
 import Tabs1 from './components/tabs1'
+import Tabs2 from './components/tabs2'
 
 @PageView({rootStore:null,tabsDemoStore:new TabsDemoStore})
 @observer
@@ -28,8 +29,8 @@ export default class TabsDemo extends React.Component {
   }
 
    tabsRenderItem2(params){
-    var textStyle = params.selected?{color:"red"}:{};
-    return <Text style={textStyle}>a</Text>;
+    var textStyle = params.selected?{color:"orange"}:{};
+    return <Text style={textStyle}>{params.itemData.text}</Text>;
   }
   segChange2(params){
     this.props.tabsDemoStore.tabSelectedKey2 = params.selectedData.key;
@@ -48,20 +49,9 @@ export default class TabsDemo extends React.Component {
               <Tabs1 
               tabsDemoStore={this.props.tabsDemoStore}/>
  <Space/>
-            <Tabs 
-              data={[
-                {key:"1",text:"Setting",icon:svgs.home},
-                {key:"2",text:"my",icon:svgs.search},
-                {key:"3",text:"app",icon:svgs.search},
-                {key:"4",text:"app",icon:svgs.search},
-                {key:"5",text:"app",icon:svgs.search}
-              ]}
-              itemStyle={{}}
-              scroll={true}
-              renderItem={this.tabsRenderItem2.bind(this)}
-              selectedKey={this.props.tabsDemoStore.tabSelectedKey2} 
-              onChange={this.segChange2.bind(this)}>
-            </Tabs>
+            <Tabs2 
+             tabsDemoStore={this.props.tabsDemoStore}>
+            </Tabs2>
 
         </ScrollView>
       </View>
