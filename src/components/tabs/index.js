@@ -5,13 +5,15 @@ import ScrollView from '../scrollview'
 import Theme from '../theme';
 import UIManager from '../uimanager'
 import TouchableHighlight from '../touchablehighlight'
+import LayoutAnimation from '../layoutanimation';
 
 
 var defaultStyle = StyleSheet.create({
   wrapper:{
     height:100,
     width:"100%",
-    flexDirection:"row"
+    flexDirection:"row",
+    backgroundColor:"#fff"
   },
   item:{
     flex:1,
@@ -72,6 +74,8 @@ export default class Tabs extends React.Component {
 
   renderIndicator(){
   	if(this.itemWidth>0){
+	UIManager.setLayoutAnimationEnabledExperimental();
+	LayoutAnimation.spring();
   		return <View
   			style={{
   				left:StyleSheet.isWeb?(this.preSelectedIndex*this.itemWidth)+"px":(this.preSelectedIndex*this.itemWidth),

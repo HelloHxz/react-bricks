@@ -3,6 +3,7 @@ export default {
 		const rect = target.getBoundingClientRect();
 		cb(rect.left,rect.top,rect.width,rect.height,rect.left,rect.top);
 	},
+	setLayoutAnimationEnabledExperimental(){},
 	measureRef:function(target,cb){
 		if(target.node){
 			//AnimateView

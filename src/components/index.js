@@ -10,6 +10,7 @@ var Run = require("./navigator").default;
 import Popover from './popover'
 import StyleSheet from './style';
 import PlatForm from './platform';
+import LayoutAnimation from './layoutanimation'
 import UIManager from './uimanager'
 import Icon from './icon';
 import ScrollView from './scrollview';
@@ -48,6 +49,7 @@ export {
 	Menu,
 	Space,
 	Animated,
+	LayoutAnimation,
 	Theme,
 	Segment,
 	TouchableOpacity,

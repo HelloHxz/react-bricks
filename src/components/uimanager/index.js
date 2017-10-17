@@ -11,6 +11,11 @@ export default {
 				height,left,top);
 		});
 	},
+	setLayoutAnimationEnabledExperimental(){
+		if(StyleSheet.OS==='android'){
+			UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+		}
+	},
 	measureRef:function(target,cb){
 		if(target){
 			if(target.getNode){
