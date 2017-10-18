@@ -75,7 +75,6 @@ export default class Tabs extends React.Component {
 
   renderIndicator(){
   	if(this.itemWidth>0){
-		LayoutAnimation.spring();
   		return <View
   			style={{
   				left:StyleSheet.isWeb?(this.preSelectedIndex*this.itemWidth)+"px":(this.preSelectedIndex*this.itemWidth),
@@ -109,6 +108,10 @@ export default class Tabs extends React.Component {
   	}
 
 	
+  }
+
+  LayoutAnimation(){
+		LayoutAnimation.spring();
   }
 
 
@@ -163,6 +166,7 @@ class Item extends React.Component{
 
 	itemPress(itemdata,i,event){
 	  if(this.props.parent.props.onChange){
+	  	this.props.parent.LayoutAnimation();
 	      this.props.parent.props.onChange({
 	        selectedData:itemdata,
 	        preSelectedData:this.props.parent.preSelectedData,

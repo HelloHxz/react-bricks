@@ -1,8 +1,7 @@
 import {observable} from 'mobx';
-class Store {
+export default class TabsDemoStore {
     @observable tabSelectedKey1 = "";
     @observable tabSelectedKey2 = "";
 }
 
-export default Store;
 

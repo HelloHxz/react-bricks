@@ -66,7 +66,7 @@ var PageView =  (store) => (WrappedComponent) => {
 
       render() {
          var _this = this;
-         return <WrappedComponent isPage={true} {...this.props} {...store} params={this.state.params} pkey={this.pagekey}/>
+         return <WrappedComponent isPage={true} {...this.props} {...store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/>
       }
    }
    return Wrapper;

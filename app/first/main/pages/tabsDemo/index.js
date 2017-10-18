@@ -5,7 +5,6 @@ import Tabs1 from './components/tabs1'
 import Tabs2 from './components/tabs2'
 
 @PageView({rootStore:null,tabsDemoStore:new TabsDemoStore})
-@observer
 export default class TabsDemo extends React.Component {
 	
   static navigationOptions = {
