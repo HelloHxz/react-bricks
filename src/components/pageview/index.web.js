@@ -2,11 +2,14 @@ import {observer} from 'mobx-react'
 
 import React from 'react'
 
-var PageView =  (store) => (WrappedComponent) => {
+var PageView =  () => (WrappedComponent) => {
 	class Wrapper extends React.Component {
       static __role = "pageview"
       static connectStore(){
-         return store;
+         if(!WrappedComponent.connectStore){
+            return {};
+         }
+         return WrappedComponent.connectStore();
       }
       componentDidMount() {
       }

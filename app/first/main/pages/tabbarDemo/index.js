@@ -3,12 +3,16 @@ import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,H
 import Store from './store'
 import svgs from '../../assets/svg/svgs.js';
 
-@PageView({chatStore:Store})
+@PageView()
 @observer
 class ChatScreen extends React.Component {
   static navigationOptions = {
     header:null
   };
+
+  static connectStore(){
+    return {chatStore:Store};
+  }
 
   constructor(props){
     super(props);

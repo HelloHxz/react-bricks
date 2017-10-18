@@ -7,6 +7,9 @@ import Tabs2 from './components/tabs2'
 @PageView({rootStore:null,tabsDemoStore:new TabsDemoStore})
 export default class TabsDemo extends React.Component {
 	
+  static connectStore(){
+    return {rootStore:null,tabsDemoStore:new TabsDemoStore};
+  }
   static navigationOptions = {
     header:null
   };

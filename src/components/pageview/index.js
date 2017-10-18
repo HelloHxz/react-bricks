@@ -1,8 +1,7 @@
 import {observer} from 'mobx-react/native'
 import React from 'react'
 
-var PageView =  (store) => (WrappedComponent) => {
-
+var PageView =  () => (WrappedComponent) => {
    class Wrapper extends React.Component {
       static __role = "pageview"
       static navigationOptions = WrappedComponent.navigationOptions;
@@ -66,6 +65,10 @@ var PageView =  (store) => (WrappedComponent) => {
 
       render() {
          var _this = this;
+         var store = {};
+         if(WrappedComponent.connectStore){
+            store = WrappedComponent.connectStore();
+         }
          return <WrappedComponent isPage={true} {...this.props} {...store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/>
       }
    }
