@@ -13,7 +13,7 @@ var siwperData = [
 
 
 
-@PageView({rootStore:null,homeStore:null})
+@PageView
 export default class SwiperDemo extends React.Component {
 	
   static navigationOptions = {

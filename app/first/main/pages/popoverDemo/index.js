@@ -5,12 +5,16 @@ import svgs from '../../assets/svg/svgs.js';
 
 
 
-@PageView({popoverStore:new PopoverStore})
+@PageView
 export default class PopoverDemo extends React.Component {
 	
   static navigationOptions = {
     header:null
   };
+
+  static connectStore(){
+    return {popoverStore:new PopoverStore};
+  }
 
   componentDidMount() {
   }

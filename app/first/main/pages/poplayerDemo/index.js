@@ -5,12 +5,15 @@ import svgs from '../../assets/svg/svgs.js';
 
 
 
-@PageView({poplayerDemoStore:new PoplayerStore})
+@PageView
 export default class PoplayerDemo extends React.Component {
 	
   static navigationOptions = {
     header:null
   };
+  static connectStore(){
+    return {poplayerDemoStore:new PoplayerStore};
+  }
 
   componentDidMount() {
   }

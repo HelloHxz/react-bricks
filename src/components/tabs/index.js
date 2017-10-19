@@ -123,7 +123,7 @@ export default class Tabs extends React.Component {
 	var Wrapper = View;
 	if(this.props.scroll){
 		if(StyleSheet.isWeb){
-
+			Wrapper = ScrollView;
 		}else{
 			Wrapper = ScrollView;
 		}

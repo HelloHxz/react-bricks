@@ -4,7 +4,7 @@ import TabsDemoStore from './store';
 import Tabs1 from './components/tabs1'
 import Tabs2 from './components/tabs2'
 
-@PageView({rootStore:null,tabsDemoStore:new TabsDemoStore})
+@PageView
 export default class TabsDemo extends React.Component {
 	
   static connectStore(){

@@ -4,7 +4,7 @@ import svgs from '../../assets/svg/svgs.js';
 
 
 
-@PageView({rootStore:null,homeStore:null})
+@PageView
 export default class MenuDemo extends React.Component {
 	
   static navigationOptions = {

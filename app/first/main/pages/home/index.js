@@ -68,7 +68,7 @@ var Styles = StyleSheet.create({
 
 
 @observer
-@PageView({rootStore:null,homeStore:HomeStore})
+@PageView
 class HomeScreen extends React.Component {
   static navigationOptions = {
     // title: 'Welcome',

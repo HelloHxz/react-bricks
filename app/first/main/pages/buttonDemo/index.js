@@ -1,7 +1,7 @@
 import {View,Text,React,StyleSheet,PageView,Button,Header,TouchableOpacity,Icon,Space,ScrollView,Theme} from "react-bricks"
 import svgs from '../../assets/svg/svgs.js';
 
-@PageView({rootStore:null,homeStore:null})
+@PageView
 class ButtonDemo extends React.Component {
 	
   static navigationOptions = {

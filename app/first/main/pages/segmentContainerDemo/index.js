@@ -7,7 +7,7 @@ import TopSegment from './components/TopSegment'
 
 const segmentData = [{key:"1",name:"全部"},{key:"2",name:"完成"},{key:"3",name:"未完成"}];
 
-@PageView()
+@PageView
 export default class SegmentContainerDemo extends React.Component {
 	
   static connectStore(){

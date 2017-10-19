@@ -5,7 +5,7 @@ import svgs from '../../assets/svg/svgs.js';
 const imgurl = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1506942039759&di=c09b7da92055a60c4b1cc3f4aad27a61&imgtype=0&src=http%3A%2F%2Fpic7.nipic.com%2F20100504%2F2425919_150716548243_2.jpg";
 
 
-@PageView({rootStore:null,homeStore:null})
+@PageView
 export default class IconDemo extends React.Component {
 	
   static navigationOptions = {

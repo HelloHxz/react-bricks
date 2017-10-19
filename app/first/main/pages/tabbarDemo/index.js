@@ -3,7 +3,7 @@ import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,H
 import Store from './store'
 import svgs from '../../assets/svg/svgs.js';
 
-@PageView()
+@PageView
 @observer
 class ChatScreen extends React.Component {
   static navigationOptions = {

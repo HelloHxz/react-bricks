@@ -1,6 +1,6 @@
 import {View,Text,React,Button,StyleSheet,PageView} from "react-bricks"
 
-@PageView({rootStore:null,homeStore:null})
+@PageView
 class SettingScreen extends React.Component {
   componentDidMount() {
   }
