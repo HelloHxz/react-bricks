@@ -52,6 +52,8 @@ class ChatScreen extends React.Component {
         </Header>
         <PageContainer {...this.props} owner={this}/>
         <Tabs 
+          style={{backgroundColor:"#f2f3f4"}}
+          size='lg'
           data={[
             {key:"tabbardemo/setting",text:"Setting",icon:svgs.home},
             {key:"tabbardemo/my",text:"my",icon:svgs.search}
