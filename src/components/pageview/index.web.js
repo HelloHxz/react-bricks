@@ -3,8 +3,6 @@ import {observer} from 'mobx-react'
 import React from 'react'
 
 var PageView =   (WrappedComponent) => {
-   console.log("-");
-   console.log(WrappedComponent)
 	class Wrapper extends React.Component {
       static __role = "pageview"
       static connectStore(){
