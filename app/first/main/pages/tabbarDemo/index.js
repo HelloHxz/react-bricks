@@ -2,6 +2,7 @@
 import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,Header,TouchableOpacity,Icon} from "react-bricks"
 import Store from './store'
 import svgs from '../../assets/svg/svgs.js';
+import Tabbar from './components/tabbar'
 
 @PageView
 @observer
@@ -33,17 +34,6 @@ class ChatScreen extends React.Component {
   componentWillUnmount(){
   }
 
-  segChange(params){
-    this.props.navigation.replace(params.selectedData.key);
-  }
-
-  tabsRenderItem(params){
-    return  [ 
-               <Icon key='icon' selected={params.selected} style={{color:"blue"}} icon={params.itemData.icon}/>,
-               <Text key='text' selected={params.selected}>{params.itemData.text}</Text>
-            ] 
-  }
-
   render() {
     return (
       <View style={{flex:1,backgroundColor:"#fff",overflow:"hidden"}}>
@@ -51,18 +41,10 @@ class ChatScreen extends React.Component {
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon style={{color:"blue"}} icon={svgs.left}/></TouchableOpacity>
         </Header>
         <PageContainer {...this.props} owner={this}/>
-        <Tabs 
-          style={{backgroundColor:"#f2f3f4"}}
-          size='lg'
-          data={[
-            {key:"tabbardemo/setting",text:"Setting",icon:svgs.home},
-            {key:"tabbardemo/my",text:"my",icon:svgs.search}
-          ]}
-          itemStyle={{}}
-          renderItem={this.tabsRenderItem.bind(this)}
-          selectedKey={this.props.chatStore.tabSelectedKey} 
-          onChange={this.segChange.bind(this)}>
-        </Tabs>
+        <Tabbar 
+          navigation={this.props.navigation}
+          chatStore={this.props.chatStore}>
+        </Tabbar>
       </View>
     );
   }

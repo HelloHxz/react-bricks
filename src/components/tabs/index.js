@@ -3,9 +3,11 @@ import StyleSheet from '../style';
 import View from '../view';
 import ScrollView from '../scrollview'
 import Theme from '../theme';
+import Animated from '../animated'
 import UIManager from '../uimanager'
 import TouchableHighlight from '../touchablehighlight'
 import LayoutAnimation from '../layoutanimation';
+import Easing from '../easing'
 
 
 var defaultStyle = StyleSheet.create({
@@ -20,7 +22,6 @@ var defaultStyle = StyleSheet.create({
 export default class Tabs extends React.Component {
   constructor(props){
     super(props);
-    UIManager.setLayoutAnimationEnabledExperimental();
 
     this.itemsDict=[];
     var size = props.size || "default";
@@ -43,29 +44,63 @@ export default class Tabs extends React.Component {
 	}
 	this.itemhasMountCount = 0;
 	this.itemWidth = 0;
+	var itemsAndOffset = this.getItems(props.data||[],selectedKey,props);
 	this.state = {
 		data:props.data||[],
 		selectedKey:selectedKey,
-		renderSeed:0
+		renderSeed:0,
+		offset:new Animated.Value(itemsAndOffset.offset),
+		items:itemsAndOffset.items,
 	}
 
   }
 
+
+  getItems(data,selectedKey,props){
+  	var Re= {};
+  	var child = [];
+  	for(var i=0,j=data.length;i<j;i++){
+		itemdata = data[i];
+		if(!itemdata.key){
+			console.error("tabs data属性每项数据需要key字段");
+		}
+		var selected = false;
+		if(selectedKey === itemdata.key){
+			selected = true;
+			this.preSelectedData = itemdata;
+			this.preSelectedIndex = i;
+	    }
+
+		child.push(<Item
+		parent={this}
+		selected={selected}
+		itemdata={itemdata}
+		index = {i}
+		scroll={this.props.scroll}
+		measureWidth={this.measureWidth.bind(this)}
+		key={itemdata.key}
+		itemStyle={props.itemStyle}
+		></Item>);
+   }
+   return {items:child,offset:this.preSelectedIndex*this.itemWidth};
+  }
+
   componentWillReceiveProps(nextProps){
 
-   if(nextProps.selectedIndex===0||nextProps.selectedIndex){
-    //selectedIndex 优先
-    if(this.state.selectedIndex!==nextProps.selectedIndex){
-      this.setState({
-        selectedIndex:nextProps.selectedIndex
-      });
-    }
-   } else{
+
     if(this.state.selectedKey!==nextProps.selectedKey){
+ 	  var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
+
+	     Animated.spring(this.state.offset, {
+	        toValue: itemsAndOffset.offset,
+	        tension: 300,
+	        friction: 35,
+	      }).start();
       this.setState({
-        selectedKey:nextProps.selectedKey
+        selectedKey:nextProps.selectedKey,
+        items:itemsAndOffset.items
       });
-    }
+    
    }
    
   }
@@ -75,16 +110,25 @@ export default class Tabs extends React.Component {
 
   renderIndicator(){
   	if(this.itemWidth>0){
-  		return <View
+  		var {offset} = this.state;
+  		var left = 0;
+
+  			// left = offset.interpolate({
+		   //    inputRange: [0,1],
+		   //    outputRange: [0, 1],
+		   //    extrapolate: 'clamp',
+		   //  });
+		
+  		return <Animated.View
   			style={{
-  				left:StyleSheet.isWeb?(this.preSelectedIndex*this.itemWidth)+"px":(this.preSelectedIndex*this.itemWidth),
+  				left:offset,
   				width:StyleSheet.isWeb?this.itemWidth+"px":this.itemWidth,
   				height:StyleSheet.px(6),
   				backgroundColor:"orange",
   				bottom:0,
   				position:"absolute"
   			}}
-  		></View>;
+  		></Animated.View>;
   	}
   	return null;
   }
@@ -122,40 +166,12 @@ export default class Tabs extends React.Component {
 
 	var Wrapper = View;
 	if(this.props.scroll){
-		if(StyleSheet.isWeb){
-			Wrapper = ScrollView;
-		}else{
-			Wrapper = ScrollView;
-		}
+		Wrapper = ScrollView;
 	}
-
-	for(var i=0,j=this.state.data.length;i<j;i++){
-		itemdata = this.state.data[i];
-		if(!itemdata.key){
-			console.error("tabs data属性每项数据需要key字段");
-		}
-		var selected = false;
-		if(this.state.selectedKey === itemdata.key){
-			selected = true;
-			this.preSelectedData = itemdata;
-			this.preSelectedIndex = i;
-	    }
-
-		child.push(<Item
-		parent={this}
-		selected={selected}
-		itemdata={itemdata}
-		index = {i}
-		scroll={this.props.scroll}
-		measureWidth={this.measureWidth.bind(this)}
-		key={itemdata.key}
-		itemStyle={this.props.itemStyle}
-		></Item>);
-   }
-
+	
 
     return (<Wrapper showsHorizontalScrollIndicator={false} scrollEnabled={true} horizontal={true} style={this.wrapperStyle }>
-      {child}
+      {this.state.items}
       {this.renderIndicator()}
       </Wrapper>);
   }
@@ -166,7 +182,6 @@ class Item extends React.Component{
 
 	itemPress(itemdata,i,event){
 	  if(this.props.parent.props.onChange){
-	  	this.props.parent.LayoutAnimation();
 	      this.props.parent.props.onChange({
 	        selectedData:itemdata,
 	        preSelectedData:this.props.parent.preSelectedData,
