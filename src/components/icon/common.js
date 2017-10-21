@@ -56,8 +56,7 @@ var Re = {
 
 	    if(extendProps.isAnimateView){
 	    	if(extendProps.rotate||extendProps.rotate===0){
-				var extendsRotate = 0;
-				extendsRotate = extendProps.rotate;
+			  var extendsRotate = extendProps.rotate;
 		      if(wrapperStyle.transform){
 				if(wrapperStyle.transform instanceof Array){
 					wrapperStyle.transform.push({"rotate":extendsRotate});

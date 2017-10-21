@@ -85,6 +85,8 @@ export default {
 								if(!isNaN(_v)){
 									sitem[skey] = pxFun(_v);
 								}
+							}else if(skey==='rotate'){
+								sitem[skey] = parseInt(sitem[skey])+"deg";
 							}
 						}
 					}

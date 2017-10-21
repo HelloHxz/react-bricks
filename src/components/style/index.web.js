@@ -124,7 +124,6 @@ var Re = {
 				hasJoin[key] = true;
 				var value = item[key];
 				if(typeof(value)==="string"){
-					console.log(value);
 					re.push(key+"("+value+")");
 				}else if(!isNaN(value)){
 					if(key==="translateX"||key==="translateY"){
