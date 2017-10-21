@@ -39,9 +39,6 @@ class Com extends React.Component{
 					        this.state.rotate,
 					        {
 					          toValue: parseInt(to),
-					          duration:30,
-					          bounciness: 10, 
-					          easing:Easing.inOut(Easing.in)
 					        }
 					      ).start(
 					      	

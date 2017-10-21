@@ -37,20 +37,16 @@ constructor(props){
   }
 
 componentWillReceiveProps(nextProps){
-
-    if(nextProps.rotate||nextProps.rotate===0){
+  if(nextProps.rotate||nextProps.rotate===0){
       if(nextProps.rotate!==this.state.rotate){
       var to = nextProps.rotate||0;
          Animated.spring(
                   this.state.rotate,
                   {
                     toValue: parseInt(to),
-                    duration:50
                   }
                 ).start(
-                  ()=>{
-                     this.preRotate = this.state.rotate._value;
-                  }
+                  
                 )
     }
     }
