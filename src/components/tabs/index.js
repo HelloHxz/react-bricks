@@ -87,15 +87,21 @@ export default class Tabs extends React.Component {
 
   componentWillReceiveProps(nextProps){
 
-
     if(this.state.selectedKey!==nextProps.selectedKey){
  	  var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
 
-	     Animated.spring(this.state.offset, {
-	        toValue: itemsAndOffset.offset,
-	        tension: 300,
-	        friction: 35,
-	      }).start();
+
+	     Animated.spring(
+					        this.state.offset,
+					        {
+					          toValue: itemsAndOffset.offset,
+					          duration:190,
+					          bounciness: 10, 
+					          easing:Easing.inOut(Easing.in)
+					        }
+					      ).start(
+					      	
+					      )
       this.setState({
         selectedKey:nextProps.selectedKey,
         items:itemsAndOffset.items
@@ -144,7 +150,8 @@ export default class Tabs extends React.Component {
 				this.itemWidth = width;
 				if(this.itemWidth>0){
 					this.setState({
-						renderSeed:this.state.renderSeed+1
+						renderSeed:this.state.renderSeed+1,
+						offset:new Animated.Value(this.preSelectedIndex*this.itemWidth),
 					});
 				}
 			});

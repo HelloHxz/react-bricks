@@ -31,6 +31,9 @@ class IconDemo extends React.Component {
 
           <Icon icon={svgs.cookie_colorful} colorful={true} style={StyleSheet.create({fontSize:140})}/>
 
+
+          <Icon icon={svgs.cookie_colorful} colorful={true} style={StyleSheet.create({fontSize:140,transform:[{translate:[100,100]}]})}/>
+
           <Icon icon={svgs.tool_colorful} size='lg'  circle={true} type='hollow' style={{borderColor:"rgb(235, 104, 54)"}} colorful={true}/>
 
 

@@ -76,7 +76,14 @@ export default {
 										if(xyz_arr.length===2){
 											 val[n] = parseFloat(xyz_arr[0])/2+"%"
 										}
+									}else if(!isNaN(xyz)){
+										val[n] = pxFun(xyz);
 									}
+								}
+							}else if(skey==="translateX"||skey==="translateY"){
+								var _v =  sitem[skey];
+								if(!isNaN(_v)){
+									sitem[skey] = pxFun(_v);
 								}
 							}
 						}

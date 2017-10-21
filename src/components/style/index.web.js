@@ -110,24 +110,41 @@ var Re = {
 			to
 			transform:"translate3d(x,t,z) rotate(v)"
 		*/
-		for(var i=0,j=values.length;i<j;i++){
+		var hasJoin = {};
+		for(var i=values.length-1;i>=0;i--){
 			if(!needConvert){
 				break;
 			}
 			var item = values[i];
 			for(var key in item){
+				//去重复
+				if(hasJoin[key]){
+					continue;
+				}
+				hasJoin[key] = true;
 				var value = item[key];
 				if(typeof(value)==="string"){
 					re.push(key+"("+value+")");
 				}else if(!isNaN(value)){
-					re.push(key+"("+value+"rem)");
+					if(key==="translateX"||key==="translateY"){
+						value = this.px(value);
+						re.push(key+"("+value+")");
+					}else{
+						re.push(key+"("+value+"rem)");
+					}
 				}else if(value instanceof Array){
 					if(key==="translate"){
 						key = "translate3d";
 					}
 					for(var n=0,m=value.length;n<m;n++){
 						if(!isNaN(value[n])){
-							value[n] = value[n]+"rem";
+							value[n] =this.px(value[n]);
+						}
+					}
+					var zeroCount = 3-value.length;
+					if(zeroCount>0){
+						for(var i=0;i<zeroCount;i++){
+							value.push(0);
 						}
 					}
 					re.push(key+"("+value.join(",")+")");

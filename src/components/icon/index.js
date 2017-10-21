@@ -1,7 +1,8 @@
 import React from 'react';
 import SvgUri from './react-native-svg-uri/index';
 import StyleSheet from '../style';
-import View from '../view'
+import View from '../view';
+import Animated from '../animated'
 const Theme =require("../theme").default;
 import Common from './common'
 
@@ -16,6 +17,10 @@ export default class Icon extends React.Component {
     var fill = {};
     if(!this.props.colorful){
      fill = {fill:StyleConfig.color};
+    }
+    var Wrapper = View;
+    if(this.props.rotate||this.props.rotate===0){
+      Wrapper = Animated.View;
     }
     return (
       <View style={{...{justifyContent:"center",alignItems:"center"},...StyleConfig.wrapperStyle}}>

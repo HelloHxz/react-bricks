@@ -10,6 +10,9 @@ function isTabRouteChange(pageArr,state){
 	return pageArr[0]===curRoute.routeName&&curRoute.params&&curRoute.params.__childpage;
 }
 
+
+let preTime =null;
+
 export default (config)=>{
 	var pages = {};
 	for(var key in config.pages){
@@ -50,6 +53,13 @@ export default (config)=>{
 	  //   // has been handled/blocked, but there is not a new state
 	  //   return null;
 	  // }
+	  var now = new Date().valueOf();
+	  if(now-preTime<1000&&preTime){
+	  	//解决快速点击跳出两个页面
+	  	return null;
+	  }
+	  preTime = now;
+
 	  var params = action.params || {};
 	  var pageName =  action.routeName||"";
 	  var pageArr = pageName.split("/");
