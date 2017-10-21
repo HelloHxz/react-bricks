@@ -36,9 +36,9 @@ class IconDemo extends React.Component {
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
         </Header>
         <ScrollView style={StyleSheet.create({flex:1})}>
-          <Icon icon={svgs.saoyisao} size='lg'/>
-          <Icon icon={svgs.search}/>
-          <Icon icon={svgs.home} size='sm'/>
+          <Icon icon={svgs.saoyisao} style={StyleSheet.create({transform:[{translate:[100,0]}]})} size='lg'/>
+          <Icon icon={svgs.search}  style={StyleSheet.create({transform:[{translateX:100}]})} />
+          <Icon icon={svgs.home}   style={StyleSheet.create({transform:[{translate:[200,100]}]})}  size='sm'/>
 
           <Icon icon={svgs.saoyisao} type='primary' size='lg'/>
 

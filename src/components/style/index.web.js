@@ -132,6 +132,7 @@ var Re = {
 							re.push(key+"("+value+"rem)");
 						}else{
 							value = this.px(value);
+							re.push(key+"("+value+")");
 						}
 					}else if(key==="rotate"){
 						re.push(key+"("+value+"deg)");
