@@ -94,7 +94,7 @@ var Re = {
         translateKeys = me;
         return me;
     },
-	convertTransform(style){
+	convertTransform(style,isAnimateView){
 		if(!style.transform){
 			return style;
 		}
@@ -127,11 +127,16 @@ var Re = {
 					re.push(key+"("+value+")");
 				}else if(!isNaN(value)){
 					if(key==="translateX"||key==="translateY"){
-						value = this.px(value);
-						re.push(key+"("+value+")");
-					}else{
-						re.push(key+"("+value+"rem)");
+						// value = this.px(value);
+						if(isAnimateView){
+							re.push(key+"("+value+"rem)");
+						}else{
+							value = this.px(value);
+						}
+					}else if(key==="rotate"){
+						re.push(key+"("+value+"deg)");
 					}
+
 				}else if(value instanceof Array){
 					if(key==="translate"){
 						key = "translate3d";

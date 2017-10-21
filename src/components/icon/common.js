@@ -3,7 +3,7 @@ import StyleSheet from '../style';
 const Theme =require("../theme").default;
 
 var Re = {
-	getStyle:function(props){
+	getStyle:function(props,extendProps){
 		var wrapperStyle = {};
 	    var type = props.type||"default";
 	      if(["primary","hollow"].indexOf(type)<0){
@@ -53,6 +53,21 @@ var Re = {
 	    var color = wrapperStyle.color||Theme.icon_color;
 	    delete wrapperStyle.color;
 	    delete wrapperStyle.fontSize;
+
+
+		if(extendProps.rotate||extendProps.rotate===0){
+	      var extendsRotate = parseInt(extendProps.rotate)+"deg";
+	      if(wrapperStyle.transform){
+			if(wrapperStyle.transform instanceof Array){
+				wrapperStyle.transform.push({"rotate":extendsRotate});
+			}
+		  }else{
+		  	wrapperStyle.transform = [{
+		  		rotate:extendsRotate
+		  	}]
+		  }
+
+	    }
 	    return {
 	      iconStyle:iconStyle,
 	      color:color,

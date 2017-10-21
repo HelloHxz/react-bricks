@@ -6,8 +6,16 @@ const Theme =require("../theme").default;
 import View from '../view';
 import Animated from '../animated'
 import Common from './common'
+import Easing from '../easing'
 
 class Com extends React.Component{
+
+	constructor(props){
+		super(props);
+		this.state = {
+			rotate:new Animated.Value(parseInt(props.rotate))
+		};
+	}
 	createMarkup(_this,re) {
 		var arr = [];
 		for(var key in re.iconStyle){
@@ -21,24 +29,39 @@ class Com extends React.Component{
 		}
 		return {__html: icon};
 	}
+
+	componentWillReceiveProps(nextProps){
+
+		if(nextProps.rotate||nextProps.rotate===0){
+			if(nextProps.rotate!==this.state.rotate){
+			var to = nextProps.rotate||0;
+			console.log(to+"	>>");
+
+	    	 Animated.spring(
+					        this.state.rotate,
+					        {
+					          toValue: parseInt(to),
+					          duration:190,
+					          bounciness: 10, 
+					          easing:Easing.inOut(Easing.in)
+					        }
+					      ).start(
+					      	
+					      )
+		}
+		}
+		
+	}
+
 	render(){
 		var Wrapper = View;
-		var extendsRotate = null;
-		var re = Common.getStyle(this.props);
+		var re = Common.getStyle(this.props,{
+			rotate:this.state.rotate._value
+		});
 
 		if(this.props.rotate||this.props.rotate===0){
+		  console.log(this.state.rotate)
 	      Wrapper = Animated.View;
-	      extendsRotate = parseInt(this.props.rotate)+"deg";
-	      if(re.wrapperStyle.transform){
-			if(re.wrapperStyle.transform instanceof Array){
-				re.wrapperStyle.transform.push({"rotate":extendsRotate});
-			}
-		  }else{
-		  	re.wrapperStyle.transform = [{
-		  		rotate:extendsRotate
-		  	}]
-		  }
-
 	    }
 		return <Wrapper style={re.wrapperStyle} className='xz-icon-wrapper'><span className='xz-icon' dangerouslySetInnerHTML={this.createMarkup(this,re)}></span></Wrapper>
 	}

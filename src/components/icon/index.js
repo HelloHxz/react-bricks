@@ -13,7 +13,9 @@ export default class Icon extends React.Component {
     if (!this.props.icon) {
       return null;
     }
-    var StyleConfig = Common.getStyle(this.props);
+    var StyleConfig = Common.getStyle(this.props,{
+      rotate:this.props.rotate
+    });
     var fill = {};
     if(!this.props.colorful){
      fill = {fill:StyleConfig.color};
@@ -23,7 +25,7 @@ export default class Icon extends React.Component {
       Wrapper = Animated.View;
     }
     return (
-      <View style={{...{justifyContent:"center",alignItems:"center"},...StyleConfig.wrapperStyle}}>
+      <Wrapper style={{...{justifyContent:"center",alignItems:"center"},...StyleConfig.wrapperStyle}}>
         <SvgUri
         	style={StyleConfig.iconStyle}
           width={StyleConfig.iconStyle.width}
@@ -31,7 +33,7 @@ export default class Icon extends React.Component {
           svgXmlData={this.props.icon}
           {...fill}
         />
-        </View>
+        </Wrapper>
     );
   }
 }

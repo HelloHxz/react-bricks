@@ -53,12 +53,17 @@ export default (config)=>{
 	  //   // has been handled/blocked, but there is not a new state
 	  //   return null;
 	  // }
+
 	  var now = new Date().valueOf();
-	  if(now-preTime<1000&&preTime){
+	  if(now-preTime<1000&&action.type!=="Navigation/INIT"&&preTime){
 	  	//解决快速点击跳出两个页面
 	  	return null;
 	  }
-	  preTime = now;
+
+	  if(action.type!=="Navigation/INIT"){
+	 	 preTime = now;
+	  }
+
 
 	  var params = action.params || {};
 	  var pageName =  action.routeName||"";

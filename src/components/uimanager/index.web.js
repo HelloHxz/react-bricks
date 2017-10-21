@@ -11,7 +11,7 @@ export default {
 		}else{
 			//View
 			if(target.refs.node.node){
-				target = target.refs.node.node;
+				target = target.refs.node.node.node;
 			}
 		}
 		if(target){
