@@ -13,7 +13,7 @@ class Com extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			rotate:new Animated.Value(parseInt(props.rotate))
+			rotate:new Animated.Value(parseInt(props.rotate||0))
 		};
 	}
 	createMarkup(_this,re) {
@@ -35,13 +35,11 @@ class Com extends React.Component{
 		if(nextProps.rotate||nextProps.rotate===0){
 			if(nextProps.rotate!==this.state.rotate){
 			var to = nextProps.rotate||0;
-			console.log(to+"	>>");
-
 	    	 Animated.spring(
 					        this.state.rotate,
 					        {
 					          toValue: parseInt(to),
-					          duration:190,
+					          duration:30,
 					          bounciness: 10, 
 					          easing:Easing.inOut(Easing.in)
 					        }
@@ -55,14 +53,18 @@ class Com extends React.Component{
 
 	render(){
 		var Wrapper = View;
+		var isAnimateView = false;
+		if(this.props.rotate||this.props.rotate===0){
+	      Wrapper = Animated.View;
+	      isAnimateView = true
+	    }
+
 		var re = Common.getStyle(this.props,{
-			rotate:this.state.rotate._value
+			rotate:this.state.rotate,
+			isAnimateView:isAnimateView
 		});
 
-		if(this.props.rotate||this.props.rotate===0){
-		  console.log(this.state.rotate)
-	      Wrapper = Animated.View;
-	    }
+		
 		return <Wrapper style={re.wrapperStyle} className='xz-icon-wrapper'><span className='xz-icon' dangerouslySetInnerHTML={this.createMarkup(this,re)}></span></Wrapper>
 	}
 }

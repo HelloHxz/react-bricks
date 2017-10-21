@@ -23,7 +23,7 @@ class IconDemo extends React.Component {
 
   rotateIcon(){
     if(this.props.IconDemoStore.iconRotate===0){
-      this.props.IconDemoStore.iconRotate = 180;
+      this.props.IconDemoStore.iconRotate = -180;
     }else{
       this.props.IconDemoStore.iconRotate = 0;
     }

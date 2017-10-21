@@ -124,6 +124,7 @@ var Re = {
 				hasJoin[key] = true;
 				var value = item[key];
 				if(typeof(value)==="string"){
+					console.log(value);
 					re.push(key+"("+value+")");
 				}else if(!isNaN(value)){
 					if(key==="translateX"||key==="translateY"){
@@ -144,6 +145,13 @@ var Re = {
 					}
 					for(var n=0,m=value.length;n<m;n++){
 						if(!isNaN(value[n])){
+
+							// if(isAnimateView){
+							// 	re.push(key+"("+value+"rem)");
+							// }else{
+							// 	value = this.px(value);
+							// 	re.push(key+"("+value+")");
+							// }
 							value[n] =this.px(value[n]);
 						}
 					}

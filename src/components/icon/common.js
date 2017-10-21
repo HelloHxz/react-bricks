@@ -54,20 +54,23 @@ var Re = {
 	    delete wrapperStyle.color;
 	    delete wrapperStyle.fontSize;
 
-
-		if(extendProps.rotate||extendProps.rotate===0){
-	      var extendsRotate = parseInt(extendProps.rotate)+"deg";
-	      if(wrapperStyle.transform){
-			if(wrapperStyle.transform instanceof Array){
-				wrapperStyle.transform.push({"rotate":extendsRotate});
-			}
-		  }else{
-		  	wrapperStyle.transform = [{
-		  		rotate:extendsRotate
-		  	}]
-		  }
+	    if(extendProps.isAnimateView){
+	    	if(extendProps.rotate||extendProps.rotate===0){
+				var extendsRotate = 0;
+				extendsRotate = extendProps.rotate;
+		      if(wrapperStyle.transform){
+				if(wrapperStyle.transform instanceof Array){
+					wrapperStyle.transform.push({"rotate":extendsRotate});
+				}
+			  }else{
+			  	wrapperStyle.transform = [{
+			  		rotate:extendsRotate
+			  	}]
+			  }
 
 	    }
+	    }
+		
 	    return {
 	      iconStyle:iconStyle,
 	      color:color,

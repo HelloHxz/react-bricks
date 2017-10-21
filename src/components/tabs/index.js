@@ -90,7 +90,6 @@ export default class Tabs extends React.Component {
     if(this.state.selectedKey!==nextProps.selectedKey){
  	  var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
 
-
 	     Animated.spring(
 					        this.state.offset,
 					        {
@@ -124,7 +123,6 @@ export default class Tabs extends React.Component {
 		   //    outputRange: [0, 1],
 		   //    extrapolate: 'clamp',
 		   //  });
-		
   		return <Animated.View
   			style={{
   				left:offset,
