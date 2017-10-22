@@ -53,14 +53,16 @@ var AlertStyles = StyleSheet.create({
 		zIndex:2,
 		position:"absolute",
 		top:0
-	}
+	},
+	contentWrapper:{position:"absolute",borderRadius:10,width:"100%",height:"100%",zIndex:10,backgroundColor:"#fff"}
 });
 export default class AlertItem extends React.Component{
 
 	constructor(props){
 		super(props);
 		this.state = {
-			willBeVisible:false
+			willBeVisible:false,
+			openValue: new Animated.Value(0),
 		}
 	}
 
@@ -69,12 +71,15 @@ export default class AlertItem extends React.Component{
 	}
 
 	componentDidMount(){
-		setTimeout(()=>{
-			this.setState({
-				willBeVisible:true,
-				willHide:false
-			});
-		},10)
+		Animated.spring(
+	        this.state.openValue,
+	        {
+	          toValue: 1,
+	          duration:140,
+	        }
+	      ).start(
+	      	
+	      )
 	}
 
 	bkPress(){
@@ -92,28 +97,33 @@ export default class AlertItem extends React.Component{
 		});
 	}
 
+	// (
+	// 				<TouchableWithoutFeedback key="bk" onPress={this.bkPress.bind(this)} >
+	// 	  				<Animated.View style={{...AlertStyles.bkLayer,...{}}}/>
+	// 	  			</TouchableWithoutFeedback>
+	// 	  		),
+
 	render(){
 		if(this.state.willHide){
 			return null;
 		}
 		var children = [];
-		if(!this.state.willBeVisible){
+	
+		var drawerTranslateY = this.state.openValue.interpolate({
+		    inputRange: [0, 1],
+		    outputRange:[StyleSheet._px(StyleSheet.baseScreen.height),0],
+		    extrapolate: 'clamp',
+		});
 
-		}else{
-			children =[
-				(
-					<TouchableWithoutFeedback key="bk" onPress={this.bkPress.bind(this)} >
-		  				<Animated.View style={{...AlertStyles.bkLayer,...{}}}/>
-		  			</TouchableWithoutFeedback>
-		  		),
-				(
-					<Animated.View key='content' style={StyleSheet.create({position:"absolute",borderRadius:10,top:"30%",width:450,height:300,zIndex:10,backgroundColor:"#fff"})}></Animated.View>
-				)
-			];
-		}
+		const animateStyle={transform:[{"translateY":drawerTranslateY}]};
 
+		children = <Animated.View 
+			key='content' 
+			style={{...AlertStyles.contentWrapper,...animateStyle}}
+			>
+			</Animated.View>;
 
-		return <View style={StyleSheet.create({position:"absolute",flexDirection:"row",top:0,left:0,zIndex:11111,justifyContent:"center",width:StyleSheet.baseScreen.width,height:"100%"})}>
+		return <View style={StyleSheet.create({position:"absolute",flexDirection:"row",top:0,left:0,zIndex:11111,width:StyleSheet.baseScreen.width,height:"100%"})}>
 			{children}
 		</View>;
 	}
