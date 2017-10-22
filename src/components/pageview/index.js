@@ -1,5 +1,6 @@
 import {observer} from 'mobx-react/native'
 import React from 'react'
+import PopRoot from './poproot'
 import View from '../view'
 
 var PageView =  (WrappedComponent) => {
@@ -67,6 +68,10 @@ var PageView =  (WrappedComponent) => {
          }
       }
 
+      popPage(pagekey,params){
+         this.poproot.show(pagekey,params);
+      }
+
 
       render() {
          var _this = this;
@@ -74,7 +79,12 @@ var PageView =  (WrappedComponent) => {
          if(WrappedComponent.connectStore){
             store = WrappedComponent.connectStore();
          }
-         return <View style={{flex:1}}><WrappedComponent isPage={true} {...this.props} {...store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/></View>
+         return <View style={{flex:1}}>
+         <WrappedComponent 
+         popPage={this.popPage.bind(this)}
+         isPage={true} {...this.props} {...store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/>
+         <PopRoot ref={(poproot)=>{this.poproot = poproot;}}/>
+         </View>
       }
    }
    return Wrapper;

@@ -94,7 +94,8 @@ class HomeScreen extends React.Component {
       //  Toast.show({
       //   text:"hello"
       // })
-      Toast.Alert("");
+      this.props.popPage("buttonDemo",{});
+      // Toast.Alert("");
     }
   }
 
