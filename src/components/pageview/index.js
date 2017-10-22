@@ -4,7 +4,11 @@ import React from 'react'
 var PageView =  (WrappedComponent) => {
    class Wrapper extends React.Component {
       static __role = "pageview"
-      static navigationOptions = WrappedComponent.navigationOptions;
+
+      static navigationOptions = {
+          // title: 'Welcome',
+          header:null
+        };
 
       componentDidMount() {
       }

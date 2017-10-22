@@ -24,6 +24,10 @@ export default (Navigator)=>{
 			this.poproot.hide(key);
 		}
 
+		Alert(config){
+			return this.poproot.Alert(config);
+		}
+
 
 	  render() {
 		return (

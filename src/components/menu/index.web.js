@@ -1,3 +1,3 @@
-import Menu from './common';
+import Menu from './index';
 
 export default Menu;

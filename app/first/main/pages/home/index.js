@@ -1,6 +1,6 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
   FlatList,Header,Theme,Segment,
-  TouchableOpacity,ActivityIndicator,
+  TouchableHighlight,ActivityIndicator,
   UIManager,Icon,Image,Swiper} from "react-bricks"
 import Poplayer from './components/poplayer'
 import HomeStore from './store'
@@ -70,10 +70,6 @@ var Styles = StyleSheet.create({
 @observer
 @PageView
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    // title: 'Welcome',
-    header:null
-  };
 
   componentDidMount() {
   }
@@ -95,9 +91,10 @@ class HomeScreen extends React.Component {
     if(item.url){
       this.props.navigation.navigate(item.url, { user: 'Lucy'})
     }else{
-       Toast.show({
-        text:"hello"
-      })
+      //  Toast.show({
+      //   text:"hello"
+      // })
+      Toast.Alert("");
     }
   }
 
@@ -124,11 +121,12 @@ class HomeScreen extends React.Component {
 
 
   listRenderItem({item}){
-      return  <TouchableOpacity 
+      return  <TouchableHighlight 
+      underlayColor="#eee"
     style={StyleSheet.create({height:110,display:"flex",flexDirection:"row",alignItems:"center"})}
       onPress = {this.listRowPress.bind(this,item)}>
-       <Text>{item.name}</Text>
-      </TouchableOpacity>
+       <View><Text>{item.name}</Text></View>
+      </TouchableHighlight>
   }
 
   _keyExtractor = (item, index) => item.id;

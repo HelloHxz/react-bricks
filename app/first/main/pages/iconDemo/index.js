@@ -48,6 +48,8 @@ class IconDemo extends React.Component {
           <Button type='flat' size='lg' onPress={this.rotateIcon.bind(this)}>点击旋转下面ICON</Button>
           <Icon icon={svgs.cookie_colorful} colorful={true} rotate={this.props.IconDemoStore.iconRotate} style={StyleSheet.create({fontSize:140})}/>
 
+        <Button type='primary' circle={true} size='lg'><Icon rotate={this.props.IconDemoStore.iconRotate}  style={{color:"#fff"}} icon={svgs.dropdown}/></Button>
+
           <Icon icon={svgs.tool_colorful} size='lg'  circle={true} type='hollow' style={{borderColor:"rgb(235, 104, 54)"}} colorful={true}/>
 
 

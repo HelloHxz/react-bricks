@@ -1,2 +1,2 @@
-import Popover from './common';
+import Popover from './index';
 export default Popover;

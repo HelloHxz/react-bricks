@@ -23,6 +23,7 @@ class ButtonDemo extends React.Component {
         </Header>
         <ScrollView style={{flex:1}}>
         <Space/>
+
          <Button type='hollow' size='lg'>按钮</Button>
          <Space/>
          <Button type='hollow' size='default'>按钮</Button>
@@ -33,6 +34,8 @@ class ButtonDemo extends React.Component {
          <Space/>
        <Button type='primary' circle={true} size='lg'>按钮</Button>
           <Space/>
+
+
 
         <Button type='primary' circle={true} size='lg'><Icon style={{color:"#fff"}} icon={svgs.search}/></Button>
 <Space/>

@@ -1,2 +1,2 @@
-import PopLayer from './common';
+import PopLayer from './index';
 export default PopLayer;

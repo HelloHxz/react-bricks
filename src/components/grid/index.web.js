@@ -1,2 +1,2 @@
-import Grid from './common';
+import Grid from './index';
 export default Grid; 
