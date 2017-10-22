@@ -67,7 +67,13 @@ export default class AlertItem extends React.Component{
 	}
 
 	hide(){
-
+		setTimeout(()=>{
+				this.setState({
+					willHide:true
+				})
+				delete this.props.parent.Dict[this.props.pkey];
+    			delete this.props.parent.instanceDict[this.props.pkey];
+		},300)
 	}
 
 	componentDidMount(){
@@ -82,20 +88,7 @@ export default class AlertItem extends React.Component{
 	      )
 	}
 
-	bkPress(){
-		this.setState({
-			willBeVisible:false
-		},()=>{
-			setTimeout(()=>{
-				this.setState({
-					willHide:true
-				})
-				delete this.props.parent.Dict[this.props.pkey];
-    			delete this.props.parent.instanceDict[this.props.pkey];
-			},300)
 
-		});
-	}
 
 	// (
 	// 				<TouchableWithoutFeedback key="bk" onPress={this.bkPress.bind(this)} >
@@ -104,9 +97,6 @@ export default class AlertItem extends React.Component{
 	// 	  		),
 
 	render(){
-		if(this.state.willHide){
-			return null;
-		}
 		var children = [];
 	
 		var drawerTranslateY = this.state.openValue.interpolate({

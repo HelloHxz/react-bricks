@@ -54,6 +54,16 @@ export default (config)=>{
 	  //   return null;
 	  // }
 
+
+
+	  //在第一页的时候会退阻止 用于关闭首页的poppage
+	  // if(state && state.index == 0 && action.type==="Navigation/BACK"){
+	  // 	 return {
+			// ...state,
+			// index: state.routes.length - 1,
+		 //  };
+	  // }
+
 	  var now = new Date().valueOf();
 	  if(now-preTime<1000&&action.type!=="Navigation/INIT"&&preTime){
 	  	//解决快速点击跳出两个页面
