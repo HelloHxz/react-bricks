@@ -19,6 +19,7 @@ var config = {
 		gridDemo:require("./main/pages/gridDemo").default,
 		segmentContainerDemo:require("./main/pages/segmentContainerDemo").default,
 		tabsDemo:require("./main/pages/tabsDemo").default,
+		inputDemo:require("./main/pages/inputDemo").default,
 	},
 };
 export default Run(config)

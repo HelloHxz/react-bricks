@@ -464,10 +464,11 @@ class Navigation extends React.Component {
     }
 
 
-
-
-
-
+    // if(action==="后退"){
+    //   isWantToPreventRoute = true;
+    //   window.history.go(1);
+    //   return;
+    // }
 
     var ppprePath = this.prePath;
   
@@ -627,8 +628,7 @@ class Navigation extends React.Component {
     }
       //因为动画 页面没有清楚干净 
     if(animationAction!=='前进'){
-
-    setTimeout(()=>{
+      setTimeout(()=>{
         var lastPages = [];
         NoAnimation(routeStack,lastPages);
         manager.setState({pages:lastPages});

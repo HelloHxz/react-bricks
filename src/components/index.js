@@ -31,6 +31,7 @@ import Text from './text';
 import Grid from './grid';
 import Container from './container';
 import TouchScroll from './touchscroll'
+import TextInput from './input'
 
 
 
@@ -43,6 +44,7 @@ export {
 	ActivityIndicator,
 	TouchableHighlight,
 	Header,
+	TextInput,
 	Swiper,
 	Container,
 	Grid,
