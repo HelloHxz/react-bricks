@@ -22,6 +22,13 @@ var PageView =  (WrappedComponent) => {
          }
       }
 
+      onPageBeforeLeave(params){
+         if(this.pageInstance.onPageBeforeLeave){
+            return this.pageInstance.onPageBeforeLeave(params);
+         }
+         return true;
+      }
+
       constructor(props){
          super(props);
 
@@ -81,6 +88,9 @@ var PageView =  (WrappedComponent) => {
          }
          return <View style={{flex:1}}>
          <WrappedComponent 
+         ref={(pageInstance)=>{
+            this.pageInstance = pageInstance;
+         }}
          popPage={this.popPage.bind(this)}
          isPage={true} {...this.props} {...store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/>
          <PopRoot ref={(poproot)=>{this.poproot = poproot;}}/>

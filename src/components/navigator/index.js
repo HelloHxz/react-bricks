@@ -54,6 +54,22 @@ export default (config)=>{
 	  //   return null;
 	  // }
 
+	  //global.__bricks__.pageDict
+
+	  var pageConfig = null;
+	  if(state&&state.routes.length>0){
+	  	pageConfig = state.routes[state.routes.length-1];
+	    var pageWrapperInstance = global.__bricks__.pageDict[pageConfig.key];
+	    if(pageWrapperInstance&&pageWrapperInstance.onPageBeforeLeave){
+	    	var re = pageWrapperInstance.onPageBeforeLeave(
+	    		{
+	    			action:action.type === NavigationActions.BACK?"后退":"前进"
+	    		});
+	    	if(re===false){
+	    		return null;
+	    	}
+	    }
+	  }
 
 
 	  //在第一页的时候会退阻止 用于关闭首页的poppage

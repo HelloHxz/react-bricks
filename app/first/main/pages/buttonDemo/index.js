@@ -12,8 +12,10 @@ class ButtonDemo extends React.Component {
   }
 
   onPageBeforeLeave(params){
-    alert("s");
-    // return false;
+    if(params.action==="后退"){
+      // return false;
+    }
+    return true;
   }
 
    goBack(){
