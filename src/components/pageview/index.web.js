@@ -17,12 +17,19 @@ var PageView =   (WrappedComponent) => {
          this.poproot.show(pagekey,params);
       }
 
+      onPageBeforeLeave(params){
+         if(this.pageInstance.onPageBeforeLeave){
+            return this.pageInstance.onPageBeforeLeave(params);
+         }
+         return true;
+      }
+
       componentDidMount() {
       }
 
       render() {
          return <View className='xz-pfull'>
-            <WrappedComponent popPage={this.popPage.bind(this)} {...this.props} />
+            <WrappedComponent ref={(pageInstance)=>{this.pageInstance = pageInstance;}} popPage={this.popPage.bind(this)} {...this.props} />
             <PopRoot ref={(poproot)=>{this.poproot = poproot;}}/>
          </View>
       }

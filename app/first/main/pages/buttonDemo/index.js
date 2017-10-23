@@ -11,6 +11,11 @@ class ButtonDemo extends React.Component {
   componentDidMount() {
   }
 
+  onPageBeforeLeave(params){
+    alert("s");
+    // return false;
+  }
+
    goBack(){
     this.props.navigation.goBack();
   }
