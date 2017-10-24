@@ -66,6 +66,12 @@ export default (config)=>{
 	    			action:action.type === NavigationActions.BACK?"后退":"前进"
 	    		});
 	    	if(re===false){
+	    		if(state && state.index == 0 && action.type==="Navigation/BACK"){
+			  	 return {
+					...state,
+					index: state.routes.length - 1,
+				  };
+				}
 	    		return null;
 	    	}
 	    }

@@ -78,6 +78,17 @@ class HomeScreen extends React.Component {
     super(props);
   }
 
+  onPageBeforeLeave(params){
+    if(params.action==="后退"){
+      if(this.popPageKey){
+        this.props.hidePopPage(this.popPageKey);
+        this.popPageKey = null;
+        return false;
+      }
+      return true;
+    }
+  }
+
   renderSwiperItem(params){
     return ( <Image
           resizeMode='cover'
@@ -94,7 +105,7 @@ class HomeScreen extends React.Component {
       //  Toast.show({
       //   text:"hello"
       // })
-      this.props.popPage("buttonDemo",{});
+      this.popPageKey = this.props.popPage("buttonDemo",{});
       // Toast.Alert("");
     }
   }

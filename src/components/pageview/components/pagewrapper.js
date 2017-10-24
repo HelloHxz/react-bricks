@@ -61,19 +61,27 @@ export default class AlertItem extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			willBeVisible:false,
+			willHide:false,
 			openValue: new Animated.Value(0),
 		}
 	}
 
-	hide(){
-		setTimeout(()=>{
-				this.setState({
+	hide(key){
+		Animated.spring(
+	        this.state.openValue,
+	        {
+	          toValue: 0,
+	          duration:140,
+	        }
+	      ).start(
+	      	()=>{
+	      		this.setState({
 					willHide:true
 				})
-				delete this.props.parent.Dict[this.props.pkey];
-    			delete this.props.parent.instanceDict[this.props.pkey];
-		},300)
+				delete this.props.parent.Dict[key];
+    			delete this.props.parent.instanceDict[key];
+	      	}
+	      )
 	}
 
 	componentDidMount(){
@@ -98,6 +106,9 @@ export default class AlertItem extends React.Component{
 
 	render(){
 		var children = [];
+		if(this.state.willHide){
+			return null;
+		}
 	
 		var drawerTranslateY = this.state.openValue.interpolate({
 		    inputRange: [0, 1],

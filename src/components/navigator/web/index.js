@@ -527,9 +527,7 @@ class Navigation extends React.Component {
 
     this.callResume(this.prePath,ppstr||"",ppprePath||"");
     this.callLeave(this.prePath,ppstr||"",ppprePath||"");
-
-
-   this._triggerHashChange();
+    this._triggerHashChange();
 
   }
 
@@ -729,7 +727,7 @@ class Navigation extends React.Component {
           }else{
             if(crKey!==pcKey){
               console.log(crKey+" >>>resume");
-              instanceInfo.instance.onPageResume&&instanceInfo.instance.onPageResume();
+              instanceInfo.instance.onPageResume();
             }
           }
         }

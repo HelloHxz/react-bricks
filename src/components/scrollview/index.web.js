@@ -27,7 +27,6 @@ class ScrollView extends React.Component {
       this.stickyOffset = 0;
     }
     this.horizontal = !!this.props.horizontal;
-    console.log(this.horizontal)
     if(isNaN(this.props.pullHeight)){
       this.pullHeight = StyleSheet.px2px(Theme.flatlist_pullheight);
     }else{

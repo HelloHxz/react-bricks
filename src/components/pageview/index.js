@@ -75,8 +75,12 @@ var PageView =  (WrappedComponent) => {
          }
       }
 
+      hidePopPage(pagekey){
+         this.poproot.hide(pagekey);
+      }
+
       popPage(pagekey,params){
-         this.poproot.show(pagekey,params);
+         return this.poproot.show(pagekey,params);
       }
 
 
@@ -92,6 +96,7 @@ var PageView =  (WrappedComponent) => {
             this.pageInstance = pageInstance;
          }}
          popPage={this.popPage.bind(this)}
+         hidePopPage = {this.hidePopPage.bind(this)}
          isPage={true} {...this.props} {...store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/>
          <PopRoot ref={(poproot)=>{this.poproot = poproot;}}/>
          </View>
