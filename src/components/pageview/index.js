@@ -7,10 +7,12 @@ var PageView =  (WrappedComponent) => {
    class Wrapper extends React.Component {
       static __role = "pageview"
 
-      static navigationOptions = {
+
+      static navigationOptions =WrappedComponent.navigationOptions || {
           // title: 'Welcome',
-          header:null
-        };
+          // gesturesEnabled:false
+          header:null,
+      };
 
       componentDidMount() {
       }

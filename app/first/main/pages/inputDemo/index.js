@@ -12,15 +12,23 @@ export default class InputDemo extends React.Component {
     return {InputStore:new InputDemoStore};
   }
 
+  static navigationOptions = {
+    gesturesEnabled:false,
+    header:null
+  }
   componentDidMount() {
   }
+  // onPageBeforeLeave(){
+  //   return false;
+  // }
 
   goBack(){
     this.props.navigation.goBack();
   }
 
-  textChange(){
-    this.props.InputStore.FormData.Text1 = "hu"
+  onChangeText(e,text){
+    console.log(text);
+    this.props.InputStore.FormData.Text1 =text
   }
 
   render() {
@@ -31,7 +39,7 @@ export default class InputDemo extends React.Component {
         </Header>
         <ScrollView style={StyleSheet.create({flex:1,paddingLeft:40,paddingRight:40})}>
             <Space style={StyleSheet.create({height:40})}/>
-            <TextInput onChange={this.textChange.bind(this)} 
+            <TextInput onChange={this.onChangeText.bind(this)} 
               value = {this.props.InputStore.FormData.Text1} style={{backgroundColor:"#eee"}}/>
          </ScrollView>
       </View>
