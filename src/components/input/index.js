@@ -2,6 +2,11 @@ import {TextInput} from 'react-native'
 
 import React from 'react';
 
+import StyleSheet from '../style'
+
+import DefaultStyle from './css'
+
+
 export default class TextInputCom extends React.Component{
 
 	onChangeText(text){
@@ -17,6 +22,6 @@ export default class TextInputCom extends React.Component{
 			}
 		}
 		var props = this.props;
-		return <TextInput {...props} {...onChange} type="text"/>
+		return <TextInput style={DefaultStyle.wrapper} underlineColorAndroid="transparent" keyboardType='numeric'  {...props} {...onChange} type="text"/>
 	}
 }
