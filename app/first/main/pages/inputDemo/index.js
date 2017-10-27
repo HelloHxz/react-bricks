@@ -27,7 +27,6 @@ export default class InputDemo extends React.Component {
   }
 
   onChangeText(e,text){
-    console.log(text);
     this.props.InputStore.FormData.Text1 =text
   }
 
