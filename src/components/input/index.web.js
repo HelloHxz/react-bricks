@@ -25,6 +25,7 @@ export default class TextInput extends React.Component{
 		return <View style={DefaultStyle.wrapper}>
 				<input 
 				ref="input"
+				placeholder={this.props.placeholder||""}
 				 value={this.props.value}
 				 {...onChange} style={DefaultStyle.input} type="text"/>
 				<TouchableWithoutFeedback 

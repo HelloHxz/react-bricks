@@ -4,6 +4,7 @@ import StyleSheet from '../style'
 export default StyleSheet.create({
 	wrapper:{
 		backgroundColor:"#fff",
+		paddingLeft:10,
 		height:86,
 		flexDirection:"row",
 		width:"100%"

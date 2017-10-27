@@ -44,6 +44,7 @@ export default class InputDemo extends React.Component {
             style={StyleSheet.create({flex:1})}>
             <Space style={StyleSheet.create({height:40})}/>
             <TextInput onChange={this.onChangeText.bind(this)} 
+              placeholder="请填写姓名"
               value = {this.props.InputStore.FormData.Text1}/>
          </ScrollView>
       </View>

@@ -35,6 +35,7 @@ export default class TextInputCom extends React.Component{
 		return <View style={DefaultStyle.wrapper}>
 			<TextInput 
 				ref="input"
+				placeholder={this.props.placeholder||""}
 				value={this.props.value}
 				style={DefaultStyle.input} underlineColorAndroid="transparent" keyboardType='numeric' {...onChange} type="text"/>
 			<TouchableWithoutFeedback 
