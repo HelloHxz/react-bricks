@@ -7,6 +7,7 @@ import Animated from '../animated'
 import Easing from '../easing'
 const Theme =require("../theme").default;
 import Common from './common';
+import svgs from './svgs'
 
 class AnView extends React.Component{
   render() {
@@ -75,6 +76,12 @@ componentWillReceiveProps(nextProps){
     if(!this.props.colorful){
      fill = {fill:StyleConfig.color};
     }
+
+    var icon = this.props.icon;
+
+    if(icon.length<27){
+      icon = svgs[icon];
+    }
    
     return (
       <Wrapper style={{...{justifyContent:"center",alignItems:"center"},...StyleConfig.wrapperStyle}}>
@@ -82,7 +89,7 @@ componentWillReceiveProps(nextProps){
           style={StyleConfig.iconStyle}
           width={StyleConfig.iconStyle.width}
           height={StyleConfig.iconStyle.width}
-          svgXmlData={this.props.icon}
+          svgXmlData={icon}
           {...fill}
         />
         </Wrapper>

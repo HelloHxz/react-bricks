@@ -3,7 +3,7 @@ import StyleSheet from '../style'
 
 export default StyleSheet.create({
 	wrapper:{
-		backgroundColor:"#eee",
+		backgroundColor:"#fff",
 		height:86,
 		flexDirection:"row",
 		width:"100%"
@@ -15,6 +15,7 @@ export default StyleSheet.create({
 		borderWidth:0,
 		borderColor:"transparent",
 		borderStyle:"solid",
+		backgroundColor:"transparent",
 		fontSize:32,
 	}
 })

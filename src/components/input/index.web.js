@@ -6,6 +6,10 @@ import StyleSheet from '../style'
 
 import DefaultStyle from './css'
 
+import Icon from '../icon'
+
+import TouchableWithoutFeedback from '../touchableopacity'
+
 export default class TextInput extends React.Component{
 	onChange(e){
 		this.props.onChange(e,e.target.value);
@@ -23,9 +27,11 @@ export default class TextInput extends React.Component{
 				ref="input"
 				 value={this.props.value}
 				 {...onChange} style={DefaultStyle.input} type="text"/>
-				<View 
+				<TouchableWithoutFeedback 
 				onPress = {this.clear.bind(this)}
-				style={StyleSheet.create({width:80,backgroundColor:"red",height:"100%"})}/>
+				style={StyleSheet.create({width:80,justifyContent:"center",backgroundColor:DefaultStyle.wrapper.backgroundColor||"transparent",alignItems:"center",height:"100%"})}>
+					<Icon style={{color:"#bbb"}} icon='round_close_fill'/>
+				</TouchableWithoutFeedback>
 			</View>
 	}
 }

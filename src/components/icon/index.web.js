@@ -7,6 +7,7 @@ import View from '../view';
 import Animated from '../animated'
 import Common from './common'
 import Easing from '../easing'
+import svgs from './svgs'
 
 class Com extends React.Component{
 
@@ -22,7 +23,12 @@ class Com extends React.Component{
 			arr.push(key+":"+re.iconStyle[key]);
 		}
 
-		var icon = _this.props.icon||"";
+		  var icon = _this.props.icon||"";
+
+		    if(icon.length<27){
+		      icon = svgs[icon]||"";
+		    }
+   
 		icon = icon.replace("<svg","<svg style='"+arr.join(";")+"'");
 		if(!this.props.colorful){
 			icon = icon.replace(/\sfill="#ef473a"/g,' fill="'+re.color+'"')
