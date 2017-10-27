@@ -26,12 +26,9 @@ export default class TextInputCom extends React.Component{
 		var onChange = {
 		}
 		if(this.props.onChange){
-			onChange = {
-				onChange :null,
-				onChangeText:this.onChangeText.bind(this)
-			}
+			onChange.onChangeText=this.onChangeText.bind(this)
+			
 		}
-		var props = this.props;
 		return <View style={DefaultStyle.wrapper}>
 			<TextInput 
 				ref="input"

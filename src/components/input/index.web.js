@@ -20,8 +20,12 @@ export default class TextInput extends React.Component{
 		this.refs.input.focus();
 	}
 	render(){
-		var props = this.props;
-		var onChange ={onChange:this.onChange.bind(this)} 
+		var onChange ={
+		} 
+		if(this.props.onChange){
+			onChange.onChange = this.onChange.bind(this);
+		}
+		
 		return <View style={DefaultStyle.wrapper}>
 				<input 
 				ref="input"
