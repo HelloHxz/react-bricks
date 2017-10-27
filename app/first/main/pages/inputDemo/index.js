@@ -38,7 +38,10 @@ export default class InputDemo extends React.Component {
         <Header>
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon style={{color:"blue"}} icon={svgs.left}/></TouchableOpacity>
         </Header>
-        <ScrollView style={StyleSheet.create({flex:1})}>
+        <ScrollView  
+            keyboardShouldPersistTaps="handled" 
+            keyboardDismissMode="on-drag" 
+            style={StyleSheet.create({flex:1})}>
             <Space style={StyleSheet.create({height:40})}/>
             <TextInput onChange={this.onChangeText.bind(this)} 
               value = {this.props.InputStore.FormData.Text1}/>

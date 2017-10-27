@@ -3,7 +3,7 @@ import {Run,Theme} from "react-bricks"
 Theme.extend(Theme,{});
 
 var config = {
-	root:"home",
+	root:"inputDemo",
 	pages:{
 		home:require("./main/pages/home").default,
 		tabbardemo:require("./main/pages/tabbarDemo").default,

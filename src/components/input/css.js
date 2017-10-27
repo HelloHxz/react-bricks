@@ -3,12 +3,18 @@ import StyleSheet from '../style'
 
 export default StyleSheet.create({
 	wrapper:{
-	height:70,
-	width:"100%",
-	borderWidth:0,
-	borderColor:"transparent",
-	borderStyle:"solid",
-	fontSize:32,
-	backgroundColor:"#ccc"
+		backgroundColor:"#eee",
+		height:86,
+		flexDirection:"row",
+		width:"100%"
+	},
+
+	input:{
+		flex:1,		
+		width:"100%",
+		borderWidth:0,
+		borderColor:"transparent",
+		borderStyle:"solid",
+		fontSize:32,
 	}
 })

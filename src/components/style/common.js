@@ -55,7 +55,7 @@ export default {
 					}
 				}
 				//todo ....特殊处理 border transform
-				if(key==="zIndex"||key==="opacity"){
+				if(key==="zIndex"||key==="opacity"||key==="flex"){
 					re[key] = (item);
 				}else{
 					re[key] = pxFun(item);
