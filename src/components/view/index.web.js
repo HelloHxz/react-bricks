@@ -44,7 +44,18 @@ class View extends React.Component {
       onPress.onClick = this.props.onPress;
     }
 
-    return (<div {...onPress} ref={(node)=>{this.node = node;}} className={classNameArr.join(" ")} style={style}>{this.props.children}</div>);
+    var touchs = {};
+    if(this.props.onTouchStart){
+      touchs.onTouchStart = this.props.onTouchStart;
+    }
+    if(this.props.onTouchMove){
+      touchs.onTouchMove = this.props.onTouchMove;
+    }
+    if(this.props.onTouchEnd){
+      touchs.onTouchEnd = this.props.onTouchEnd;
+    }
+
+    return (<div {...onPress} {...touchs} ref={(node)=>{this.node = node;}} className={classNameArr.join(" ")} style={style}>{this.props.children}</div>);
   }
 }
 

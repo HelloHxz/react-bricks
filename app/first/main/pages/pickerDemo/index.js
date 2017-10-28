@@ -113,9 +113,13 @@ export default class PickerDemo extends React.Component {
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon style={{color:"blue"}} icon={svgs.left}/></TouchableOpacity>
         </Header>
         <ScrollView  
+
             keyboardShouldPersistTaps="handled" 
             keyboardDismissMode="on-drag" 
+
             style={StyleSheet.create({flex:1})}>
+            <Space style={StyleSheet.create({height:40})}/>
+            <Picker cascadeCount={3} datasource={selectorData}/>
             <Space style={StyleSheet.create({height:40})}/>
             <Picker datasource={selectorData}/>
          </ScrollView>

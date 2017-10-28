@@ -1,7 +1,22 @@
 import React from "react"
-import "./index.less"
 import StyleSheet from "../style"
+import View from '../view'
+import Text from '../text'
 
+
+function getPageX(e){
+	if(StyleSheet.isWeb){
+		return e.touches[0].pageX;
+	}
+	return  e.nativeEvent.pageX;
+}
+
+function getPageY(e){
+	if(StyleSheet.isWeb){
+		return e.touches[0].pageY;
+	}
+	return  e.nativeEvent.pageY;
+}
 
 class SelectorColumn extends React.Component{
    constructor(props) {
@@ -30,12 +45,14 @@ class SelectorColumn extends React.Component{
 
 
   onTouchStart(e){
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+  	if(StyleSheet.isWeb){
+  		 e.preventDefault();
+	    e.stopPropagation();
+	    e.nativeEvent.stopImmediatePropagation();
+  	}
     this.diff = 0;
     this.startTime = (new Date()).valueOf();
-    this.startY = e.touches[0].pageY;
+    this.startY =getPageY(e);
     this.curOffset = this.state.offset;
     if(this.scrollEngine){
        this.setState({offset:this.scrollEngine.stop()});
@@ -55,10 +72,12 @@ class SelectorColumn extends React.Component{
   }
 
   onTouchMove(e){
-     e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    this.curY = e.touches[0].pageY;
+    if(StyleSheet.isWeb){
+  		 e.preventDefault();
+	    e.stopPropagation();
+	    e.nativeEvent.stopImmediatePropagation();
+  	}
+    this.curY =getPageY(e);
     this.diff = this.curY - this.startY;
     this.props.parent.props.onTouchMove&&this.props.parent.props.onTouchMove(
       {
@@ -232,13 +251,25 @@ class SelectorColumn extends React.Component{
     var child = [];
     for(var i=0,j=this.state.data.length;i<j;i++){
       var itemdata = this.state.data[i];
-      child.push(<li key={i}>{itemdata.label}</li>);
+      child.push(<View style={{alignItems:"center",justifyContent:"center",height:px(this.props.itemHeight)}} key={i}>
+      	<Text>
+      	{itemdata.label}</Text></View>);
     }
-    ty[this.tranDict.transform] = "translateY("+(this.props.itemHeight*2+this.state.offset)+"px)";
-    return (<ul style={ty} className='xz-selector-col'>
+    ty.transform = [{
+    	translateY:px(this.props.itemHeight*2+this.state.offset)
+    }];
+    ty["flex"] = 1;
+    return (<View style={ty} className='xz-selector-col'>
        {child}
-      </ul>);
+      </View>);
   }
+}
+
+function px(val){
+	if(StyleSheet.isWeb){
+		return val+"px";
+	}
+	return val;
 }
 
 //cascade
@@ -247,7 +278,7 @@ class Selector extends React.Component {
     super(props)
     this.hasInit = false;
 
-    this.itemHeight = StyleSheet._px(90);
+    this.itemHeight = StyleSheet.px2px(75);
     this.instanceDict = {};
     this.isCascade = false;
     if(this.props.cascadeCount){
@@ -284,7 +315,7 @@ class Selector extends React.Component {
  
 
   onTouchStart(e){
-    var columnIndex = Math.floor(e.touches[0].pageX/this.itemWidth);
+    var columnIndex = Math.floor(getPageX(e)/this.itemWidth);
     this.curColumnKey = "column_"+columnIndex;
     this.curColumn = this.instanceDict[this.curColumnKey];
     this.curColumn.onTouchStart(e);
@@ -457,16 +488,34 @@ class Selector extends React.Component {
     }
 
     return (
-        <div 
+        <View 
+        style={{
+        	position:"relative",
+        	height:px(this.itemHeight*5),
+        	display:"flex",
+        	flexDirection:"row",
+        	backgroundColor:"#fff",
+        	overflow:"hidden"
+        }}
         ref={(wrapper)=>{this.wrapper = wrapper;}}
         onTouchStart={this.onTouchStart.bind(this)}
         onTouchMove={this.onTouchMove.bind(this)}
         onTouchEnd={this.onTouchEnd.bind(this)}
-        className="xz-selector-content">
-          <div className="xz-se-gradient-layer"/>
-          <div className="xz-selector-midarea">{this.renderMidArea()}</div>
+      >
+          <View style={{
+          	position:"absolute",
+          	height:px(this.itemHeight),
+          	borderColor:"#eee",
+          	borderStyle:"solid",
+          	borderTopWidth:px(0.5),
+          	borderBottomWidth:px(.8),
+          	borderRightWidth:0,
+          	borderLeftWidth:0,
+          	width:"100%",
+          	top:px(this.itemHeight*2)
+          }}>{this.renderMidArea()}</View>
           {columns}
-      </div>);
+      </View>);
   }
 }
 
