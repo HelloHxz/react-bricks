@@ -12,6 +12,7 @@ import StyleSheet from './style';
 import PlatForm from './platform';
 import LayoutAnimation from './layoutanimation'
 import UIManager from './uimanager'
+import Picker from './picker'
 import Icon from './icon';
 import ScrollView from './scrollview';
 import FlatList from './flatlist';
@@ -53,6 +54,7 @@ export {
 	Animated,
 	LayoutAnimation,
 	Theme,
+	Picker,
 	Segment,
 	TouchableOpacity,
 	UIManager,

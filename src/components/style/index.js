@@ -15,6 +15,9 @@ var Re = {
 	convertTransform(re){
 		return re;
 	},
+	run(t, b, c, d){
+		return Common.run(t, b, c, d);
+	},
 	create(styles){
 		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},

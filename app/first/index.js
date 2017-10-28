@@ -3,7 +3,7 @@ import {Run,Theme} from "react-bricks"
 Theme.extend(Theme,{});
 
 var config = {
-	root:"home",
+	root:"pickerDemo",
 	pages:{
 		home:require("./main/pages/home").default,
 		tabbardemo:require("./main/pages/tabbarDemo").default,
@@ -20,6 +20,7 @@ var config = {
 		segmentContainerDemo:require("./main/pages/segmentContainerDemo").default,
 		tabsDemo:require("./main/pages/tabsDemo").default,
 		inputDemo:require("./main/pages/inputDemo").default,
+		pickerDemo:require("./main/pages/pickerDemo").default,
 	},
 };
 export default Run(config)

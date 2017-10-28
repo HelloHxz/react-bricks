@@ -5,6 +5,9 @@ var u = navigator.userAgent;
 var Re = {
 	OS:!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)?"ios":"android",
 	isWeb:true,
+	run(t, b, c, d){
+		return Common.run(t, b, c, d);
+	},
 	_init(){
 		if(this.rem){
 			return;

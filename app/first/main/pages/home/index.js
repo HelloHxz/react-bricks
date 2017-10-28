@@ -24,7 +24,7 @@ var ListDataSource = [
   {id:12,name:"Segment with Container",url:"segmentContainerDemo"},
   {id:6,name:"Toast",url:null},
   {id:15,name:"Input",url:"inputDemo"},
-  {id:16,name:"xxx",url:null},
+  {id:16,name:"picker",url:"pickerDemo"},
   {id:17,name:"xxx",url:null},
   {id:18,name:"xxx",url:null},
   {id:19,name:"xxx",url:null},
