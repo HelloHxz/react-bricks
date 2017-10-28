@@ -33,6 +33,7 @@ import Grid from './grid';
 import Container from './container';
 import TouchScroll from './touchscroll'
 import TextInput from './input'
+import Fetch from './fetch'
 
 
 
@@ -41,10 +42,12 @@ import TextInput from './input'
 	按照babel-plugin-import  每个引用都需要挪到components目录下 
 */
 
+
 export {
 	ActivityIndicator,
 	TouchableHighlight,
 	Header,
+	Fetch,
 	TextInput,
 	Swiper,
 	Container,
