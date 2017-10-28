@@ -16,7 +16,7 @@ class SelectorColumn extends React.Component{
 		props.parent.instanceDict[props.pkey] = this;
     	this.selectedIndex = props.selectedIndex||0;
     	this.state = {
-    		selectedValue:"java",
+    		selectedValue:props.data[this.selectedIndex].value,
     		data:props.data
     	}
 	}
@@ -24,11 +24,11 @@ class SelectorColumn extends React.Component{
 		var child = [];
 		for(var i=0,j=this.state.data.length;i<j;i++){
 	      var itemdata = this.state.data[i];
-	      child.push(<Picker.Item key={i} label={itemdata.label} value={itemdata.value}></Picker.Item>);
+	      child.push(<Picker.Item key={i} label={itemdata.label} value={itemdata.value}/>);
 	    }
-	    //onValueChange={(lang) => this.setState({selectedValue: lang})}
 		return (<Picker
 			  style={{flex:1}}
+	   		  onValueChange={(value) => this.setState({selectedValue: value})}
 			  selectedValue={this.state.selectedValue}>
 			  	{child}
 			</Picker>)
@@ -207,7 +207,6 @@ export default class P extends React.Component{
 		return (
 			<View style={{
         	position:"relative",
-        	height:px(this.itemHeight*5),
         	display:"flex",
         	flexDirection:"row",
         	backgroundColor:"#fff",
