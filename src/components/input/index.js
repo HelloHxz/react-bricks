@@ -80,7 +80,7 @@ export default class InputCom extends React.Component{
 		}
 
 
-		return <View style={DefaultStyle.wrapper}>
+		return <View style={{...DefaultStyle.wrapper,...this.props.style||{}}}>
 			<TextInput 
 				ref="input"
 				placeholder={this.props.placeholder||""}

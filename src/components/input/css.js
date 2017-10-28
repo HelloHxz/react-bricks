@@ -7,7 +7,9 @@ export default StyleSheet.create({
 		paddingLeft:10,
 		height:86,
 		flexDirection:"row",
-		width:"100%"
+		width:"100%",
+		overflow:"hidden",
+		alignItems:"center"
 	},
 
 	input:{
@@ -21,8 +23,9 @@ export default StyleSheet.create({
 	},
 	clearWrapper:{
 			width:80,
+			height:"96%",
+			marginRight:1,
 			justifyContent:"center",
 			backgroundColor:"#fff",
-			alignItems:"center",
-			height:"100%"}
+			alignItems:"center"}
 })
