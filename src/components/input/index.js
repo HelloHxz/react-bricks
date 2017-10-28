@@ -1,6 +1,6 @@
-import {TextInput} from 'react-native'
-
 import React from 'react';
+
+import TextInput from './TextInput'
 
 import StyleSheet from '../style'
 
@@ -13,33 +13,81 @@ import Icon from '../icon'
 import TouchableWithoutFeedback from '../touchableopacity'
 
 
-export default class TextInputCom extends React.Component{
+export default class InputCom extends React.Component{
 
-	onChangeText(text){
-		this.props.onChange(null,text);
+	constructor(props){
+		super(props);
+		this.webTarget = null;
+		this.state = {
+			showClearButton:false
+		}
+	}
+
+	onChangeText(params){
+		var text = params;
+		if(StyleSheet.isWeb){
+			text = params.target.value;
+			this.webTarget = params;
+		}
+		this._textChange(text,params);
+		
+	}
+
+	_textChange(text,e){
+		text = text||"";
+		if(text.length>0){
+			if(!this.state.showClearButton){
+				this.setState({showClearButton:true});
+			}
+		}else{
+			if(this.state.showClearButton){
+				this.setState({showClearButton:false});
+			}
+		}
+		this.props.onChange(e,text);
 	}
 
 	clear(){
-		this.props.onChange(null,"");
+		if(StyleSheet.isWeb){
+			this.refs.input.focus();
+		}
+		this._textChange("",this.webTarget);
 	}
 	render(){
 		var onChange = {
 		}
-		if(this.props.onChange){
-			onChange.onChangeText=this.onChangeText.bind(this)
-			
+		
+		var changeEventName = "onChange";
+		var NativeProps = {};
+		if(!StyleSheet.isWeb){
+			changeEventName="onChangeText";
+			NativeProps = {underlineColorAndroid:"transparent",keyboardType:'numeric' }
 		}
+		if(this.props.onChange){
+			onChange[changeEventName]=this.onChangeText.bind(this)
+		}
+
+		var clearWrapperStyle = {...DefaultStyle.clearWrapper,
+			...{backgroundColor:DefaultStyle.wrapper.backgroundColor||"transparent"}
+		}
+		var clearWrapper = null;
+		if(this.state.showClearButton){
+			clearWrapper = <TouchableWithoutFeedback 
+				onPress = {this.clear.bind(this)}
+				style={clearWrapperStyle}>
+					<Icon style={{color:"#bbb"}} icon='round_close_fill'/>
+				</TouchableWithoutFeedback>
+		}
+
+
 		return <View style={DefaultStyle.wrapper}>
 			<TextInput 
 				ref="input"
 				placeholder={this.props.placeholder||""}
 				value={this.props.value}
-				style={DefaultStyle.input} underlineColorAndroid="transparent" keyboardType='numeric' {...onChange} type="text"/>
-			<TouchableWithoutFeedback 
-				onPress = {this.clear.bind(this)}
-				style={StyleSheet.create({width:80,justifyContent:"center",backgroundColor:DefaultStyle.wrapper.backgroundColor||"transparent",alignItems:"center",height:"100%"})}>
-					<Icon style={{color:"#bbb"}} icon='round_close_fill'/>
-				</TouchableWithoutFeedback>
+				{...NativeProps}
+				style={DefaultStyle.input}  {...onChange} type="text"/>
+				{clearWrapper}
 		</View>
 	}
 }

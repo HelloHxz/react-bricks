@@ -18,5 +18,11 @@ export default StyleSheet.create({
 		borderStyle:"solid",
 		backgroundColor:"transparent",
 		fontSize:32,
-	}
+	},
+	clearWrapper:{
+			width:80,
+			justifyContent:"center",
+			backgroundColor:"#fff",
+			alignItems:"center",
+			height:"100%"}
 })
