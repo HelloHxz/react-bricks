@@ -42,7 +42,6 @@ import Fetch from './fetch'
 	按照babel-plugin-import  每个引用都需要挪到components目录下 
 */
 
-
 export {
 	ActivityIndicator,
 	TouchableHighlight,
