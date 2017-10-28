@@ -38,6 +38,7 @@ class SelectorColumn extends React.Component{
   }
 
   componentWillReceiveProps(nextPros){
+     this.scrollHeight =this.props.itemHeight*(nextPros.data.length-1);
      this.selectedIndex = nextPros.selectedIndex||0;
      this.state={
       offset:0-this.selectedIndex*nextPros.itemHeight,
@@ -238,8 +239,10 @@ class SelectorColumn extends React.Component{
           duration = 30;
       }
       else {
-          value= this.props.itemHeight*2/3 ;
-          duration = 8;
+          // value= this.props.itemHeight*2/3 ;
+          // duration = 8;
+          value = this.props.itemHeight  * 2;
+          duration = 20;
       }
 
       value = value> this.props.itemHeight *10? this.props.itemHeight *10:value;
@@ -274,7 +277,21 @@ function px(val){
 	return val;
 }
 
-//cascade
+/*
+
+  position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left:0;
+    z-index: 10;
+    background: -webkit-linear-gradient(top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, .6) 30%,
+    rgba(255, 255, 255, .0) 50%,
+    rgba(255, 255, 255, .6) 70%,
+    rgba(255, 255, 255, 1) 100%);
+   */
 class Selector extends Base {
   constructor(props) {
     super(props)

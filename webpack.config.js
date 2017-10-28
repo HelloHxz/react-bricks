@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
-var MockData = require("./mock")
+var mockData = require("./mock")
 var fs= require('fs');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var bodyParser = require('body-parser');
+
 
 
 function getEntryAndHtmlPlugin(){
@@ -23,6 +23,8 @@ function getEntryAndHtmlPlugin(){
   }
   return re;
 }
+
+
 
 module.exports = function (env) {
 
@@ -86,27 +88,7 @@ return {
     // match the output path
     publicPath: isProd?'./':'/',
     setup(app){  
-
-      // parse application/x-www-form-urlencoded
-      app.use(bodyParser.urlencoded({ extended: false }))
-
-      // parse application/json
-      app.use(bodyParser.json())
-
-      app.post('/postJSON', function(req, res) {
-          // console.log(req.query.id);
-          res.json(req.body||{});
-      });
-
-      app.get('/getJSON', function(req, res) {
-          setTimeout(()=>{
-            // res.status(500)
-            // console.log(req.query.id);
-            res.json({ name: 'vajoy' });
-          },3000);
-      });
-
-
+      mockData(app);
     }
   },
   resolve: {
