@@ -241,7 +241,7 @@ class SelectorColumn extends React.Component{
       }
 
       value = value> this.props.itemHeight *10? this.props.itemHeight *10:value;
-      return {value:value,duration:duration};
+      return {value:value,duration:duration+30};
   }
  
 
@@ -306,13 +306,6 @@ class Selector extends React.Component {
       this.setState(newState);
     
   }
-
-
-  okMethod(){
-    this.props.okMethod&&this.props.okMethod();
-  }
-
- 
 
   onTouchStart(e){
     var columnIndex = Math.floor(getPageX(e)/this.itemWidth);
@@ -449,13 +442,10 @@ class Selector extends React.Component {
     return index;
 
   }
- 
 
 
-  render() {
-    var columns =[];
-
-    this.hasInit = true;
+  getColumns(){
+  	 var columns =[];
 
     if(this.isCascade){
       var preSelectedItemData = null;
@@ -486,6 +476,13 @@ class Selector extends React.Component {
         columns.push(<SelectorColumn columnIndex={i} selectedIndex={selectedIndexInCol} data={data} parent={this} pkey={curkey} itemHeight={this.itemHeight} key={curkey}/>);
       }
     }
+    return columns;
+  }
+ 
+
+
+  render() {
+   
 
     return (
         <View 
@@ -514,7 +511,7 @@ class Selector extends React.Component {
           	width:"100%",
           	top:px(this.itemHeight*2)
           }}>{this.renderMidArea()}</View>
-          {columns}
+          {this.getColumns()}
       </View>);
   }
 }

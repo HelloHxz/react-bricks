@@ -29,7 +29,7 @@ export default {
         				if(isStop){
         					return;
         				}
-        				method = method||_this.Tween.Cubic.easeOut;
+        				method = method||_this.Tween.Expo.easeOut;
         				curval = Math.ceil(method(_t, _b, _c, _d));
         				callback(curval);
         				if (_t < _d) {
