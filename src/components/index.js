@@ -34,6 +34,7 @@ import Container from './container';
 import TouchScroll from './touchscroll'
 import TextInput from './input'
 import Fetch from './fetch'
+import DatePicker from './datepicker'
 
 
 
@@ -47,6 +48,7 @@ export {
 	TouchableHighlight,
 	Header,
 	Fetch,
+	DatePicker,
 	TextInput,
 	Swiper,
 	Container,

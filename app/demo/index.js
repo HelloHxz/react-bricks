@@ -3,7 +3,7 @@ import {Run,Theme} from "react-bricks"
 Theme.extend(Theme,{});
 
 var config = {
-	root:"pickerDemo",
+	root:"home",
 	devConfig:{
 		development:{
 			server:"http://localhost:8000"
@@ -21,6 +21,7 @@ var config = {
 		tabbardemo:require("./main/pages/tabbarDemo").default,
 		setting	:require("./main/pages/setting").default,
 		my:require("./main/pages/my").default,
+		datePickerDemo:require("./main/pages/datePickerDemo").default,
 		buttonDemo:require("./main/pages/buttonDemo").default,
 		iconDemo:require("./main/pages/iconDemo").default,
 		imageDemo:require("./main/pages/imageDemo").default,
