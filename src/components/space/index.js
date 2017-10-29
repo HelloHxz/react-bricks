@@ -4,7 +4,7 @@ import View from '../view'
 
 var defaultStyle = StyleSheet.create({
   height:40,
-  backgroundColor:"transparent"
+  backgroundColor:"transparent",
 });
 export default class Space extends React.Component {
 	//配合animate 处理单位

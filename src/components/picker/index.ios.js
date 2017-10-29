@@ -21,6 +21,56 @@ class SelectorColumn extends React.Component{
     		data:props.data
     	}
 	}
+
+	// componentWillReceiveProps(nextProps){
+
+	// }
+
+	onValueChange(value){
+		this.setState({selectedValue: value},()=>{
+			this.bindNextChildData(value)
+		})
+	}
+
+	bindNextChildData(value){
+
+	    if(!this.props.parent.isCascade){
+	      return;
+	    }
+	    if(this.props.columnIndex>=this.props.parent.columnsCount-1){
+	      return;
+	    }
+
+	    var nextColumnData = [];
+		if(!value&&value!==0){
+			nextColumnData = this.state.data[0].children||[];
+		}else{
+			for(var i=0,j=this.state.data.length;i<j;i++){
+				var itemdata = this.state.data[i];
+				if(itemdata.value===value){
+					nextColumnData = itemdata.children||[];
+					break;
+				}
+			}
+		}
+	    var nextKey ="column_"+(this.props.columnIndex+1);
+	    var nextInstance= this.props.parent.instanceDict[nextKey];
+	    if(nextInstance){
+	      nextInstance.bindData(nextColumnData);
+	    }
+   }
+
+  bindData(data){
+    this.setState({
+      data:data,
+      selectedValue:data[0].value,
+    },()=>{
+      this.bindNextChildData(data[0].value);
+    });
+    
+
+  }
+
 	render(){
 		var child = [];
 		for(var i=0,j=this.state.data.length;i<j;i++){
@@ -29,7 +79,7 @@ class SelectorColumn extends React.Component{
 	    }
 		return (<Picker
 			  style={{flex:1}}
-	   		  onValueChange={(value) => this.setState({selectedValue: value})}
+	   		  onValueChange={this.onValueChange.bind(this)}
 			  selectedValue={this.state.selectedValue}>
 			  	{child}
 			</Picker>)
