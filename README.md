@@ -4,4 +4,4 @@
 
 > npm start
 
-http://localhost:8000/first.html
+http://localhost:8000/demo.html

@@ -1,11 +1,3 @@
 {
-	"development":{
-
-	},
-	"uat":{
-
-	},
-	"production":{
-
-	}
+	"evn":"develop"
 }

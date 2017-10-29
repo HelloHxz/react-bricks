@@ -8,7 +8,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 function getEntryAndHtmlPlugin(){
-  var siteArr = ["first"];
+  var siteArr = ["demo"];
   var re = {entry:{},htmlplugins:[]};
   for(var i=0,j=siteArr.length;i<j;i++){
     var siteName = siteArr[i];

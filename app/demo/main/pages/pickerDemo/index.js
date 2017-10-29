@@ -1,4 +1,4 @@
-import {View,Text,React,StyleSheet,observer,PageView,TextInput,Button,UIManager,ScrollView,Header,TouchableOpacity,Icon,Theme,Space,Picker} from "react-bricks";
+import {View,Text,React,StyleSheet,Fetch,observer,PageView,TextInput,Button,UIManager,ScrollView,Header,TouchableOpacity,Icon,Theme,Space,Picker} from "react-bricks";
 import PickerDemoStore from './store';
 import svgs from '../../assets/svg/svgs.js';
 
@@ -92,6 +92,13 @@ export default class PickerDemo extends React.Component {
     header:null
   }
   componentDidMount() {
+
+    Fetch("http://localhost:8000/users?page=1",{})
+    .then((data)=>{
+
+    }).catch((e)=>{
+      
+    });
   }
   // onPageBeforeLeave(){
   //   return false;

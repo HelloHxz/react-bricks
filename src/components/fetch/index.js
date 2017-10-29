@@ -43,5 +43,7 @@ var nfetch = function(url, opts){
 
 
 export default (url,config)=>{
-	return nfetch(url, config);
+	return nfetch(url, config).then((response)=>{
+      return response.json();
+    })
 }

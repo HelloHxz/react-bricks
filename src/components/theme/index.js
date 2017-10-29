@@ -3,7 +3,7 @@ let Common = {
 	theme_deep_color:"rgb(2, 100, 185)",
 	theme_color:"rgb(27, 144, 247)",
 	theme_text_color:"rgb(67, 67, 67)",
-	theme_border_color:"rgb(142, 142, 142)",
+	theme_border_color:"#bbb",
 	theme_background_color:"#f2f3f4",
 	theme_bk_opacity:.3,
 	theme_disabled_color:"#eee",
@@ -23,7 +23,7 @@ let Re = {
 		fontSize:26
 	},
 	btn_default:{
-		height:65,
+		height:70,
 		fontSize:23
 	},
 	/*button type*/

@@ -2,8 +2,10 @@ var Mock  = require("mockjs");
 var bodyParser = require('body-parser');
 var FirstMock =require("./firstMock");
 
+var DemoMock = require("./demo")
 
-var AllApi = Object.assign({},FirstMock)
+
+var AllApi = Object.assign({},FirstMock,DemoMock)
 
 
 module.exports = (app)=>{
