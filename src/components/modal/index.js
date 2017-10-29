@@ -16,9 +16,9 @@ var Styles= {
 	}
 }
 export default class RNModal extends React.Component{
-
+	onRequestClose(){}
 	render(){
-		return <Modal transparent={true} style={{position:"fixed",zIndex:11111,top:0,left:0,right:0,bottom:0}}>
+		return <Modal onRequestClose={this.onRequestClose.bind(this)} transparent={true} style={{position:"fixed",zIndex:11111,top:0,left:0,right:0,bottom:0}}>
 			<View style={Styles.bk}></View>
 			{this.props.children}
 		</Modal>
