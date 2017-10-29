@@ -25,6 +25,7 @@ import {PageView,observer} from './pageview'
 import Swiper from './swiper';
 import Segment from './segment';
 import Space from './space';
+import Modal from './modal';
 import {observable} from 'mobx'
 import TouchableOpacity from './touchableopacity'
 import TouchableHighlight from './touchablehighlight';
@@ -47,6 +48,7 @@ export {
 	ActivityIndicator,
 	TouchableHighlight,
 	Header,
+	Modal,
 	Fetch,
 	DatePicker,
 	TextInput,

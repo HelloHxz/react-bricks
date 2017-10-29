@@ -3,6 +3,8 @@ import StyleSheet from "../style"
 import View from '../view'
 import Text from '../text'
 
+import Modal from '../modal';
+
 import Base from './common'
 
 
@@ -349,37 +351,63 @@ class Selector extends Base {
   }
 
 
-  render() {
+  renderContent(){
+
+    var wrapperStyle = {
+          position:"relative",
+          height:px(this.itemHeight*5),
+          display:"flex",
+          width:"100%",
+          flexDirection:"row",
+          backgroundColor:"#fff",
+          overflow:"hidden"
+      };
+     if(this.type==="pop"){
+        wrapperStyle = {...wrapperStyle,...{
+          position:"absolute",
+          bottom:0,
+          zIndex:10
+        }}
+     }
 
     return (
         <View 
-        style={{
-        	position:"relative",
-        	height:px(this.itemHeight*5),
-        	display:"flex",
-        	flexDirection:"row",
-        	backgroundColor:"#fff",
-        	overflow:"hidden"
-        }}
+        style={wrapperStyle}
         ref={(wrapper)=>{this.wrapper = wrapper;}}
         onTouchStart={this.onTouchStart.bind(this)}
         onTouchMove={this.onTouchMove.bind(this)}
         onTouchEnd={this.onTouchEnd.bind(this)}
       >
           <View style={{
-          	position:"absolute",
-          	height:px(this.itemHeight),
-          	borderColor:"#eee",
-          	borderStyle:"solid",
-          	borderTopWidth:px(0.5),
-          	borderBottomWidth:px(.8),
-          	borderRightWidth:0,
-          	borderLeftWidth:0,
-          	width:"100%",
-          	top:px(this.itemHeight*2)
+            position:"absolute",
+            height:px(this.itemHeight),
+            borderColor:"#eee",
+            borderStyle:"solid",
+            borderTopWidth:px(0.5),
+            borderBottomWidth:px(.8),
+            borderRightWidth:0,
+            borderLeftWidth:0,
+            width:"100%",
+            top:px(this.itemHeight*2)
           }}>{this.renderMidArea()}</View>
           {this.getColumns()}
       </View>);
+  }
+
+
+  render() {
+
+
+    this.type = this.props.type||"inline";
+
+    if(this.type==="pop"){
+
+      return (<Modal>{
+        this.renderContent()
+      }</Modal>);
+    }
+
+    return this.renderContent();
   }
 }
 

@@ -93,12 +93,6 @@ export default class PickerDemo extends React.Component {
   }
   componentDidMount() {
 
-    Fetch("http://localhost:8000/users?page=1",{})
-    .then((data)=>{
-
-    }).catch((e)=>{
-      
-    });
   }
   // onPageBeforeLeave(){
   //   return false;
@@ -129,6 +123,7 @@ export default class PickerDemo extends React.Component {
             <Picker cascadeCount={3} datasource={selectorData}/>
             <Space style={StyleSheet.create({height:40})}/>
             <Picker datasource={selectorData}/>
+            <Picker type="pop" datasource={selectorData}/>
          </ScrollView>
       </View>
     );

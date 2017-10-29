@@ -3,6 +3,7 @@ import React from 'react';
 import View from '../view'
 import Base from './common'
 import StyleSheet from '../style'
+import Modal from '../modal';
 
 function px(val){
 	if(StyleSheet.isWeb){
@@ -121,20 +122,45 @@ export default class P extends Base{
 		return re;
 	}
 
+	renderContent(){
 
-	render(){
-		return (
-			<View style={{
-        	position:"relative",
+		var wrapperStyle = {
+     	    position:"relative",
         	display:"flex",
+        	width:"100%",
         	flexDirection:"row",
         	backgroundColor:"#fff",
         	overflow:"hidden"
-        }}>
-        	<View style={{zIndex:11,height:.8,width:"100%",top:90,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
-        	<View style={{zIndex:11,height:.8,width:"100%",top:125,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
-        	{this.getColumns()}
+        };
+	     if(this.type==="pop"){
+	        wrapperStyle = {...wrapperStyle,...{
+	          position:"absolute",
+	          bottom:0,
+	          zIndex:10
+	        }}
+	    }
+
+		return (
+			<View style={wrapperStyle}>
+	        	<View style={{zIndex:11,height:.8,width:"100%",top:90,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
+	        	<View style={{zIndex:11,height:.8,width:"100%",top:125,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
+	        	{this.getColumns()}
 			</View>)
+	}
+
+
+	render(){
+		this.type = this.props.type||"inline";
+
+	    if(this.type==="pop"){
+	    	return <Modal
+	    		transparent={false}
+        	    visible={true}
+	    	>{this.renderContent()}</Modal>
+	    }
+
+	    return this.renderContent();
+		
 	}
 }
 
