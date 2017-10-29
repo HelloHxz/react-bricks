@@ -1,5 +1,6 @@
 import {View,Text,React,StyleSheet,PageView,Button,Header,TouchableOpacity,Icon,Space,ScrollView,Theme} from "react-bricks"
 import svgs from '../../assets/svg/svgs.js';
+import AjaxDemoStore from './store';
 
 @PageView
 export default class AjaxDemo extends React.Component {
@@ -8,7 +9,21 @@ export default class AjaxDemo extends React.Component {
     header: null
   };
 
+  static connectStore(){
+    return {
+      ajaxStore:new AjaxDemoStore
+    }
+  }
+
   componentDidMount() {
+  }
+
+  getMethod(){
+    this.props.ajaxStore.getMethod();
+  }
+
+  postMethod(){
+    this.props.ajaxStore.postMethod();
   }
 
   onPageBeforeLeave(params){
@@ -30,9 +45,9 @@ export default class AjaxDemo extends React.Component {
         </Header>
         <ScrollView style={{flex:1}}>
         <Space/>
-         <Button type='flat'>Get</Button>
+         <Button onPress={this.getMethod.bind(this)} type='flat'>Get</Button>
          <Space/>
-         <Button type='flat' size='default'>Post</Button>
+         <Button onPress={this.postMethod.bind(this)} type='flat' size='default'>Post</Button>
          <Space/>
          <Button type='flat'>Upload</Button>
          <Space/>

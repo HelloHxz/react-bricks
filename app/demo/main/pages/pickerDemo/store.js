@@ -7,14 +7,6 @@ class Store {
     	Text1:"default"
     };
 
-    loadData(id){
-	    Fetch("http://localhost:8000/users?page=1",{})
-	    .then((data)=>{
-	      
-	    }).catch((e)=>{
-	      
-	    });
-    }
 }
 
 export default Store;
