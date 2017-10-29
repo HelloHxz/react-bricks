@@ -23,7 +23,6 @@ function getPageY(e){
 class SelectorColumn extends React.Component{
    constructor(props) {
     super(props)
-
     props.parent.instanceDict[props.pkey] = this;
     this.tranDict = StyleSheet.getTransitionKeys();
     this.selectedIndex = props.selectedIndex||0;
@@ -178,7 +177,7 @@ class SelectorColumn extends React.Component{
     }
     this.selectedIndex = curSelectedIndex;
     var data = this.state.data[curSelectedIndex].children||[];
-    var nextKey ="column_"+(this.props.columnIndex+1);
+    var nextKey =this.props.prefix+(this.props.columnIndex+1);
     var nextInstance= this.props.parent.instanceDict[nextKey];
     if(nextInstance){
       nextInstance.bindData(data);
@@ -295,6 +294,7 @@ function px(val){
 class Selector extends Base {
   constructor(props) {
     super(props)
+    this.preKeyStr = "column_";
     this.hasInit = false;
     this.SelectorColumn = SelectorColumn;
     this.itemHeight = StyleSheet.px2px(75);
@@ -309,7 +309,7 @@ class Selector extends Base {
       }
     }
     this.columnsCount = this.cascadeCount||this.props.datasource.length;
-    this.selectedIndexs = this.getSelectedIndexs(props);
+    this.selectedIndexs = this._getSelectedIndexs(props);
     this.itemWidth = StyleSheet.screen.width/this.columnsCount;
     this.state = {
       seed:1
@@ -328,7 +328,7 @@ class Selector extends Base {
 
   onTouchStart(e){
     var columnIndex = Math.floor(getPageX(e)/this.itemWidth);
-    this.curColumnKey = "column_"+columnIndex;
+    this.curColumnKey = this.preKeyStr+columnIndex;
     this.curColumn = this.instanceDict[this.curColumnKey];
     this.curColumn.onTouchStart(e);
   }

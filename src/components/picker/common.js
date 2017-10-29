@@ -2,7 +2,7 @@
 import React from 'react'
 
 export default class Base extends React.Component{
-	 getSelectedIndexs(props){
+	 _getSelectedIndexs(props){
 	    var re = [];
 	    if(props.selectedValues){
 	      if(this.isCascade){
@@ -108,11 +108,10 @@ export default class Base extends React.Component{
 
   getColumns(){
   	 var columns =[];
-
     if(this.isCascade){
       var preSelectedItemData = null;
       for(var i=0;i<this.columnsCount;i++){
-        var curkey = "column_"+i;
+        var curkey = this.preKeyStr+i;
         var data = [];
         var selectedIndexInCol = this.selectedIndexs[i];
         if(i===0){
@@ -128,14 +127,14 @@ export default class Base extends React.Component{
            preSelectedItemData = preSelectedItemData[selectedIndexInCol].children||[];
           }
         }
-        columns.push(<this.SelectorColumn selectedIndex={selectedIndexInCol} columnIndex={i} data={data} parent={this} pkey={curkey} itemHeight={this.itemHeight} key={curkey}/>);
+        columns.push(<this.SelectorColumn prefix={this.preKeyStr} selectedIndex={selectedIndexInCol} columnIndex={i} data={data} parent={this} pkey={curkey} itemHeight={this.itemHeight} key={curkey}/>);
       }
     }else{
       for(var i=0;i<this.columnsCount;i++){
-        var curkey = "column_"+i;
+        var curkey = this.preKeyStr+i;
         var data = this.props.datasource[i];
          var selectedIndexInCol = this.selectedIndexs[i];
-        columns.push(<this.SelectorColumn columnIndex={i} selectedIndex={selectedIndexInCol} data={data} parent={this} pkey={curkey} itemHeight={this.itemHeight} key={curkey}/>);
+        columns.push(<this.SelectorColumn prefix={this.preKeyStr} columnIndex={i} selectedIndex={selectedIndexInCol} data={data} parent={this} pkey={curkey} itemHeight={this.itemHeight} key={curkey}/>);
       }
     }
     return columns;

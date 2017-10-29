@@ -23,54 +23,39 @@ class SelectorColumn extends React.Component{
 	}
 
 	// componentWillReceiveProps(nextProps){
-
+	// 	this.selectedIndex = nextProps.selectedIndex||0;
+	// 	this.setState ( {
+ //    		selectedValue:nextProps.data[this.selectedIndex].value,
+ //    		data:nextProps.data
+ //    	})
 	// }
 
-	onValueChange(value){
-		this.setState({selectedValue: value},()=>{
-			this.bindNextChildData(value)
-		})
-	}
-
-	bindNextChildData(value){
-
-	    if(!this.props.parent.isCascade){
-	      return;
-	    }
-	    if(this.props.columnIndex>=this.props.parent.columnsCount-1){
-	      return;
-	    }
-
-	    var nextColumnData = [];
-		if(!value&&value!==0){
-			nextColumnData = this.state.data[0].children||[];
-		}else{
-			for(var i=0,j=this.state.data.length;i<j;i++){
+	getSelectedIndexByValue(value){
+		var selectedIndex = 0;
+		for(var i=0,j=this.state.data.length;i<j;i++){
 				var itemdata = this.state.data[i];
 				if(itemdata.value===value){
-					nextColumnData = itemdata.children||[];
+					selectedIndex = i;
 					break;
 				}
-			}
 		}
-	    var nextKey ="column_"+(this.props.columnIndex+1);
-	    var nextInstance= this.props.parent.instanceDict[nextKey];
-	    if(nextInstance){
-	      nextInstance.bindData(nextColumnData);
+		return selectedIndex;
+	}
+
+	onValueChange(value){
+		if(!this.props.parent.isCascade){
+		  this.setState({selectedValue: value})
+	      return;
 	    }
-   }
+	    var allSelectedIndex = this.props.parent.getSelectedIndexs();
+	    allSelectedIndex[this.props.columnIndex]= this.getSelectedIndexByValue(value);
+	    for(var i=this.props.columnIndex+1;i<this.props.parent.columnsCount;i++){
+	    	allSelectedIndex[i] = 0;
+	    }
+		this.props.parent.rebind(allSelectedIndex);
+	}
 
-  bindData(data){
-    this.setState({
-      data:data,
-      selectedValue:data[0].value,
-    },()=>{
-      this.bindNextChildData(data[0].value);
-    });
-    
-
-  }
-
+	
 	render(){
 		var child = [];
 		for(var i=0,j=this.state.data.length;i<j;i++){
@@ -78,7 +63,7 @@ class SelectorColumn extends React.Component{
 	      child.push(<Picker.Item key={i} label={itemdata.label} value={itemdata.value}/>);
 	    }
 		return (<Picker
-			  style={{flex:1}}
+			  style={{flex:1,backgroundColor:"#fff"}}
 	   		  onValueChange={this.onValueChange.bind(this)}
 			  selectedValue={this.state.selectedValue}>
 			  	{child}
@@ -94,6 +79,7 @@ export default class P extends Base{
 
 	constructor(props){
 		super(props);
+		this.preKeyStr = "column_";
 		this.isCascade = false;
 	    if(this.props.cascadeCount){
 	      if(isNaN(this.props.cascadeCount)){
@@ -105,11 +91,34 @@ export default class P extends Base{
 	    }
 	    this.SelectorColumn = SelectorColumn;
 	    this.columnsCount = this.cascadeCount||this.props.datasource.length;
-        this.selectedIndexs = this.getSelectedIndexs(props);
+        this.selectedIndexs = this._getSelectedIndexs(props);
         this.instanceDict={};
-		this.state = {
-			selectedValue:"java"
+        this.state={
+        	seed:0
+        }
+	}
+
+	rebind(selectedIndexs){
+		this.preKeyStr = this.preKeyStr+this.state.seed;
+		this.selectedIndexs  = selectedIndexs;
+		this.setState({seed:this.state.seed+1});
+	}
+
+	getSelectedValues(){
+		for(var i=0;i<this.columnsCount;i++){
+			var key = this.preKeyStr+i;
+
 		}
+	}
+
+	getSelectedIndexs(){
+		var re = [];
+		for(var i=0;i<this.columnsCount;i++){
+			var key = this.preKeyStr+i;
+			var instance = this.instanceDict[key];
+			re.push(instance.getSelectedIndexByValue(instance.state.selectedValue));
+		}
+		return re;
 	}
 
 
@@ -122,6 +131,8 @@ export default class P extends Base{
         	backgroundColor:"#fff",
         	overflow:"hidden"
         }}>
+        	<View style={{zIndex:11,height:.8,width:"100%",top:90,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
+        	<View style={{zIndex:11,height:.8,width:"100%",top:125,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
         	{this.getColumns()}
 			</View>)
 	}
