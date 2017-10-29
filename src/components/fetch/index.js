@@ -1,5 +1,5 @@
 
-
+import PlatForm from '../platform'
 
 var oldFetchfn = fetch; 
 function checkStatus(response) {
@@ -14,6 +14,9 @@ function checkStatus(response) {
 }
 
 var nfetch = function(url, opts){
+	if(PlatForm.OS==='android'&&url.indexOf("localhost")>=0){
+		url = url.replace("localhost","10.0.2.2");
+	}
 	opts = opts||{};
 	if(["include","same-origin","omit"].indexOf(opts.credentials)<0){
 		opts.credentials = "include";
@@ -44,6 +47,7 @@ var nfetch = function(url, opts){
 		}else{
 			url = url+"?"+bodyStr;
 		}
+		delete opts.body;
 	}
     var fetchPromise = oldFetchfn(url, opts);
     var timeoutPromise = new Promise(function(resolve, reject){

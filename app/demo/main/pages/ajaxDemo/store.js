@@ -14,7 +14,7 @@ class Store {
 	    	alert("success");
 	      
 	    }).catch((e)=>{
-	    	alert("error");
+	    	alert(e);
 	      
 	    });
     }
@@ -29,10 +29,9 @@ class Store {
 	    	timeout:6000
 	    })
 	    .then((data)=>{
-	    	alert("success");
-	      
+	    	alert(JSON.stringify(data));
 	    }).catch((e)=>{
-	    	alert("error");
+	    	alert(e);
 	    });
     }
 
