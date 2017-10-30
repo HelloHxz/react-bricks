@@ -41,7 +41,9 @@ class Swiper extends Base{
 
     
     if(this.WrapperSizeValue){
-      for(var i=0;i<3;i++){
+      //为了不闪
+      var len = this.props.itemWidth?4:3;
+      for(var i=0;i<len;i++){
         var wrapIndex = this.wrapperArr[i];
         var sourceIndex = this.sourceArr[i];
         if(sourceIndex===-1){
@@ -56,6 +58,9 @@ class Swiper extends Base{
         var v = ((i-1)*this.space+(i-1)*this.WrapperSizeValue+this.state.offset);
         var vstr = this.isHorizontal? v +"px,0,0":"0,"+v+"px,0";
         itemStyle[this.tranDict.transform] = "translate3d("+vstr+")"
+        if(this.props.itemWidth){
+          itemStyle.width = this.WrapperSizeValue+"px";
+        }
         if(!this.animate){
           itemStyle[this.tranDict.transition] = "none";
         }else{
@@ -65,7 +70,6 @@ class Swiper extends Base{
           {this._renderItem({index:i})}
         </div></div>);
       }
-     
       if(this.props.cache){
          var midSourceIndex = this.sourceArr[1];
          var cacheStyle = {};
@@ -77,7 +81,9 @@ class Swiper extends Base{
             var cvstr = this.isHorizontal? cv +"px,0,0":"0,"+cv+"px,0";
             cacheStyle[this.tranDict.transition] = "none"
             cacheStyle[this.tranDict.transform] = "translate3d("+cvstr+")"
-
+            if(this.props.itemWidth){
+              cacheStyle.width = this.WrapperSizeValue+"px";
+            }
             var itemKey = 'xz-swiper-item-'+key;
             children.push(<div style={cacheStyle} className="xz-swiper-item" key={itemKey}><div className='xz-swiper-inneritem'>
              { this.cacheDict[key]}

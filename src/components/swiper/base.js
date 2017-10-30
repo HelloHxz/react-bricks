@@ -54,6 +54,9 @@ export default class Base extends React.Component {
 
     if(this.isHorizontal){
       this.WrapperSizeValue = StyleSheet.screen.originWidth;
+      if(this.props.itemWidth){
+        this.WrapperSizeValue = StyleSheet.px2px(parseInt(this.props.itemWidth));
+      }
     }else{
       this.WrapperSizeValue = 200;
     }
@@ -102,7 +105,7 @@ export default class Base extends React.Component {
       this.setIsInTransitionFalse();
       this.setState({offset:0});
       this.startInterval();
-    },StyleSheet.OS==='android'?500:310)
+    },StyleSheet.OS==='android'?500:300)
   }
 
   goPreByStep(step){
@@ -198,7 +201,7 @@ export default class Base extends React.Component {
       }
     }
     var lr = this.getLeftRightIndexByMid(mid,len);
-    var arr = [lr.left,mid,lr.right];
+    var arr = [lr.left,mid,lr.right,lr.rightright];
     this.sourceArr = arr;
   }
 
@@ -215,7 +218,7 @@ export default class Base extends React.Component {
       }
     }
     var lr = this.getLeftRightIndexByMid(mid,len);
-    var arr = [lr.left,mid,lr.right];
+    var arr = [lr.left,mid,lr.right,lr.rightright];
     this.sourceArr = arr;
   }
 
@@ -235,6 +238,20 @@ export default class Base extends React.Component {
       }
     }
 
+    var rightright = -1;
+    if(right===-1){
+      rightright = -1;
+    }else{
+      rightright = right + 1;
+      if(rightright>len-1){
+        if(this.isLoop){
+          rightright = len ===1?-1:0;
+        }else{
+          rightright = -1;
+        }
+      }
+    }
+
     var left = mid - 1;
     if(left<0){
       if(this.isLoop){
@@ -243,7 +260,7 @@ export default class Base extends React.Component {
         left = -1;
       }
     }
-    return {left:left,right:right}
+    return {left:left,right:right,rightright}
   }
 
 

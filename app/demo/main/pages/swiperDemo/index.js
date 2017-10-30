@@ -1,4 +1,4 @@
-import {View,Text,React,StyleSheet,PageView,Button,Image,Swiper,Header,TouchableOpacity,Icon} from "react-bricks"
+import {View,Text,React,StyleSheet,PageView,Button,Image,Space,Swiper,Header,TouchableOpacity,Icon} from "react-bricks"
 import svgs from '../../assets/svg/svgs.js';
 
 
@@ -28,6 +28,16 @@ export default class SwiperDemo extends React.Component {
         ></Image>);
   }
 
+  renderSwiperItem2(params){
+    return ( <Image
+          resizeMode='cover'
+          style={StyleSheet.create({borderRadius:30,width:"96%",height:"100%"})}
+          source={params.data.src}
+        ></Image>);
+  }
+
+  
+
   goBack(){
     this.props.navigation.goBack();
   }
@@ -49,6 +59,16 @@ export default class SwiperDemo extends React.Component {
             cache={true} 
             data={siwperData} 
             renderItem = {this.renderSwiperItem.bind(this)}>
+          </Swiper>
+          <Space/>
+           <Swiper ref={(instance)=>{this.topswiper = instance;}} 
+            style={StyleSheet.create({height:250})}
+            itemWidth={700}
+            lazyrender={false} 
+            loop={true}
+            cache={true} 
+            data={siwperData} 
+            renderItem = {this.renderSwiperItem2.bind(this)}>
           </Swiper>
       </View>
     );

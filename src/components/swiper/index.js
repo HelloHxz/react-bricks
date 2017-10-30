@@ -38,7 +38,9 @@ class Swiper extends Base {
       toucheEvent.onResponderRelease = this.onTouchEnd.bind(this);
     }
     if(this.WrapperSizeValue){
-      for(var i=0;i<3;i++){
+       //为了不闪
+      var len = this.props.itemWidth?4:3;
+      for(var i=0;i<len;i++){
         var wrapIndex = this.wrapperArr[i];
         var sourceIndex = this.sourceArr[i];
         if(sourceIndex===-1){
@@ -49,10 +51,13 @@ class Swiper extends Base {
           //&&i!==1
           key+="_"+wrapIndex;
         }
-        var itemStyle = {};
+        var itemStyle = {position:"absolute",height:"100%",width:"100%"};
+        if(this.props.itemWidth){
+          itemStyle.width = this.WrapperSizeValue;
+        }
         var v = ((i-1)*this.space+(i-1)*this.WrapperSizeValue+this.state.offset);
         itemStyle[this.isHorizontal?"left":"top"] = v;
-        children.push(<View style={{...itemStyle,...{position:"absolute",height:"100%",width:"100%"}}} className="xz-swiper-item" key={key}>
+        children.push(<View style={itemStyle} className="xz-swiper-item" key={key}>
            {this._renderItem({index:i})}
         </View>);
       }
@@ -61,13 +66,16 @@ class Swiper extends Base {
          var midSourceIndex = this.sourceArr[1];
          for(var key in this.cacheDict){
           var cacheIndex = this.sourceArr.indexOf(parseInt(key));
-          var cacheItemStyle = {};
+          var cacheItemStyle = {position:"absolute",height:"100%",width:"100%"};
+          if(this.props.itemWidth){
+            cacheItemStyle.width = this.WrapperSizeValue;
+          }
           if(cacheIndex<0){
             var sourceIndex_int = parseInt(key);
             var cv = ((sourceIndex_int-midSourceIndex)*(this.space+this.WrapperSizeValue));
-            itemStyle[this.isHorizontal?"left":"top"] = cv;
+            cacheItemStyle[this.isHorizontal?"left":"top"] = cv;
             var itemKey = 'xz-swiper-item-'+key;
-            children.push(<View style={{...{position:"absolute",height:"100%",width:"100%"},...itemStyle}} className="xz-swiper-item" key={itemKey}>
+            children.push(<View style={cacheItemStyle} className="xz-swiper-item" key={itemKey}>
               {this.cacheDict[key]}
             </View>);
           }
