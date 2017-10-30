@@ -33,11 +33,20 @@ module.exports = function (env) {
   var entryAndHtmlPlugin = getEntryAndHtmlPlugin();
   var entry = entryAndHtmlPlugin.entry;
   var plugins= [
+
       
       new webpack.NamedModulesPlugin(),
 
       new webpack.LoaderOptionsPlugin({
           minimize: true
+      }),
+      new webpack.DefinePlugin({
+          __DEV__: true,
+          huxiaozhong:JSON.stringify("hshsh"),
+          SEVER:{
+            path:JSON.stringify("22"),
+            url:JSON.stringify("1333")
+          }
       }),
       //【主要是为了使用变量引用本地图片】这个静态文件 拷贝到dist的imgs下  其他的js boundle也是拷贝至dist下 
       //所以在js通过!!!变量!!!(通过字符串变量引用本地的图片)引用图片的时候直接 ./imgs/xxx.jpg就可以
