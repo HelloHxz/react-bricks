@@ -12,15 +12,28 @@ var Styles= {
 		bottom:0,
 		opacity:.4,
 		backgroundColor:"#000"
+	},
+	wrapper:{
+		position:"fixed",
+		zIndex:11111,
+		top:0,
+		left:0,
+		right:0,
+		bottom:0
 	}
 }
 export default class Modal extends React.Component{
-
+	constructor(props){
+		super(props);
+		this.state = {
+			visible:false
+		};
+	}
 	render(){
-		return <View style={{position:"fixed",zIndex:11111,top:0,left:0,right:0,bottom:0}}>
+		return <Animated.View style={Styles.wrapper}>
 
 			<View style={Styles.bk}></View>
 			{this.props.children}
-		</View>
+		</Animated.View>
 	}
 }

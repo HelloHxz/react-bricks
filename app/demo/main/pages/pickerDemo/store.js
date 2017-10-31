@@ -6,6 +6,8 @@ class Store {
     	Text1:"default"
     };
 
+    @observable isShow = false;
+
 }
 
 export default Store;

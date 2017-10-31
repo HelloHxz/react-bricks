@@ -147,6 +147,9 @@ export default class Base extends React.Component {
 
   componentWillUnmount(){
     this.stopInterval();
+    this.setState = (state,callback)=>{
+          return;
+    };  
   }
 
   stop(){

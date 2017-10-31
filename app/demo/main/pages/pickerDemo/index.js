@@ -102,6 +102,13 @@ export default class PickerDemo extends React.Component {
     this.props.navigation.goBack();
   }
 
+  showPicker(){
+    this.props.PickerStore.isShow = true;
+  }
+  onBackLayerClick(){
+    this.props.PickerStore.isShow = false;
+  }
+
   onChangeText(e,text){
     this.props.InputStore.FormData.Text1 =text
   }
@@ -123,7 +130,11 @@ export default class PickerDemo extends React.Component {
             <Picker cascadeCount={3} datasource={selectorData}/>
             <Space style={StyleSheet.create({height:40})}/>
             <Picker datasource={selectorData}/>
-            <Picker type="pop" datasource={selectorData}/>
+            <Picker 
+              onBackLayerClick = {this.onBackLayerClick.bind(this)}
+              show={this.props.PickerStore.isShow} type="pop" datasource={selectorData}/>
+            <Space/>
+            <Button onPress={this.showPicker.bind(this)}>Show</Button>
          </ScrollView>
       </View>
     );
