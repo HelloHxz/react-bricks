@@ -177,7 +177,7 @@ export default class P extends Base{
 	     	this.hasInitPopContent = true;
 			const drawerTranslateY = this.state.showValue.interpolate({
 				inputRange: [0, 1],
-				outputRange:[400,0],
+				outputRange:[200,0],
 				extrapolate: 'clamp',
 			});
 			wrapperStyle = {...wrapperStyle,...{
@@ -229,7 +229,7 @@ export default class P extends Base{
           toValue: 1,
           duration:280,
           bounciness: 0, 
-          easing:Easing.in(),
+          easing:Easing.in,
           restSpeedThreshold: 0.1
         }
       ).start()
