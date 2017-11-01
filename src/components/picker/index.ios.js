@@ -84,6 +84,7 @@ export default class P extends Base{
 
 	constructor(props){
 		super(props);
+		this.type = props.type||"inline";
 		this.preKeyStr = "column_";
 		this.isCascade = false;
 	    if(this.props.cascadeCount){
@@ -227,17 +228,15 @@ export default class P extends Base{
         this.state.showValue,
         {
           toValue: 1,
-          duration:280,
-          bounciness: 0, 
-          easing:Easing.in,
-          restSpeedThreshold: 0.1
+          duration:110,
+          easing:Easing.ease,
         }
       ).start()
 	}
 
 
 	render(){
-		this.type = this.props.type||"inline";
+		
 
 	    if(this.type==="pop"){
 	    	return <Modal

@@ -17,6 +17,7 @@ var Styles= {
 		position:"fixed",
 		zIndex:11111,
 		top:0,
+		visibility: "hidden",
 		left:0,
 		right:0,
 		bottom:0
@@ -29,10 +30,32 @@ export default class Modal extends React.Component{
 			visible:false
 		};
 	}
-	render(){
-		return <Animated.View style={Styles.wrapper}>
 
-			<View style={Styles.bk}></View>
+	componentWillReceiveProps(nextProps){
+		if(this.state.visible!==nextProps.visible){
+			this.setState({
+				visible:nextProps.visible
+			});
+		}
+	}
+
+
+	onShow(){
+		if(this.props.onShow){
+			this.props.onShow();
+		}
+	}
+
+	render(){
+		if(this.state.visible){
+			Styles.wrapper.visibility = "visible";
+			setTimeout(()=>{
+				this.onShow();
+			},30)
+		}else{
+			Styles.wrapper.visibility = "hidden";
+		}
+		return <Animated.View style={Styles.wrapper}>
 			{this.props.children}
 		</Animated.View>
 	}

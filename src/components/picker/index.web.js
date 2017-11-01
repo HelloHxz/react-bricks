@@ -4,6 +4,10 @@ import View from '../view'
 import Text from '../text'
 
 import Modal from '../modal';
+import Easing from '../easing';
+import Animated from '../animated'
+
+import TouchableWithoutFeedback from '../touchablewithoutfeedback'
 
 import Base from './common'
 
@@ -41,10 +45,10 @@ class SelectorColumn extends React.Component{
   componentWillReceiveProps(nextPros){
      this.scrollHeight =this.props.itemHeight*(nextPros.data.length-1);
      this.selectedIndex = nextPros.selectedIndex||0;
-     this.state={
+     this.setState({
       offset:0-this.selectedIndex*nextPros.itemHeight,
       data:nextPros.data
-    };
+    });
   }
 
 
@@ -296,6 +300,7 @@ function px(val){
 class Selector extends Base {
   constructor(props) {
     super(props)
+    this.type = props.type||"inline";
     this.preKeyStr = "column_";
     this.hasInit = false;
     this.SelectorColumn = SelectorColumn;
@@ -313,18 +318,42 @@ class Selector extends Base {
     this.columnsCount = this.cascadeCount||this.props.datasource.length;
     this.selectedIndexs = this._getSelectedIndexs(props);
     this.itemWidth = StyleSheet.screen.width/this.columnsCount;
+    this.hasInitPopContent = false;
     this.state = {
-      seed:1
+      seed:1,
+      showValue:new Animated.Value(0),
+      show:false
     }
   
   }
 
-  componentWillReceiveProps(nextPros){
-      this.selectedIndexs = this.getSelectedIndexs(nextPros);
-      var newState = {
-        show:nextPros.show
+  componentWillReceiveProps(nextProps){
+    this.selectedIndexs = this._getSelectedIndexs(nextProps);
+    if(this.type==="pop"){
+      if(this.state.show!==nextProps.show){
+        if(nextProps.show===false){
+           Animated.timing(
+                this.state.showValue,
+                {
+                  toValue: 0,
+                  duration:500,
+                  bounciness: 0, 
+                  easing:Easing.ease,
+                  restSpeedThreshold: 0.1
+                }
+              ).start(()=>{
+                this.setState({
+                  show:false
+                })
+              })
+          }else{
+            this.setState({
+              show:nextProps.show
+            });
+          }
+        
       }
-      this.setState(newState);
+    }
     
   }
 
@@ -362,16 +391,30 @@ class Selector extends Base {
           backgroundColor:"#fff",
           overflow:"hidden"
       };
+      var Wrapper = View;
      if(this.type==="pop"){
+       if(!this.state.show&&!this.hasInitPopContent){
+          return null;
+        }
+        this.hasInitPopContent = true;  
+
+        const drawerTranslateY = this.state.showValue.interpolate({
+          inputRange: [0, 1],
+          outputRange:[200,0],
+          extrapolate: 'clamp',
+        });
         wrapperStyle = {...wrapperStyle,...{
           position:"absolute",
           bottom:0,
-          zIndex:10
+          zIndex:10,
+          transform:[{"translateY":drawerTranslateY}]
         }}
+
+        Wrapper = Animated.View;
      }
 
     return (
-        <View 
+        <Wrapper 
         style={wrapperStyle}
         ref={(wrapper)=>{this.wrapper = wrapper;}}
         onTouchStart={this.onTouchStart.bind(this)}
@@ -391,8 +434,48 @@ class Selector extends Base {
             top:px(this.itemHeight*2)
           }}>{this.renderMidArea()}</View>
           {this.getColumns()}
-      </View>);
+      </Wrapper>);
   }
+
+  onShow(){
+      Animated.timing(
+        this.state.showValue,
+        {
+          toValue: 1,
+          duration:200,
+          easing:Easing.ease,
+        }
+      ).start()
+  }
+
+  renderBK(){
+    const overlayOpacity = this.state.showValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 0.15],
+        extrapolate: 'clamp',
+      });
+
+      var bkLayer={
+        backgroundColor: '#000',
+        position:"absolute",
+        top:0,
+        left:0,
+        right:0,
+        bottom:0,
+        opacity:overlayOpacity
+      }
+    
+    return <TouchableWithoutFeedback onPress={this.bkPress.bind(this)} >
+        <Animated.View style={bkLayer}/>
+      </TouchableWithoutFeedback>;
+  }
+
+  bkPress(){
+    if(this.props.onBackLayerClick){
+      this.props.onBackLayerClick();
+    }
+  }
+
 
 
   render() {
@@ -402,8 +485,13 @@ class Selector extends Base {
 
     if(this.type==="pop"){
 
-      return (<Modal>{
+      return (<Modal
+        visible={this.state.show}
+        onShow = {this.onShow.bind(this)}
+        >{
         this.renderContent()
+      }{
+        this.renderBK()
       }</Modal>);
     }
 
