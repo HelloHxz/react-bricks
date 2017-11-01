@@ -103,7 +103,7 @@ export default class P extends Base{
         this.state={
         	seed:0,
     		showValue:new Animated.Value(0),
-    		show:false
+    		show:props.show
         }
 	}
 
@@ -175,7 +175,7 @@ export default class P extends Base{
 	     	if(!this.state.show&&!this.hasInitPopContent){
 	     		return null;
 	     	}
-	     	
+
 	     	this.hasInitPopContent = true;
 			const drawerTranslateY = this.state.showValue.interpolate({
 				inputRange: [0, 1],

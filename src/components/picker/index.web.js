@@ -321,7 +321,7 @@ class Selector extends Base {
     this.hasInitPopContent = false;
     this.state = {
       showValue:new Animated.Value(0),
-      show:false
+      show:props.show
     }
   
   }
@@ -399,7 +399,7 @@ class Selector extends Base {
         this.hasInitPopContent = true;  
         const drawerTranslateY = this.state.showValue.interpolate({
           inputRange: [0, 1],
-          outputRange:[ 3,0],
+          outputRange:[ StyleSheet._px(200),0],
           extrapolate: 'clamp',
         });
         wrapperStyle = {...wrapperStyle,...{

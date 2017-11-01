@@ -27,8 +27,17 @@ export default class Modal extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			visible:false
+			visible:props.visible
 		};
+
+	}
+
+	componentDidMount(){
+		if(this.state.visible){
+			setTimeout(()=>{
+				this.onShow();
+			},20)
+		}
 	}
 
 	componentWillReceiveProps(nextProps){
