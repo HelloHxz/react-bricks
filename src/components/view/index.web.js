@@ -13,6 +13,8 @@ class View extends React.Component {
   	if(style.width&&!isNaN(style.width)){
   		style.width = style.width+"rem";
   	}
+    
+
   	style = StyleSheet.convertTransform(style,this.props.xzIsAnimate);
 
     var classNameArr = [];

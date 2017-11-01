@@ -36,6 +36,10 @@ export default class Modal extends React.Component{
 			this.setState({
 				visible:nextProps.visible
 			});
+
+			if(nextProps.visible === true){
+				this.onShow();
+			}
 		}
 	}
 
@@ -49,9 +53,7 @@ export default class Modal extends React.Component{
 	render(){
 		if(this.state.visible){
 			Styles.wrapper.visibility = "visible";
-			setTimeout(()=>{
-				this.onShow();
-			},30)
+			
 		}else{
 			Styles.wrapper.visibility = "hidden";
 		}

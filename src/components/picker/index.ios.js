@@ -175,6 +175,7 @@ export default class P extends Base{
 	     	if(!this.state.show&&!this.hasInitPopContent){
 	     		return null;
 	     	}
+	     	
 	     	this.hasInitPopContent = true;
 			const drawerTranslateY = this.state.showValue.interpolate({
 				inputRange: [0, 1],

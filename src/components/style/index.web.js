@@ -101,6 +101,7 @@ var Re = {
 		if(!style.transform){
 			return style;
 		}
+	
 		var values = style.transform ;
 		var needConvert = true;
 		var re = [];

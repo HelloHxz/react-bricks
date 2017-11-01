@@ -320,7 +320,6 @@ class Selector extends Base {
     this.itemWidth = StyleSheet.screen.width/this.columnsCount;
     this.hasInitPopContent = false;
     this.state = {
-      seed:1,
       showValue:new Animated.Value(0),
       show:false
     }
@@ -328,29 +327,29 @@ class Selector extends Base {
   }
 
   componentWillReceiveProps(nextProps){
-    this.selectedIndexs = this._getSelectedIndexs(nextProps);
+    // this.selectedIndexs = this._getSelectedIndexs(nextProps);
     if(this.type==="pop"){
       if(this.state.show!==nextProps.show){
         if(nextProps.show===false){
-           Animated.timing(
-                this.state.showValue,
-                {
-                  toValue: 0,
-                  duration:500,
-                  bounciness: 0, 
-                  easing:Easing.ease,
-                  restSpeedThreshold: 0.1
-                }
-              ).start(()=>{
-                this.setState({
-                  show:false
-                })
-              })
-          }else{
+          Animated.timing(
+            this.state.showValue,
+            {
+              toValue: 0,
+              duration:280,
+              bounciness: 0, 
+              easing:Easing.in(),
+              restSpeedThreshold: 0.1
+            }
+          ).start(()=>{
             this.setState({
-              show:nextProps.show
-            });
-          }
+              show:false
+            })
+          })
+        }else{
+          this.setState({
+            show:nextProps.show
+          });
+        }
         
       }
     }
@@ -396,11 +395,11 @@ class Selector extends Base {
        if(!this.state.show&&!this.hasInitPopContent){
           return null;
         }
-        this.hasInitPopContent = true;  
 
+        this.hasInitPopContent = true;  
         const drawerTranslateY = this.state.showValue.interpolate({
           inputRange: [0, 1],
-          outputRange:[200,0],
+          outputRange:[ 3,0],
           extrapolate: 'clamp',
         });
         wrapperStyle = {...wrapperStyle,...{
@@ -445,7 +444,8 @@ class Selector extends Base {
           duration:200,
           easing:Easing.ease,
         }
-      ).start()
+      ).start(()=>{
+      })
   }
 
   renderBK(){
