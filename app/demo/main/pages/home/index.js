@@ -102,10 +102,10 @@ class HomeScreen extends React.Component {
     if(item.url){
       this.props.navigation.navigate(item.url, { user: 'Lucy'})
     }else{
-      //  Toast.show({
-      //   text:"hello"
-      // })
-      this.popPageKey = this.props.popPage("buttonDemo",{});
+       Toast.show({
+        text:"hello"
+      })
+      // this.popPageKey = this.props.popPage("buttonDemo",{});
       // Toast.Alert("");
     }
   }

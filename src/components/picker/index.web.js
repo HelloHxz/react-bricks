@@ -3,11 +3,7 @@ import View from '../view'
 import Text from '../text'
 import SildeModal from '../slideModal'
 import Modal from '../modal';
-import Easing from '../easing';
 import StyleSheet from "../style"
-import Animated from '../animated'
-import TouchableWithoutFeedback from '../touchablewithoutfeedback'
-
 import Base from './common'
 
 

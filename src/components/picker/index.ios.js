@@ -2,18 +2,8 @@ import {Picker} from 'react-native'
 import React from 'react';
 import View from '../view'
 import Base from './common'
-import Easing from '../easing'
 import StyleSheet from '../style'
 import SlideModal from '../slideModal';
-import Animated from '../animated'
-import TouchableWithoutFeedback from '../touchablewithoutfeedback'
-
-function px(val){
-	if(StyleSheet.isWeb){
-		return val+"px";
-	}
-	return val;
-}
 
 class SelectorColumn extends React.Component{
 	constructor(props){
@@ -139,7 +129,6 @@ export default class P extends Base{
 	}
 
 	renderContent(){
-
 		var wrapperStyle = {
      	    position:"relative",
         	display:"flex",
@@ -159,8 +148,6 @@ export default class P extends Base{
 
 
 	render(){
-		
-
 	    if(this.type==="pop"){
 	    	return <SlideModal
 	    		onBackLayerClick={this.props.onBackLayerClick}

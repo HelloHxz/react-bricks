@@ -3,7 +3,7 @@ import {Run,Theme} from "react-bricks"
 Theme.extend(Theme,{});
 
 var config = {
-	root:"pickerDemo",
+	root:"home",
 	devConfig:{
 		development:{
 			server:"http://localhost:8000"

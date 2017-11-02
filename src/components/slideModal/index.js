@@ -26,14 +26,13 @@ export default class SildeModal extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-    // this.selectedIndexs = this._getSelectedIndexs(nextProps);
       if(this.state.visible!==nextProps.visible){
         if(nextProps.visible===false){
           Animated.timing(
             this.state.showValue,
             {
               toValue: 0,
-              duration:280,
+              duration:140,
               bounciness: 0, 
               easing:Easing.in(),
               restSpeedThreshold: 0.1
@@ -58,7 +57,7 @@ export default class SildeModal extends React.Component{
 	    this.state.showValue,
 	    {
 	      toValue: 1,
-	      duration:200,
+	      duration:140,
 	      easing:Easing.ease,
 	    }
 	  ).start(()=>{
@@ -106,6 +105,11 @@ export default class SildeModal extends React.Component{
 	          outputRange:[ StyleSheet._px(200),0],
 	          extrapolate: 'clamp',
 	        });
+	  //       const op = this.state.showValue.interpolate({
+			// 	inputRange: [0, 1],
+			// 	outputRange: [.8, 1],
+			// 	extrapolate: 'clamp',
+			// });
 	        wrapperStyle = {...wrapperStyle,...{
 	          position:"absolute",
 	          bottom:0,
