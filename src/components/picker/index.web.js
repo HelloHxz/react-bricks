@@ -1,12 +1,11 @@
 import React from "react"
-import StyleSheet from "../style"
 import View from '../view'
 import Text from '../text'
-
+import SildeModal from '../slideModal'
 import Modal from '../modal';
 import Easing from '../easing';
+import StyleSheet from "../style"
 import Animated from '../animated'
-
 import TouchableWithoutFeedback from '../touchablewithoutfeedback'
 
 import Base from './common'
@@ -318,9 +317,7 @@ class Selector extends Base {
     this.columnsCount = this.cascadeCount||this.props.datasource.length;
     this.selectedIndexs = this._getSelectedIndexs(props);
     this.itemWidth = StyleSheet.screen.width/this.columnsCount;
-    this.hasInitPopContent = false;
     this.state = {
-      showValue:new Animated.Value(0),
       show:props.show
     }
   
@@ -330,30 +327,11 @@ class Selector extends Base {
     // this.selectedIndexs = this._getSelectedIndexs(nextProps);
     if(this.type==="pop"){
       if(this.state.show!==nextProps.show){
-        if(nextProps.show===false){
-          Animated.timing(
-            this.state.showValue,
-            {
-              toValue: 0,
-              duration:280,
-              bounciness: 0, 
-              easing:Easing.in(),
-              restSpeedThreshold: 0.1
-            }
-          ).start(()=>{
-            this.setState({
-              show:false
-            })
-          })
-        }else{
-          this.setState({
+         this.setState({
             show:nextProps.show
           });
-        }
-        
       }
     }
-    
   }
 
   onTouchStart(e){
@@ -389,31 +367,10 @@ class Selector extends Base {
           flexDirection:"row",
           backgroundColor:"#fff",
           overflow:"hidden"
-      };
-      var Wrapper = View;
-     if(this.type==="pop"){
-       if(!this.state.show&&!this.hasInitPopContent){
-          return null;
-        }
-
-        this.hasInitPopContent = true;  
-        const drawerTranslateY = this.state.showValue.interpolate({
-          inputRange: [0, 1],
-          outputRange:[ StyleSheet._px(200),0],
-          extrapolate: 'clamp',
-        });
-        wrapperStyle = {...wrapperStyle,...{
-          position:"absolute",
-          bottom:0,
-          zIndex:10,
-          transform:[{"translateY":drawerTranslateY}]
-        }}
-
-        Wrapper = Animated.View;
-     }
+    };
 
     return (
-        <Wrapper 
+        <View 
         style={wrapperStyle}
         ref={(wrapper)=>{this.wrapper = wrapper;}}
         onTouchStart={this.onTouchStart.bind(this)}
@@ -433,68 +390,20 @@ class Selector extends Base {
             top:px(this.itemHeight*2)
           }}>{this.renderMidArea()}</View>
           {this.getColumns()}
-      </Wrapper>);
+      </View>);
   }
-
-  onShow(){
-      Animated.timing(
-        this.state.showValue,
-        {
-          toValue: 1,
-          duration:200,
-          easing:Easing.ease,
-        }
-      ).start(()=>{
-      })
-  }
-
-  renderBK(){
-    const overlayOpacity = this.state.showValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 0.15],
-        extrapolate: 'clamp',
-      });
-
-      var bkLayer={
-        backgroundColor: '#000',
-        position:"absolute",
-        top:0,
-        left:0,
-        right:0,
-        bottom:0,
-        opacity:overlayOpacity
-      }
-    
-    return <TouchableWithoutFeedback onPress={this.bkPress.bind(this)} >
-        <Animated.View style={bkLayer}/>
-      </TouchableWithoutFeedback>;
-  }
-
-  bkPress(){
-    if(this.props.onBackLayerClick){
-      this.props.onBackLayerClick();
-    }
-  }
-
 
 
   render() {
-
-
     this.type = this.props.type||"inline";
-
     if(this.type==="pop"){
-
-      return (<Modal
+      return (<SildeModal
         visible={this.state.show}
-        onShow = {this.onShow.bind(this)}
+        onBackLayerClick={this.props.onBackLayerClick}
         >{
         this.renderContent()
-      }{
-        this.renderBK()
-      }</Modal>);
+      }</SildeModal>);
     }
-
     return this.renderContent();
   }
 }

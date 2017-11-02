@@ -4,7 +4,7 @@ import View from '../view'
 import Base from './common'
 import Easing from '../easing'
 import StyleSheet from '../style'
-import Modal from '../modal';
+import SlideModal from '../slideModal';
 import Animated from '../animated'
 import TouchableWithoutFeedback from '../touchablewithoutfeedback'
 
@@ -99,10 +99,8 @@ export default class P extends Base{
 	    this.columnsCount = this.cascadeCount||this.props.datasource.length;
         this.selectedIndexs = this._getSelectedIndexs(props);
         this.instanceDict={};
-        this.hasInitPopContent = false;
         this.state={
         	seed:0,
-    		showValue:new Animated.Value(0),
     		show:props.show
         }
 	}
@@ -116,27 +114,9 @@ export default class P extends Base{
 	componentWillReceiveProps(nextProps){
 		if(this.type==="pop"){
 			if(this.state.show!==nextProps.show){
-				if(nextProps.show===false){
-					 Animated.timing(
-				        this.state.showValue,
-				        {
-				          toValue: 0,
-				          duration:280,
-				          bounciness: 0, 
-				          easing:Easing.in(),
-				          restSpeedThreshold: 0.1
-				        }
-				      ).start(()=>{
-				      	this.setState({
-				      		show:false
-				      	})
-				      })
-				  }else{
-				  	this.setState({
+				this.setState({
 						show:nextProps.show
-					});
-				  }
-				
+				});
 			}
 		}
 	}
@@ -168,71 +148,13 @@ export default class P extends Base{
         	backgroundColor:"#fff",
         	overflow:"hidden"
         };
-        var Wrapper = View;
-
-
-	     if(this.type==="pop"){
-	     	if(!this.state.show&&!this.hasInitPopContent){
-	     		return null;
-	     	}
-
-	     	this.hasInitPopContent = true;
-			const drawerTranslateY = this.state.showValue.interpolate({
-				inputRange: [0, 1],
-				outputRange:[200,0],
-				extrapolate: 'clamp',
-			});
-			wrapperStyle = {...wrapperStyle,...{
-				position:"absolute",
-				bottom:0,
-				zIndex:10,
-				transform:[{"translateY":drawerTranslateY}]
-			}}
-			Wrapper = Animated.View;
-	    }
 
 		return (
-			<Wrapper style={wrapperStyle}>
+			<View style={wrapperStyle}>
 	        	<View style={{zIndex:11,height:.8,width:"100%",top:90,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
 	        	<View style={{zIndex:11,height:.8,width:"100%",top:125,backgroundColor:"#d3d3d3",position:"absolute"}}></View>
 	        	{this.getColumns()}
-			</Wrapper>)
-	}
-
-	bkPress(){
-		if(this.props.onBackLayerClick){
-			this.props.onBackLayerClick();
-		}
-	}
-
-	renderBK(){
-		const overlayOpacity = this.state.showValue.interpolate({
-	      inputRange: [0, 1],
-	      outputRange: [0, 0.15],
-	      extrapolate: 'clamp',
-	    });
-
-	    var bkLayer={
-	    	backgroundColor: '#000',
-    		flex:1,
-    		opacity:overlayOpacity
-	    }
-		
-		return <TouchableWithoutFeedback onPress={this.bkPress.bind(this)} >
-	  		<Animated.View style={bkLayer}/>
-	  	</TouchableWithoutFeedback>;
-	}
-
-
-	onShow(){
-		Animated.timing(
-        this.state.showValue,
-        {
-          toValue: 1,
-          duration:110,
-          easing:Easing.ease,
-        }
-      ).start()
+			</View>)
 	}
 
 
@@ -240,13 +162,11 @@ export default class P extends Base{
 		
 
 	    if(this.type==="pop"){
-	    	return <Modal
-	    		onShow={this.onShow.bind(this)}
-	    		transparent={false}
+	    	return <SlideModal
+	    		onBackLayerClick={this.props.onBackLayerClick}
         	    visible={this.state.show}
 	    	>{this.renderContent()}
-	    	 {this.renderBK()}
-	    	</Modal>
+	    	</SlideModal>
 	    }
 
 	    return this.renderContent();
