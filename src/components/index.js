@@ -24,6 +24,7 @@ import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
 import Swiper from './swiper';
 import Segment from './segment';
+import SlideModal from './slideModal'
 import Space from './space';
 import Modal from './modal';
 import {observable} from 'mobx'
@@ -54,6 +55,7 @@ export {
 	TextInput,
 	Swiper,
 	Container,
+	SlideModal,
 	Grid,
 	Menu,
 	Space,
