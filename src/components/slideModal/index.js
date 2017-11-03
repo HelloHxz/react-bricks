@@ -89,9 +89,7 @@ export default class SildeModal extends React.Component{
 	renderContent(){
 	    var wrapperStyle = {
 	          position:"relative",
-	          display:"flex",
 	          width:"100%",
-	          flexDirection:"row",
 	          backgroundColor:"#fff",
 	          overflow:"hidden"
 	      };

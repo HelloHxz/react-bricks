@@ -30,7 +30,7 @@ export default class PopoverDemo extends React.Component {
         top:top,
         width:width,
         height:height
-       },dirction:"top"}
+       },direction:"right"}
     })
   }
 

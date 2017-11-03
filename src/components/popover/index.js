@@ -43,10 +43,11 @@ class Popover extends React.Component{
 	
 	constructor(props){
 		super(props);
+		var config = props.config||{};
 		this.state = {
 			rect:null,//{x y width height}
 			isShow:false,
-			direction:"top" // top right bottom left auto
+			direction:config.direction||"bottom" // top right bottom left auto
 		}
 		this.offsetY = 0;
 		this.offsetX = 0;
@@ -57,12 +58,13 @@ class Popover extends React.Component{
 	}
 	componentWillReceiveProps(nextProps){
 		var config = nextProps.config || {};
+		var direction = config.direction||"bottom";
 		if(config.rect){
 			this.targetRect = config.rect;
 			if(this.state.isShow){
 			
 			}else{
-				this.setState({isShow:true,rect:config.rect},function(){
+				this.setState({isShow:true,rect:config.rect,direction:direction},function(){
 				});
 			}
 		}else{
@@ -79,7 +81,7 @@ class Popover extends React.Component{
 	}
 	renderChild(openValue){
 		const isShow = !!this.state.rect;
-		return <PopoverItem parent={this} isShow={isShow}/>
+		return <PopoverItem parent={this} direction={this.state.direction} isShow={isShow}/>
 	}
 	render(){
 		const {
@@ -98,9 +100,10 @@ class Popover extends React.Component{
 class PopoverItem extends React.Component{
 	constructor(props){
 		super(props);
+		this.direction = props.direction;
 		this.state = {
 			openValue:new Animated.Value(0),
-			pos:{left:0,top:0}
+			pos:{left:0,top:0},
 		}
 		this.isInit = true;
 		this.process(props);
@@ -108,6 +111,7 @@ class PopoverItem extends React.Component{
 		this.offsetX = 10;
 	}
 	componentWillReceiveProps(nextProps){
+		this.direction = nextProps.direction;
 		this.process(nextProps);
 	}
 
@@ -115,9 +119,8 @@ class PopoverItem extends React.Component{
       rect.right = rect.left+rect.width;
       rect.bottom = rect.top+rect.height;
 
-      var direction = (this.state.direction||"").toLowerCase();
+      var direction = (this.direction||"").toLowerCase();
       if(["bottom","top","left","right"].indexOf(direction)<0){
-        direction = "bottom";
         if(rect.top-popHeight-this.offsetY>=0){
           direction = "top";
         }else if(rect.bottom+popHeight<=StyleSheet.screen.height-this.offsetY){
