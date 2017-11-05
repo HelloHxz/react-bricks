@@ -2,6 +2,7 @@ import React from "react"
 import Picker from '../picker'
 import StyleSheet from "../style"
 import {Time} from "../utils"
+import SlideModal from '../slideModal'
 import View from '../view';
 import Text from '../text'
 
@@ -18,6 +19,7 @@ class DatePicker extends React.Component {
     this.halfYearCount = 40;
     this.yearHasTouchEnd = false;
     this.itemHeight = StyleSheet.px2px(75);
+    this.type = props.type||"inline";
     this.state={
       show:props.show
     }
@@ -28,10 +30,14 @@ class DatePicker extends React.Component {
     this.props.onBackLayerClick&&this.props.onBackLayerClick();
   }
 
-  componentWillReceiveProps(nextPros){
-    this.setState({
-      show:nextPros.show
-    });
+  componentWillReceiveProps(nextProps){
+    if(this.type==="pop"){
+      if(this.state.show!==nextProps.show){
+        this.setState({
+            show:nextProps.show
+        });
+      }
+    }
   }
 
   renderMidArea(){
@@ -153,7 +159,6 @@ class DatePicker extends React.Component {
         data.push(mins);
       }
     }
-  
     return {data:data,selectedValues:[date.year,date.month,date.day]};
   }
 
@@ -180,16 +185,27 @@ class DatePicker extends React.Component {
       this.yearHasTouchEnd = true;
     }
   }
+
+  render(){
+     if(this.type==="pop"){
+        return <SlideModal
+          onBackLayerClick={this.props.onBackLayerClick}
+              visible={this.state.show}
+        >{this.renderContent()}
+        </SlideModal>
+      }
+      return this.renderContent();
+  }
  
 
 
-  render() {
+  renderContent() {
     // show={this.state.show} 
     var dataAndS = this.getColumnsDataAndSelectedValue();
     return (<Picker 
+      valueIsInt = {true}
       onTansitionEnd={this.onTansitionEnd.bind(this)}
       renderMidArea={this.renderMidArea.bind(this)}
-      onBackLayerClick={this.onBackLayerClick.bind(this)} 
       selectedValues={dataAndS.selectedValues}
       datasource={dataAndS.data}>
       </Picker>);

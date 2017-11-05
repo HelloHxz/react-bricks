@@ -2,6 +2,7 @@ import React from 'react';
 import Animated from '../animated';
 import Text from '../text'
 import Modal from '../modal';
+import PlatForm from '../platform'
 import Easing from '../easing';
 import StyleSheet from "../style"
 import TouchableWithoutFeedback from '../touchablewithoutfeedback'
@@ -28,27 +29,28 @@ export default class SildeModal extends React.Component{
 
 	componentWillReceiveProps(nextProps){
       if(this.state.visible!==nextProps.visible){
-        if(nextProps.visible===false){
-          Animated.timing(
-            this.state.showValue,
-            {
-              toValue: 0,
-              duration:140,
-              bounciness: 0, 
-              easing:Easing.in(),
-              restSpeedThreshold: 0.1
-            }
-          ).start(()=>{
-            this.setState({
-              visible:false
-            })
-          })
-        }else{
-          this.setState({
-            visible:nextProps.visible
-          });
-        }
-        
+          setTimeout(()=>{
+	        if(nextProps.visible===false){
+	          	Animated.timing(
+	            this.state.showValue,
+	            {
+	              toValue: 0,
+	              duration:140,
+	              bounciness: 0, 
+	              easing:Easing.ease,
+	              restSpeedThreshold: 0.1
+	            }
+	          ).start(()=>{
+	           	 this.setState({
+			              visible:false
+			     })
+	          })
+	        }else{
+	          this.setState({
+	            visible:nextProps.visible
+	          });
+	        }
+     	 },0)
       }
   }
 

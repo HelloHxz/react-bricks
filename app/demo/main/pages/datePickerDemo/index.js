@@ -33,6 +33,15 @@ export default class DatePickerDemo extends React.Component {
 
   }
 
+  showPicker(){ 
+    this.props.DatePickerStore.isShow = true;
+  }
+
+
+  onBackLayerClick(){
+    this.props.DatePickerStore.isShow = false;
+  }
+
  
 
   render() {
@@ -47,6 +56,13 @@ export default class DatePickerDemo extends React.Component {
             style={StyleSheet.create({flex:1})}>
             <Space style={StyleSheet.create({height:40})}/>
             <DatePicker onDateChange={this.onDateChange.bind(this)} date={new Date()} mode="date"/>
+
+            <DatePicker 
+              onBackLayerClick={this.onBackLayerClick.bind(this)}
+              onDateChange={this.onDateChange.bind(this)} 
+              type='pop' 
+              show={this.props.DatePickerStore.isShow} date={new Date()} mode="date"/>
+            <Button onPress={this.showPicker.bind(this)}>Show</Button>
          </ScrollView>
       </View>
     );

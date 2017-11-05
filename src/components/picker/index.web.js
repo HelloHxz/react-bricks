@@ -250,7 +250,7 @@ class SelectorColumn extends React.Component{
       }
 
       value = value> this.props.itemHeight *10? this.props.itemHeight *10:value;
-      return {value:value,duration:PlatForm.OS==='android'?duration-16:duration+30};
+      return {value:value,duration:PlatForm.OS==='android'?duration-10:duration+30};
   }
  
 
