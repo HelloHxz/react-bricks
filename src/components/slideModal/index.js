@@ -37,13 +37,11 @@ export default class SildeModal extends React.Component{
 	              toValue: 0,
 	              duration:140,
 	              bounciness: 0, 
-	              easing:Easing.ease,
+	              easing:Easing.in(),
 	              restSpeedThreshold: 0.1
 	            }
 	          ).start(()=>{
-	           	 this.setState({
-			              visible:false
-			     })
+	           	 this.setState({ visible: false })
 	          })
 	        }else{
 	          this.setState({
@@ -61,7 +59,7 @@ export default class SildeModal extends React.Component{
 	    {
 	      toValue: 1,
 	      duration:140,
-	      easing:Easing.ease,
+	      easing:Easing.in(),
 	    }
 	  ).start(()=>{
 	  })

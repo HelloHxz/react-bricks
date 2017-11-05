@@ -31,7 +31,7 @@ export default class SwiperDemo extends React.Component {
   renderSwiperItem2(params){
     return ( <Image
           resizeMode='cover'
-          style={StyleSheet.create({borderRadius:20,width:"96%",height:"100%"})}
+          style={StyleSheet.create({borderRadius:20,marginLeft:20,width:"96%",height:"100%"})}
           source={params.data.src}
         ></Image>);
   }

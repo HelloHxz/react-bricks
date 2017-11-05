@@ -250,7 +250,8 @@ class SelectorColumn extends React.Component{
       }
 
       value = value> this.props.itemHeight *10? this.props.itemHeight *10:value;
-      return {value:value,duration:PlatForm.OS==='android'?duration-10:duration+30};
+      var duration = PlatForm.OS==='android'?duration-20:duration+30;
+      return {value:value,duration:duration};
   }
  
 
@@ -280,21 +281,6 @@ function px(val){
 	return val;
 }
 
-/*
-
-  position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0px;
-    left:0;
-    z-index: 10;
-    background: -webkit-linear-gradient(top,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, .6) 30%,
-    rgba(255, 255, 255, .0) 50%,
-    rgba(255, 255, 255, .6) 70%,
-    rgba(255, 255, 255, 1) 100%);
-   */
 class Selector extends Base {
   constructor(props) {
     super(props)
