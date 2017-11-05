@@ -81,7 +81,7 @@ class Popover extends React.Component{
 	}
 	renderChild(openValue){
 		const isShow = !!this.state.rect;
-		return <PopoverItem parent={this} direction={this.state.direction} isShow={isShow}/>
+		return <PopoverItem offsetX={this.offsetX} offsetY={this.offsetY} parent={this} direction={this.state.direction} isShow={isShow}/>
 	}
 	render(){
 		const {
@@ -107,8 +107,16 @@ class PopoverItem extends React.Component{
 		}
 		this.isInit = true;
 		this.process(props);
-		this.offsetY = 10;
-		this.offsetX = 10;
+		if(isNaN(props.offsetY)){
+			this.offsetY = 0;
+		}else{
+			this.offsetY = parseInt(props.offsetY);
+		}
+		if(isNaN(props.offsetX)){
+			this.offsetX = 0;
+		}else{
+			this.offsetX = parseInt(props.offsetX);
+		}
 	}
 	componentWillReceiveProps(nextProps){
 		this.direction = nextProps.direction;
@@ -208,6 +216,9 @@ class PopoverItem extends React.Component{
 	    var top = rect.top+rect.height/2-oh/2+this.offsetY;
 	    if(top+oh+this.offsetY>StyleSheet.screen.height){
 	      top = StyleSheet.screen.height - oh-this.offsetY;
+	      if(!StyleSheet.isWeb&&StyleSheet.OS==='android'){
+	      	top -= 26;
+	      }
 	    }
 	    if(top<0){
 	      top = this.offsetY;

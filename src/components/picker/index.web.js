@@ -3,6 +3,7 @@ import View from '../view'
 import Text from '../text'
 import SildeModal from '../slideModal'
 import Modal from '../modal';
+import PlatForm from '../platform'
 import StyleSheet from "../style"
 import Base from './common'
 
@@ -113,7 +114,8 @@ class SelectorColumn extends React.Component{
       return;
     }
     this.diffTime = (new Date()).valueOf()-this.startTime;
-    if(this.diffTime>300){
+    var limt= PlatForm.OS ==='android'?600:300;
+    if(this.diffTime>limt){
       this.repairDistance();
       return;
     }
@@ -127,7 +129,9 @@ class SelectorColumn extends React.Component{
       this.scrollEngine = StyleSheet.run(t, b,distance , time);
       this.scrollEngine.start((val)=>{
         this.setState({offset:val});
-      },null,()=>{
+      },
+      StyleSheet.Tween.Sine.easeOut
+      ,()=>{
         this.repairDistance();
         this.scrollEngine = null;
       });
@@ -150,7 +154,7 @@ class SelectorColumn extends React.Component{
         this.triggerTransitionEnd(index);
         return;
       }
-      this.scrollEngine = StyleSheet.run(t, b,len,10);
+      this.scrollEngine = StyleSheet.run(t, b,len,PlatForm.OS==='android'?1:10);
       this.scrollEngine.start((val)=>{
         this.setState({offset:val});
       },null,()=>{
@@ -246,7 +250,7 @@ class SelectorColumn extends React.Component{
       }
 
       value = value> this.props.itemHeight *10? this.props.itemHeight *10:value;
-      return {value:value,duration:duration+30};
+      return {value:value,duration:PlatForm.OS==='android'?duration-18:duration+30};
   }
  
 
@@ -263,10 +267,9 @@ class SelectorColumn extends React.Component{
     ty.transform = [{
     	translateY:px(this.props.itemHeight*2+this.state.offset)
     }];
-    ty["flex"] = 1;
-    return (<View style={ty} className='xz-selector-col'>
+    return (<View style={{flex:1}}><View style={ty} className='xz-selector-col'>
        {child}
-      </View>);
+      </View></View>);
   }
 }
 

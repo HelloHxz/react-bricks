@@ -1,6 +1,7 @@
 import Common from './common'
 
 var translateKeys;
+
 var u = navigator.userAgent;
 var Re = {
 	OS:!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)?"ios":"android",
@@ -76,6 +77,7 @@ var Re = {
 	px2px(v){
         return Math.round(v*this.screen.dpr/2);
     },
+	Tween:Common.Tween,
 	getTransitionKeys () {
         if (translateKeys) {
             return translateKeys;

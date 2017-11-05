@@ -21,7 +21,8 @@ export default class SildeModal extends React.Component{
 		this.hasInitPopContent = false;
 		this.state = {
 			visible:props.visible,
-			showValue:new Animated.Value(0)
+			showValue:new Animated.Value(0),
+			direction:props.direction||"bottom"
 		};
 	}
 
@@ -103,11 +104,6 @@ export default class SildeModal extends React.Component{
 	          outputRange:[ StyleSheet._px(200),0],
 	          extrapolate: 'clamp',
 	        });
-	  //       const op = this.state.showValue.interpolate({
-			// 	inputRange: [0, 1],
-			// 	outputRange: [.8, 1],
-			// 	extrapolate: 'clamp',
-			// });
 	        wrapperStyle = {...wrapperStyle,...{
 	          position:"absolute",
 	          bottom:0,

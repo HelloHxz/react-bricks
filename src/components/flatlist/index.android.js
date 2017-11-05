@@ -43,26 +43,36 @@ export default class AndroidFlatList extends Base {
   }
 
   _handleShouldSetPanResponder(e, gestureState) {
+    this.autoScroll = false;
+    this.startTime = new Date().valueOf();
     return !this.state.isScrollFree;
   }
 
   onTouchMove(e, gestureState) {
+      this.autoScroll = false;
       if((gestureState.dy >= 0 && this.scrollValue <= 0) ) {
 	        this.pullMove(e,gestureState);
       } else {
         	if(this.state.isScrollFree){
         	}else{
-      		  this.flatlist.scrollToOffset({offset: -1*gestureState.dy, animated: true});
+            this.autoScroll = true;
+      		  this.flatlist.scrollToOffset({offset: -1*gestureState.dy, animated: false});
         	}
       }
   }
 
  
-
-
   _onTouchEnd(e, gestureState) {
       if(this.scrollValue > 0) {
-        this.setState({isScrollFree: true});
+        this.setState({isScrollFree: true},()=>{
+          
+        });
+        if(new Date().valueOf()-this.startTime<400){
+          if(this.autoScroll){
+              this.flatlist.scrollToOffset({offset:500, animated: true});
+          }
+        }
+        
       }
   }
 

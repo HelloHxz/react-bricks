@@ -18,6 +18,7 @@ var Re = {
 	run(t, b, c, d){
 		return Common.run(t, b, c, d);
 	},
+	Tween:Common.Tween,
 	create(styles){
 		return Common.create(styles,this.OS,this.isWeb,this.px.bind(this));
 	},
