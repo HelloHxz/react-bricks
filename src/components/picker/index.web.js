@@ -250,7 +250,7 @@ class SelectorColumn extends React.Component{
       }
 
       value = value> this.props.itemHeight *10? this.props.itemHeight *10:value;
-      return {value:value,duration:PlatForm.OS==='android'?duration-18:duration+30};
+      return {value:value,duration:PlatForm.OS==='android'?duration-16:duration+30};
   }
  
 
@@ -378,6 +378,26 @@ class Selector extends Base {
       >
           <View style={{
             position:"absolute",
+            height:px(this.itemHeight*2),
+            backgroundColor:"#fff",
+            opacity:.8,
+            zIndex:10,
+            width:"100%",
+            top:0,
+            left:0
+          }} />
+          <View style={{
+            position:"absolute",
+            height:px(this.itemHeight*2-2),
+            backgroundColor:"#fff",
+            opacity:.7,
+            zIndex:10,
+            width:"100%",
+            bottom:0,
+            left:0
+          }} />
+          <View style={{
+            position:"absolute",
             height:px(this.itemHeight),
             borderColor:"#eee",
             borderStyle:"solid",
@@ -386,7 +406,7 @@ class Selector extends Base {
             borderRightWidth:0,
             borderLeftWidth:0,
             width:"100%",
-            top:px(this.itemHeight*2)
+            top:px(this.itemHeight*2+2)
           }}>{this.renderMidArea()}</View>
           {this.getColumns()}
       </View>);

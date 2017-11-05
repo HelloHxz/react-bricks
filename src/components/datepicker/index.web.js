@@ -1,13 +1,23 @@
 import React from "react"
 import Picker from '../picker'
-import Style from "../style"
+import StyleSheet from "../style"
 import {Time} from "../utils"
+import View from '../view';
+import Text from '../text'
 
+
+function px(val){
+  if(StyleSheet.isWeb){
+    return val+"px";
+  }
+  return val;
+}
 class DatePicker extends React.Component {
   constructor(props) {
     super(props)
     this.halfYearCount = 40;
     this.yearHasTouchEnd = false;
+    this.itemHeight = StyleSheet.px2px(75);
     this.state={
       show:props.show
     }
@@ -24,36 +34,38 @@ class DatePicker extends React.Component {
     });
   }
 
-  // renderMidArea(){
-  //   var dict = {
-  //     "yyyy":'年',
-  //     "MM":'月',
-  //     "dd":'日',
-  //     "hh":'时',
-  //     "mm":'分',
-  //     "ss":'秒',
-  //   };
-  //   var arr = [
-  //     [0],
-  //     [270],
-  //     [100,100],
-  //     [50,60,60],
-  //     [40,50,50,50],
-  //     [25,40,40,40,40],
-  //     [10,30,30,30,30,30]
-  //   ];
-  //   var columnsCount = this.formatArr.length;
-  //   var columnsWidth = Style.screen.width/columnsCount;
-  //   var child = [];
-  //   var diff = arr[columnsCount];
-  //   for(var i=0,j=this.formatArr.length;i<j;i++){
-  //     var item = this.formatArr[i];
-  //     var label = dict[item]||"";
-  //     child.push(<span key={item} style={{left:(columnsWidth*(i+1)-Style.px2px(diff[i]))+"px"}}>{label}</span>);
-  //   }
-  //   return <div className='xz-datepicker-mid'>
-  //     {child}</div>
-  // }
+  renderMidArea(){
+    var dict = {
+      "yyyy":'年',
+      "MM":'月',
+      "dd":'日',
+      "hh":'时',
+      "mm":'分',
+      "ss":'秒',
+    };
+    var arr = [
+      [0],
+      [270],
+      [100,100],
+      [50,60,60],
+      [40,50,50,50],
+      [25,40,40,40,40],
+      [10,30,30,30,30,30]
+    ];
+    var columnsCount = this.formatArr.length;
+    var columnsWidth = StyleSheet.screen.width/columnsCount;
+    var child = [];
+    var top = StyleSheet.isWeb?px(this.itemHeight/2-20):px(this.itemHeight/2-10);
+    var diff = arr[columnsCount];
+    for(var i=0,j=this.formatArr.length;i<j;i++){
+      var item = this.formatArr[i];
+      var label = dict[item]||"";
+
+      child.push(<Text key={item} style={{position:"absolute",top:top,left:px((columnsWidth*(i+1)-StyleSheet.px2px(diff[i])))}}>{label}</Text>);
+    }
+    return <View className='xz-datepicker-mid'>
+      {child}</View>
+  }
 
 
   
@@ -176,7 +188,7 @@ class DatePicker extends React.Component {
     var dataAndS = this.getColumnsDataAndSelectedValue();
     return (<Picker 
       onTansitionEnd={this.onTansitionEnd.bind(this)}
-      // renderMidArea={this.renderMidArea.bind(this)}
+      renderMidArea={this.renderMidArea.bind(this)}
       onBackLayerClick={this.onBackLayerClick.bind(this)} 
       selectedValues={dataAndS.selectedValues}
       datasource={dataAndS.data}>
