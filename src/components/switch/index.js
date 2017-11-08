@@ -17,7 +17,7 @@ export default class Switch extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-		
+
 	}
 
 	onPress(){
@@ -39,9 +39,12 @@ export default class Switch extends React.Component{
 			space =2;
 		}
 
+		var width = 112,height=66,space = 2;
+		var pointerWidth = height-space*2;
+
 		const drawerTranslateX = this.state.animateValue.interpolate({
 	          inputRange: [0, 1],
-	          outputRange:[StyleSheet._px((2)),StyleSheet._px(114-56-2)],
+	          outputRange:[StyleSheet._px((space)),StyleSheet._px(width-pointerWidth-space)],
 	          extrapolate: 'clamp',
 	    });
 
@@ -56,15 +59,15 @@ export default class Switch extends React.Component{
 			onPress = {this.onPress.bind(this)}
 			style={{
 			position:"relative",
-			width:StyleSheet.px(114),
-			height:StyleSheet.px(60),
+			width:StyleSheet.px(width),
+			height:StyleSheet.px(height),
 			overflow:"hidden",
 		}}>
 			<Animated.View 
 				style={{
 					width:"100%",
 					height:"100%",
-					borderRadius:StyleSheet.px(30),
+					borderRadius:StyleSheet.px(height/2),
 					backgroundColor:backgroundColor
 				}}
 			></Animated.View>
@@ -74,11 +77,11 @@ export default class Switch extends React.Component{
 				transform:[{
 					translateX:drawerTranslateX
 				}],
-				top:StyleSheet.px(2),
-				height:StyleSheet.px(56),
+				top:StyleSheet.px(space),
+				height:StyleSheet.px(pointerWidth),
 				backgroundColor:"#fff",
-				width:StyleSheet.px(56),
-				borderRadius:StyleSheet.px(28),
+				width:StyleSheet.px(pointerWidth),
+				borderRadius:StyleSheet.px((pointerWidth)/2),
 			}}/>
 		</TouchableWithoutFeedback>
 	}
