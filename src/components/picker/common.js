@@ -71,6 +71,7 @@ export default class Base extends React.Component{
         index = i;
         break;
       }
+
       if(this.props.valueIsInt){
         if(parseInt(arr[i].label)===parseInt(value)){
           index = i;

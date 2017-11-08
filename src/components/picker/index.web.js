@@ -130,7 +130,7 @@ class SelectorColumn extends React.Component{
       this.scrollEngine.start((val)=>{
         this.setState({offset:val});
       },
-      StyleSheet.Tween.Sine.easeOut
+      StyleSheet.Tween.Cubic.easeOut
       ,()=>{
         this.repairDistance();
         this.scrollEngine = null;

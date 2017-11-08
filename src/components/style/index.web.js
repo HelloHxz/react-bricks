@@ -9,6 +9,9 @@ var Re = {
 	run(t, b, c, d){
 		return Common.run(t, b, c, d);
 	},
+	withPx(v){
+		return v+"px";
+	},
 	_init(){
 		if(this.rem){
 			return;

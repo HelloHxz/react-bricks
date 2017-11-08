@@ -11,7 +11,7 @@ export default class DatePickerDemo extends React.Component {
 	
  
   static connectStore(){
-    return {DatePickerStore:new DatePickerDemoStore};
+    return {DatePickerStore:new DatePickerDemoStore()};
   }
 
   static navigationOptions = {

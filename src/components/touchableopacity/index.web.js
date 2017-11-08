@@ -11,8 +11,12 @@ class TouchableOpacity extends React.Component {
   }	
   render() {
   	var style = this.props.style||{};
+    var className = "";
+    if(this.props.activeOpacity!==1){
+      className = "xz-top-"+this.props.activeOpacity*10;
+    }
   	style.display = "flex";
-    return (<View className='xz-top-7' onPress={this.onClick.bind(this)} style={style}>{this.props.children}</View>);
+    return (<View className={className} onPress={this.onClick.bind(this)} style={style}>{this.props.children}</View>);
   }
 }
 

@@ -15,6 +15,9 @@ var Re = {
 	convertTransform(re){
 		return re;
 	},
+	withPx(v){
+		return v;
+	},
 	run(t, b, c, d){
 		return Common.run(t, b, c, d);
 	},

@@ -16,6 +16,7 @@ import UIManager from './uimanager'
 import Picker from './picker'
 import Icon from './icon';
 import ScrollView from './scrollview';
+import Switch from './switch';
 import FlatList from './flatlist';
 import Theme from './theme';
 import Header from './header'
@@ -57,6 +58,7 @@ export {
 	Swiper,
 	Container,
 	SlideModal,
+	Switch,
 	Grid,
 	Menu,
 	Space,
