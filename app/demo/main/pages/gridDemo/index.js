@@ -36,13 +36,12 @@ export default class GridDemo extends React.Component {
 
           <Grid bordernone={true} data={[{},{},{},{},{}]} 
           style={ StyleSheet.create({width:600}) }
-          itemStyle = {StyleSheet.create({height:"auto"})}
           column={3} renderItem={this.renderItem.bind(this)}/>
 
             <Space/>
           <Grid bordernone={true} data={[{},{},{}]} 
           style={ StyleSheet.create({width:500}) }
-          itemStyle = {StyleSheet.create({height:"auto"})}
+          itemStyle = {StyleSheet.create({paddingTop:20,paddingBottom:20,height:"auto"})}
           column={2} renderItem={this.renderItem.bind(this)}/>
         </ScrollView>
       </View>

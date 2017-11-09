@@ -35,7 +35,7 @@ export default class Grid extends React.Component{
 		this.state = {
 			data:this.props.data||[]
 		}
-		this.cellHeight = this.props.cellHeight||this.columnWidth;
+		
 	}
 
 	render(){
@@ -47,6 +47,15 @@ export default class Grid extends React.Component{
 
 		
 		len =  Math.ceil(len/this.coumnCount)*this.coumnCount;
+
+		var cellHeight = {};
+
+		var itemStyle = this.props.itemStyle||{};
+		
+		if(!itemStyle.height){
+			itemStyle.height = this.columnWidth;
+		}
+
 		for(var i=0,j=len;i<j;i++){
 			var item = null;
 			if(i<this.state.data.length&&this.props.renderItem){
@@ -81,7 +90,6 @@ export default class Grid extends React.Component{
 			}
 
 
-
 			child.push(<View key={i} style={{
 				...{
 					position:"relative",
@@ -89,8 +97,8 @@ export default class Grid extends React.Component{
 					alignItems:"center",
 					flexDirection:"column",
 					width:(this.columnWidth),
-					height:(this.cellHeight)
 				},
+				...itemStyle,
 				...StyleSheet.create({
 					borderLeftWidth:borderLeftWidth,
 					borderBottomWidth:borderBottomWidth,
