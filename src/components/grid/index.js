@@ -41,8 +41,6 @@ export default class Grid extends React.Component{
 	render(){
 		var child = [];
 
-		//i%this.coumnCount!==0?1:0
-		//(i===j-1&&(i+1)/this.coumnCount!==0)?1: 0
 		var len = this.state.data.length;
 
 		var borderWidth = this.props.bordernone?0:1;
@@ -70,6 +68,13 @@ export default class Grid extends React.Component{
 				borderTopWidth = borderWidth;
 				borderBottomWidth = Math.ceil((i+1)/this.coumnCount) === this.coumnCount+1?borderWidth:0;
 			} 
+
+			if(i<this.coumnCount){
+				borderTopWidth = 0;
+			}
+			if(len/this.coumnCount===parseInt(i/this.coumnCount)+1){
+				borderBottomWidth = 0;
+			}
 
 			if(i%this.coumnCount===0){
 				borderLeftWidth = 0;
