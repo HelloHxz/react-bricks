@@ -19,7 +19,7 @@ var ListDataSource = [
   {id:13,name:"Tabs",url:"tabsDemo"},
   {id:14,name:"Segment",url:null},
   {id:9,name:"Tabbar",url:"tabbardemo/setting"},
-  {id:10,name:"Menu",url:"menuDemo"},
+  {id:10,name:"Repeat",url:"repeatDemo"},
   {id:11,name:"Grid",url:"gridDemo"},
   {id:12,name:"Segment with Container",url:"segmentContainerDemo"},
   {id:6,name:"Toast",url:null},

@@ -11,6 +11,8 @@ function px(v){
 	}
 	return v;
 }
+
+var wrapperStyle = {flexWrap:"wrap",backgroundColor:"#fff",display:"flex",flexDirection:"row"};
 export default class Grid extends React.Component{
 	
 	constructor(props){
@@ -19,8 +21,17 @@ export default class Grid extends React.Component{
 		if(isNaN(this.coumnCount)){
 			this.coumnCount = 2;
 		}
-
-		this.columnWidth = (StyleSheet.screen.width/this.coumnCount);
+		var style = this.props.style||{};
+		if(style.width){
+			if(StyleSheet.isWeb){
+				this.columnWidth = (parseFloat(style.width)/this.coumnCount)+"rem";
+			}else{
+				this.columnWidth = (parseFloat(style.width)/this.coumnCount);
+			}
+		}else{
+			this.columnWidth = px(StyleSheet.screen.width/this.coumnCount);
+		}
+		
 		this.state = {
 			data:this.props.data||[]
 		}
@@ -34,6 +45,7 @@ export default class Grid extends React.Component{
 		//(i===j-1&&(i+1)/this.coumnCount!==0)?1: 0
 		var len = this.state.data.length;
 
+		var borderWidth = this.props.bordernone?0:1;
 
 		
 		len =  Math.ceil(len/this.coumnCount)*this.coumnCount;
@@ -48,16 +60,20 @@ export default class Grid extends React.Component{
 			}
 
 		    var borderLeftWidth=0;
-			var	borderRightWidth=((i+1)%this.coumnCount===0)?0:1;
-			var	borderTopWidth = i<this.coumnCount?1:0;
-			var	borderBottomWidth=1;
+			var	borderRightWidth=((i+1)%this.coumnCount===0)?0:borderWidth;
+			var	borderTopWidth = i<this.coumnCount?borderWidth:0;
+			var	borderBottomWidth=borderWidth;
 				
 			if(this.coumnCount===4){
-				borderLeftWidth = 1;
+				borderLeftWidth = borderWidth;
 				borderRightWidth = 0;
-				borderTopWidth = 1;
-				borderBottomWidth = Math.ceil((i+1)/this.coumnCount) === this.coumnCount+1?1:0;
+				borderTopWidth = borderWidth;
+				borderBottomWidth = Math.ceil((i+1)/this.coumnCount) === this.coumnCount+1?borderWidth:0;
 			} 
+
+			if(i%this.coumnCount===0){
+				borderLeftWidth = 0;
+			}
 
 
 
@@ -67,8 +83,8 @@ export default class Grid extends React.Component{
 					justifyContent:"center",
 					alignItems:"center",
 					flexDirection:"column",
-					width:px(this.columnWidth),
-					height:px(this.cellHeight)
+					width:(this.columnWidth),
+					height:(this.cellHeight)
 				},
 				...StyleSheet.create({
 					borderLeftWidth:borderLeftWidth,
@@ -82,7 +98,7 @@ export default class Grid extends React.Component{
 				{item}
 				</View>);
 		}
-		return <View style={{flexWrap:"wrap",backgroundColor:"#fff",display:"flex",flexDirection:"row"}}>{child}</View>
+		return <View style={{...wrapperStyle,...this.props.style||{}}}>{child}</View>
 	}
 
 }

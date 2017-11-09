@@ -3,7 +3,7 @@ import {Run,Theme} from "react-bricks"
 Theme.extend(Theme,{});
 
 var config = {
-	root:"switchDemo",
+	root:"gridDemo",
 	devConfig:{
 		development:{
 			server:"http://localhost:8000"
@@ -29,7 +29,7 @@ var config = {
 		swiperDemo:require("./main/pages/swiperDemo").default,
 		popoverDemo:require("./main/pages/popoverDemo").default,
 		poplayerDemo:require("./main/pages/poplayerDemo").default,
-		menuDemo:require("./main/pages/menuDemo").default,
+		repeatDemo:require("./main/pages/repeatDemo").default,
 		gridDemo:require("./main/pages/gridDemo").default,
 		segmentContainerDemo:require("./main/pages/segmentContainerDemo").default,
 		tabsDemo:require("./main/pages/tabsDemo").default,

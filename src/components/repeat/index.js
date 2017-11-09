@@ -5,7 +5,7 @@ import Text from '../text';
 import StyleSheet from '../style';
 import Theme from '../theme';
 
-class Menu extends React.Component{
+class Repeat extends React.Component{
 	render(){
 		var child = [];
 		for(var i=0,j=this.props.children.length;i<j;i++){
@@ -55,7 +55,7 @@ class Line extends React.Component{
 	}
 }
 
-Menu.Item = MenuItem;
-Menu.Space = MenuSpace;
+Repeat.Item = MenuItem;
+Repeat.Space = MenuSpace;
 
-export default Menu;
+export default Repeat;

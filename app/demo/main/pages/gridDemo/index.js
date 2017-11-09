@@ -32,6 +32,12 @@ export default class GridDemo extends React.Component {
         <ScrollView style={{flex:1}}>
         <Space/>
           <Grid data={[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]} column={4} renderItem={this.renderItem.bind(this)}/>
+          <Space/>
+
+          <Grid bordernone={true} data={[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}]} 
+          style={ StyleSheet.create({width:400}) }
+          itemStyle = {StyleSheet.create({height:"auto"})}
+          column={3} renderItem={this.renderItem.bind(this)}/>
         </ScrollView>
       </View>
     );

@@ -20,7 +20,7 @@ import Switch from './switch';
 import FlatList from './flatlist';
 import Theme from './theme';
 import Header from './header'
-import Menu from './menu'
+import Repeat from './repeat'
 import Image from './image'
 import ActivityIndicator from './activityindicator';
 import {PageView,observer} from './pageview'
@@ -60,7 +60,7 @@ export {
 	SlideModal,
 	Switch,
 	Grid,
-	Menu,
+	Repeat,
 	Space,
 	Animated,
 	LayoutAnimation,
