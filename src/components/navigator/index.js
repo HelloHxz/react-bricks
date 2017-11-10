@@ -43,6 +43,8 @@ export default (config)=>{
 
 	const defaultGetStateForAction = AppNavigator.router.getStateForAction;
 
+	var prePageName = "";
+
 	AppNavigator.router.getStateForAction = (action, state) => {
 	  // if (
 	  //   state &&
@@ -86,8 +88,13 @@ export default (config)=>{
 		 //  };
 	  // }
 
+	  var params = action.params || {};
+	  var pageName =  action.routeName||"";
+	  var pageArr = pageName.split("/");
+	  params.__pagename = pageArr[0];
+
 	  var now = new Date().valueOf();
-	  if(now-preTime<1000&&action.type!=="Navigation/INIT"&&preTime){
+	  if(prePageName==pageName&&now-preTime<1000&&action.type!=="Navigation/INIT"&&preTime){
 	  	//解决快速点击跳出两个页面
 	  	return null;
 	  }
@@ -97,10 +104,7 @@ export default (config)=>{
 	  }
 
 
-	  var params = action.params || {};
-	  var pageName =  action.routeName||"";
-	  var pageArr = pageName.split("/");
-	  params.__pagename = pageArr[0];
+
 
 	  if(action.type==="Navigation/NAVIGATE"){
 		
@@ -140,6 +144,7 @@ export default (config)=>{
 	      };
 	  }
 
+	  prePageName = pageName;
 	  var Re = defaultGetStateForAction(action, state);
 
 	  return Re;

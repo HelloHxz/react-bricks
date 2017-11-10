@@ -89,7 +89,6 @@ export default class Tabs extends React.Component {
 
     if(this.state.selectedKey!==nextProps.selectedKey){
  	  var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
-
 	     Animated.spring(
 					        this.state.offset,
 					        {

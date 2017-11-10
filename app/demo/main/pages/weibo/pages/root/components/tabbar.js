@@ -1,9 +1,9 @@
 
 import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,Header,TouchableOpacity,Icon} from "react-bricks"
-import svgs from '../../../assets/svg/svgs.js';
+import svgs from '../../../../../assets/svg/svgs.js';
 
 @observer
-export default class Tabbar extends React.Component {
+class Tabbar extends React.Component {
  
   constructor(props){
     super(props);
@@ -29,18 +29,22 @@ export default class Tabbar extends React.Component {
   render() {
     return (
         <Tabs 
-          style={{backgroundColor:"#f2f3f4"}}
+          style={{backgroundColor:"#fff"}}
           size='lg'
           data={[
-            {key:"tabbardemo/buttonDemo",text:"Setting",icon:svgs.home},
-            {key:"tabbardemo/iconDemo",text:"my",icon:svgs.search}
+            {key:"weibo/home",text:"Home",icon:svgs.home},
+            {key:"weibo/discover",text:"Discover",icon:svgs.search},
+            {key:"weibo/message",text:"Message",icon:svgs.search},
+            {key:"weibo/me",text:"Me",icon:svgs.search}
           ]}
           itemStyle={{}}
           renderItem={this.tabsRenderItem.bind(this)}
-          selectedKey={this.props.chatStore.tabSelectedKey} 
+          selectedKey={this.props.rootStore.tabSelectedKey} 
           onChange={this.segChange.bind(this)}>
         </Tabs>
     );
   }
 }
+
+export default Tabbar;
 
