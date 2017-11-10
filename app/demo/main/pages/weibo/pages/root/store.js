@@ -3,5 +3,5 @@ class Store {
     @observable tabSelectedKey = "";
 }
 
-export default new Store;
+export default Store;
 

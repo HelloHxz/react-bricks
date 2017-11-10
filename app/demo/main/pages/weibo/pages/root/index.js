@@ -8,7 +8,7 @@ class RootPage extends React.Component {
 	
   static connectStore(){
     return {
-      rootStore:Store
+      rootStore:new Store
     }
   }
 

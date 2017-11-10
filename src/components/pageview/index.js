@@ -61,6 +61,11 @@ var PageView =  (WrappedComponent) => {
          this.state={
             params:props.navigation.state.params||{}
          }
+
+         this.store = {};
+         if(WrappedComponent.connectStore){
+            this.store = WrappedComponent.connectStore();
+         }
       }
 
       tabChange(params){
@@ -88,10 +93,7 @@ var PageView =  (WrappedComponent) => {
 
       render() {
          var _this = this;
-         var store = {};
-         if(WrappedComponent.connectStore){
-            store = WrappedComponent.connectStore();
-         }
+       
          return <View style={{flex:1}}>
          <WrappedComponent 
          ref={(pageInstance)=>{
@@ -99,7 +101,7 @@ var PageView =  (WrappedComponent) => {
          }}
          popPage={this.popPage.bind(this)}
          hidePopPage = {this.hidePopPage.bind(this)}
-         isPage={true} {...this.props} {...store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/>
+         isPage={true} {...this.props} {...this.store} params={this.state.params} key={this.pagekey} pkey={this.pagekey}/>
          <PopRoot ref={(poproot)=>{this.poproot = poproot;}}/>
          </View>
       }
