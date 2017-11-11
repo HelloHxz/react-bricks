@@ -50,12 +50,26 @@ class Tabbar extends React.Component {
     return  re
   }
 
+  tabGetIndicatorStyle(params){
+    return {
+      inner:StyleSheet.create({
+        backgroundColor:params.selectedItemData.key==="hot"?"#f14242":"orange",
+        width:53,
+        borderRadius:2,
+        left:30
+      }),
+      wrapper:{
+      }
+    }
+  }
+
   render() {
     //使用这句话主动监听this.props.rootStore.popLayerConfig
     var l =  this.props.rootStore.popLayerConfig;
     return (
         <Tabs 
-          style={StyleSheet.create({backgroundColor:"#fff",height:84,width:300})}
+          getIndicatorStyle={this.tabGetIndicatorStyle.bind(this)}
+          style={StyleSheet.create({backgroundColor:"#fff",height:84,width:280})}
           data={this.props.data}
           itemStyle={{flexDirection:"row"}}
           renderItem={this.tabsRenderItem.bind(this)}

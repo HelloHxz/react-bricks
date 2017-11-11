@@ -113,18 +113,29 @@ export default class Tabs extends React.Component {
   	if(this.itemWidth>0){
   		var {offset} = this.state;
   		var left = 0;
-
-  		return <Animated.View
-  			style={{
+  		var extendsStyle = {};
+  		if(this.props.getIndicatorStyle){
+  			extendsStyle = this.props.getIndicatorStyle({
+  				selectedItemData:this.state.data[this.preSelectedIndex]
+  			})||{};
+  		}
+  		var wrapperStyle = extendsStyle.wrapper||{};
+  		delete wrapperStyle.left;
+  		delete wrapperStyle.position;
+  		var WS = {...{
   				left:offset,
   				width:StyleSheet.isWeb?this.itemWidth+"px":this.itemWidth,
   				bottom:0,
   				position:"absolute"
-  			}}>
-  			<View style={{
+  		},...wrapperStyle};
+  		var IS = {...{
+  					position:"relative",
   					backgroundColor:Theme.theme_color,	
   					height:StyleSheet.px(6),
-  				}}
+  				},...extendsStyle.inner||{}}
+  		return <Animated.View
+  			style={WS}>
+  			<View style={IS}
   			></View>
   		</Animated.View>;
   	}
