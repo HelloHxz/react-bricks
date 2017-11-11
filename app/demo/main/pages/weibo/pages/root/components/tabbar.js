@@ -39,9 +39,9 @@ class Tabbar extends React.Component {
           size='lg'
           data={[
             {key:"weibo/home",text:"首页",icon:Icon.DemoIcons.home,selectedIcon:Icon.DemoIcons.home_fill},
-            {key:"weibo/discover",text:"发现",icon:Icon.DemoIcons.search,selectedIcon:Icon.DemoIcons.home},
-            {key:"weibo/message",text:"消息",icon:Icon.DemoIcons.search,selectedIcon:Icon.DemoIcons.home},
-            {key:"weibo/me",text:"我",icon:Icon.DemoIcons.search,selectedIcon:Icon.DemoIcons.home}
+            {key:"weibo/discover",text:"发现",icon:Icon.DemoIcons.camera,selectedIcon:Icon.DemoIcons.camera_fill},
+            {key:"weibo/message",text:"消息",icon:Icon.DemoIcons.community,selectedIcon:Icon.DemoIcons.community_fill},
+            {key:"weibo/me",text:"我",icon:Icon.DemoIcons.people,selectedIcon:Icon.DemoIcons.people_fill}
           ]}
           itemStyle={{}}
           renderItem={this.tabsRenderItem.bind(this)}

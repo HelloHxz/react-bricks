@@ -58,15 +58,9 @@ class SvgUri extends Component {
     this.createSVGElement = this.createSVGElement.bind(this);
     this.obtainComponentAtts = this.obtainComponentAtts.bind(this);
     this.inspectNode = this.inspectNode.bind(this);
-    this.fecthSVGData = this.fecthSVGData.bind(this);
 
     this.isComponentMounted = false;
 
-    // Gets the image data from an URL or a static file
-    if (props.source) {
-      const source = resolveAssetSource(props.source) || {};
-      this.fecthSVGData(source.uri);
-    }
   }
 
   componentWillMount() {
@@ -78,11 +72,6 @@ class SvgUri extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.svgXmlData!==this.state.svgXmlData) {
       this.setState({ svgXmlData: nextProps.svgXmlData });
-      // const source = resolveAssetSource(nextProps.source) || {};
-      // const oldSource = resolveAssetSource(this.props.source) || {};
-      // if (source.uri !== oldSource.uri) {
-      //   this.fecthSVGData(source.uri);
-      // }
     }
   }
 
@@ -90,21 +79,7 @@ class SvgUri extends Component {
     this.isComponentMounted = false;
   }
 
-  async fecthSVGData(uri) {
-    let responseXML = null;
-    try {
-      const response = await fetch(uri);
-      responseXML = await response.text();
-    } catch (e) {
-      console.error('ERROR SVG', e);
-    } finally {
-      if (this.isComponentMounted) {
-        this.setState({ svgXmlData: responseXML });
-      }
-    }
-
-    return responseXML;
-  }
+ 
 
   createSVGElement(node, childs) {
     let componentAtts = {};

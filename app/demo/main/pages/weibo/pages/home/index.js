@@ -35,7 +35,7 @@ class HomePage extends React.Component {
          <HomePopover homeStore={this.props.homeStore}/>
          <Header style={StyleSheet.create({justifyContent:"space-between"})}>
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",marginLeft:10,justifyContent:"center",alignItems:"center"})}><
-              Icon style={{color:"blue"}} icon={Icon.DemoIcons.search}/></TouchableOpacity>
+              Icon style={{color:"blue"}} icon={Icon.DemoIcons.profile}/></TouchableOpacity>
             <Tabbar homeStore={this.props.homeStore} data={tabData}/>
             <TouchableOpacity 
               onPress = {this.showPopover.bind(this)}
