@@ -31,6 +31,7 @@ class Container extends React.Component{
 			style.backgroundColor = "transparent";
 		}
 		return <Swiper
+			touchenable={false}
 			cache={true}
 			{...this.props}
 			style={style}

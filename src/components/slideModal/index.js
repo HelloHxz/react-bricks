@@ -23,7 +23,8 @@ export default class SildeModal extends React.Component{
 		this.state = {
 			visible:props.visible,
 			showValue:new Animated.Value(0),
-			direction:props.direction||"bottom"
+			direction:props.direction||"bottom",
+			animate:props.animate!==false?true:false
 		};
 	}
 
@@ -88,17 +89,24 @@ export default class SildeModal extends React.Component{
 	}
 
 	renderContent(){
+
+		if(!this.state.visible&&!this.hasInitPopContent){
+	          return null;
+	        }
+
+	    this.hasInitPopContent = true;  
+
+	    if(this.state.animate===false){
+	    	
+	    }
+
 	    var wrapperStyle = {
 	          position:"relative",
 	          width:"100%",
 	          backgroundColor:"#fff",
 	          overflow:"hidden"
 	      };
-	       if(!this.state.visible&&!this.hasInitPopContent){
-	          return null;
-	        }
-
-	        this.hasInitPopContent = true;  
+	       
 	        const drawerTranslateY = this.state.showValue.interpolate({
 	          inputRange: [0, 1],
 	          outputRange:[ StyleSheet._px(200),0],

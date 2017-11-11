@@ -145,7 +145,7 @@ class PopLayer extends React.Component {
 		    });
 		}
 	    const animatedOverlayStyles = { opacity: overlayOpacity };
-	    const wrapperStyle = this.state.isShow?styles.wrapper_show:styles.wrapper_hide;
+	    const showOrHide = this.state.isShow?styles.wrapper_show:styles.wrapper_hide;
 
 	    let children = [];
 	    for(const key in this.itemDict){
@@ -172,7 +172,7 @@ class PopLayer extends React.Component {
 
 	    }
 		return (
-		  <View style={{...styles.wrapper,...wrapperStyle}}>
+		  <View style={{...styles.wrapper,...showOrHide,...(this.props.wrapperStyle||{})}}>
 		  	<TouchableWithoutFeedback onPress={this.bkPress.bind(this)} >
 		  		<Animated.View style={{...styles.bkLayer,...animatedOverlayStyles}}/>
 		  	</TouchableWithoutFeedback>

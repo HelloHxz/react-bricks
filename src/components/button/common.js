@@ -54,6 +54,12 @@ class Button extends React.Component {
     return this._renderChildren();
   }
 
+  onPress(e){
+    if(this.props.onPress){
+      this.props.onPress(e)
+    }
+  }
+
 
   render() {
 
@@ -94,7 +100,7 @@ class Button extends React.Component {
 
     let touchableProps = {
       accessibilityLabel: this.props.accessibilityLabel,
-      onPress: this.props.onPress,
+      onPress: this.onPress.bind(this),
       onPressIn: this.props.onPressIn,
       onPressOut: this.props.onPressOut,
       onLongPress: this.props.onLongPress,
@@ -115,7 +121,6 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'stretch',
     justifyContent: 'center',
   },
   textButton: {

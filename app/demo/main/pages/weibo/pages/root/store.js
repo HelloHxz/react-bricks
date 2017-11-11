@@ -1,7 +1,9 @@
 import {observable} from 'mobx';
 class Store {
     @observable tabSelectedKey = "";
+    @observable showMidPage = false;
+    @observable popLayerConfig = {};
 }
 
-export default Store;
+export default new Store;
 

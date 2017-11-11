@@ -49,8 +49,6 @@ componentWillReceiveProps(nextProps){
         ).start()
     }
     if(nextProps.icon!==this.state.icon){
-      console.log("---");
-      console.log(nextProps.icon);
       this.setState({icon:nextProps.icon});
     }
     

@@ -14,13 +14,30 @@ class Tabbar extends React.Component {
   componentWillUnmount(){
   }
 
+
+  showMidPage(e){
+    e.preventDefault();
+    this.props.rootStore.showMidPage = true;
+  }
+
   segChange(params){
+    if(params.selectedData.key==='add'){
+      
+      return;
+    }
     this.props.navigation.replace(params.selectedData.key);
   }
 
   tabsRenderItem(params){
+    if(params.itemData.key==='add'){
+      return <Button 
+        onPress = {this.showMidPage.bind(this)}
+        type='primary' style={StyleSheet.create({backgroundColor:"orange",width:100,height:78})}>
+        <Icon style={StyleSheet.create({color:"#fff",fontSize:58})} key='add' icon={ Icon.DemoIcons.add}/>
+      </Button>
+    }
     var iconStyle = params.selected?{color:"orange"}:{};
-    var textStyle = {fontSize:24,marginTop:4};
+    var textStyle = {fontSize:23,marginTop:3};
     var icon = params.itemData.icon;
     if(params.selected){
       textStyle.color = "orange";
@@ -40,6 +57,7 @@ class Tabbar extends React.Component {
           data={[
             {key:"weibo/home",text:"首页",icon:Icon.DemoIcons.home,selectedIcon:Icon.DemoIcons.home_fill},
             {key:"weibo/discover",text:"发现",icon:Icon.DemoIcons.camera,selectedIcon:Icon.DemoIcons.camera_fill},
+            {key:"add"},
             {key:"weibo/message",text:"消息",icon:Icon.DemoIcons.community,selectedIcon:Icon.DemoIcons.community_fill},
             {key:"weibo/me",text:"我",icon:Icon.DemoIcons.people,selectedIcon:Icon.DemoIcons.people_fill}
           ]}

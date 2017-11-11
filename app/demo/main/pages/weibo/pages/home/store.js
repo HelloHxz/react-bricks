@@ -4,5 +4,5 @@ class Store {
     @observable popoverConfig={};
 }
 
-export default Store;
+export default new Store;
 

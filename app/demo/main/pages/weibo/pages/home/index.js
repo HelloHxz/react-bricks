@@ -1,8 +1,10 @@
 import {View,Text,React,Button,Theme,StyleSheet,UIManager,PageView,PageContainer,Header,TouchableOpacity,Icon} from "react-bricks"
 import Store from './store'
+import rootStore from '../root/store'
 import HomePopover from './components/popover'
 import Tabbar from './components/tabbar'
 import HomeContainer from './components/conatiner'
+
 
 
 const tabData = [
@@ -14,8 +16,11 @@ const tabData = [
 class HomePage extends React.Component {
 
   static connectStore(){
+
+    rootStore.homeStore = Store;
+
     return {
-      homeStore:new Store
+      homeStore:Store,rootStore:rootStore
     }
   }
 
@@ -35,12 +40,12 @@ class HomePage extends React.Component {
          <HomePopover homeStore={this.props.homeStore}/>
          <Header style={StyleSheet.create({justifyContent:"space-between"})}>
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",marginLeft:10,justifyContent:"center",alignItems:"center"})}><
-              Icon style={{color:"blue"}} icon={Icon.DemoIcons.profile}/></TouchableOpacity>
-            <Tabbar homeStore={this.props.homeStore} data={tabData}/>
+              Icon  icon={Icon.DemoIcons.profile}/></TouchableOpacity>
+            <Tabbar rootStore={this.props.rootStore} homeStore={this.props.homeStore} data={tabData}/>
             <TouchableOpacity 
               onPress = {this.showPopover.bind(this)}
-              style={StyleSheet.create({width:60,height:"100%",marginRight:10,justifyContent:"center",alignItems:"center"})}><
-              Icon style={{color:"blue"}} icon={Icon.DemoIcons.saoyisao}/></TouchableOpacity>
+              style={StyleSheet.create({width:60,height:"100%",marginRight:10,justifyContent:"center",alignItems:"center"})}>
+              <Icon  icon={Icon.DemoIcons.saoyisao}/></TouchableOpacity>
         </Header>
         <HomeContainer  data={tabData} homeStore={this.props.homeStore}/>
       </View>

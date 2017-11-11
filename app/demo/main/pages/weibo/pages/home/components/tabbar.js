@@ -15,6 +15,9 @@ class Tabbar extends React.Component {
   }
 
   segChange(params){
+    if(this.props.homeStore.tabSelectedKey=== params.selectedData.key){
+      this.props.rootStore.popLayerConfig = {key:params.selectedData.key,dirction:"top"}
+    }
     this.props.homeStore.tabSelectedKey = params.selectedData.key;
   }
 
