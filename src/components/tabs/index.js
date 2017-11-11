@@ -88,7 +88,8 @@ export default class Tabs extends React.Component {
   componentWillReceiveProps(nextProps){
  	var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
   	if(this.props.indicator!==false){
-	     Animated.spring(
+	     setTimeout(()=>{
+	     	Animated.spring(
 	        this.state.offset,
 	        {
 	          toValue: itemsAndOffset.offset,
@@ -97,6 +98,7 @@ export default class Tabs extends React.Component {
 	          easing:Easing.inOut(Easing.in)
 	        }
 	      ).start()
+	     },0)
 	 }
       this.setState({
         selectedKey:nextProps.selectedKey,
