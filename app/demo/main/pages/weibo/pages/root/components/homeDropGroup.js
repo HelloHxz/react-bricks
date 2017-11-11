@@ -10,17 +10,14 @@ class HomeDropGroup extends React.Component {
   }
   poplayerRenderItem(params){
     if(params.key==="guanzhu"){
-      return <View style={StyleSheet.create({height:300,width:"100%",backgroundColor:"red"})}>
+      return <View style={StyleSheet.create({height:600,width:"100%",backgroundColor:"red"})}>
         <Button onPress={this.showOther.bind(this)}>Show</Button>
       </View>
     }else if(params.key==="hot"){
-      return <View style={StyleSheet.create({height:200,width:"100%",backgroundColor:"orange"})}>
+      return <View style={StyleSheet.create({height:450,width:"100%",backgroundColor:"orange"})}>
         <Button>Hide</Button>
       </View>
     }
-    return <View style={StyleSheet.create({height:230,width:"100%",backgroundColor:"red"})}>
-      <Text>No {params.key} in RenderItem callBack</Text>
-    </View>
   }
 
   onBackLayerClick(){

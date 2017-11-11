@@ -37,7 +37,7 @@ class Tabbar extends React.Component {
       </Button>
     }
     var iconStyle = params.selected?{color:"orange"}:{};
-    var textStyle = {fontSize:23,marginTop:3};
+    var textStyle = {fontSize:21,marginTop:3};
     var icon = params.itemData.icon;
     if(params.selected){
       textStyle.color = "orange";

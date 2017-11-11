@@ -6,12 +6,6 @@ class Tabbar extends React.Component {
  
   constructor(props){
     super(props);
-
-    this.state={
-      seed:0
-    }
-
-  
   }
 
 
@@ -26,9 +20,7 @@ class Tabbar extends React.Component {
          this.props.rootStore.popLayerConfig = {key:params.selectedData.key,dirction:"top"}
       }
 
-      this.setState({
-        seed:this.state.seed+1
-      });
+      
     }else{
        if(this.props.rootStore.popLayerConfig.key){
         this.props.rootStore.popLayerConfig = {};
@@ -46,7 +38,7 @@ class Tabbar extends React.Component {
             ] ;
     var iconColor = "#fff";
     if( params.itemData.key === this.props.homeStore.tabSelectedKey){
-      iconColor = "#333";
+      iconColor = "#636363";
     }
     var rotate = {rotate:0};
     if(this.props.rootStore.popLayerConfig.key===params.itemData.key){
@@ -59,6 +51,8 @@ class Tabbar extends React.Component {
   }
 
   render() {
+    //使用这句话主动监听this.props.rootStore.popLayerConfig
+    var l =  this.props.rootStore.popLayerConfig;
     return (
         <Tabs 
           style={StyleSheet.create({backgroundColor:"#fff",height:84,width:300})}

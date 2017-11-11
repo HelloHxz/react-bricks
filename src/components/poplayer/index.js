@@ -37,7 +37,7 @@ var styles = StyleSheet.create({
 		bottom:0,
 		backgroundColor:"#000",
 		overflow:"hidden",
-		opacity:0.5,
+		opacity:0.2,
 		zIndex:1,
 	},
 	layer:{
@@ -140,7 +140,7 @@ class PopLayer extends React.Component {
 		}else{
 			overlayOpacity = openValue.interpolate({
 		      inputRange: [0, 1],
-		      outputRange: [0.1, 0.4],
+		      outputRange: [0.1, 0.2],
 		      extrapolate: 'clamp',
 		    });
 		}
