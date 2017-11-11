@@ -143,8 +143,8 @@ export default class Tabs extends React.Component {
   	this.itemhasMountCount+=1;
   	if(this.itemhasMountCount===this.state.data.length){
   		setTimeout(()=>{
-  			UIManager.measureRef(itemInstance,(x,y,width,height)=>{
-				this.itemWidth = width;
+  			UIManager.measureRef(itemInstance,(rect)=>{
+				this.itemWidth = rect.width;
 				if(this.itemWidth>0){
 					this.setState({
 						renderSeed:this.state.renderSeed+1,
