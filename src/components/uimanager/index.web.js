@@ -1,7 +1,14 @@
 export default {
 	measure:function(target,cb){
 		const rect = target.getBoundingClientRect();
-		cb(rect.left,rect.top,rect.width,rect.height,rect.left,rect.top);
+		cb({
+			x:rect.left,
+			y:rect.top,
+			width:rect.width,
+			height:rect.height,
+			left:rect.left,
+			top:rect.top
+		});
 	},
 	setLayoutAnimationEnabledExperimental(){},
 	measureRef:function(target,cb){
@@ -19,9 +26,23 @@ export default {
 			if(target.getBoundingClientRect){
 				rect = target.getBoundingClientRect();
 			}
-			cb(rect.left,rect.top,rect.width,rect.height);
+			cb({
+				x:rect.left,
+				y:rect.top,
+				width:rect.width,
+				height:rect.height,
+				left:rect.left,
+				top:rect.top
+			});
 		}else{
-			cb(0,0,0,0);
+			cb({
+				x:0,
+				y:0,
+				width:0,
+				height:0,
+				left:0,
+				top:0
+			});
 		}
 	}
 };

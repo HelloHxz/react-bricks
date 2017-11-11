@@ -159,6 +159,7 @@ class PopoverItem extends React.Component{
          	  pos["top"] = top;
         	}
           pos = this._getLeft(pos,rect,popWidth,popHeight,"top");
+
         break;
         case "right":
           var left = (rect.right+this.offsetX);
@@ -236,8 +237,8 @@ class PopoverItem extends React.Component{
 		}
 		if(props.isShow){
 			setTimeout(()=>{
-				UIManager.measureRef(this.instance,(x,y,width,height)=>{
-					this.caculatePosition(targetRect,width,height);
+				UIManager.measureRef(this.instance,(rect)=>{
+					this.caculatePosition(targetRect,rect.width,rect.height);
 					this.showOrHide(true);
 				});
 			},20)

@@ -5,10 +5,14 @@ import StyleSheet from '../style'
 export default {
 	measure:function(target,cb){
 		UIManager.measure(target,(x,y,width,height,left,top)=>{
-			cb(x,
+			cb({
+				x,
 				y,
 				width,
-				height,left,top);
+				height,
+				left,
+				top
+			});
 		});
 	},
 	setLayoutAnimationEnabledExperimental(){
@@ -22,10 +26,17 @@ export default {
 				target = target.getNode();
 			}
 			target.measure((x,y,width,height)=>{
-				cb(x,y,width,height);
+				cb({
+					x,y,width,height
+				});
 			})
 		}else{
-			cb(0,0,0,0);
+			cb({
+				x:0,
+				y:0,
+				width:0,
+				height:0
+			});
 		}
 	}
 };

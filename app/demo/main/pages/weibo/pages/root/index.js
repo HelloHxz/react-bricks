@@ -1,6 +1,5 @@
 import {View,Text,React,Button,Theme,StyleSheet,PageView,PageContainer} from "react-bricks"
 import Store from './store'
-import svgs from '../../../../assets/svg/svgs.js';
 import Tabbar from './components/tabbar'
 
 @PageView

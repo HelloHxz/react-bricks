@@ -1,6 +1,5 @@
 
 import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,Header,TouchableOpacity,Icon} from "react-bricks"
-import svgs from '../../../../../assets/svg/svgs.js';
 
 @observer
 class Tabbar extends React.Component {
@@ -20,9 +19,14 @@ class Tabbar extends React.Component {
   }
 
   tabsRenderItem(params){
+    var iconStyle = params.selected?{color:"orange"}:{};
+    var textStyle = {fontSize:24,marginTop:4};
+    if(params.selected){
+      textStyle.color = "orange";
+    }
     return  [ 
-               <Icon key='icon' selected={params.selected} style={{color:"blue"}} icon={params.itemData.icon}/>,
-               <Text key='text' selected={params.selected}>{params.itemData.text}</Text>
+               <Icon style={iconStyle} key='icon' icon={params.itemData.icon}/>,
+               <Text style={StyleSheet.create(textStyle)} key='text'>{params.itemData.text}</Text>
             ] 
   }
 
@@ -32,10 +36,10 @@ class Tabbar extends React.Component {
           style={{backgroundColor:"#fff"}}
           size='lg'
           data={[
-            {key:"weibo/home",text:"Home",icon:svgs.home},
-            {key:"weibo/discover",text:"Discover",icon:svgs.search},
-            {key:"weibo/message",text:"Message",icon:svgs.search},
-            {key:"weibo/me",text:"Me",icon:svgs.search}
+            {key:"weibo/home",text:"首页",icon:Icon.DemoIcons.home},
+            {key:"weibo/discover",text:"发现",icon:Icon.DemoIcons.search},
+            {key:"weibo/message",text:"消息",icon:Icon.DemoIcons.search},
+            {key:"weibo/me",text:"我",icon:Icon.DemoIcons.search}
           ]}
           itemStyle={{}}
           renderItem={this.tabsRenderItem.bind(this)}

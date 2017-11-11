@@ -1,4 +1,7 @@
-import {Run,Theme} from "react-bricks"
+import {Run,Theme,Icon} from "react-bricks"
+import AppSvgs from './main/assets/svg/svgs';
+
+Icon.DemoIcons = AppSvgs;
 
 Theme.extend(Theme,{});
 

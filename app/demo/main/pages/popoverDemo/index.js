@@ -24,13 +24,8 @@ export default class PopoverDemo extends React.Component {
   }
 
   Show(d,e){
-      UIManager.measure(e.currentTarget,(x, y, width, height, left, top)=>{
-       this.props.popoverStore.popoverConfig = {rect:{
-        left:left,
-        top:top,
-        width:width,
-        height:height
-       },direction:"right"}
+      UIManager.measure(e.currentTarget,(rect)=>{
+       this.props.popoverStore.popoverConfig = {rect:rect,direction:"right"}
     })
   }
 
