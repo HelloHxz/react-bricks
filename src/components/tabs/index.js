@@ -86,19 +86,18 @@ export default class Tabs extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-
- 	  var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
+ 	var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
+  	if(this.props.indicator!==false){
 	     Animated.spring(
-					        this.state.offset,
-					        {
-					          toValue: itemsAndOffset.offset,
-					          duration:190,
-					          bounciness: 10, 
-					          easing:Easing.inOut(Easing.in)
-					        }
-					      ).start(
-					      	
-					      )
+	        this.state.offset,
+	        {
+	          toValue: itemsAndOffset.offset,
+	          duration:190,
+	          bounciness: 10, 
+	          easing:Easing.inOut(Easing.in)
+	        }
+	      ).start()
+	 }
       this.setState({
         selectedKey:nextProps.selectedKey,
         items:itemsAndOffset.items
@@ -115,21 +114,19 @@ export default class Tabs extends React.Component {
   		var {offset} = this.state;
   		var left = 0;
 
-  			// left = offset.interpolate({
-		   //    inputRange: [0,1],
-		   //    outputRange: [0, 1],
-		   //    extrapolate: 'clamp',
-		   //  });
   		return <Animated.View
   			style={{
   				left:offset,
   				width:StyleSheet.isWeb?this.itemWidth+"px":this.itemWidth,
-  				height:StyleSheet.px(6),
-  				backgroundColor:"orange",
   				bottom:0,
   				position:"absolute"
-  			}}
-  		></Animated.View>;
+  			}}>
+  			<View style={{
+  					backgroundColor:Theme.theme_color,	
+  					height:StyleSheet.px(6),
+  				}}
+  			></View>
+  		</Animated.View>;
   	}
   	return null;
   }
@@ -171,10 +168,13 @@ export default class Tabs extends React.Component {
 		Wrapper = ScrollView;
 	}
 	
-
+	var indicator = null;
+	if(this.props.indicator!==false){
+		indicator = this.renderIndicator();
+	}
     return (<Wrapper showsHorizontalScrollIndicator={false} scrollEnabled={true} horizontal={true} style={this.wrapperStyle }>
       {this.state.items}
-      {this.renderIndicator()}
+      {indicator}
       </Wrapper>);
   }
 }

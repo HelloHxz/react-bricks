@@ -52,6 +52,7 @@ class Tabbar extends React.Component {
   render() {
     return (
         <Tabs 
+          indicator={false}
           style={{backgroundColor:"#fff"}}
           size='lg'
           data={[
