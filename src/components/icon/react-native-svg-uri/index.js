@@ -76,12 +76,13 @@ class SvgUri extends Component {
 
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.source) {
-      const source = resolveAssetSource(nextProps.source) || {};
-      const oldSource = resolveAssetSource(this.props.source) || {};
-      if (source.uri !== oldSource.uri) {
-        this.fecthSVGData(source.uri);
-      }
+    if (nextProps.svgXmlData!==this.state.svgXmlData) {
+      this.setState({ svgXmlData: nextProps.svgXmlData });
+      // const source = resolveAssetSource(nextProps.source) || {};
+      // const oldSource = resolveAssetSource(this.props.source) || {};
+      // if (source.uri !== oldSource.uri) {
+      //   this.fecthSVGData(source.uri);
+      // }
     }
   }
 

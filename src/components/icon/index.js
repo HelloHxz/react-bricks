@@ -33,29 +33,31 @@ constructor(props){
     super(props);
     this.preRotate = parseInt(props.rotate||0);
     this.state = {
-      rotate:new Animated.Value(parseInt(props.rotate||0))
+      rotate:new Animated.Value(parseInt(props.rotate||0)),
+      icon:props.icon
     };
   }
 
 componentWillReceiveProps(nextProps){
-  if(nextProps.rotate||nextProps.rotate===0){
-      if(nextProps.rotate!==this.state.rotate){
-      var to = nextProps.rotate||0;
-         Animated.spring(
-                  this.state.rotate,
-                  {
-                    toValue: parseInt(to),
-                  }
-                ).start(
-                  
-                )
+    if(nextProps.rotate!==this.state.rotate){
+       var to = nextProps.rotate||0;
+       Animated.spring(
+          this.state.rotate,
+          {
+            toValue: parseInt(to),
+          }
+        ).start()
     }
+    if(nextProps.icon!==this.state.icon){
+      console.log("---");
+      console.log(nextProps.icon);
+      this.setState({icon:nextProps.icon});
     }
     
   }
   render() {
     var isAnimateView = false;
-    if (!this.props.icon) {
+    if (!this.state.icon) {
       return null;
     }
     var Wrapper = View;
@@ -77,11 +79,11 @@ componentWillReceiveProps(nextProps){
      fill = {fill:StyleConfig.color};
     }
 
-    var icon = this.props.icon;
-
-    if(icon.length<27){
-      icon = svgs[icon];
+    var icon = this.state.icon;
+    if(this.state.icon.length<27){
+      icon = svgs[this.state.icon];
     }
+
    
     return (
       <Wrapper style={{...{justifyContent:"center",alignItems:"center"},...StyleConfig.wrapperStyle}}>

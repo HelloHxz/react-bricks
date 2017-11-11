@@ -21,11 +21,13 @@ class Tabbar extends React.Component {
   tabsRenderItem(params){
     var iconStyle = params.selected?{color:"orange"}:{};
     var textStyle = {fontSize:24,marginTop:4};
+    var icon = params.itemData.icon;
     if(params.selected){
       textStyle.color = "orange";
+      icon = params.itemData.selectedIcon;
     }
     return  [ 
-               <Icon style={iconStyle} key='icon' icon={params.itemData.icon}/>,
+               <Icon style={iconStyle} key='icon' icon={icon}/>,
                <Text style={StyleSheet.create(textStyle)} key='text'>{params.itemData.text}</Text>
             ] 
   }
@@ -36,10 +38,10 @@ class Tabbar extends React.Component {
           style={{backgroundColor:"#fff"}}
           size='lg'
           data={[
-            {key:"weibo/home",text:"首页",icon:Icon.DemoIcons.home},
-            {key:"weibo/discover",text:"发现",icon:Icon.DemoIcons.search},
-            {key:"weibo/message",text:"消息",icon:Icon.DemoIcons.search},
-            {key:"weibo/me",text:"我",icon:Icon.DemoIcons.search}
+            {key:"weibo/home",text:"首页",icon:Icon.DemoIcons.home,selectedIcon:Icon.DemoIcons.home_fill},
+            {key:"weibo/discover",text:"发现",icon:Icon.DemoIcons.search,selectedIcon:Icon.DemoIcons.home},
+            {key:"weibo/message",text:"消息",icon:Icon.DemoIcons.search,selectedIcon:Icon.DemoIcons.home},
+            {key:"weibo/me",text:"我",icon:Icon.DemoIcons.search,selectedIcon:Icon.DemoIcons.home}
           ]}
           itemStyle={{}}
           renderItem={this.tabsRenderItem.bind(this)}
