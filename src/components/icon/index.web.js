@@ -40,16 +40,14 @@ class Com extends React.Component{
 
 		if(nextProps.rotate||nextProps.rotate===0){
 			if(nextProps.rotate!==this.state.rotate){
-			var to = nextProps.rotate||0;
-	    	 Animated.spring(
-					        this.state.rotate,
-					        {
-					          toValue: parseInt(to),
-					        }
-					      ).start(
-					      	
-					      )
-		}
+				var to = nextProps.rotate||0;
+	    		Animated.spring(
+			        this.state.rotate,
+			        {
+			          toValue: parseInt(to),
+			        }
+				).start()
+			}
 		}
 		
 	}

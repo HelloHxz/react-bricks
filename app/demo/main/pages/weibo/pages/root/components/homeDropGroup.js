@@ -25,13 +25,13 @@ class HomeDropGroup extends React.Component {
 
   onBackLayerClick(){
     //this.props.rootStore.homeStore.tabSelectedKey = "hot";
-    this.props.rootStore.popLayerConfig = null;
+    this.props.rootStore.popLayerConfig = {};
   }
 
   render() {
     return (
       <Poplayer 
-      wrapperStyle={StyleSheet.create({top:PlatForm.OS==='ios'?(82+24):82})}
+      wrapperStyle={StyleSheet.create({top:PlatForm.OS==='ios'?(85+24):85})}
       onBackLayerClick={
         this.onBackLayerClick.bind(this)
       }

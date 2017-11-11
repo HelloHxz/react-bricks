@@ -87,7 +87,6 @@ export default class Tabs extends React.Component {
 
   componentWillReceiveProps(nextProps){
 
-    if(this.state.selectedKey!==nextProps.selectedKey){
  	  var itemsAndOffset = this.getItems(nextProps.data||[],nextProps.selectedKey,nextProps);
 	     Animated.spring(
 					        this.state.offset,
@@ -105,7 +104,6 @@ export default class Tabs extends React.Component {
         items:itemsAndOffset.items
       });
     
-   }
    
   }
 
