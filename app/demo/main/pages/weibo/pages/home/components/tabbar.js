@@ -15,6 +15,7 @@ class Tabbar extends React.Component {
   }
 
   segChange(params){
+    this.props.homeStore.tabSelectedKey = params.selectedData.key;
   }
 
   tabsRenderItem(params){
@@ -29,10 +30,7 @@ class Tabbar extends React.Component {
     return (
         <Tabs 
           style={StyleSheet.create({backgroundColor:"#fff",height:84,width:300})}
-          data={[
-            {key:"guanzhu",text:"关注",icon:Icon.DemoIcons.home},
-            {key:"hot",text:"热门",icon:Icon.DemoIcons.search}
-          ]}
+          data={this.props.data}
           itemStyle={{}}
           renderItem={this.tabsRenderItem.bind(this)}
           selectedKey={this.props.homeStore.tabSelectedKey} 
