@@ -41,7 +41,7 @@ export default class Img extends React.Component{
 
 	constructor(props){
 		super(props);
-		this.resizeMode = props.resizeMode||"contain";
+		this.resizeMode = props.resizeMode||"cover";
 		
 		this.state = {
 			resizeStyle:{}
@@ -55,14 +55,9 @@ export default class Img extends React.Component{
 			var style = this.props.style||{};
 			var mw = e.nativeEvent.source.width;
 			var mh =  e.nativeEvent.source.height;
-			if(PlatForm.OS==='android'){
-				mw = style.width||style.maxWidth||mw;
-				mh = style.height||style.maxHeight||mh;
-			}
+			mw = style.width||style.maxWidth||mw;
+			mh = style.height||style.maxHeight||mh;
 			Image.getSize(e.nativeEvent.source.url,(w,h)=>{
-				console.log(w,h);
-				console.log(mw,mh);
-				console.log(AutoResizeImage(w,h,mw,mh))
 				this.setState({
 					resizeStyle:AutoResizeImage(w,h,mw,mh)
 				})
@@ -76,7 +71,7 @@ export default class Img extends React.Component{
 		var imageStyle = {width:"100%",height:"100%"};
 		for(var key in style){
 			if(k.indexOf(key)>=0){
-				wrapperStyle[key] = style[key];key
+				wrapperStyle[key] = style[key];
 				if(key==='borderRadius'){
 					imageStyle[key] = style[key]
 				}

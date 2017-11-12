@@ -55,6 +55,12 @@ export default class IconDemo extends React.Component {
             source={{uri:imgurl}}
           />
            <Space/>
+           <Image
+            resizeMode='bl'
+            style={StyleSheet.create({maxWidth:300,maxHeight:300})}
+            source={{uri:imgurl}}
+          />
+           <Space/>
         </ScrollView>
       </View>
     );
