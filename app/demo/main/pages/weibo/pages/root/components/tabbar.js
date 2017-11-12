@@ -1,5 +1,5 @@
 
-import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,Header,TouchableOpacity,Icon} from "react-bricks"
+import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,Header,TouchableOpacity,Icon,Theme} from "react-bricks"
 
 @observer
 class Tabbar extends React.Component {
@@ -53,7 +53,7 @@ class Tabbar extends React.Component {
     return (
         <Tabs 
           indicator={false}
-          style={StyleSheet.create({backgroundColor:"#fff"})}
+          style={StyleSheet.create({backgroundColor:"#fff",borderTopColor:"#ccc",borderTopWidth:1,borderStyle:"solid"})}
           size='lg'
           data={[
             {key:"weibo/home",text:"首页",icon:Icon.DemoIcons.home,selectedIcon:Icon.DemoIcons.home_fill},

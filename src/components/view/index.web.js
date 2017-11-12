@@ -17,7 +17,7 @@ class View extends React.Component {
 
   	style = StyleSheet.convertTransform(style,this.props.xzIsAnimate);
 
-    var classNameArr = [];
+    var classNameArr = ["xz-view"];
     if(this.props.className){
       classNameArr.push(this.props.className);
     }
