@@ -141,7 +141,6 @@ class SvgUri extends Component {
         [nodeName]: this.props.fill && nodeName === 'fill' ? this.props.fill : nodeValue,
       }), {});
     Object.assign(componentAtts, styleAtts);
-    console.log(componentAtts);
     return componentAtts;
   }
 

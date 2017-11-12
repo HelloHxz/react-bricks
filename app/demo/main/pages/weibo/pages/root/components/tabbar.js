@@ -53,7 +53,7 @@ class Tabbar extends React.Component {
     return (
         <Tabs 
           indicator={false}
-          style={{backgroundColor:"#fff"}}
+          style={StyleSheet.create({backgroundColor:"#fff"})}
           size='lg'
           data={[
             {key:"weibo/home",text:"首页",icon:Icon.DemoIcons.home,selectedIcon:Icon.DemoIcons.home_fill},
