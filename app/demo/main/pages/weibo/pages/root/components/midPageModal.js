@@ -26,7 +26,7 @@ class MidlePage extends React.Component {
           onPress = {this.hideMidPage.bind(this)}
           style={StyleSheet.create({height:92,borderTopWidth:1,borderStyle:"solid",justifyContent:"center",alignItems:"center",borderColor:"#ccc"})}
         >
-          <Icon style={StyleSheet.create({color:"gray",fontSize:58})} key='add' icon={ Icon.DemoIcons.add}/>
+          <Icon rotate={45} style={StyleSheet.create({color:"gray",fontSize:58})} key='add' icon={ Icon.DemoIcons.add}/>
         </TouchableOpacity>
       </View>
     );

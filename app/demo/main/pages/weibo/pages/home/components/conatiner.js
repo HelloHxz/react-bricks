@@ -11,9 +11,9 @@ class BottomContainer extends React.Component {
 
   renderContainerItem(params){
     if(params.data.key==='guanzhu'){
-      return <GuanZhuPage/>
+      return <GuanZhuPage navigation={this.props.navigation}/>
     }else if(params.data.key==='hot'){
-      return <HotPage/>
+      return <HotPage navigation={this.props.navigation}/>
     }
   }
 

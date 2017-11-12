@@ -47,7 +47,7 @@ class HomePage extends React.Component {
               style={StyleSheet.create({width:60,height:"100%",marginRight:10,justifyContent:"center",alignItems:"center"})}>
               <Icon  icon={Icon.DemoIcons.saoyisao}/></TouchableOpacity>
         </Header>
-        <HomeContainer  data={tabData} homeStore={this.props.homeStore}/>
+        <HomeContainer navigation={this.props.navigation} data={tabData} homeStore={this.props.homeStore}/>
       </View>
     );
   }
