@@ -6,17 +6,7 @@ import Animated from '../../animated';
 import Theme from '../../theme'
 import StyleSheet from '../../style'
 import TouchableWithoutFeedback from '../../touchablewithoutfeedback';
-    // var P = global.__bricks__.config.pages[ToPageName.split("_")[0]];
-    //   this.arr[ToPageName]=(<P 
-    //                 ref={(instance)=>{
-    //                   this.dict[ToPageName] = instance;
-    //                 }}
-    //                 owner = {props.owner}
-    //                 isInTab = {true}
-    //                 pagename={ToPageName} 
-    //                 navigation={props.navigation} 
-    //                 key={key} 
-    //                 pkey={key}></P>) ;
+
 var AlertStyles = StyleSheet.create({
 	wrapper:{
 		position:"absolute",
@@ -54,12 +44,14 @@ var AlertStyles = StyleSheet.create({
 		position:"absolute",
 		top:0
 	},
-	contentWrapper:{position:"absolute",borderRadius:10,width:"100%",height:"100%",zIndex:10,backgroundColor:"#fff"}
+	contentWrapper:{position:"absolute",display:"flex",width:"100%",height:"100%",zIndex:10,backgroundColor:"#fff"}
 });
 export default class AlertItem extends React.Component{
 
 	constructor(props){
 		super(props);
+		this.config = props.config||{};
+		this.animate = !!props.config.animate;
 		this.state = {
 			willHide:false,
 			openValue: new Animated.Value(0),
@@ -67,58 +59,65 @@ export default class AlertItem extends React.Component{
 	}
 
 	hide(key){
-		Animated.timing(
-	        this.state.openValue,
-	        {
-			  toValue: 0,
-			  easing:Easing.in(),
-	          duration:140,
-	        }
-	      ).start(
-	      	()=>{
-	      		this.setState({
-					willHide:true
-				})
-				delete this.props.parent.Dict[key];
-    			delete this.props.parent.instanceDict[key];
-	      	}
-	      )
+		if(this.animate){
+			Animated.timing(
+				this.state.openValue,
+				{
+				  toValue: 0,
+				  easing:Easing.in(),
+				  duration:140,
+				}
+			  ).start(
+				  ()=>{
+					this._hide(key);
+				  }
+			  )
+		}else{
+			this._hide(key);
+		}
+		
+	}
+
+	_hide(key){
+		this.setState({
+			willHide:true
+		})
+		delete this.props.parent.Dict[key];
+		delete this.props.parent.instanceDict[key];
 	}
 
 	componentDidMount(){
-		Animated.timing(
-	        this.state.openValue,
-	        {
-			  toValue: 1,
-			  easing:Easing.in(),
-	          duration:150,
-	        }
-	      ).start(
-	      	
-	      )
+		if(this.animate){
+			Animated.timing(
+				this.state.openValue,
+				{
+				  toValue: 1,
+				  easing:Easing.in(),
+				  duration:150,
+				}
+			  ).start(
+				  
+			  )
+		}
 	}
-
-
-
-	// (
-	// 				<TouchableWithoutFeedback key="bk" onPress={this.bkPress.bind(this)} >
-	// 	  				<Animated.View style={{...AlertStyles.bkLayer,...{}}}/>
-	// 	  			</TouchableWithoutFeedback>
-	// 	  		),
 
 	render(){
 		var children = [];
 		if(this.state.willHide){
 			return null;
 		}
-	
-		var drawerTranslateY = this.state.openValue.interpolate({
-		    inputRange: [0, 1],
-		    outputRange:[StyleSheet._px(StyleSheet.baseScreen.height),0],
-		    extrapolate: 'clamp',
-		});
-
-		const animateStyle={transform:[{"translateY":drawerTranslateY}]};
+		var animateStyle = {};
+		if(this.animate){
+			var drawerTranslateY = this.state.openValue.interpolate({
+				inputRange: [0, 1],
+				outputRange:[StyleSheet._px(StyleSheet.baseScreen.height),0],
+				extrapolate: 'clamp',
+			});
+			animateStyle={transform:[{"translateY":drawerTranslateY}]};
+		}else{
+			
+		}
+		
 
 		return <View style={StyleSheet.create({position:"absolute",flexDirection:"row",top:0,left:0,zIndex:11111,width:StyleSheet.baseScreen.width,height:"100%"})}>
 			<Animated.View 

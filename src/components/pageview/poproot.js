@@ -25,7 +25,7 @@ export default class PopRoot extends React.Component{
 		var key = "poppage_"+seedkey;
 		this.Dict[key] = <PageWrapper 
 			pagekey={seedkey+"p"}
-			params={params}
+			config={params}
 			ref={(instance)=>{
 			  this.instanceDict[key] = instance;
 			}} pkey={key} parent={this} key={key}>{children}</PageWrapper>

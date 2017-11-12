@@ -1,4 +1,4 @@
-import {View,Text,React,Button,Theme,StyleSheet,PageView,observer,SlideModal} from "react-bricks"
+import {View,Text,React,Icon,Button,Theme,TouchableOpacity,StyleSheet,PageView,observer} from "react-bricks"
 
 @observer
 class MidlePage extends React.Component {
@@ -11,9 +11,24 @@ class MidlePage extends React.Component {
   componentDidMount() {
   }
 
+  componentWillUnmount(){
+  }
+
+  hideMidPage(){
+    this.props.hideMidPage();
+  }
+
   render() {
     return (
-      <SlideModal onBackLayerClick={this.midPageHide.bind(this)} visible={this.props.rootStore.showMidPage}><Text>T</Text></SlideModal>
+      <View style={{flex:1}}>
+        <View style={{flex:1}}></View>
+        <TouchableOpacity
+          onPress = {this.hideMidPage.bind(this)}
+          style={StyleSheet.create({height:92,borderTopWidth:1,borderStyle:"solid",justifyContent:"center",alignItems:"center",borderColor:"#ccc"})}
+        >
+          <Icon style={StyleSheet.create({color:"gray",fontSize:58})} key='add' icon={ Icon.DemoIcons.add}/>
+        </TouchableOpacity>
+      </View>
     );
   }
 }

@@ -129,7 +129,7 @@ let Re = {
 	tabs_selected_backgroundcolor:"transparent",
 	tabs_backgroundcolor:"#fff",
 	tabs_press_underlaycolor:Common.underlaycolor,
-	tabs_default_height:88,
+	tabs_default_height:92,
 	tabs_sm_height:70,
 
 	alert_bk_opacity:Common.theme_bk_opacity,
