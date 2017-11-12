@@ -67,10 +67,11 @@ export default class AlertItem extends React.Component{
 	}
 
 	hide(key){
-		Animated.spring(
+		Animated.timing(
 	        this.state.openValue,
 	        {
-	          toValue: 0,
+			  toValue: 0,
+			  easing:Easing.in(),
 	          duration:140,
 	        }
 	      ).start(
@@ -85,11 +86,12 @@ export default class AlertItem extends React.Component{
 	}
 
 	componentDidMount(){
-		Animated.spring(
+		Animated.timing(
 	        this.state.openValue,
 	        {
-	          toValue: 1,
-	          duration:140,
+			  toValue: 1,
+			  easing:Easing.in(),
+	          duration:150,
 	        }
 	      ).start(
 	      	
@@ -118,14 +120,13 @@ export default class AlertItem extends React.Component{
 
 		const animateStyle={transform:[{"translateY":drawerTranslateY}]};
 
-		children = <Animated.View 
+		return <View style={StyleSheet.create({position:"absolute",flexDirection:"row",top:0,left:0,zIndex:11111,width:StyleSheet.baseScreen.width,height:"100%"})}>
+			<Animated.View 
 			key='content' 
 			style={{...AlertStyles.contentWrapper,...animateStyle}}
 			>
-			</Animated.View>;
-
-		return <View style={StyleSheet.create({position:"absolute",flexDirection:"row",top:0,left:0,zIndex:11111,width:StyleSheet.baseScreen.width,height:"100%"})}>
-			{children}
+			{this.props.children}
+			</Animated.View>
 		</View>;
 	}
 }

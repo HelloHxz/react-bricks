@@ -10,7 +10,6 @@ import PageWrapper from './components/pagewrapper'
 
 
 let seedkey = 0;
-
 export default class PopRoot extends React.Component{
 	constructor(props){
 		super(props);
@@ -21,15 +20,15 @@ export default class PopRoot extends React.Component{
 		}
 	}
 
-	show(pagekey,params){
+	show(children,params){
 		seedkey+=1;
 		var key = "poppage_"+seedkey;
 		this.Dict[key] = <PageWrapper 
-			pagekey={pagekey}
+			pagekey={seedkey+"p"}
 			params={params}
 			ref={(instance)=>{
 			  this.instanceDict[key] = instance;
-			}} pkey={key} parent={this} key={key}/>
+			}} pkey={key} parent={this} key={key}>{children}</PageWrapper>
 		this.setState({seed:1});
 		return key;
 	}

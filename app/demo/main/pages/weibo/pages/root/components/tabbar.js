@@ -17,7 +17,8 @@ class Tabbar extends React.Component {
 
   showMidPage(e){
     e.preventDefault();
-    this.props.rootStore.showMidPage = true;
+    // this.props.rootStore.showMidPage = true;
+    this.props.showMidPage(e);
   }
 
   segChange(params){

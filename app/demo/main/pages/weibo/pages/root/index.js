@@ -22,6 +22,21 @@ class RootPage extends React.Component {
     });
   }
 
+  onPageBeforeLeave(params){
+    if(params.action==="后退"){
+      if(this.popPageKey){
+        this.props.hidePopPage(this.popPageKey);
+        this.popPageKey = null;
+        return false;
+      }
+      return true;
+    }
+  }
+
+  showMidPage(e){
+    this.popPageKey = this.props.popPage(<Text>sss</Text>,{});
+  }
+
  
   componentDidMount() {
   }
@@ -33,6 +48,7 @@ class RootPage extends React.Component {
           <MidlePageModal rootStore={this.props.rootStore}/>
           <PageContainer {...this.props} owner={this}/>
           <Tabbar 
+          showMidPage={this.showMidPage.bind(this)}
           navigation={this.props.navigation}
           rootStore = {this.props.rootStore}/>
       </View>

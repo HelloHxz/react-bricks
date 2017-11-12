@@ -659,6 +659,7 @@ class Navigation extends React.Component {
 
     var crKey = "",pcKey = "";
 
+    var s = true;
     for(var i=0,j=curPathArr.length;i<j;i++){
       if(i===0){
         crKey = curPathArr[0]+"_"+curSeedStr;
@@ -668,13 +669,14 @@ class Navigation extends React.Component {
         pcKey = pcKey+"_"+(goPathArr[i]||"");
       }
       var instanceInfo = this.pageInstanceDict[crKey];
-      var s = true;
       if(instanceInfo){
           if(crKey!==pcKey||(goSeedStr===curSeedStr&&curSeedStr===("1"+splitchar+"0"))){
             var  pageLeaveR= instanceInfo.instance.onPageBeforeLeave({action:action});
-            if(i===j-1){
+            var p = (pageLeaveR!==false||pageLeaveR)?true:false;
+            if(!p&&s){
+              // i===j-1
             //只有最末级的页面才能在onPageBeforeLeave阻止离开 其他页面只会走onPageBeforeLeave方法而不能阻止
-              s = (pageLeaveR!==false||pageLeaveR)?true:false;
+              s = p;
             }
           }
       }

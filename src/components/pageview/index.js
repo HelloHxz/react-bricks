@@ -86,8 +86,8 @@ var PageView =  (WrappedComponent) => {
          this.poproot.hide(pagekey);
       }
 
-      popPage(pagekey,params){
-         return this.poproot.show(pagekey,params);
+      popPage(children,params){
+         return this.poproot.show(children,params);
       }
 
 

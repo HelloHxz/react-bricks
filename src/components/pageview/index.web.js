@@ -13,8 +13,8 @@ var PageView =   (WrappedComponent) => {
          return WrappedComponent.connectStore();
       }
 
-      popPage(pagekey,params){
-         return this.poproot.show(pagekey,params);
+      popPage(children,params){
+         return this.poproot.show(children,params);
       }
 
       onPageResume(){
