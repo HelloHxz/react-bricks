@@ -1,5 +1,7 @@
 import React from "react"
 import "./index.less"
+import View from '../view'
+import Theme from '../theme'
 
 /*
   @@resizeMode 
@@ -89,7 +91,8 @@ class ImageCom extends React.Component {
         style.height = "100%";
       }
     }else if(this.resizeMode==="stretch"){
-
+      style.width = "100%";
+      style.height = "100%";
     }else{
       //cover
       if(image.width>image.height){
@@ -98,6 +101,7 @@ class ImageCom extends React.Component {
         style.height = "100%";
       }
     }
+    var propsStyle = this.props.style||{};
     this.setState({
       child:<img style={style} src={src}/>,
     });
@@ -162,11 +166,11 @@ class ImageCom extends React.Component {
     if(this.props.className){
       classNameArr.push(this.props.className);
     }
-    return (<div
-      style={this.props.style||{}}
+    return (<View
+      style={{...{alignItems:"center",backgroundColor:Theme.image_background_color},...(this.props.style||{})}}
       onClick={this.onClick.bind(this)}
       ref={(wrapper)=>{this.wrapper= wrapper;}}
-     className={classNameArr.join(" ")}>{this.state.child}</div>);
+     className={classNameArr.join(" ")}>{this.state.child}</View>);
   }
 }
 

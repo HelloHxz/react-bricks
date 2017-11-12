@@ -133,6 +133,8 @@ let Re = {
 	tabs_sm_height:70,
 
 	alert_bk_opacity:Common.theme_bk_opacity,
+
+	image_background_color:"#eee"
 	
 };
 export default {...Common,...Re};

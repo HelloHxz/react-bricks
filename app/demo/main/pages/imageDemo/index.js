@@ -1,4 +1,4 @@
-import {View,Text,React,StyleSheet,PageView,Button,Image,Header,TouchableOpacity,Icon} from "react-bricks"
+import {View,Text,React,StyleSheet,PageView,Button,Image,Header,TouchableOpacity,Icon,Space,ScrollView} from "react-bricks"
 import svgs from '../../assets/svg/svgs.js';
 
 
@@ -26,16 +26,36 @@ export default class IconDemo extends React.Component {
         <Header>
             <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
         </Header>
-        <Image
-          style={StyleSheet.create({width:100,height:100})}
-          source={require('../../assets/imgs/1.jpeg')}
-        />
-        <Text>asdas</Text>
-        <Image
-          resizeMode='contain'
-           style={StyleSheet.create({width:200,height:200})}
-          source={{uri:imgurl}}
-        />
+        <ScrollView style={{flex:1}}>
+          <Image
+            style={StyleSheet.create({width:100,height:100})}
+            source={require('../../assets/imgs/1.jpeg')}
+          />
+          <Space/>
+          <Image
+            style={StyleSheet.create({width:100,height:100,borderRadius:50})}
+            source={require('../../assets/imgs/1.jpeg')}
+          />
+          <Space/>
+          <Image
+            resizeMode='contain'
+            style={StyleSheet.create({width:200,height:200})}
+            source={{uri:imgurl}}
+          />
+            <Space/>
+          <Image
+            resizeMode='contain'
+            style={StyleSheet.create({width:200,maxHeight:300})}
+            source={{uri:imgurl}}
+          />
+          <Space/>
+          <Image
+            resizeMode='cover'
+            style={StyleSheet.create({maxWidth:500,maxHeight:400})}
+            source={require('../../assets/imgs/3.jpg')}
+          />
+           <Space/>
+        </ScrollView>
       </View>
     );
   }
