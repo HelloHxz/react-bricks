@@ -3,24 +3,7 @@ import "./index.less"
 import View from '../view'
 import Theme from '../theme'
 
-/*
-  @@resizeMode 
-  contain 长宽中大者设为100% default
-  cover 长宽者小者设为100%
-  stretch 展示全图
-  orgin 展示原图
-
-  @@src
-
-  @@defaultSrc 
-  @@resizeMode
-
-  @@scrollkey @@pageview 必须将所在页面的页面实例也传过来配合使用
-  1. 有scrollkey的时候 先判断是否在可视区，在直接加载图片 失败后显示默认
-  没有在可视区先显示默认，然后根据scrollkey 进行可视区判断加载
-  2.如果没有scrollkey直接加载图片然后失败显示默认
-
-*/
+const k = ["maxHeight",'maxWidth','minHeight','minWidth'];
 class ImageCom extends React.Component {
   constructor(props) {
     super(props)
@@ -84,7 +67,7 @@ class ImageCom extends React.Component {
     var style = {};
     if(this.resizeMode==="orgin"){
 
-    }else if(this.resizeMode==="contain"){
+    }else if(this.resizeMode==="contain"||this.resizeMode==="bl"){
      if(image.width>image.height){
         style.width = "100%";
       }else{
@@ -102,10 +85,19 @@ class ImageCom extends React.Component {
       }
     }
     var propsStyle = this.props.style||{};
+    var exStyle = {};
+    for(var key in propsStyle){
+      if(k.indexOf(key)>=0){
+        exStyle[key] = propsStyle[key];
+      }
+    }
     this.setState({
-      child:<img style={style} src={src}/>,
+      child:<img style={{...style,...exStyle}} src={src}/>,
     });
   }
+
+
+  
 
   renderDefault(){
     //如果有自定义的 renderError 回掉则调用 没有的话则显示默认图片
