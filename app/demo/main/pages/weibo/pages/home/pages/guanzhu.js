@@ -1,7 +1,9 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
   FlatList,Header,Theme,Segment,
   TouchableHighlight,ActivityIndicator,
-  UIManager,Icon,Image,Swiper} from "react-bricks"
+  UIManager,Icon,Image,Swiper} from "react-bricks";
+
+import BlogItem from '../components/blogItem'
 
 
 var ListDataSource = [
@@ -130,12 +132,7 @@ class GuanZhuPage extends React.Component {
 
 
   listRenderItem({item}){
-      return  <TouchableHighlight 
-      underlayColor="#eee"
-    style={StyleSheet.create({height:110,display:"flex",flexDirection:"row",alignItems:"center"})}
-      onPress = {this.listRowPress.bind(this,item)}>
-       <View><Text>{item.name}</Text></View>
-      </TouchableHighlight>
+      return  <BlogItem/>
   }
 
   _keyExtractor = (item, index) => item.id;
