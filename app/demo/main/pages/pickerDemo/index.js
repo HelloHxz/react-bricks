@@ -84,7 +84,7 @@ export default class PickerDemo extends React.Component {
 	
  
   static connectStore(){
-    return {PickerStore:new PickerDemoStore};
+    return {PickerStore:new PickerDemoStore({isShow:false})};
   }
 
   static navigationOptions = {

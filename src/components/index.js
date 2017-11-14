@@ -29,7 +29,7 @@ import Segment from './segment';
 import SlideModal from './slideModal'
 import Space from './space';
 import Modal from './modal';
-import {observable} from 'mobx'
+import {observable,extendObservable} from 'mobx'
 import TouchableOpacity from './touchableopacity'
 import TouchableHighlight from './touchablehighlight';
 import Text from './text';
@@ -51,6 +51,7 @@ export {
 	ActivityIndicator,
 	TouchableHighlight,
 	Header,
+	extendObservable,
 	Modal,
 	Fetch,
 	DatePicker,
