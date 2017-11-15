@@ -5,3 +5,8 @@
 > npm start
 
 http://localhost:8000/demo.html
+
+
+## 文档
+
+> https://github.com/HelloHxz/react-bricks/wiki
