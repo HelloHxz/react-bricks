@@ -7,7 +7,7 @@ import BlogFooter from '../../../components/blog/blogFooter';
 class BlogItem extends React.Component{
 
     render(){
-        return <View style={StyleSheet.create({padding:10})}>
+        return <View style={StyleSheet.create({paddingLeft:20,paddingRight:20,paddingTop:20,marginBottom:15,backgroundColor:"#fff"})}>
             <BlogHeader/>
             <BlogContent/>
             <BlogGallery/>

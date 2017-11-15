@@ -140,7 +140,7 @@ class GuanZhuPage extends React.Component {
   render() {
     return <View style={{flex:1}}>
       <FlatList
-        style={{backgroundColor:"#fff"}}
+        style={{backgroundColor:"#f2f3f4"}}
         renderPullIndicator = {this.renderPullIndicator.bind(this)}
         data={ListDataSource}
         renderItem={this.listRenderItem.bind(this)}
