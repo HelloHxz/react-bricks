@@ -1,5 +1,8 @@
 import React from 'react'
 import {observer,Poplayer,View,StyleSheet,Button,PlatForm} from "react-bricks"
+import GuanZhuGrid from './guanzhuGrid';
+import HotGrid from './hotGrid'
+
 
 @observer
 class HomeDropGroup extends React.Component {
@@ -10,12 +13,12 @@ class HomeDropGroup extends React.Component {
   }
   poplayerRenderItem(params){
     if(params.key==="guanzhu"){
-      return <View style={StyleSheet.create({height:600,width:"100%",backgroundColor:"red"})}>
-        <Button onPress={this.showOther.bind(this)}>Show</Button>
+      return <View style={StyleSheet.create({paddingBottom:20,backgroundColor:"#fff",width:"100%"})}>
+          <GuanZhuGrid/>
       </View>
     }else if(params.key==="hot"){
-      return <View style={StyleSheet.create({height:450,width:"100%",backgroundColor:"orange"})}>
-        <Button>Hide</Button>
+      return <View style={StyleSheet.create({paddingBottom:20,backgroundColor:"#fff",width:"100%"})}>
+        <HotGrid/>
       </View>
     }
   }

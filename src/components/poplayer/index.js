@@ -43,7 +43,6 @@ var styles = StyleSheet.create({
 	layer:{
 		width:"100%",
 		height:0,
-		backgroundColor:"#fff",
 		zIndex:2,
 		position:"absolute",
 		top:0
@@ -249,18 +248,18 @@ class PopLayerItem extends React.Component{
 	render(){
 		var children = this.props.children;
 
-		let popHeight = StyleSheet._px(400);
-		if(children){
-			if(children.props.style&&children.props.style.height){
-				popHeight =parseFloat(children.props.style.height);
-			}
-		}
+		let popHeight = StyleSheet._px(900);
+		// if(children){
+		// 	if(children.props.style&&children.props.style.height){
+		// 		popHeight =parseFloat(children.props.style.height);
+		// 	}
+		// }
 		// console.log(this.props.animatetype+" "+this.props.itemconfig.key)
 		let drawerTranslateY = -popHeight;
 		if(this.props.animatetype==="animatedshow"||this.props.animatetype==="animatedhide"){
 			drawerTranslateY = this.state.openValue.interpolate({
 			    inputRange: [0, 1],
-			    outputRange:[-popHeight,0],
+			    outputRange:[0-popHeight,0],
 			    extrapolate: 'clamp',
 			});
 		}else if(this.props.animatetype==="noanimatedhide"){
