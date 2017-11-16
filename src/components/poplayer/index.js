@@ -89,21 +89,17 @@ class PopLayer extends React.Component {
 			
 			}else{
 				this.setState({isShowVisiblity:true,isShow:true},function(){
-					setTimeout(()=>{
 						this.setState({isShowVisiblity:false});
 						Animated.timing(
 					        this.state.openValue,
 					        {
 					          toValue: 1,
-					          duration:300,
+					          duration:250,
 					          bounciness: 0, 
 					          easing:Easing.ease,
 					          restSpeedThreshold: 1
 					        }
-					      ).start(
-					      	
-					      )
-					},20)
+					      ).start()
 				});
 			}
 		}else{
