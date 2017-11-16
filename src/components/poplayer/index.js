@@ -21,7 +21,6 @@ var styles = StyleSheet.create({
 	wrapper_hide:{
 		left:-1000,
 		width:0,
-		height:0
 	},
 	wrapper_show:{
 		top:0,
@@ -42,7 +41,6 @@ var styles = StyleSheet.create({
 	},
 	layer:{
 		width:"100%",
-		height:0,
 		zIndex:2,
 		position:"absolute",
 		top:0
@@ -248,7 +246,7 @@ class PopLayerItem extends React.Component{
 	render(){
 		var children = this.props.children;
 
-		let popHeight = StyleSheet._px(900);
+		let popHeight = StyleSheet._px(StyleSheet.baseScreen.height);
 		// if(children){
 		// 	if(children.props.style&&children.props.style.height){
 		// 		popHeight =parseFloat(children.props.style.height);
@@ -256,18 +254,25 @@ class PopLayerItem extends React.Component{
 		// }
 		// console.log(this.props.animatetype+" "+this.props.itemconfig.key)
 		let drawerTranslateY = -popHeight;
+		const animateStyle={};
 		if(this.props.animatetype==="animatedshow"||this.props.animatetype==="animatedhide"){
 			drawerTranslateY = this.state.openValue.interpolate({
 			    inputRange: [0, 1],
 			    outputRange:[0-popHeight,0],
 			    extrapolate: 'clamp',
 			});
+			const opacity = this.state.openValue.interpolate({
+				inputRange: [0, 1],
+				outputRange: [.8, 1],
+				extrapolate: 'clamp',
+			});
+			animateStyle.opacity = opacity;
 		}else if(this.props.animatetype==="noanimatedhide"){
 
 		}else if(this.props.animatetype==="noanimatedshow"){
 			drawerTranslateY = 0;
 		}
-		const animateStyle={transform:[{"translateY":drawerTranslateY}],height:popHeight};
+		animateStyle.transform = [{"translateY":drawerTranslateY}];
 		return <Animated.View style={{...styles.layer,...animateStyle}}>
 			{children}
 		</Animated.View>
