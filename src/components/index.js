@@ -38,7 +38,8 @@ import Container from './container';
 import TouchScroll from './touchscroll'
 import TextInput from './input'
 import Fetch from './fetch'
-import DatePicker from './datepicker'
+import DatePicker from './datepicker';
+import AnimatedView from './animatedView'
 
 
 
@@ -51,6 +52,7 @@ export {
 	ActivityIndicator,
 	TouchableHighlight,
 	Header,
+	AnimatedView,
 	extendObservable,
 	Modal,
 	Fetch,

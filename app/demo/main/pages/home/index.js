@@ -28,7 +28,7 @@ var ListDataSource = [
   {id:18,name:"DatePicker",url:"datePickerDemo"},
   {id:17,name:"Ajax",url:"ajaxDemo"},
   {id:171,name:"Switch",url:"switchDemo"},
-  {id:19,name:"xxx",url:null},
+  {id:19,name:"animatedViewDemo",url:'animatedViewDemo'},
   {id:20,name:"xxx",url:null},
   {id:21,name:"xxx",url:null},
   {id:22,name:"xxx",url:null},
