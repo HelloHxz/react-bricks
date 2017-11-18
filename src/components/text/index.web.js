@@ -7,13 +7,18 @@ class Text extends React.Component {
 
   }
 
+  onPress(e){
+    this.props.onPress(e);
+  }
+
   render() {
   	var style = this.props.style||{};
-  	style = StyleSheet.convertTransform(style);
-  	if(this.props.selected){
-  		style.color = "red";
-  	}
-    return (<span style={style} className='bri-span'>{this.props.children}</span>);
+    style = StyleSheet.convertTransform(style);
+    var press ={};
+    if(this.props.onPress){
+      press.onClick = this.onPress.bind(this)
+    }
+    return (<span style={style} {...press} className='bri-span'>{this.props.children}</span>);
   }
 }
 

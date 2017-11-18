@@ -50,6 +50,7 @@ export default class AnimatedView extends React.Component{
         if(nextStateValue===this.state.stateValue._value){
             return;
         }
+        this.config = nextProps.config;
         this.curValue = nextStateValue;
         Animated.timing(
             this.state.stateValue,
@@ -57,7 +58,7 @@ export default class AnimatedView extends React.Component{
               toValue: nextStateValue,
               duration:250,
               bounciness: 0, 
-              easing:Easing.ease,
+              easing:nextProps.easing||Easing.ease,
               restSpeedThreshold: 1
             }
           ).start(()=>{

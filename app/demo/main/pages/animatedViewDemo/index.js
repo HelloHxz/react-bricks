@@ -1,4 +1,5 @@
-import {View,Text,React,StyleSheet,AnimatedView,PageView,ScrollView,Button,Image,Header,TouchableOpacity,Icon,Grid,Space,Easing} from "react-bricks"
+import {View,Text,React,StyleSheet,AnimatedView,PageView,ScrollView,Button,Image,Header,
+  TouchableOpacity,Icon,Grid,Space,Easing} from "react-bricks"
 
 
 
@@ -45,8 +46,16 @@ export default class AnimatedDemo extends React.Component {
       {opacity:.3,height:300,scale:.4,rotate:40,translateX:30,translateY:40,},
       {opacity:.7,height:200,scale:1,rotate:90,translateX:80,translateY:160,},
       {opacity:.5,height:100,scale:2,rotate:180,translateX:100,translateY:220,},
-  ];
+    ];
   }
+
+// var config =[
+//   {translateY:0},
+//   {translateY:30},
+//   {translateY:50},
+//   {translateY:110},
+// ];
+
     return (
        <View style={{flex:1,backgroundColor:"#f2f3f4"}}>
         <Header>
@@ -66,9 +75,10 @@ export default class AnimatedDemo extends React.Component {
         </Text>
         
         <AnimatedView 
+        easing={Easing.bounce}
           animateType={{}}
           config={config}
-        style={{backgroundColor:"red"}} state={this.state.state}/>
+        style={StyleSheet.create({backgroundColor:"red"})} state={this.state.state}/>
         <Space/>
      
         </ScrollView>

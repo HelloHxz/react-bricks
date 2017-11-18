@@ -8,12 +8,7 @@ class Com extends React.Component {
   }
 
   render() {
-  	var style = this.props.style||{};
-  	if(this.props.selected){
-  		style.color = "red";
-  	}
-
-    return (<Text style={style}>{this.props.children}</Text>);
+    return (<Text {...this.props}>{this.props.children}</Text>);
   }
 }
 

@@ -32,11 +32,13 @@ import Modal from './modal';
 import {observable,extendObservable} from 'mobx'
 import TouchableOpacity from './touchableopacity'
 import TouchableHighlight from './touchablehighlight';
+import TouchableNativeFeedback from './touchablenativefeedback'
 import Text from './text';
 import Grid from './grid';
 import Container from './container';
 import TouchScroll from './touchscroll'
 import TextInput from './input'
+import Easing from './easing'
 import Fetch from './fetch'
 import DatePicker from './datepicker';
 import AnimatedView from './animatedView'
@@ -52,11 +54,13 @@ export {
 	ActivityIndicator,
 	TouchableHighlight,
 	Header,
+	Easing,
 	AnimatedView,
 	extendObservable,
 	Modal,
 	Fetch,
 	DatePicker,
+	TouchableNativeFeedback,
 	TextInput,
 	Swiper,
 	Container,

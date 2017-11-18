@@ -19,7 +19,7 @@ export default class GridDemo extends React.Component {
   }
 
   renderItem(params){
-    return [<Icon key='1' colorful={true} style={StyleSheet.create({fontSize:89})} icon={svgs.cookie_colorful}/>,<Text key='2'>{params.index}</Text>]
+    return [<Icon key='1' colorful={true} style={StyleSheet.create({fontSize:89})} icon={Icon.DemoIcons.cookie_colorful}/>,<Text key='2'>{params.index}</Text>]
   }
 
   render() {
