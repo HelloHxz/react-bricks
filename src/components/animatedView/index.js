@@ -15,6 +15,13 @@ import Easing from '../easing'
         ....
     </AnimatedView>
 
+
+    translateX:30,translateY:40,rotate:40,
+
+
+    还没有做 rotate 和 translateX，translateY混用导致的兼容性问题
+    这个顺序有关 可以在IOS，Android调整rotate的顺序解决 但是现在还没解决 留个坑
+
 */
 
 export default class AnimatedView extends React.Component{
@@ -59,7 +66,7 @@ export default class AnimatedView extends React.Component{
     }
 
     _getValueByKey(key,val){
-        if(key==='opacity'){
+        if(key==='opacity'||key==='rotate'||key==='scale'){
             return val;
         }
         return StyleSheet._px(val);
@@ -81,11 +88,29 @@ export default class AnimatedView extends React.Component{
                 inputRange=[curValue,preValue];
                 outputRange =  [  this._getValueByKey(key,curStyle[key]),this._getValueByKey(key,preStyle[key])];
             }
-            animatedStyle[key] = this.state.stateValue.interpolate({
-                inputRange:inputRange ,
-                outputRange:outputRange,
-                extrapolate: 'clamp',
-            });
+            if(key==="rotate"||key==="translateX"||key==='translateY'||key==='scale'){
+                if(!animatedStyle.transform||!(animatedStyle.transform instanceof Array)){
+                    animatedStyle.transform=[];
+                }
+                var t = {};
+                if(key==='rotate'){
+                    outputRange[0] = outputRange[0]+"deg";
+                    outputRange[1] = outputRange[1]+"deg";
+                }
+            
+                t[key] = this.state.stateValue.interpolate({
+                    inputRange:inputRange ,
+                    outputRange:outputRange,
+                    extrapolate: 'clamp',
+                });
+                animatedStyle.transform.push(t);
+            }else{
+                animatedStyle[key] = this.state.stateValue.interpolate({
+                    inputRange:inputRange ,
+                    outputRange:outputRange,
+                    extrapolate: 'clamp',
+                });
+            }
         }
         var propsStyle = this.props.style||{};
         var style = {...propsStyle,...animatedStyle};

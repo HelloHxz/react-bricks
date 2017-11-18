@@ -145,6 +145,8 @@ var Re = {
 						}
 					}else if(key==="rotate"){
 						re.push(key+"("+value+"deg)");
+					}else if(key==="scale"){
+						re.push(key+"("+value+")");
 					}
 
 				}else if(value instanceof Array){
