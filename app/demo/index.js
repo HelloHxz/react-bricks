@@ -6,7 +6,7 @@ Icon.DemoIcons = AppSvgs;
 Theme.extend(Theme,{});
 
 var config = {
-	root:"animatedViewDemo",
+	root:"weibo/home",
 	devConfig:{
 		development:{
 			server:"http://localhost:8000"

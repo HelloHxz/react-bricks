@@ -12,10 +12,15 @@ export default class FlatList extends React.Component{
 		}
 	}
 
+	componentWillReceiveProps(nextProps){
+
+	}
+
 	render(){
 		var rows = [];
-		for(var i=0,j=this.state.data.length;i<j;i++){
-			var item = this.state.data[i];
+		var datasource = this.props.data||[];
+		for(var i=0,j=datasource.length;i<j;i++){
+			var item = datasource[i];
 			rows.push(<View key={this.props.keyExtractor(item,i)}>{
 				this.props.renderItem({
 					item:item

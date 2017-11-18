@@ -1,5 +1,4 @@
 import {View,Text,React,StyleSheet,PageView,ScrollView,Button,Image,Header,TouchableOpacity,Icon,Grid,Space} from "react-bricks"
-import svgs from '../../assets/svg/svgs.js';
 
 
 
@@ -27,7 +26,7 @@ export default class GridDemo extends React.Component {
     return (
        <View style={{flex:1,backgroundColor:"#f2f3f4"}}>
         <Header>
-            <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={svgs.left}/></TouchableOpacity>
+            <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",justifyContent:"center",alignItems:"center"})} onPress={this.goBack.bind(this)}><Icon icon={Icon.DemoIcons.left}/></TouchableOpacity>
         </Header>
         <ScrollView style={{flex:1}}>
         <Space/>

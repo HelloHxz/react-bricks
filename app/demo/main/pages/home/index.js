@@ -1,5 +1,5 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
-  FlatList,Header,Theme,Segment,
+  FlatList,Header,Theme,Segment,TouchableOpacity,
   TouchableHighlight,ActivityIndicator,
   UIManager,Icon,Image,Swiper} from "react-bricks"
 import Poplayer from './components/poplayer'
@@ -79,6 +79,11 @@ class HomeScreen extends React.Component {
     super(props);
   }
 
+  goBack(){
+    this.props.navigation.goBack();
+  }
+
+
   onPageBeforeLeave(params){
     if(params.action==="后退"){
       if(this.popPageKey){
@@ -147,6 +152,12 @@ class HomeScreen extends React.Component {
   render() {
     return <View style={{flex:1}}>
       <Header style={{justifyContent:"center"}}>
+          <TouchableOpacity style={StyleSheet.create({
+            width:60,
+            position:'absolute',
+            left:5,top:0,
+            height:"100%",justifyContent:"center",alignItems:"center"})} 
+          onPress={this.goBack.bind(this)}><Icon icon={Icon.DemoIcons.left}/></TouchableOpacity>
           <Segment style={StyleSheet.create({width:400})} renderItem={this.renderSegmentItem.bind(this)} data={[{key:"1"},{key:"2"},{key:"3"}]}/>
       </Header>
       <FlatList

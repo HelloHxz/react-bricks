@@ -24,6 +24,10 @@ class HomePage extends React.Component {
     }
   }
 
+  leftIconPress(){
+    this.props.navigation.navigate("homeDemo")
+  }
+
 
   componentDidMount() {
   }
@@ -39,8 +43,8 @@ class HomePage extends React.Component {
       <View style={{flex:1,backgroundColor:Theme.theme_background_color}}>
          <HomePopover homeStore={this.props.homeStore}/>
          <Header style={StyleSheet.create({justifyContent:"space-between"})}>
-            <TouchableOpacity style={StyleSheet.create({width:60,height:"100%",marginLeft:10,justifyContent:"center",alignItems:"center"})}><
-              Icon  icon={Icon.DemoIcons.profile}/></TouchableOpacity>
+            <TouchableOpacity onPress={this.leftIconPress.bind(this)} style={StyleSheet.create({width:60,height:"100%",marginLeft:10,justifyContent:"center",alignItems:"center"})}>
+            <Icon icon={Icon.DemoIcons.profile}/></TouchableOpacity>
             <Tabbar rootStore={this.props.rootStore} homeStore={this.props.homeStore} data={tabData}/>
             <TouchableOpacity 
               onPress = {this.showPopover.bind(this)}

@@ -8,7 +8,7 @@ const Styles = StyleSheet.create(Theme.header);
 export default class Header extends React.Component{
 
 	render(){
-		var style = {...Styles,...this.props.style||{}};
+		var style = {...{position:"relative"},...Styles,...this.props.style||{}};
 		if(StyleSheet.OS==="ios"&&!StyleSheet.isWeb){
 			return <View>
 				<View style={StyleSheet.create({height:24,backgroundColor:style.backgroundColor||"#fff"})}></View>

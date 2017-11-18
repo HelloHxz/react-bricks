@@ -1,7 +1,9 @@
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
   FlatList,Header,Theme,Segment,
   TouchableHighlight,ActivityIndicator,
-  UIManager,Icon,Image,Swiper} from "react-bricks"
+  UIManager,Icon,Image,Swiper} from "react-bricks";
+
+import BlogItem from '../components/blogItem'
 
 
 var ListDataSource = [
@@ -69,11 +71,21 @@ var Styles = StyleSheet.create({
 class HotPage extends React.Component {
 
   componentDidMount() {
-
   }
 
   constructor(props){
     super(props);
+    this.state={
+      datasource:[]
+    }
+  }
+
+  componentDidMount(){
+    setTimeout(()=>{
+      this.setState({
+        datasource:ListDataSource
+      })
+    },600)
   }
 
   onPageBeforeLeave(params){
@@ -131,12 +143,7 @@ class HotPage extends React.Component {
 
 
   listRenderItem({item}){
-      return  <TouchableHighlight 
-      underlayColor="#eee"
-    style={StyleSheet.create({height:110,display:"flex",flexDirection:"row",alignItems:"center"})}
-      onPress = {this.listRowPress.bind(this,item)}>
-       <View><Text>{item.name}</Text></View>
-      </TouchableHighlight>
+      return  <BlogItem/>
   }
 
   _keyExtractor = (item, index) => item.id;
@@ -144,9 +151,9 @@ class HotPage extends React.Component {
   render() {
     return <View style={{flex:1}}>
       <FlatList
-        style={{backgroundColor:"#fff"}}
+        style={{backgroundColor:"#f2f3f4"}}
         renderPullIndicator = {this.renderPullIndicator.bind(this)}
-        data={ListDataSource}
+        data={this.state.datasource}
         renderItem={this.listRenderItem.bind(this)}
         keyExtractor={this._keyExtractor}
       ></FlatList>
