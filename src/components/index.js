@@ -42,6 +42,7 @@ import Easing from './easing'
 import Fetch from './fetch'
 import DatePicker from './datepicker';
 import AnimatedView from './animatedView'
+import IOSHeaderPlaceHolder from './iosheaderplaceholder';
 
 
 
@@ -52,6 +53,7 @@ import AnimatedView from './animatedView'
 
 export {
 	ActivityIndicator,
+	IOSHeaderPlaceHolder,
 	TouchableHighlight,
 	Header,
 	Easing,
