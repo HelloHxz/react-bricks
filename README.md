@@ -13,4 +13,4 @@ http://localhost:8000/demo.html
 
 ## 截图
 
-![DemoScreenShot](https://github.com/HelloHxz/xzLightApp/blob/master/screenshots/1.png)
+![DemoScreenShot](https://github.com/HelloHxz/react-bricks/blob/master/screenshots/1.png)
