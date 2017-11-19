@@ -10,3 +10,7 @@ http://localhost:8000/demo.html
 ## 文档
 
 > https://github.com/HelloHxz/react-bricks/wiki
+
+## 截图
+
+![DemoScreenShot](https://github.com/HelloHxz/xzLightApp/blob/master/screenshots/1.png)
