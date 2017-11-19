@@ -59,17 +59,16 @@ export default (config)=>{
 	  //global.__bricks__.pageDict
 
 	  var pageConfig = null;
-	  var params = action.params || {};
-	  var pageName =  action.routeName||"";
-	  var pageArr = pageName.split("/");
+	
 
 	  if(state&&state.routes.length>0){
 	  	pageConfig = state.routes[state.routes.length-1];
 		var pageWrapperInstance = global.__bricks__.pageDict[pageConfig.key];
 		
 		//如果有表示tabbar子页面
-		var childPageName = pageArr[1];
 		var tabChildPageInstance = null;
+		
+		var childPageName = pageConfig.params.__childpage;
 		if(childPageName){
 			tabChildPageInstance =  global.__bricks__.pageDict[pageConfig.key+"_"+childPageName];
 		}
@@ -85,7 +84,7 @@ export default (config)=>{
 	    		{
 	    			action:action.type === NavigationActions.BACK?"后退":"前进"
 				});
-			if(s&&!s1){
+			if(!s1){
 				s = false;
 			}
 		}
@@ -110,6 +109,9 @@ export default (config)=>{
 		 //  };
 	  // }
 
+	  var params = action.params || {};
+	  var pageName =  action.routeName||"";
+	  var pageArr = pageName.split("/");
 
 	  params.__pagename = pageArr[0];
 
@@ -144,6 +146,7 @@ export default (config)=>{
 				if(pageInstance){
 					pageInstance.tabChange(action.params);
 				}
+				state.routes[state.routes.length-1].params = params;
 				return null;
 			}else{
 				if(pageInstance){
@@ -151,7 +154,6 @@ export default (config)=>{
 			}
 		}
 	  }
-
 	  action.params = params;
 
 	  if(action.action==="__replace__"){

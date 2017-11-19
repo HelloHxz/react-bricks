@@ -25,7 +25,7 @@ class MessagePage extends React.Component {
   }
 
   onPageBeforeLeave(){
-    alert("Message BeforeLeave")
+    return true;
   }
 
   renderSwiperItem(params){
