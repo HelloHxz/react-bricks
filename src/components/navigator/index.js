@@ -125,12 +125,7 @@ export default (config)=>{
 	 	 preTime = now;
 	  }
 
-
-
-
 	  if(action.type==="Navigation/NAVIGATE"){
-		
-
 		var len = pageArr.length;
 		if(len>2){
 			console.error("页面层级最多两层");
@@ -147,6 +142,7 @@ export default (config)=>{
 					pageInstance.tabChange(action.params);
 				}
 				state.routes[state.routes.length-1].params = params;
+				//call tabbar resume
 				return null;
 			}else{
 				if(pageInstance){
@@ -168,7 +164,7 @@ export default (config)=>{
 
 	  prePageName = pageName;
 	  var Re = defaultGetStateForAction(action, state);
-
+	  //call goback resume
 	  return Re;
 	};
 
