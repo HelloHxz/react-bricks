@@ -32,6 +32,7 @@ var PageView =  (WrappedComponent) => {
       }
 
       constructor(props){
+          
          super(props);
 
          var isInTab = props.isInTab;

@@ -250,20 +250,32 @@ export default {
 					}
 
 					key = key_arr[0];
-				}
+                }
+                
+             
 				if(typeof(item)==="string"){
-					if(typeof(item.substring(0,1))==='string'){
+                    if(key==='borderBottom'||key==='border'||key==='borderTop'||key==='borderLeft'||key==='borderRight'){
+                        var itemArr = item.split(" ");
+                        if(itemArr.length===3){
+                            re[key+"Width"] = pxFun(parseFloat(itemArr[0]));
+                            re["borderStyle"] = itemArr[1];
+                            re[key+"Color"] = itemArr[2];
+                        }
+                        continue;
+                    }else if(typeof(item.substring(0,1))==='string'){
 						re[key] = item;
 						continue;
 					}
 				}
-				//todo ....特殊处理 border transform
+                //todo ....特殊处理 border transform
 				if(key==="zIndex"||key==="opacity"||key==="flex"){
 					re[key] = (item);
-				}else{
+                } 
+                else{
 					re[key] = pxFun(item);
 				}
-			}else if(key==='transform'){
+            }
+            else if(key==='transform'){
 				if(isWeb){
 					re[key] = (item);
 				}else{

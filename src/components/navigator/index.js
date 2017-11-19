@@ -59,24 +59,46 @@ export default (config)=>{
 	  //global.__bricks__.pageDict
 
 	  var pageConfig = null;
+	  var params = action.params || {};
+	  var pageName =  action.routeName||"";
+	  var pageArr = pageName.split("/");
+
 	  if(state&&state.routes.length>0){
 	  	pageConfig = state.routes[state.routes.length-1];
-	    var pageWrapperInstance = global.__bricks__.pageDict[pageConfig.key];
+		var pageWrapperInstance = global.__bricks__.pageDict[pageConfig.key];
+		
+		//如果有表示tabbar子页面
+		var childPageName = pageArr[1];
+		var tabChildPageInstance = null;
+		if(childPageName){
+			tabChildPageInstance =  global.__bricks__.pageDict[pageConfig.key+"_"+childPageName];
+		}
+		var s = true;
 	    if(pageWrapperInstance&&pageWrapperInstance.onPageBeforeLeave){
-	    	var re = pageWrapperInstance.onPageBeforeLeave(
+	    	s = pageWrapperInstance.onPageBeforeLeave(
 	    		{
 	    			action:action.type === NavigationActions.BACK?"后退":"前进"
 	    		});
-	    	if(re===false){
-	    		if(state && state.index == 0 && action.type==="Navigation/BACK"){
-			  	 return {
-					...state,
-					index: state.routes.length - 1,
-				  };
-				}
-	    		return null;
-	    	}
-	    }
+		}
+		if(tabChildPageInstance&&tabChildPageInstance.onPageBeforeLeave){
+			var s1 = tabChildPageInstance.onPageBeforeLeave(
+	    		{
+	    			action:action.type === NavigationActions.BACK?"后退":"前进"
+				});
+			if(s&&!s1){
+				s = false;
+			}
+		}
+
+		if(s===false){
+			if(state && state.index == 0 && action.type==="Navigation/BACK"){
+			   return {
+				...state,
+				index: state.routes.length - 1,
+			  };
+			}
+			return null;
+		}
 	  }
 
 
@@ -88,9 +110,7 @@ export default (config)=>{
 		 //  };
 	  // }
 
-	  var params = action.params || {};
-	  var pageName =  action.routeName||"";
-	  var pageArr = pageName.split("/");
+
 	  params.__pagename = pageArr[0];
 
 	  var now = new Date().valueOf();

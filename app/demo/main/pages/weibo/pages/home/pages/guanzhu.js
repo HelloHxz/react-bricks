@@ -71,6 +71,8 @@ var Styles = StyleSheet.create({
 class GuanZhuPage extends React.Component {
 
   componentDidMount() {
+        // this.list.setNativePrpos({scrollEnabled:false})
+        // this.list.setScrollEnable(false)
   }
 
   constructor(props){
@@ -140,6 +142,7 @@ class GuanZhuPage extends React.Component {
   render() {
     return <View style={{flex:1}}>
       <FlatList
+        ref={(flastList)=>{this.list = flastList;}}
         style={{backgroundColor:"#f2f3f4"}}
         renderPullIndicator = {this.renderPullIndicator.bind(this)}
         data={ListDataSource}
