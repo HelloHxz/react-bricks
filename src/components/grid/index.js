@@ -37,6 +37,11 @@ export default class Grid extends React.Component{
 		}
 		
 	}
+	itemPress(){
+		if(this.props.onItemPress){
+			this.props.onItemPress();
+		}
+	}
 
 	render(){
 		var child = [];
@@ -90,15 +95,14 @@ export default class Grid extends React.Component{
 			}
 
 
-			child.push(<View key={i} style={{
+			child.push(<TouchableHighlight 
+				underlayColor="#eee"
+				onPress = {this.itemPress.bind(this)}
+				key={i} style={{
 				...{
 					position:"relative",
-					justifyContent:"center",
-					alignItems:"center",
-					flexDirection:"column",
 					width:(this.columnWidth),
 				},
-				...itemStyle,
 				...StyleSheet.create({
 					borderLeftWidth:borderLeftWidth,
 					borderBottomWidth:borderBottomWidth,
@@ -108,8 +112,19 @@ export default class Grid extends React.Component{
 					borderStyle:"solid"
 				})}
 			}>
-				{item}
-				</View>);
+				<View 
+					style={{
+						...{
+							position:"relative",
+							justifyContent:"center",
+							alignItems:"center",
+							flexDirection:"column",
+							width:"100%",
+							height:"100%"
+						},
+						...itemStyle}}
+				>{item}</View>
+				</TouchableHighlight>);
 		}
 		return <View style={{...wrapperStyle,...this.props.style||{}}}>{child}</View>
 	}

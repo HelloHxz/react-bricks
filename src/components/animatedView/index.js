@@ -114,7 +114,7 @@ export default class AnimatedView extends React.Component{
             }
         }
         var propsStyle = this.props.style||{};
-        var style = {...propsStyle,...animatedStyle};
+        var style = {...propsStyle,...animatedStyle,...{overflow:'hidden'}};
         return <Animated.View 
             style={style}>
             {this.props.children}
