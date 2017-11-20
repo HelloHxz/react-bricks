@@ -36,7 +36,7 @@ class MessagePage extends React.Component {
 
   renderItem(params){
     return [<Icon key='1' colorful={true} style={StyleSheet.create({fontSize:89})} icon={Icon.DemoIcons.cookie_colorful}/>,
-    <Text style={StyleSheet.create({fontSize:23,color:"rgb(90, 90, 90)"})} key='2'>深圳</Text>]
+    <Text style={StyleSheet.create({fontSize:20,color:"rgb(90, 90, 90)"})} key='2'>深圳</Text>]
   }
 
   onItemPress(){
@@ -75,15 +75,25 @@ class MessagePage extends React.Component {
           </Swiper>
           <Grid
           onItemPress={this.onItemPress.bind(this)}
+          itemStyle={StyleSheet.create({
+            height:"auto",
+            paddingTop:4,
+            paddingBottom:4
+          })}
           style={StyleSheet.create({paddingTop:14})} bordernone={true} data={[{},{},{},{},{},{},{},{},{},{}]} column={5} renderItem={this.renderItem.bind(this)}/>
           <AnimatedView
             state={this.state.gridState}
             config={[
               {height:0,opacity:0.1},
-              {height:150,opacity:1}
+              {height:130,opacity:1}
             ]}
           >
-            <Grid style={StyleSheet.create({})} bordernone={true} data={[{},{},{},{},{}]} column={5} renderItem={this.renderItem.bind(this)}/>
+            <Grid 
+              itemStyle={StyleSheet.create({
+                height:"auto",
+                paddingTop:4,
+                paddingBottom:4
+              })} style={StyleSheet.create({})} bordernone={true} data={[{},{},{},{},{}]} column={5} renderItem={this.renderItem.bind(this)}/>
           </AnimatedView>
           <MessageTabs messageStore={this.props.messageStore}></MessageTabs>
       </ScrollView>
