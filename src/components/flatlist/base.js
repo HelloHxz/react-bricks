@@ -131,7 +131,8 @@ export default class Base extends React.Component {
     }
     return  (
       <View style={{flex:1,overflow:"hidden",backgroundColor:"#fff"}}
-        {...this._panResponder.panHandlers}>
+        {...this._panResponder.panHandlers}
+        >
         {this.renderList(offset)}
       </View>
     );

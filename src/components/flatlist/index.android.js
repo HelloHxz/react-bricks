@@ -68,9 +68,9 @@ export default class AndroidFlatList extends Base {
           
         });
         if(new Date().valueOf()-this.startTime<300){
-          if(this.autoScroll){
-              this.flatlist.scrollToOffset({offset:500, animated: true});
-          }
+          // if(this.autoScroll){
+          //     this.flatlist.scrollToOffset({offset:500, animated: true});
+          // }
         }
         
       }
