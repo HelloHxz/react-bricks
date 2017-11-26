@@ -65,6 +65,7 @@ export default class AndroidFlatList extends React.Component {
   _handleShouldSetPanResponder(e, gestureState) {
     this.autoScroll = false;
     this.startTime = new Date().valueOf();
+    
     return !this.isScrollFree;
   }
 
@@ -130,7 +131,6 @@ export default class AndroidFlatList extends React.Component {
     }else{
       this.refreshEnd();
     }
-    this.diff = 0;
     this._onTouchEnd(e,gestureState);
     return true;
   }
