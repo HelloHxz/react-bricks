@@ -21,8 +21,9 @@ export default class AndroidFlatList extends React.Component {
     this.state = {
       offset:0,
       refreshState:props.refreshState||"done",// or done loading
-      isScrollFree: false
     }
+    this.isScrollFree=false;
+    
     this.horizontal = !!props.horizontal;
     this.scrollValue = 0;
     if(isNaN(this.props.pullHeight)){
@@ -64,7 +65,7 @@ export default class AndroidFlatList extends React.Component {
   _handleShouldSetPanResponder(e, gestureState) {
     this.autoScroll = false;
     this.startTime = new Date().valueOf();
-    return !this.state.isScrollFree;
+    return !this.isScrollFree;
   }
 
   onTouchMove(e, gestureState) {
@@ -72,7 +73,7 @@ export default class AndroidFlatList extends React.Component {
       if((gestureState.dy >= 0 && this.scrollValue <= 0) ) {
 	        this.pullMove(e,gestureState);
       } else {
-        	if(this.state.isScrollFree){
+        	if(this.isScrollFree){
         	}else{
             this.autoScroll = true;
       		  this.flatlist.scrollToOffset({offset: -1*gestureState.dy, animated: false});
@@ -107,8 +108,9 @@ export default class AndroidFlatList extends React.Component {
  
   _onTouchEnd(e, gestureState) {
       if(this.scrollValue > 0) {
-        this.setState({isScrollFree: true},()=>{
-          
+        this.isScrollFree = true;
+        this.flatlist.setNativeProps({
+          scrollEnabled:true
         });
         if(new Date().valueOf()-this.startTime<300){
           // auto go
@@ -145,8 +147,11 @@ export default class AndroidFlatList extends React.Component {
   }
 
   isScrolledToTop() {
-    if(this.scrollValue <= 0 && this.state.isScrollFree) {
-      this.setState({isScrollFree: false});
+    if(this.scrollValue <= 0 && this.isScrollFree) {
+      this.isScrollFree = false;
+      this.flatlist.setNativeProps({
+        scrollEnabled:false
+      });
     }
   }
 
@@ -162,7 +167,7 @@ export default class AndroidFlatList extends React.Component {
           {...this.props}
           {...this._panResponder.panHandlers}
           ListHeaderComponent={this.getHeader()}
-          scrollEnabled={this.state.isScrollFree}
+          scrollEnabled={false}
           onScroll={this.onScroll.bind(this)}
           onTouchEnd={this.onTouchEnd.bind(this)}
           onResponderRelease ={() => {this.onScrollRelease.bind(this)}}

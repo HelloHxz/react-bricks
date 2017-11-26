@@ -17,6 +17,35 @@ var ListDataSource = [
   {id:5,name:"Poplayer",url:"poplayerDemo"},
   {id:13,name:"Tabs",url:"tabsDemo"},
   {id:14,name:"Segment",url:null},
+  {id:9,name:"Tabbar",url:"tabbardemo/buttonDemo"},
+  {id:10,name:"Repeat",url:"repeatDemo"},
+  {id:11,name:"Grid",url:"gridDemo"},
+  {id:12,name:"Segment with Container",url:"segmentContainerDemo"},
+  {id:6,name:"Toast",url:null},
+  {id:15,name:"Input",url:"inputDemo"},
+  {id:16,name:"Picker",url:"pickerDemo"},
+  {id:18,name:"DatePicker",url:"datePickerDemo"},
+  {id:17,name:"Ajax",url:"ajaxDemo"},
+  {id:171,name:"Switch",url:"switchDemo"},
+  {id:19,name:"xxx",url:null},
+  {id:20,name:"xxx",url:null},
+  {id:21,name:"xxx",url:null},
+  {id:22,name:"xxx",url:null},
+  {id:23,name:"xxx",url:null},
+  {id:24,name:"xxx",url:null},
+  {id:25,name:"xxx",url:null},
+  {id:26,name:"xxx",url:null},
+  {id:27,name:"xxx",url:null},
+  {id:28,name:"xxx",url:null},
+  {id:29,name:"xxx",url:null},
+  {id:30,name:"xxx",url:null},
+  {id:31,name:"xxx",url:null},
+  {id:32,name:"xxx",url:null},
+  {id:33,name:"xxx",url:null},
+  {id:34,name:"xxx",url:null},
+  {id:35,name:"xxx",url:null},
+  {id:36,name:"xxx",url:null},
+  {id:37,name:"xxx",url:null},
 ];
 
 
@@ -42,12 +71,19 @@ var Styles = StyleSheet.create({
 class GuanZhuPage extends React.Component {
 
   componentDidMount() {
-        // this.list.setNativePrpos({scrollEnabled:false})
-        // this.list.setScrollEnable(false)
   }
 
   constructor(props){
     super(props);
+    this.state={
+      datasource:[]
+    }
+  }
+
+  componentDidMount(){
+      this.setState({
+        datasource:ListDataSource
+      })
   }
 
   onPageBeforeLeave(params){
@@ -113,10 +149,9 @@ class GuanZhuPage extends React.Component {
   render() {
     return <View style={{flex:1}}>
       <FlatList
-        ref={(flastList)=>{this.list = flastList;}}
         style={{backgroundColor:"#f2f3f4"}}
         renderPullIndicator = {this.renderPullIndicator.bind(this)}
-        data={ListDataSource}
+        data={this.state.datasource}
         renderItem={this.listRenderItem.bind(this)}
         keyExtractor={this._keyExtractor}
       ></FlatList>
