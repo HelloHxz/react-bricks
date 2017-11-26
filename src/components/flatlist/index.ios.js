@@ -2,8 +2,7 @@ import {FlatList} from 'react-native';
 import React from 'react'
 import StyleSheet from '../style'
 import { View,PanResponder,UIManager,LayoutAnimation,ScrollView,Text } from 'react-native';
-import Base from './base';
-import Header from './header'
+import Header from './IOSHeader'
 
 export default class IOSFlatList extends React.Component{
 

@@ -8,16 +8,27 @@ import {
   LayoutAnimation,
   UIManager
 } from 'react-native';
-import Base from './base'
+
+import StyleSheet from '../style';
+import Theme from '../theme';
+
+import Header from './AndroidHeader'
 
 
-export default class AndroidFlatList extends Base {
+export default class AndroidFlatList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       offset:0,
       refreshState:props.refreshState||"done",// or done loading
       isScrollFree: false
+    }
+    this.horizontal = !!props.horizontal;
+    this.scrollValue = 0;
+    if(isNaN(this.props.pullHeight)){
+      this.pullHeight = StyleSheet.px2px(Theme.flatlist_pullheight);
+    }else{
+      this.pullHeight = this.props.pullHeight;
     }
     UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
@@ -28,19 +39,27 @@ export default class AndroidFlatList extends Base {
 		onMoveShouldSetPanResponder: this._handleShouldSetPanResponder.bind(this),
 		onPanResponderMove: this.onTouchMove.bind(this),
 		onPanResponderGrant: this.onTouchStart.bind(this),
-		onPanResponderRelease: this.onTouchEnd.bind(this),
+		// onPanResponderRelease: this.onTouchEnd.bind(this),
     });
   }
 
-  onScrollRelease() {
-
-  }
 
   componentDidMount() {
   }
 
   componentWillUnmount() {
   }
+
+  
+  onTouchStart(e,gestureState){
+    this.isInLoading = false;
+    this.canRefresh = false;
+    this.touchAction = "";
+    this.diff = 0;
+		this.startPos = {pageX:e.nativeEvent.pageX,pageY:e.nativeEvent.pageY};
+  }
+
+
 
   _handleShouldSetPanResponder(e, gestureState) {
     this.autoScroll = false;
@@ -61,6 +80,30 @@ export default class AndroidFlatList extends Base {
       }
   }
 
+
+  pullMove(e,gestureState){
+    this.diff = (this.horizontal?e.nativeEvent.pageX-this.startPos.pageX:e.nativeEvent.pageY-this.startPos.pageY)/3;
+    if(this.diff>0){
+        if(this.scrollValue <=0){
+          this.canRefresh = this.diff > this.pullHeight;
+          this.touchAction = "refresh";
+          this.header.indicatorWrapper.setNativeProps({
+            style:{
+              marginTop:0-this.pullHeight+this.diff
+            }
+          })
+        }
+    }
+  }
+
+
+
+  onScroll(e){
+    var ne = e.nativeEvent;
+    this.scrollValue = this.horizontal?ne.contentOffset.x:ne.contentOffset.y;
+    this.isScrolledToTop();
+  }
+
  
   _onTouchEnd(e, gestureState) {
       if(this.scrollValue > 0) {
@@ -68,12 +111,37 @@ export default class AndroidFlatList extends Base {
           
         });
         if(new Date().valueOf()-this.startTime<300){
-          // if(this.autoScroll){
-          //     this.flatlist.scrollToOffset({offset:500, animated: true});
-          // }
+          // auto go
         }
         
       }
+  }
+
+
+  onTouchEnd(e,gestureState){
+    if(this.canRefresh){
+      this.isInLoading = true;
+      this.header.setLoading();
+      setTimeout(()=>{
+        this.refreshEnd();
+      },2000)
+    }else{
+      this.refreshEnd();
+    }
+    this.diff = 0;
+    this._onTouchEnd(e,gestureState);
+    return true;
+  }
+
+  refreshEnd(){
+    this.header.reset();
+    setTimeout(()=>{
+      this.isInLoading = false;
+    },80)
+    this.props.onRefreshClose&&this.props.onRefreshClose();
+  }
+
+  onScrollRelease(){
   }
 
   isScrolledToTop() {
@@ -82,17 +150,21 @@ export default class AndroidFlatList extends Base {
     }
   }
 
-  renderList(offset) {
+	getHeader(){
+		return <Header height={this.pullHeight} ref={(c)=>{this.header = c;
+		}}/>
+	}
+
+  render() {
     return  (
         <FlatList 
           ref={(flatlist)=>{this.flatlist = flatlist;}}
           {...this.props}
-          ListHeaderComponent={this.getHeader(offset)}
+          {...this._panResponder.panHandlers}
+          ListHeaderComponent={this.getHeader()}
           scrollEnabled={this.state.isScrollFree}
           onScroll={this.onScroll.bind(this)}
-          onTouchEnd= {() => {this.isScrolledToTop()}}
-          onScrollEndDrag= {() => {this.isScrolledToTop()}}
-          onMomentumScrollEnd = {() => {this.isScrolledToTop()}}
+          onTouchEnd={this.onTouchEnd.bind(this)}
           onResponderRelease ={() => {this.onScrollRelease.bind(this)}}
         >
         </FlatList>
