@@ -1,7 +1,6 @@
 import {View,Text,React,StyleSheet,PageView,ScrollView,Button,Image,Header,TouchableOpacity,Icon,Grid,Space} from "react-bricks"
 
 
-
 class HotGrid extends React.Component {
   static navigationOptions = {
     header:null

@@ -72,6 +72,10 @@ import com.android.build.OutputFile
  * ]
  */
 
+project.ext.react = [
+    entryFile: "index.js"
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -91,10 +95,10 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    buildToolsVersion '25.0.3'
 
     defaultConfig {
-        applicationId "com.bricksrn"
+        applicationId "com.brick"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -133,9 +137,8 @@ android {
 }
 
 dependencies {
-    compile project(':lottie-react-native')
-    compile project(':react-native-interactable')
     compile project(':react-native-svg')
+    compile project(':react-native-config')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.facebook.react:react-native:+'

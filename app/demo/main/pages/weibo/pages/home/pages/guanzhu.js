@@ -1,9 +1,9 @@
+import BlogItem from '../components/blogItem'
 import {View,Text,React,Button,StyleSheet,PageView,Animated,observer,
   FlatList,Header,Theme,Segment,
   TouchableHighlight,ActivityIndicator,
   UIManager,Icon,Image,Swiper} from "react-bricks";
 
-import BlogItem from '../components/blogItem'
 
 
 var ListDataSource = [

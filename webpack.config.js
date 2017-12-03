@@ -117,9 +117,8 @@ return {
           options:{
 
             "presets": [
-              ["es2015", {"modules": false}],
               "react",
-              "stage-0"
+              "env"
             ],
             "plugins": [
               "transform-decorators-legacy","transform-class-properties","react-hot-loader/babel",[

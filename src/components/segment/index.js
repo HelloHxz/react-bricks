@@ -100,7 +100,7 @@ export default class Segment extends React.Component {
       if(i!==0&&i<j){
         child.push(<View key={i+"line"} style={this.lineStyle}></View>);
       }
-      itemdata = this.state.data[i];
+      var itemdata = this.state.data[i];
       if(!itemdata.key){
         console.error("segment data属性每项数据需要key字段");
       }

@@ -60,7 +60,7 @@ export default class Tabs extends React.Component {
   	var Re= {};
   	var child = [];
   	for(var i=0,j=data.length;i<j;i++){
-		itemdata = data[i];
+		var itemdata = data[i];
 		if(!itemdata.key){
 			console.error("tabs data属性每项数据需要key字段");
 		}

@@ -1,7 +1,5 @@
 import {View,Text,React,StyleSheet,PageView,ScrollView,Button,Image,Header,TouchableOpacity,Icon,Grid,Space} from "react-bricks"
 
-
-
 class GuanZhuGrid extends React.Component {
   static navigationOptions = {
     header:null

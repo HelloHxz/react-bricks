@@ -1,5 +1,5 @@
-import {Run,Theme,Icon} from "react-bricks"
 import AppSvgs from './main/assets/svg/svgs';
+import {Run,Theme,Icon} from "react-bricks"
 
 Icon.DemoIcons = AppSvgs;
 

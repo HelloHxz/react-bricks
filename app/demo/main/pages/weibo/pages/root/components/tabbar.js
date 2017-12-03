@@ -1,7 +1,6 @@
 
 import {View,Text,React,Button,PageView,PageContainer,StyleSheet,Tabs,observer,Header,TouchableOpacity,Icon,Theme} from "react-bricks"
 
-
 @observer
 class Tabbar extends React.Component {
  

@@ -3,7 +3,6 @@ import {observer,Poplayer,View,StyleSheet,Button,PlatForm} from "react-bricks"
 import GuanZhuGrid from './guanzhuGrid';
 import HotGrid from './hotGrid'
 
-
 @observer
 class HomeDropGroup extends React.Component {
 

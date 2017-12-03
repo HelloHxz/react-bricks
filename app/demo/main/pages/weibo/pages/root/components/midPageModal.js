@@ -2,7 +2,6 @@ import {View,Text,React,Icon,Button,Theme,TouchableOpacity,StyleSheet,PageView,o
 
 @observer
 class MidlePage extends React.Component {
-	
 
   midPageHide(){
     this.props.rootStore.showMidPage = false;
