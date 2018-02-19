@@ -9,11 +9,10 @@ function NoAnimation(routeStack,pages){
     var instance = routeStack[i].page;
 
     if(i===j-1){
-      pages.push(<div className='xz-page-route-wrapper' key={_key}>{instance}</div>);
-      }else{
-        pages.push(<div className='xz-page-route-wrapper'  style={{left:"-120%",visibility:"hidden"}} key={_key}>{instance}</div>);
-
-      }
+        pages.push(<div className='xz-page-route-wrapper' key={_key}>{instance}</div>);
+    }else{
+        pages.push(<div className='xz-page-route-wrapper' style={{left:"-120%",visibility:"hidden"}} key={_key}>{instance}</div>);
+    }
   }
 }
 
@@ -624,14 +623,15 @@ class Navigation extends React.Component {
     }else{
       NoAnimation(routeStack,pages);
     }
-      //因为动画 页面没有清楚干净 
-    if(animationAction!=='前进'){
-      setTimeout(()=>{
-        var lastPages = [];
-        NoAnimation(routeStack,lastPages);
-        manager.setState({pages:lastPages});
-      },250);
-    }
+    
+    //因为动画 页面没有清楚干净 
+    // if(animationAction!=='前进'){
+    //   setTimeout(()=>{
+    //     var lastPages = [];
+    //     NoAnimation(routeStack,lastPages);
+    //     manager.setState({pages:lastPages});
+    //   },250);
+    // }
 
     setTimeout(()=>{
       var seedObj = manager.getUrlSeedObj();
