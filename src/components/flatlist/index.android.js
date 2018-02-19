@@ -77,7 +77,7 @@ export default class AndroidFlatList extends React.Component {
         	if(this.isScrollFree){
         	}else{
             this.autoScroll = true;
-      		  this.flatlist.scrollToOffset({offset: -1*gestureState.dy, animated: false});
+      		  this.flatlist.scrollToOffset({offset: -1*gestureState.dy, animated: true});
         	}
       }
   }

@@ -10,6 +10,7 @@ import LayoutAnimation from '../layoutanimation';
 import Easing from '../easing'
 
 
+
 var defaultStyle = StyleSheet.create({
   wrapper:{
     width:"100%",
@@ -123,7 +124,7 @@ export default class Tabs extends React.Component {
   		}
   		var wrapperStyle = extendsStyle.wrapper||{};
   		delete wrapperStyle.left;
-  		delete wrapperStyle.position;
+			delete wrapperStyle.position;
   		var WS = {...{
   				left:offset,
   				width:StyleSheet.isWeb?this.itemWidth+"px":this.itemWidth,
@@ -160,7 +161,7 @@ export default class Tabs extends React.Component {
 					});
 				}
 			});
-  		},10)
+  		},500)
   	}
 
 	
