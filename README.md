@@ -10,11 +10,13 @@ http://localhost:8000/demo.html
 
 ## 运行android
 
-> 打开模拟器  npm run android
+> 打开模拟器 
+> npm run android
 
 ## 运行ios
 
-> 打开模拟器  npm run ios 
+> 打开模拟器
+> npm run ios 
 
 
 
