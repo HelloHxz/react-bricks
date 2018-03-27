@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">bricks</string>
+    <string name="title_activity_native_page">NativePage</string>
 </resources>
