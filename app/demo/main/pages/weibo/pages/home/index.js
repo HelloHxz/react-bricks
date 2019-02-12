@@ -4,7 +4,7 @@ import rootStore from '../root/store'
 import HomePopover from './components/popover'
 import Tabbar from './components/tabbar'
 import HomeContainer from './components/conatiner'
-import { NativeModules } from 'react-native';
+// import { NativeModules } from 'react-native';
 
 
 
@@ -26,10 +26,10 @@ class HomePage extends React.Component {
   }
 
   leftIconPress(){
-    // this.props.navigation.navigate("homeDemo")
-    NativeModules  
-    .IntentMoudle  
-    .startActivityFromJS("com.bricks.NativePage", null); 
+    this.props.navigation.navigate("homeDemo")
+    // NativeModules  
+    // .IntentMoudle  
+    // .startActivityFromJS("com.bricks.NativePage", null); 
   }
 
 
